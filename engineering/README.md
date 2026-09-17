@@ -1,6 +1,6 @@
 # engineering
 
-Software engineering and project delivery. 75 skills in three categories, plus
+Software engineering and project delivery. 76 skills in three categories, plus
 16 specialised agents defined at the repository root in `agents/`.
 
 ## Categories
@@ -9,7 +9,7 @@ Software engineering and project delivery. 75 skills in three categories, plus
 |---|---|---|
 | [dev-skills](dev-skills/) | 51 | how a change is made correctly |
 | [delivery-skills](delivery-skills/) | 10 | what to build, in what order, with what approval |
-| [devops-skills](devops-skills/) | 13 | how the system runs, deploys and restores |
+| [devops-skills](devops-skills/) | 14 | how the system runs, deploys and restores |
 
 Each has its own index. The agents are not a category of this tree: they are
 a repository wide layer, defined once and available to every domain that
@@ -126,7 +126,7 @@ directory layout or a hosting platform. Each reads the project it is given.
 ## Installation
 
 ```bash
-bash install.sh --dev         the 75 engineering skills and the 19 agents
+bash install.sh --dev         the 76 engineering skills and the 19 agents
 bash install.sh --agents      the 19 agents only
 bash install.sh --no-agents   skills without agents
 ```

@@ -102,13 +102,14 @@ ones, which is exactly what the gate exists to prevent.
 | `launch-readiness` | the completeness gate for a user-facing web product |
 | `client-handover` | the package another team can take over |
 
-## 7. devops-skills, eleven skills
+## 7. devops-skills, fourteen skills
 
 | Skill | Responsibility |
 |---|---|
 | `devops-core` | environment ladder, configuration, blast radius |
 | `environment-management` | the variable inventory and drift checks |
 | `secrets-management` | credential lifecycle, rotation, leak handling |
+| `infrastructure-as-code` | infrastructure in code: state, plans, drift, imports |
 | `containerization` | whether a container is warranted, and how to build it |
 | `ci-cd-pipelines` | a pipeline that fails for the right reasons |
 | `deployment-engineering` | getting a verified artefact running |
@@ -117,6 +118,8 @@ ones, which is exactly what the gate exists to prevent.
 | `backup-recovery` | an unrestored backup is a hypothesis |
 | `production-verification` | proving the deployed system works |
 | `release-engineering` | versions, tags, changelog, progressive rollout |
+| `incident-response` | declaration to postmortem, mitigation before diagnosis |
+| `workflow-automation` | opt-in workflows through an external engine like n8n |
 
 ## 8. The agents
 
@@ -209,7 +212,7 @@ Rule: parallelise across a contract, never across an unknown.
 ## 10. Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of the 158 skills
+bash tests/validate-structure.sh      structure and metadata of the 159 skills
 bash tests/validate-rules.sh          the repository-wide prohibitions
 bash tests/validate-orchestration.sh  thirteen coherence checks
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees
