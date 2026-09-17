@@ -3,6 +3,35 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.10.0
+
+Roadmap Phase 3, the design-research role. The animation skill and its
+reference analysis already landed; this adds the agent that turns real
+references into principles without turning them into stolen code.
+
+### Added
+
+- `design-research` agent (`agents/design/`): searches and inspects legitimate
+  references, a live site, a template, a design system, and extracts the
+  layout, typography, interaction and animation patterns worth reusing, keeping
+  reference, inspiration, pattern and implementation strictly apart. It reads a
+  page and where useful its bundle to learn how an effect is achieved, states
+  the principle, and never copies the code or the assets; the result built from
+  what it finds is original. It judges a reference with `design-authenticity`,
+  an intentional one to learn from, a generic-default one as a warning of what
+  to avoid, and hands direction to `ui-ux-engineer` and `frontend-engineer`
+  rather than implementing.
+
+### Changed
+
+- Counts: 21 to 22 agents (design group 2 to 3). No new skill: the agent cites
+  skills that already exist. Historical entries left as written.
+
+### Not done yet
+
+- The Phase 3 item to exercise the frontend agents on a real motion task
+  remains open: it needs a target web project to build in.
+
 ## 3.9.0
 
 Roadmap Phase 2: the highest-value new capability, and the small skill that

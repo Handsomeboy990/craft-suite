@@ -317,6 +317,21 @@ Session 16, roadmap Phase 2, version 3.9.0:
 - Counts 163 to 165 skills, 53 to 54 dev-skills, 15 to 16 devops, 79 to 81
   engineering. Both Phase 2 roadmap boxes ticked. Branched fresh from `dev`.
 
+Session 17, roadmap Phase 3, the design-research role, version 3.10.0:
+
+- `design-research` agent (`agents/design/`): turns real references into
+  principles without turning them into stolen code, keeping reference,
+  inspiration, pattern and implementation apart. It reads a page and its bundle
+  to learn a technique, states the principle, never copies the code or assets,
+  judges the reference with `design-authenticity`, and hands direction to the
+  implementing agents. No new skill: it cites `design-authenticity` and
+  `animation`.
+- Counts 21 to 22 agents, design group 2 to 3. The design-research roadmap box
+  is ticked. Branched fresh from `dev`.
+- Phase 3 still has one open box: exercise the frontend agents on a real motion
+  task, which needs a target web project to build in. The `animation` skill and
+  the reference analysis are done.
+
 ## Current state
 
 Working today:

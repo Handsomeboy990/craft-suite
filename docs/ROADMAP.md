@@ -57,7 +57,7 @@ a real reference.
   principles rather than the code, and record them as reference material the
   `animation` skill teaches from. Reference, inspiration, pattern and
   implementation are kept distinct; no protected code or asset is copied.
-- [ ] **`design-research` agent** (M). Searches and inspects legitimate
+- [x] **`design-research` agent** (M). Searches and inspects legitimate
   references, identifies useful layout, typography, interaction and animation
   patterns, and distinguishes reference from inspiration from pattern from
   implementation. The original section 11, deferred until now.

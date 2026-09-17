@@ -126,8 +126,8 @@ directory layout or a hosting platform. Each reads the project it is given.
 ## Installation
 
 ```bash
-bash install.sh --dev         the 81 engineering skills and the 21 agents
-bash install.sh --agents      the 21 agents only
+bash install.sh --dev         the 81 engineering skills and the 22 agents
+bash install.sh --agents      the 22 agents only
 bash install.sh --no-agents   skills without agents
 ```
 
