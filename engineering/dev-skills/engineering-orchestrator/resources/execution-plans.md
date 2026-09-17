@@ -42,7 +42,7 @@ has no browser tooling and the change does not justify adding it.
 ## BACKEND
 
 category: BACKEND
-plan: project-exploration -> architecture-design -> backend-engineering -> input-validation -> security-audit -> testing-quality -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> architecture-design -> backend-engineering -> llm-integration -> input-validation -> security-audit -> testing-quality -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
 `architecture-design` is dropped for a change confined to one existing module.
 `security-audit` is never dropped when the endpoint returns user scoped data.

@@ -1,6 +1,6 @@
 # Skills guide
 
-Directory of the 163 skills. One line each: what it does, and when to open it.
+Directory of the 165 skills. One line each: what it does, and when to open it.
 
 Every skill's own `README.md` carries its inputs, outputs, dependencies and
 configuration in four lines. This file is the index; the READMEs are the
@@ -21,6 +21,8 @@ contracts.
 | Users are hammering my login or my forms | `rate-limiting` |
 | I need HTTPS, or a certificate is about to expire | `tls-certificates` |
 | I am building an admin panel or back-office | `admin-console` |
+| I am building a feature on a language model | `llm-integration` |
+| My confirmation emails go to spam or never arrive | `email-deliverability` |
 | I want to know what happens when a provider fails | `reliability-testing` |
 | I have findings and need a report | `test-reporting` |
 | I am designing an endpoint anyone else will call | `api-design` |
@@ -161,9 +163,9 @@ Depend on nothing. Callable from any tree, usable alone.
 | `document-design` | publishing | hierarchy, typography, tables, page furniture, metadata |
 | `pdf-production` | publishing | engine selection, generation, render verification |
 
-## engineering, 79 skills
+## engineering, 81 skills
 
-### dev-skills, 53
+### dev-skills, 54
 
 | Skill | What it does |
 |---|---|
@@ -211,6 +213,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `analytics-instrumentation` | events designed from the questions they answer |
 | `feature-flags` | flag types, rollout, stale detection, removal |
 | `admin-console` | the privileged back-office: least-privilege roles, audit log, server-side authz |
+| `llm-integration` | a feature on a language model, engineered around its non-determinism and cost |
 | `quality-engineering` | coordinates a whole quality campaign and its verdict |
 | `api-testing` | an HTTP surface against its contract, past the 200 |
 | `exploratory-testing` | designed exploration under a charter and a time box |
@@ -237,7 +240,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `launch-readiness` | the completeness gate for a user-facing web product before launch |
 | `client-handover` | the delivery package another team can take over |
 
-### devops-skills, 15
+### devops-skills, 16
 
 | Skill | What it does |
 |---|---|
@@ -256,6 +259,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `incident-response` | declaration to postmortem, mitigation before diagnosis |
 | `workflow-automation` | opt-in workflows through an external engine like n8n, connector never invented |
 | `tls-certificates` | the TLS certificate over its whole life, key never leaked |
+| `email-deliverability` | mail into the inbox: SPF, DKIM, DMARC aligned, reputation, bounces |
 
 ### agents, 16
 

@@ -31,11 +31,11 @@ sessions or a precondition outside the repository.
 
 ## Phase 2: the highest-value new capability
 
-- [ ] **`llm-integration` skill** (M). Building features driven by a language
+- [x] **`llm-integration` skill** (M). Building features driven by a language
   model: prompt design, evaluations, retrieval-augmented generation, cost and
   latency, guardrails, handling refusals and truncated output. Written against
   the real API constraints.
-- [ ] **`email-deliverability` skill** (S). SPF, DKIM, DMARC, sending-domain
+- [x] **`email-deliverability` skill** (S). SPF, DKIM, DMARC, sending-domain
   configuration, reputation.
 
 ## Phase 3: design and animation

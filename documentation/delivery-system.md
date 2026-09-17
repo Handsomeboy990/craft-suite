@@ -102,7 +102,7 @@ ones, which is exactly what the gate exists to prevent.
 | `launch-readiness` | the completeness gate for a user-facing web product |
 | `client-handover` | the package another team can take over |
 
-## 7. devops-skills, fifteen skills
+## 7. devops-skills, sixteen skills
 
 | Skill | Responsibility |
 |---|---|
@@ -121,6 +121,7 @@ ones, which is exactly what the gate exists to prevent.
 | `incident-response` | declaration to postmortem, mitigation before diagnosis |
 | `workflow-automation` | opt-in workflows through an external engine like n8n |
 | `tls-certificates` | the TLS certificate over its whole life, key never leaked |
+| `email-deliverability` | mail into the inbox: authentication aligned, reputation, bounces |
 
 ## 8. The agents
 
@@ -213,7 +214,7 @@ Rule: parallelise across a contract, never across an unknown.
 ## 10. Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of the 163 skills
+bash tests/validate-structure.sh      structure and metadata of the 165 skills
 bash tests/validate-rules.sh          the repository-wide prohibitions
 bash tests/validate-orchestration.sh  thirteen coherence checks
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees
