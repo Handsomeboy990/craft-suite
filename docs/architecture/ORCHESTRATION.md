@@ -89,6 +89,29 @@ recursively, from its own plan, one orchestration per request, re-planned in
 place rather than nested. `delivery-orchestrator` delegates downward only,
 to `engineering-orchestrator` and `devops-core`, never the reverse.
 
+## Parallel dispatch, and the write surface
+
+Concurrency between agents is governed by `delivery-orchestrator` section 6,
+whose rule is that parallel work requires a contract between the parallel
+parts. The contract for two agents that may both write is their file
+surface, declared in the dispatch rather than assumed:
+
+```
+safe     parallel agents that only read, reporting findings for one writer
+safe     parallel agents whose writable files are disjoint and named
+unsafe   parallel agents that may write the same file, in any arrangement
+```
+
+This rule is in the architecture because it was broken the first time the
+agent layer ran a real task, by the orchestrator, not by an agent. Two
+reviewers were dispatched at once onto the same two files, each told to fix
+what it found. Nothing was lost, but only because one of them noticed the
+concurrent edits, isolated its own work, and disclosed the episode instead of
+reporting a clean review. The rule existed then, in the same section 6, and
+was still violated, because it named contracts without saying what a contract
+is between two reviewers. Full account in
+`multi-agent-assessment.md` section 9.
+
 ## Completion, stated honestly
 
 Three explicit states, at both scopes, and a fourth value does not exist at
