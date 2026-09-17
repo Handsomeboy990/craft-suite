@@ -76,16 +76,17 @@ a real reference.
 
 ## Phase 4: harden verification
 
-- [ ] **`source-of-truth` agent** (M). Maintains canonical project knowledge
+- [x] **`source-of-truth` agent** (M). Maintains canonical project knowledge
   and reconciles stale documentation against the code. Original section 5.2.
-- [ ] **`checkup` agent** (M). Inspects a project before intervention:
+- [x] **`checkup` agent** (M). Inspects a project before intervention:
   architecture, debt, risks, safe boundaries. Original section 5.3.
-- [ ] **`final-verifier` agent** (M). The independent, evidence-only final
+- [x] **`final-verifier` agent** (M). The independent, evidence-only final
   verification that trusts no previous agent. Original section 32.
 - [ ] **Exercise the full agent layer** (M). The new agents
   (`compliance-verifier`, `design-verification`, `web-auditor`, `pr-author`,
-  `pr-reviewer`) have not run on a real task. Run them, capture the telemetry,
-  confirm the routing and the handoffs hold.
+  `pr-reviewer`, `source-of-truth`, `checkup`, `final-verifier`) have not run
+  on a real task. Run them, capture the telemetry, confirm the routing and the
+  handoffs hold. Needs a target project, like the open Phase 3 motion task.
 
 ## Phase 5: distribution and telemetry
 

@@ -3,6 +3,41 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.12.0
+
+Roadmap Phase 4, the verification layer: the three agents that hold a project
+to the truth of its own code, before intervention and before it is called done.
+
+### Added
+
+- `source-of-truth` agent (`agents/core/`): the authority on what is actually
+  true about a project. It treats the code, the schema and the running
+  configuration as ground truth, reconciles the documentation, README, comments
+  and continuity notes against them, and when they disagree, says so with
+  evidence and records the canonical answer. It adjudicates truth and detects
+  drift; it does not rewrite the prose, which it hands to `documentation-engineer`.
+- `checkup` agent (`agents/core/`): the pre-intervention inspection. It reads an
+  unfamiliar or inherited project and reports the architecture as built, the
+  debt and fragile areas, the risks of intervening, and which boundaries are
+  safe to change against those that are load-bearing. It changes nothing and
+  surfaces where a full audit is warranted rather than running each one.
+- `final-verifier` agent (`agents/core/`): the independent, evidence-only final
+  gate that trusts no previous agent. It re-runs the proof, the tests actually
+  pass, the review actually happened, the acceptance criteria are actually met,
+  the change actually builds and runs, rather than reading a claim of it, and
+  issues one verdict. A gate that only another agent asserts is unverified.
+
+### Changed
+
+- Counts: 22 to 25 agents, the `core` group 6 to 9. Skills unchanged at 166.
+  Engineering plugin bundle rebuilt to carry the three new agents. Historical
+  entries left as written.
+
+### Not done yet
+
+- The Phase 4 item to exercise the full agent layer on a real task remains open,
+  alongside the Phase 3 motion task: both need a target project to run in.
+
 ## 3.11.0
 
 A design capability requested before Phase 4: finding clean templates that fit

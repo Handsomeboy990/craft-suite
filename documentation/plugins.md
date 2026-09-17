@@ -19,7 +19,7 @@ one plugin per domain.
 |---|---|---|
 | `craft-writing` | the writing tree | 42 plus the shared pair |
 | `craft-documents` | the documents tree | 7 plus the shared pair |
-| `craft-engineering` | the engineering tree and its agents | 70 plus 22 agents |
+| `craft-engineering` | the engineering tree and its agents | 70 plus 25 agents |
 | `craft-security` | the security tree | 10 plus dependencies |
 | `craft-research` | the research tree | 5 plus the shared pair |
 | `craft-career` | the career tree | 7 plus the shared pair |
@@ -49,7 +49,7 @@ bash plugins/build.sh
 For each domain, the script runs the same installer that populates
 `~/.claude/skills`, targeting the plugin's `skills/` directory. A plugin
 therefore contains exactly the set that scope would install, dependencies and
-all. The engineering plugin also receives the 22 agents.
+all. The engineering plugin also receives the 25 agents.
 
 Because the bundles are generated, they can drift from the trees if someone adds
 a skill and forgets to rebuild. `tests/validate-plugins.sh` prevents that: it
