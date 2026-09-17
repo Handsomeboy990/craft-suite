@@ -58,6 +58,7 @@ python3 control-center/reader.py --json   # the full data as JSON
 | Usage | tool calls and explicit skill invocations |
 | Projects | work tokens grouped by project |
 | Skills | installed skills by category, and the agents |
+| Agents | agent-dispatch telemetry: how often a subagent was dispatched and under which model, from the transcripts, with a measured zero when the layer was not exercised |
 | System health | what the Control Center can see on this machine |
 | Privacy | what is read, and what the tool keeps (nothing of its own) |
 

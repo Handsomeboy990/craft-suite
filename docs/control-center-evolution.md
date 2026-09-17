@@ -162,8 +162,10 @@ found by review rather than by writing it:
   session figures would silently change the meaning of every existing number
   in the dashboard, and a test pins that boundary.
 
-The browser dashboard does not render this data yet; it is reachable through
-`--json`, `/api/data` and `install.sh --report`.
+The browser dashboard renders this data in the Agents tab: the dispatch total,
+the dispatched-work records, and the breakdowns by agent and by model, with a
+measured-zero empty state when the layer was not exercised. It is also reachable
+through `--json`, `/api/data` and `install.sh --report`.
 
 ## What is deliberately not built
 
