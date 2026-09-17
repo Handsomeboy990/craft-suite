@@ -9,7 +9,7 @@ where each piece of the system actually lives.
 | Question | Answer, and where |
 |---|---|
 | What is an agent, and how does it differ from a skill | `documentation/agents.md` |
-| What are the nineteen agents, and what does each own | `agents/README.md`, the catalog |
+| What are the twenty-one agents, and what does each own | `agents/README.md`, the catalog |
 | What is the full contract of one specific agent | the agent's own file, `agents/<group>/<name>.md` |
 | How does an agent hand off to the next one | `agents/handoff-protocol.md` |
 | How does the suite decide which agents a request needs | `docs/architecture/AGENT_ARCHITECTURE.md`, `docs/architecture/ORCHESTRATION.md` |
@@ -45,7 +45,7 @@ distinct from the `model-routing` skill, and several domain agents
 Agents install independently of any single domain's skills:
 
 ```bash
-bash install.sh --agents      the nineteen agents, no skills
+bash install.sh --agents      the twenty-one agents, no skills
 bash install.sh --no-agents   skills without agents, for single-context work
 bash install.sh --dev         the engineering skills and the agents together
 ```

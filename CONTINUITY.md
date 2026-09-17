@@ -254,6 +254,16 @@ version 3.5.0:
 - All four original clusters (A, C, D, B) now delivered. The stale branches
   were cleaned; only `main` and `dev` remain.
 
+Session 13, the pull request roles, version 3.6.0:
+
+- `pr-author` and `pr-reviewer` agents (`agents/core/`): the two ends of a
+  pull request as distinct roles, so the one who packages a change is never
+  the one who passes it. `pr-author` composes atomic commits and opens the
+  request with evidence-backed description; `pr-reviewer` reviews the diff and
+  the repository merge criteria and issues a verdict, never merging and never
+  reviewing a request it authored. No new skill: both cite existing skills.
+- Counts 19 to 21 agents (core group 4 to 6). Branched fresh from `dev`.
+
 ## Current state
 
 Working today:
@@ -371,6 +381,12 @@ Looks finished and is not:
 
 ## Remaining
 
+- n8n, end to end. The `workflow-automation` skill is delivered, but the n8n
+  MCP server has to be configured and authorized interactively by the user,
+  and no workflow has been built or run against a real n8n instance yet.
+  Exercising it end to end, and confirming the connector-detection and the
+  opt-in behave against a live server, is a follow-up the user parked for
+  later on 2026-09-17.
 - `enforce_admins` is off on both branches, so the owner is not blocked from
   pushing directly; contributors are. Turn it on the day
   `.github/CODEOWNERS` names a second reviewer, and not before: GitHub does
