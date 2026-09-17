@@ -3,6 +3,38 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.7.0
+
+Motion that is intended, not defaulted. A page that animates everything on
+hover is generated, not designed, and `design-authenticity` already flags that.
+This adds the skill that builds the other kind, taught in part from a reference
+analysis of a real, well-made site.
+
+### Added
+
+- `animation` skill (`engineering/dev-skills/`): decides whether an interface
+  should move at all, then picks the lowest sufficient technique, a CSS
+  transition, a CSS keyframe, a scroll-driven animation, a JS library, or a
+  WebGL shader for one signature moment, animating only the compositor-cheap
+  `transform` and `opacity`, easing on chosen `cubic-bezier` curves, and
+  building a `prefers-reduced-motion` path for every motion as a hard
+  requirement rather than an afterthought. Wired into the FRONTEND, UI_UX and
+  DESIGN_SYSTEM plans.
+- `resources/reference-analysis-pear.md`: a worked analysis of a real site
+  (`pear.no`), read from its public page and bundle: a bespoke WebGL shader
+  layer for a signature moment, scroll-linked transform motion, masked
+  reveals, custom easing, reduced motion honoured in both CSS and JS, on a
+  designed typographic foundation. The principles are extracted, never the
+  code or the assets; reference, inspiration, pattern and implementation are
+  kept distinct.
+
+### Changed
+
+- Counts: 159 to 160 skills, 51 to 52 dev-skills, 76 to 77 engineering skills.
+  The architecture tree's devops subtree, which still read thirteen after the
+  workflow-automation addition, was corrected to fourteen. Historical entries
+  left as written.
+
 ## 3.6.0
 
 Two roles for the pull request itself: one that opens it, one that reviews it.

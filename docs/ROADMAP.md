@@ -44,7 +44,7 @@ The reference-analysis capability and the animation skill, so the frontend
 agents can build motion that is intended rather than defaulted, and prove it on
 a real reference.
 
-- [ ] **`animation` skill** (M). When to use a CSS transition, a CSS
+- [x] **`animation` skill** (M). When to use a CSS transition, a CSS
   animation, a scroll-driven animation, or a JS library such as GSAP or Motion,
   and when to use none; the patterns that read as designed (reveal on scroll,
   staggered entrance, parallax, smooth-scroll, hover micro-interaction, page
@@ -52,7 +52,7 @@ a real reference.
   `prefers-reduced-motion` as a hard requirement. Informed by the reference
   analysis below, and paired with `design-authenticity` so motion is a choice,
   not the hover-everywhere default.
-- [ ] **Reference analysis of a real site** (S). Analyse a site such as
+- [x] **Reference analysis of a real site** (S). Analyse a site such as
   `pear.no` for its animation, rendering and interaction patterns, extract the
   principles rather than the code, and record them as reference material the
   `animation` skill teaches from. Reference, inspiration, pattern and

@@ -212,7 +212,7 @@ Rule: parallelise across a contract, never across an unknown.
 ## 10. Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of the 159 skills
+bash tests/validate-structure.sh      structure and metadata of the 160 skills
 bash tests/validate-rules.sh          the repository-wide prohibitions
 bash tests/validate-orchestration.sh  thirteen coherence checks
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees
