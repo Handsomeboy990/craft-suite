@@ -226,7 +226,9 @@ security review    roughly 138,000 tokens, 21 minutes
 quality review     roughly 142,000 tokens, 15 minutes
 ```
 
-Roughly 376,000 tokens and three quarters of an hour, for a collector of a
+Roughly 376,000 tokens. Forty-six minutes of agent time, which was about
+thirty-one minutes of elapsed time because the two reviews ran at once, for a
+collector of a
 few hundred lines. A single context would have produced something that ran.
 It would not plausibly have produced the two-level glob finding, which
 required someone to go looking for the files the scan could not see rather
