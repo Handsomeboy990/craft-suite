@@ -16,7 +16,7 @@ that does not pass it.
 
 ## validate-structure.sh
 
-Verifies the mandatory shape of all 165 skills across the eight trees.
+Verifies the mandatory shape of all 166 skills across the eight trees.
 
 Per skill:
 

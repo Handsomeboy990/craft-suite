@@ -1,6 +1,6 @@
 # Craft Suite
 
-**Craft, encoded.** 165 skills and 22 agents that hold an agent to a
+**Craft, encoded.** 166 skills and 22 agents that hold an agent to a
 professional standard: write, produce documents, build software, secure it,
 research, run a job search, evaluate opportunities, and review its own work.
 
@@ -33,7 +33,7 @@ is Markdown and shell.
 git clone https://github.com/Handsomeboy990/craft-suite.git
 cd craft-suite
 bash install.sh              # a menu, pick the trees you want
-bash install.sh --all        # or take all 165 and the 22 agents
+bash install.sh --all        # or take all 166 and the 22 agents
 bash install.sh --configure
 ```
 
@@ -50,7 +50,7 @@ Scoped installs: `--writing`, `--documents`, `--dev`, `--security`,
 |---|---|---|
 | `craft-writing` | novelist, screenwriter, editor, critic, proofreader | 42 |
 | `craft-documents` | technical writer, report author, PDF producer | 7 |
-| `craft-engineering` | a delivery team, from specification to production | 81 and 22 agents |
+| `craft-engineering` | a delivery team, from specification to production | 82 and 22 agents |
 | `craft-security` | defensive engineer, and auditor under written authorization | 10 |
 | `craft-research` | researcher who cites only what was actually read | 5 |
 | `craft-career` | job search that never invents a listing | 7 |
