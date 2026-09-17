@@ -3,6 +3,65 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## Unreleased
+
+Phase 1 of the multi-agent architecture expansion: a routing core, added
+without touching a single existing skill's content. Version number left for
+the release step; nothing here is a breaking change to an installed suite.
+
+### Added
+
+- `task-complexity`: classifies a task into one of five tiers from eleven
+  signals, combined by a highest-signal-wins rule, so a small change with a
+  security or irreversibility signal is never under-classified by its file
+  count. `engineering/dev-skills/task-complexity/`.
+- `model-routing`: recommends a model tier, and where a lever exists an
+  effort level, from that classification. States exactly which two switching
+  mechanisms this runtime supports, an agent's own `model:` frontmatter and a
+  per-dispatch override, and claims neither a session changing its own model
+  mid task nor a universal per-agent effort control, because neither is
+  verified to exist. `engineering/dev-skills/model-routing/`.
+- `token-optimization`: the discipline for keeping context and output
+  proportional to a task during a multi-step or multi-agent run, sharing one
+  vocabulary of seven wasteful patterns with `control-center/advisor.py`'s
+  retrospective measurement rather than defining a second one.
+  `engineering/dev-skills/token-optimization/`.
+- `model_routing` configuration section: three tier names, `fast`,
+  `balanced`, `strongest`, resolved to real model identifiers by the project
+  rather than hardcoded, because availability differs by account and changes
+  over time.
+- `tests/validate-model-routing.sh`: checks the routing table against eleven
+  deterministic fixtures, five base tiers, four override conditions, two
+  escalation and de-escalation transitions, with no live model call.
+- Architecture documentation: `docs/architecture/multi-agent-assessment.md`,
+  `AGENT_ARCHITECTURE.md`, `MODEL_ROUTING.md`, `TOKEN_OPTIMIZATION.md`,
+  `SKILL_AGENT_MATRIX.md`, `ORCHESTRATION.md`, and `docs/agents/README.md`.
+
+### Changed
+
+- The sixteen agents moved from `engineering/agents/` to a repository-wide
+  `agents/<group>/` tree (`core`, `development`, `design`, `security`,
+  `testing`, `documentation`, `devops`, `research` reserved empty), so a
+  future agent pack for a single domain does not have to live inside the
+  engineering plugin. No agent's content changed; `git mv` used throughout,
+  confirmed as renames rather than delete-plus-add.
+- `engineering-orchestrator` now classifies and routes per plan step rather
+  than once per request, and treats a reclassification and a routing
+  escalation or de-escalation as the same event rather than three
+  independent judgment calls.
+- Skill counts corrected wherever they appear in prose: 152 to 155 skills, 47
+  to 50 `dev-skills`, 70 to 73 engineering skills, four to five validation
+  scripts, including in the CI workflow.
+
+### Not changed
+
+- No existing skill's `SKILL.md` content changed, apart from
+  `engineering-orchestrator`'s protocol and anti-loop sections, which now
+  reference the three new skills rather than restate them.
+- No plugin's public skill set changed beyond gaining the three new
+  `dev-skills`; the engineering plugin's agent bundle is unchanged in
+  content.
+
 ## 3.0.0
 
 The suite is renamed Craft Suite. The writing tree stopped being the whole of it
