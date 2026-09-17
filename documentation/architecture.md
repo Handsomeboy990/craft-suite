@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Craft Suite is a library of 152 skills in eighteen groups across
+The Craft Suite is a library of 155 skills in eighteen groups across
 eight trees, plus sixteen agents, shared resources, the configuration contract,
 an optional local dashboard, per-domain plugins, documentation, a demonstration
 project and validation scripts. The repository was called
@@ -29,11 +29,18 @@ craft-suite/
 │   ├── documentation/      4
 │   ├── administrative/     1
 │   └── publishing/         2
-├── engineering/           70 skills and 16 agents
-│   ├── dev-skills/        47
+├── engineering/           73 skills
+│   ├── dev-skills/        50
 │   ├── delivery-skills/   10
-│   ├── devops-skills/     13
-│   └── agents/            16 role definitions
+│   └── devops-skills/     13
+├── agents/                16 role definitions, repository wide
+│   ├── core/               3
+│   ├── development/        5
+│   ├── design/              1
+│   ├── security/            1
+│   ├── testing/             2
+│   ├── documentation/       1
+│   └── devops/              3
 ├── security/              10 skills
 │   ├── secure-development/ 8
 │   └── security-assurance/ 2
@@ -136,7 +143,7 @@ Three layers, kept apart.
 
 | Layer | Value |
 |---|---|
-| Skill language | English, all 152 skills and all 16 agents |
+| Skill language | English, all 155 skills and all 16 agents |
 | System language | English: paths, identifiers, config keys, commits, technical documentation |
 | Output language | the recipient's, set per project in the configuration |
 
@@ -245,6 +252,6 @@ the engineering tree membership of at least one execution plan or delivery
 phase. Detail in `engineering-system.md` section 9, `delivery-system.md`
 section 11 and `documents-system.md` section 9.
 
-Adding an agent: the file in `engineering/agents/`, its eight mandatory
-sections, an entry in `engineering/agents/README.md`, and its name added to
+Adding an agent: the file in `agents/<group>/`, its eight mandatory
+sections, an entry in `agents/README.md`, and its name added to
 the expected list in `tests/validate-orchestration.sh`.

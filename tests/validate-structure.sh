@@ -110,7 +110,9 @@ for f in README.md README.fr.md AGENTS.md CONTRIBUTING.md CHANGELOG.md LICENSE i
 done
 for d in writing documents engineering shared documentation tests config \
          security research career opportunity \
-         writing/resources writing/examples engineering/agents; do
+         writing/resources writing/examples agents \
+         agents/core agents/development agents/design agents/security \
+         agents/testing agents/documentation agents/devops; do
   [ -d "$ROOT/$d" ] || fail "missing expected directory: $d"
 done
 for f in writing/README.md documents/README.md engineering/README.md \

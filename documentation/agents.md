@@ -4,8 +4,8 @@ Sixteen agent definitions, for a runtime that supports subagents.
 
 This document explains the difference between a skill, an agent and
 orchestration, and gives the public contract of each agent. The definitions
-themselves are in `engineering/agents/`, and the transfer format is in
-`engineering/agents/handoff-protocol.md`.
+themselves are in `agents/<group>/`, and the transfer format is in
+`agents/handoff-protocol.md`.
 
 ## Skill, agent, orchestration
 
@@ -85,7 +85,7 @@ overwrites the first.
 ## Reading an agent before using it
 
 ```bash
-sed -n '1,40p' engineering/agents/backend-engineer.md
+sed -n '1,40p' agents/development/backend-engineer.md
 ```
 
 The metadata block gives the name and a description built for selection. The
@@ -95,7 +95,7 @@ back. Those three are enough to decide whether it is the right agent.
 ## Interaction model
 
 Agents communicate through artefacts, not conversation. The format is in
-`engineering/agents/handoff-protocol.md`.
+`agents/handoff-protocol.md`.
 
 An agent that finishes leaves behind what the next one needs to start: what
 was done, what was verified and how, what was decided, what remains, and what
@@ -123,10 +123,10 @@ agents reach at the end of their work.
 
 ## Adding an agent
 
-1. Create the file in `engineering/agents/`, with the eight sections and a
+1. Create the file in `agents/<group>/`, with the eight sections and a
    `Skills` section.
 2. Reference skills; never copy their content.
-3. Add a row to `engineering/agents/README.md`.
+3. Add a row to `agents/README.md`.
 4. Add the name to `AGENT_NAMES` in `tests/validate-orchestration.sh`.
 5. Run the four validation scripts.
 

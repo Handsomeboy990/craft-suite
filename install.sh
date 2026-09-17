@@ -14,7 +14,7 @@
 #   bash install.sh --career       job search and applications, 7 skills
 #   bash install.sh --opportunity  ideation, hackathons, business, 9 skills
 #   bash install.sh --shared       the 2 cross domain skills only
-#   bash install.sh --all          everything, 152 skills and 16 agents
+#   bash install.sh --all          everything, 155 skills and 16 agents
 #   bash install.sh --group a,b    only these categories
 #   bash install.sh --skill a,b    only these skills, with their dependencies
 #   bash install.sh --list         print every installable skill and exit
@@ -361,10 +361,11 @@ removable_skill_dirs() {
   done < <(selected_skill_dirs)
 }
 
-# Agents are single files. README and the handoff protocol are documentation,
-# not agent definitions, and are not installed.
+# Agents are single files, grouped by kind of work under agents/<group>/.
+# README and the handoff protocol are documentation, not agent definitions,
+# and are not installed. Installation is flat: only the basename matters.
 agents() {
-  for agent in "$ROOT/engineering/agents"/*.md; do
+  for agent in "$ROOT/agents"/*/*.md; do
     [ -f "$agent" ] || continue
     case "$(basename "$agent")" in
       README.md|handoff-protocol.md) continue ;;

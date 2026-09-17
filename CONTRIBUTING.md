@@ -126,10 +126,12 @@ depend on a third by transitivity, and check 13 refuses it.
 An agent is a role, not a copy of a skill. It cites the skills it uses and
 restates none of them.
 
-1. The file in `engineering/agents/`, with its eight mandatory sections: Role,
+1. The file in `agents/<group>/`, with its eight mandatory sections: Role,
    Mission, Responsibilities, Inputs, Outputs, Boundaries, Verification,
-   Handoff, plus a `Skills` section.
-2. A row in `engineering/agents/README.md`.
+   Handoff, plus a `Skills` section. The group is the kind of work the agent
+   owns: `core`, `development`, `design`, `security`, `testing`,
+   `documentation`, `research`, `devops`.
+2. A row in `agents/README.md`.
 3. The name added to `AGENT_NAMES` in `tests/validate-orchestration.sh`.
 
 Step 3 is not optional. Check 10 fails both for a declared agent with no file

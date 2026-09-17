@@ -1,6 +1,6 @@
 # Skills guide
 
-Directory of the 152 skills. One line each: what it does, and when to open it.
+Directory of the 155 skills. One line each: what it does, and when to open it.
 
 Every skill's own `README.md` carries its inputs, outputs, dependencies and
 configuration in four lines. This file is the index; the READMEs are the
@@ -153,9 +153,9 @@ Depend on nothing. Callable from any tree, usable alone.
 | `document-design` | publishing | hierarchy, typography, tables, page furniture, metadata |
 | `pdf-production` | publishing | engine selection, generation, render verification |
 
-## engineering, 70 skills
+## engineering, 73 skills
 
-### dev-skills, 47
+### dev-skills, 50
 
 | Skill | What it does |
 |---|---|

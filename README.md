@@ -1,6 +1,6 @@
 # Craft Suite
 
-**Craft, encoded.** 152 skills and 16 agents that hold an agent to a
+**Craft, encoded.** 155 skills and 16 agents that hold an agent to a
 professional standard: write, produce documents, build software, secure it,
 research, run a job search, evaluate opportunities, and review its own work.
 
@@ -50,7 +50,7 @@ Scoped installs: `--writing`, `--documents`, `--dev`, `--security`,
 |---|---|---|
 | `craft-writing` | novelist, screenwriter, editor, critic, proofreader | 42 |
 | `craft-documents` | technical writer, report author, PDF producer | 7 |
-| `craft-engineering` | a delivery team, from specification to production | 70 and 16 agents |
+| `craft-engineering` | a delivery team, from specification to production | 73 and 16 agents |
 | `craft-security` | defensive engineer, and auditor under written authorization | 10 |
 | `craft-research` | researcher who cites only what was actually read | 5 |
 | `craft-career` | job search that never invents a listing | 7 |
