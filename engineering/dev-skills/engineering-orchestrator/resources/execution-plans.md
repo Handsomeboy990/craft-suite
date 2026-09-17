@@ -9,6 +9,10 @@ rules of `SKILL.md` sections 3, 4 and 5, and states every adaptation.
 
 `engineering-core` is implicit in every plan and never listed.
 `engineering-orchestrator` is the caller and never lists itself.
+`task-complexity`, `model-routing` and `token-optimization` are implicit in
+every plan as well: the orchestrator consults them before composing and
+dispatching the plan, and they are never listed as a plan step, the same way
+`engineering-core` is never listed.
 
 ## EXPLORATION
 

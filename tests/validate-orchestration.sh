@@ -10,7 +10,8 @@ ENG="$ROOT/engineering"
 DEV="$ENG/dev-skills"
 DELIVERY="$ENG/delivery-skills"
 DEVOPS="$ENG/devops-skills"
-AGENTS="$ENG/agents"
+AGENTS="$ROOT/agents"
+AGENT_GROUPS="core development design security testing documentation devops research"
 ORCH="$DEV/engineering-orchestrator"
 PLANS="$ORCH/resources/execution-plans.md"
 PHASES="$DELIVERY/delivery-orchestrator/resources/delivery-phases.md"
@@ -60,6 +61,18 @@ skill_dir() {
   for _group in $ALL_GROUPS; do
     if [ -d "$ROOT/$_group/$1" ]; then
       printf '%s\n' "$ROOT/$_group/$1"
+      return 0
+    fi
+  done
+  return 1
+}
+
+# Path of an agent definition in any group under agents/. Uses its own loop
+# variable for the same reason as skill_dir.
+agent_file() {
+  for _agroup in $AGENT_GROUPS; do
+    if [ -f "$AGENTS/$_agroup/$1.md" ]; then
+      printf '%s\n' "$AGENTS/$_agroup/$1.md"
       return 0
     fi
   done
@@ -310,8 +323,8 @@ done
 
 printf 'Check 10: agent definitions\n'
 for agent in $AGENT_NAMES; do
-  file="$AGENTS/$agent.md"
-  if [ ! -f "$file" ]; then
+  file="$(agent_file "$agent")"
+  if [ -z "$file" ]; then
     fail "missing agent: $agent"
     continue
   fi
@@ -331,19 +344,24 @@ for agent in $AGENT_NAMES; do
     || fail "$agent: missing from agents/README.md"
 done
 
-for file in "$AGENTS"/*.md; do
+# No orphan file, and no name declared twice across groups: installation is
+# flat, and a collision would silently lose one agent to another.
+AGENT_FILE_NAMES=""
+for file in "$AGENTS"/*/*.md; do
+  [ -f "$file" ] || continue
   name="$(basename "$file" .md)"
-  case "$name" in
-    README|handoff-protocol) continue ;;
+  case " $AGENT_FILE_NAMES " in
+    *" $name "*) fail "duplicate agent name across groups: $name" ;;
   esac
+  AGENT_FILE_NAMES="$AGENT_FILE_NAMES $name"
   printf '%s\n' $AGENT_NAMES | grep -qx "$name" \
     || fail "agent not declared in the expected list: $name"
 done
 
 printf 'Check 11: agents cite real skills\n'
 for agent in $AGENT_NAMES; do
-  file="$AGENTS/$agent.md"
-  [ -f "$file" ] || continue
+  file="$(agent_file "$agent")"
+  [ -n "$file" ] || continue
   refs="$(awk '/^## Skills/ { on = 1; next }
                on && /^## / { on = 0 }
                on { print }' "$file" \

@@ -1,0 +1,35 @@
+{
+  "_comment": "Canonical routing table. SKILL.md sections 3 and 4 render this for a human reader; the two must never disagree. Validated by tests/validate-model-routing.sh against fixtures.json.",
+  "complexity_tiers": ["TRIVIAL", "LOW", "MEDIUM", "HIGH", "CRITICAL"],
+  "model_tiers": ["fast", "balanced", "strongest"],
+  "effort_levels": ["low", "medium", "high", "xhigh", "max"],
+  "routing": {
+    "TRIVIAL": { "model_tier": "fast", "effort": "low" },
+    "LOW": { "model_tier": "fast", "effort": "low" },
+    "MEDIUM": { "model_tier": "balanced", "effort": "medium" },
+    "HIGH": { "model_tier": "strongest", "effort": "high" },
+    "CRITICAL": { "model_tier": "strongest", "effort": "max" }
+  },
+  "override_conditions": [
+    {
+      "id": "security-driving-signal",
+      "when": "driving signal is security, authentication or payments",
+      "effect": "route to strongest, whatever the overall tier"
+    },
+    {
+      "id": "genuine-novelty",
+      "when": "no comparable precedent exists in the codebase or its history",
+      "effect": "route one model tier stronger than the table"
+    },
+    {
+      "id": "repeated-solved-pattern",
+      "when": "the task repeats a pattern already solved correctly earlier in the same session, no new risk signal",
+      "effect": "route one model tier lighter than the table"
+    },
+    {
+      "id": "large-mechanical-output",
+      "when": "the expected output is large and mechanical with no judgment calls inside it",
+      "effect": "route lighter and decompose, regardless of file count"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-# Continuity, 2026-09-08
+# Continuity, 2026-09-17
 
 State of the repository for whoever takes it over, human or agent. Written to
 `engineering/dev-skills/project-continuity/resources/continuity-template.md`.
@@ -124,22 +124,63 @@ Session 7, the rename and the front page, version 3.0.0:
 - GitHub repository description and twelve topics set, for discovery.
 - No skill content changed.
 
+Session 8, agent routing core (phase 1 of the multi-agent architecture
+expansion):
+
+- The sixteen agents moved from `engineering/agents/` to a repository-wide
+  `agents/<group>/` tree: `core`, `development`, `design`, `security`,
+  `testing`, `documentation`, `devops`, with `research` reserved empty for a
+  future agent. No agent content changed; every cross reference in
+  `install.sh`, the validation scripts and the documentation updated to the
+  new path.
+- Three new `dev-skills`: `task-complexity` (five tiers from eleven signals,
+  highest-signal-wins), `model-routing` (model tier and, where a lever
+  exists, effort, from the classification), `token-optimization` (the
+  during-the-work discipline paired with `control-center/advisor.py`'s
+  after-the-fact measurement, one shared vocabulary of seven patterns).
+  `engineering-orchestrator` now classifies and routes per plan step rather
+  than once per request, and treats a reclassification and a routing
+  escalation as one event.
+- A fifth validation script, `tests/validate-model-routing.sh`: checks the
+  routing table against eleven deterministic fixtures, no live model call.
+- Version 3.1.0, minor: additive, no breaking change to an installed suite.
+  `marketplace.json` and all seven `plugin.json` manifests bumped together,
+  the established lockstep convention, even though only the engineering
+  plugin's skill set changed this time.
+- `model_routing` configuration section added, three tier names resolved to
+  real model identifiers by the project rather than hardcoded here, because
+  availability differs by account and changes over time.
+- Verified against this runtime's own tool schemas, not a secondary source,
+  before writing anything: an agent's `model:` frontmatter is real and a
+  per-dispatch override exists; a per-agent `effort:` frontmatter field is
+  not verified to exist and is not claimed. See the Decisions entry below.
+- Deferred to the next phase, by design, not by oversight: the missing core
+  agents (source of truth, checkup, final verifier, and a dedicated
+  model-router agent distinct from the skill of the same name), the missing
+  domain agents (pentester, design research, design verification,
+  reproduction, research, compliance), the installer's per-agent-group
+  selection, and the Control Center's agent-orchestration and
+  model-and-token telemetry sections.
+
 ## Current state
 
 Working today:
 
-- the four scripts pass: 152 skills, 0 errors, 1 pre-existing warning on a
+- the five scripts pass: 155 skills, 0 errors, 1 pre-existing warning on a
   deliberate typographic counter-example;
 - `install.sh` works in every mode, including the four new scopes, verified
   against a sandbox target through `CLAUDE_SKILLS_DIR`;
 - the Control Center serves its page and `/api/data` with real local figures;
   a headless Playwright pass across desktop, mobile, light and dark reported
-  zero console errors and no horizontal overflow;
+  zero console errors and no horizontal overflow (not re-verified this
+  session; no change touched the Control Center);
 - the plugin bundles match what each scope installs, verified by
   `validate-plugins.sh`;
 - no skill contains a hardcoded personal identity, verified by check 4;
 - every declared dependency and every `Interfaces` cross reference resolves
-  across all eight trees.
+  across all eight trees;
+- the eleven `model-routing` fixtures match its own tier table, verified by
+  `validate-model-routing.sh`, no live model call.
 
 Looks finished and is not:
 
@@ -202,6 +243,29 @@ Looks finished and is not:
 - Earlier decisions stand: agents tracked in the repository rather than in
   `.claude/`, engineering content in English, `code-review-protocol` suffixed
   to avoid a name collision.
+- **Model routing claims a model override and an agent's own `model:`
+  frontmatter, and nothing else.** A subagent search initially reported a
+  per-agent `effort:` frontmatter field as an existing capability, sourced to
+  a GitHub feature-request issue rather than to shipped documentation.
+  Rejected: a feature request is evidence that something does not exist yet,
+  not that it does. Verified instead against this runtime's own tool
+  definitions, which confirm the `model:` override and say nothing about
+  effort. `model-routing` routes model with confidence and states effort as a
+  recommendation, never as an enforced parameter, except where a specific
+  skill or command already defines its own effort argument.
+- **Agents moved to a repository-wide `agents/` tree instead of staying inside
+  `engineering/`.** The alternative was adding every new domain agent under
+  `engineering/agents/` regardless of domain. Rejected: a security or design
+  agent pack should install independently of the engineering plugin, per the
+  suite's own domain-independence rule. The move is a rename, not a rewrite;
+  no agent's content changed.
+- **`task-complexity`, `model-routing` and `token-optimization` are declared
+  implicit in every execution plan, the same way `engineering-core` is,
+  rather than listed as a step in each of the twenty-plus plans.** The
+  alternative, adding a line to every plan, was rejected as exactly the
+  duplicated business rule the suite's own conventions forbid: these three
+  are consulted by the orchestrator before and during dispatch, not steps a
+  plan chooses to include or drop.
 
 ## Remaining
 
@@ -306,5 +370,5 @@ Looks finished and is not:
   reached `main` and `dev` and had to be removed by a revert, which is why
   `4c6f7bd` and `be42bb7` sit in the history. Test from an account without
   admin rights, or trust the read-back of the rule.
-- After moving any directory, run all four scripts: some of them resolve paths
+- After moving any directory, run all five scripts: some of them resolve paths
   and fail cleanly by naming what is missing.

@@ -1,7 +1,7 @@
 # The project delivery system
 
 Technical documentation of `engineering/delivery-skills`,
-`engineering/devops-skills` and `engineering/agents`.
+`engineering/devops-skills` and the agents in `agents/`.
 
 ## 1. Purpose
 
@@ -119,7 +119,9 @@ ones, which is exactly what the gate exists to prevent.
 
 ## 8. The agents
 
-Sixteen roles, defined in `engineering/agents/`. An agent is thin by design:
+Sixteen roles, defined in `agents/`, grouped by kind of work: `core`,
+`development`, `design`, `security`, `testing`, `documentation`, `devops`. An
+agent is thin by design:
 the expertise lives in the skills, the agent decides which apply, executes
 within its boundary, and hands off through a durable artefact.
 
@@ -166,13 +168,13 @@ security-engineer   -> qa-engineer, for the tests encoding each fix
 ### Handoff
 
 Every agent finishes with the block from
-`engineering/agents/handoff-protocol.md`: Completed, Changed, Decisions,
+`agents/handoff-protocol.md`: Completed, Changed, Decisions,
 Verified, Known issues, Next action, For. Nothing important travels through
 conversational context alone, because the next agent may start with none.
 
 ### Location and installation
 
-The definitions live in `engineering/agents/`, tracked, rather than in
+The definitions live in `agents/<group>/`, tracked, rather than in
 `.claude/agents/`, because `.claude/` is local machine configuration and is
 never tracked. The installer copies them where the runtime expects them.
 
@@ -206,9 +208,11 @@ Rule: parallelise across a contract, never across an unknown.
 ## 10. Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of the 152 skills
+bash tests/validate-structure.sh      structure and metadata of the 155 skills
 bash tests/validate-rules.sh          the repository-wide prohibitions
 bash tests/validate-orchestration.sh  thirteen coherence checks
+bash tests/validate-plugins.sh        plugin bundles in sync with the trees
+bash tests/validate-model-routing.sh  routing fixtures against the tier table
 ```
 
 The third script covers:
@@ -243,8 +247,8 @@ Adding a delivery or operations skill:
 5. add it to at least one execution plan or delivery phase, or check 7 reports
    it as an orphan;
 6. update its category index, `skills-guide.md` and this file;
-7. run the four validation scripts.
+7. run the five validation scripts.
 
-Adding an agent: the file in `engineering/agents/`, the eight mandatory
-sections, an entry in `engineering/agents/README.md`, and its name added to
+Adding an agent: the file in `agents/<group>/`, the eight mandatory
+sections, an entry in `agents/README.md`, and its name added to
 the expected list in `tests/validate-orchestration.sh`.

@@ -127,6 +127,21 @@ project, which is what the engineering tree does anyway. Fill one only to
 express a preference for greenfield work, and expect the project to override
 it when the project already decided.
 
+### model_routing
+
+| Field | Required | Default | Read by |
+|---|---|---|---|
+| `fast` | no | empty | `model-routing` |
+| `balanced` | no | empty | `model-routing` |
+| `strongest` | no | empty | `model-routing` |
+
+The three field names are fixed policy, not a preference: they are the tier
+names `model-routing` section 2 routes to. What each resolves to is not fixed,
+because model availability differs by account and changes over time. Empty
+means this runtime's own default resolution for that tier is used. A filled
+value is a short model name this runtime accepts, never a full versioned
+identifier.
+
 ### documents
 
 | Field | Required | Default | Read by |

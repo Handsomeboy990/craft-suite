@@ -122,8 +122,31 @@ Parallel work requires a defined contract between the parallel parts.
 | two tasks touching the same migration | ordering is undefined |
 | a feature and the refactor of the module it uses | conflict guaranteed |
 | security audit of code still being written | the audit target moves |
+| two review-and-fix agents on the same files | both hold a write surface neither knows about |
 
 The rule: parallelise across a contract, never across an unknown.
+
+### Reviewers in parallel
+
+Two reviewers reading the same diff is the most useful parallel pairing there
+is, and the easiest to get wrong, because a review that may also fix what it
+finds is not a read. The contract that makes it safe is the write surface,
+and it is stated before dispatch, never assumed:
+
+```
+safe     both reviewers read only, and report findings for one writer to
+         apply afterwards
+safe     each reviewer may write, and their file surfaces are disjoint and
+         named in the dispatch
+unsafe   both reviewers may write to the same file, in any arrangement
+```
+
+The third line has no mitigation and no exception. A reviewer that discovers
+a concurrent edit mid-review cannot tell a colleague's correct fix from a
+corrupted read of its own, and the honest ones will say so in `Known issues`
+rather than claim the review was clean. When two reviewers must both fix the
+same files, they are sequenced: the second starts from the first's committed
+or handed-off state, not from a moving one.
 
 ## 7. Change control
 
