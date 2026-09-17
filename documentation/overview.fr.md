@@ -217,7 +217,7 @@ reçoit jamais l'arbre d'ingénierie.
 ```
    1) Creative writing        42 skills   romans, poésie, scénario, édition
    2) Professional documents   7 skills   guides, manuels, rapports, lettres, PDF
-   3) Software engineering    82 skills   plus 25 agents
+   3) Software engineering    82 skills   plus 24 agents
    4) Cybersecurity           10 skills   modèles de menace, audits, durcissement
    5) Research                 5 skills   sources, vérification, synthèse
    6) Career                   7 skills   recherche d'emploi, CV, entretiens
@@ -242,7 +242,7 @@ bash install.sh --configure
 ```bash
 bash install.sh --writing      les 42 skills d'écriture
 bash install.sh --documents     les 7 skills de document
-bash install.sh --dev          les 82 skills d'ingénierie et les 25 agents
+bash install.sh --dev          les 82 skills d'ingénierie et les 24 agents
 bash install.sh --security     les 12 skills de sécurité défensive
 bash install.sh --research      les 5 skills de recherche générale
 bash install.sh --career        les 7 skills de recherche d'emploi
@@ -534,7 +534,7 @@ n'installer que les domaines voulus.
 |---|---|
 | `craft-writing` | l'arbre d'écriture, 42 skills |
 | `craft-documents` | l'arbre des documents, 7 skills |
-| `craft-engineering` | l'arbre d'ingénierie, 82 skills et 25 agents |
+| `craft-engineering` | l'arbre d'ingénierie, 82 skills et 24 agents |
 | `craft-security` | l'arbre de sécurité, 10 skills |
 | `craft-research` | l'arbre de recherche, 5 skills |
 | `craft-career` | l'arbre d'emploi, 7 skills |

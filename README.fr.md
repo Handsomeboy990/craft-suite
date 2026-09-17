@@ -51,7 +51,7 @@ Installations ciblées : `--writing`, `--documents`, `--dev`, `--security`,
 |---|---|---|
 | `craft-writing` | romancier, scénariste, éditeur, critique, correcteur | 42 |
 | `craft-documents` | rédacteur technique, auteur de rapports, producteur de PDF | 7 |
-| `craft-engineering` | une équipe de livraison, de la spécification à la production | 82 et 25 agents |
+| `craft-engineering` | une équipe de livraison, de la spécification à la production | 82 et 24 agents |
 | `craft-security` | ingénieur défensif, et auditeur sur autorisation écrite | 10 |
 | `craft-research` | chercheur qui ne cite que ce qu'il a réellement lu | 5 |
 | `craft-career` | recherche d'emploi qui n'invente jamais une offre | 7 |

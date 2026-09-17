@@ -373,6 +373,27 @@ Session 19, roadmap Phase 4, the verification layer, version 3.12.0:
 - Phase 4 still has one open box: exercise the full agent layer on a real task,
   the same target-project gap as the open Phase 3 motion task.
 
+Session 20, roadmap Phase 5 first item, per-domain agent packs, version 3.13.0:
+
+- Agents install with the domain that owns them, so a domain's plugin is
+  self-contained. `install.sh` gained `agent_domains` (web-auditor to security;
+  security-engineer to engineering and security, shared because delivery
+  dispatches it; every other agent to engineering) and a domain-filtered
+  `agents` function. `--agents` still installs all 25.
+- `plugins/build.sh` builds each domain's own agents and drops an empty
+  `agents/` dir. Result: engineering 24 agents (web-auditor moved out), security
+  2 (security-engineer, web-auditor). `--security` now installs both the
+  website-audit skill and the web-auditor agent, the concrete gap the roadmap
+  named.
+- `validate-plugins.sh` check 4 rewritten: it regenerates and compares each
+  domain's agents against its bundle, not just a floor on the engineering count.
+  Verified it fails on a planted mismatch, then restored.
+- Stale installer help/menu agent counts fixed (were 16). Engineering-scoped
+  figures now 24, full roster 25, across README, installation, overview,
+  plugins, engineering README, tests README and the agent architecture.
+- Phase 5 has two boxes left: the Control Center agent panel, and advisor
+  agent-level waste (blocked on real telemetry). Branched fresh from `dev`.
+
 ## Current state
 
 Working today:

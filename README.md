@@ -50,7 +50,7 @@ Scoped installs: `--writing`, `--documents`, `--dev`, `--security`,
 |---|---|---|
 | `craft-writing` | novelist, screenwriter, editor, critic, proofreader | 42 |
 | `craft-documents` | technical writer, report author, PDF producer | 7 |
-| `craft-engineering` | a delivery team, from specification to production | 82 and 25 agents |
+| `craft-engineering` | a delivery team, from specification to production | 82 and 24 agents |
 | `craft-security` | defensive engineer, and auditor under written authorization | 10 |
 | `craft-research` | researcher who cites only what was actually read | 5 |
 | `craft-career` | job search that never invents a listing | 7 |

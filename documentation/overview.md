@@ -210,7 +210,7 @@ novelist's toolkit, and a novelist is never given the engineering tree.
 ```
    1) Creative writing        42 skills   novels, poetry, screenplay, editing
    2) Professional documents   7 skills   guides, manuals, reports, letters, PDF
-   3) Software engineering    82 skills   plus 25 agents
+   3) Software engineering    82 skills   plus 24 agents
    4) Cybersecurity           10 skills   threat models, audits, hardening
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
@@ -235,7 +235,7 @@ bash install.sh --configure
 ```bash
 bash install.sh --writing      42 creative writing skills
 bash install.sh --documents     7 professional document skills
-bash install.sh --dev          82 engineering skills and 25 agents
+bash install.sh --dev          82 engineering skills and 24 agents
 bash install.sh --security     12 defensive security skills
 bash install.sh --research      5 general research skills
 bash install.sh --career        7 job search and application skills
@@ -521,7 +521,7 @@ marketplace and install only the domains they want.
 |---|---|
 | `craft-writing` | the writing tree, 42 skills |
 | `craft-documents` | the documents tree, 7 skills |
-| `craft-engineering` | the engineering tree, 82 skills and 25 agents |
+| `craft-engineering` | the engineering tree, 82 skills and 24 agents |
 | `craft-security` | the security tree, 10 skills |
 | `craft-research` | the research tree, 5 skills |
 | `craft-career` | the career tree, 7 skills |

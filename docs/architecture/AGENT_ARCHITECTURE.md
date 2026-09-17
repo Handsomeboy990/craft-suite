@@ -58,9 +58,13 @@ unreviewed stand-in.
 ## The twenty-five agents, by group
 
 Agents live in `agents/<group>/`, a repository-wide tree independent of any
-single skill domain, so a future agent pack, security, design, research,
-installs on its own. Catalog and public contracts: `agents/README.md` and
-`documentation/agents.md`.
+single skill domain, so each domain's plugin carries its own agents rather than
+bundling them all in one: the security plugin ships `security-engineer` and
+`web-auditor`, the engineering plugin the 24-agent delivery team (which keeps
+`security-engineer`, since its delivery flow dispatches it). The mapping lives
+in `install.sh` (`agent_domains`); `web-auditor` is security-only, every other
+agent belongs to engineering. Catalog and public contracts: `agents/README.md`
+and `documentation/agents.md`.
 
 | Group | Agents | Owns |
 |---|---|---|
