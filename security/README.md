@@ -1,6 +1,6 @@
 # security
 
-Defensive security and authorized assurance. Ten skills that build a system
+Defensive security and authorized assurance. Eleven skills that build a system
 harder to attack, assess what is wrong in one that exists, and, under written
 authorization only, prove impact. The posture is defensive; offensive technique
 lives in exactly one gated skill.
@@ -14,7 +14,7 @@ were run, with which results, on which revision.
 | Category | Skills | Question it answers |
 |---|---|---|
 | [secure-development](secure-development/) | 8 | how a system is built and hardened so it resists attack |
-| [security-assurance](security-assurance/) | 2 | what is wrong in a system that exists, without breaking it |
+| [security-assurance](security-assurance/) | 3 | what is wrong in a system that exists, without breaking it |
 
 ## secure-development
 
@@ -35,6 +35,7 @@ were run, with which results, on which revision.
 |---|---|---|
 | [vulnerability-assessment](security-assurance/vulnerability-assessment/) | on an owned system | a non-intrusive sweep, ranked findings, remediation plan |
 | [authorized-pentesting](security-assurance/authorized-pentesting/) | inside authorization only | proof of impact from a confirmed finding, then remediation |
+| [website-audit](security-assurance/website-audit/) | on a URL, passive anywhere, active on authorization | a site audit across front, back, security, performance, accessibility, design |
 
 ## Relationship to the engineering tree
 

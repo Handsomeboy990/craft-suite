@@ -1,6 +1,6 @@
 # Skills guide
 
-Directory of the 157 skills. One line each: what it does, and when to open it.
+Directory of the 158 skills. One line each: what it does, and when to open it.
 
 Every skill's own `README.md` carries its inputs, outputs, dependencies and
 configuration in four lines. This file is the index; the READMEs are the
@@ -69,6 +69,7 @@ contracts.
 | Is the deployment actually working | `production-verification` |
 | Is the website actually ready to launch | `launch-readiness` |
 | My site looks like every other AI-generated site | `design-authenticity` |
+| I have a URL and want everything wrong with the site | `website-audit` |
 
 ## shared, 2 skills
 
@@ -259,7 +260,7 @@ Depend on nothing. Callable from any tree, usable alone.
 Public contracts in `agents.md`. An agent is a role: it names the skills it
 uses and restates none of them.
 
-## security, 10 skills
+## security, 11 skills
 
 ### secure-development, 8
 
@@ -279,12 +280,15 @@ uses and restates none of them.
 - `security-headers`: CSP, HSTS, CORS and the browser hardening headers,
   verified on the live response.
 
-### security-assurance, 2
+### security-assurance, 3
 
 - `vulnerability-assessment`: a non-intrusive sweep of an owned system, ranked
   findings, a remediation plan.
 - `authorized-pentesting`: active exploitation to prove impact, strictly inside
   written authorization. The one gated offensive skill.
+- `website-audit`: a URL-driven audit across front, back, security,
+  performance, accessibility and design. Passive on any URL, active only on an
+  owned or authorized target, human in the loop for registration.
 
 ## research, 5 skills
 

@@ -213,11 +213,34 @@ Session 10, design authenticity (cluster C), version 3.3.0:
 - Stacked on `feat/launch-readiness` (PR #16), giving a linear stack
   #15 <- #16 <- #C, so the count files never conflict. Merges after #16.
 
+Stack landing, PRs #15 through #18: the stacked merges tangled. #15 merged to
+`dev`, but #16 closed instead of merging and #17 merged into the branch rather
+than `dev`, so `dev` briefly held only #15. Recovered with one PR (#18) from
+the consolidated `feat/launch-readiness` branch into `dev`, which carried all
+of A and C at once. Lesson recorded: merge a stack as one PR from the head
+branch, not PR by PR. Also fixed here: the validate CI job name, which #15 had
+renamed, breaking `dev`'s required status check; reverted to the pinned name
+`structure, rules, orchestration, plugins`, see [[release-branch-and-push-constraints]].
+The old stale branches (chore/*, release/*, backup/*, feat/domain-*) were
+deleted; only `main` and `dev` remain.
+
+Session 11, the website auditor (cluster D), version 3.4.0:
+
+- `website-audit` skill (`security/security-assurance/`) and `web-auditor`
+  agent (`agents/security/`): a URL-driven audit across front, back, security,
+  performance, accessibility and design. The defining rule is the line between
+  passive observation (any public URL) and active testing (owned or authorized
+  target only), the same authorization gate as `authorized-pentesting`.
+  Registration and email verification are handed to the human, never
+  automated, because defeating verification is abuse.
+- Counts 157 to 158 skills, 10 to 11 security, 2 to 3 security-assurance, 18
+  to 19 agents. Branched fresh from `dev` (clean base, no more stacking).
+
 ## Current state
 
 Working today:
 
-- the five scripts pass: 157 skills, 0 errors, 1 pre-existing warning on a
+- the five scripts pass: 158 skills, 0 errors, 1 pre-existing warning on a
   deliberate typographic counter-example;
 - `install.sh` works in every mode, including the four new scopes, verified
   against a sandbox target through `CLAUDE_SKILLS_DIR`;
