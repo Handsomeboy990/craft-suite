@@ -18,14 +18,14 @@ sessions or a precondition outside the repository.
 
 ## Phase 1: close the original specification
 
-- [ ] **`rate-limiting` skill** (M). Per-endpoint limits by sensitivity: login,
+- [x] **`rate-limiting` skill** (M). Per-endpoint limits by sensitivity: login,
   one-time codes, password reset, uploads, search, public forms, keyed by IP,
   user and resource cost. Today scattered across `input-validation` and
   `authentication-security`.
-- [ ] **`tls-certificates` skill** (M). Certificate lifecycle: installation,
+- [x] **`tls-certificates` skill** (M). Certificate lifecycle: installation,
   renewal, HSTS, HTTPS enforcement, expiry monitoring, reverse proxy,
   development versus production certificates.
-- [ ] **`admin-console` skill** (M). Back-office architecture: role-based
+- [x] **`admin-console` skill** (M). Back-office architecture: role-based
   access, permissions, audit logs, user management, operational controls, with
   no secret exposed to the browser. The original section 22, never built.
 

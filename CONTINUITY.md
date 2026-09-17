@@ -284,11 +284,27 @@ Session 14, the roadmap and the animation skill, version 3.7.0:
   and exercising the frontend agents on a real motion task (needs a target
   web project).
 
+Session 15, roadmap Phase 1, version 3.8.0:
+
+- The three skills the original brief named and never got built in their own
+  right, each previously only in pieces inside other skills:
+  `rate-limiting` (`security/secure-development/`), a limit per endpoint by the
+  cost of abuse, keyed unforgeably, over the real control, with a shared store
+  for multi-instance; `tls-certificates` (`engineering/devops-skills/`), the
+  certificate over its whole life with renewal proven and expiry watched from
+  outside, key never leaked, wired into phase 09; `admin-console`
+  (`engineering/dev-skills/`), least-privilege roles, server-side object-level
+  authorization, an append-only audit log, no secret in the interface, wired
+  into the FULLSTACK plan.
+- Counts 160 to 163 skills, 11 to 12 security, 8 to 9 secure-development, 14 to
+  15 devops, 52 to 53 dev-skills, 77 to 79 engineering. The three Phase 1
+  roadmap boxes are ticked. Branched fresh from `dev`.
+
 ## Current state
 
 Working today:
 
-- the five scripts pass: 160 skills, 0 errors, 1 pre-existing warning on a
+- the five scripts pass: 163 skills, 0 errors, 1 pre-existing warning on a
   deliberate typographic counter-example;
 - `install.sh` works in every mode, including the four new scopes, verified
   against a sandbox target through `CLAUDE_SKILLS_DIR`;

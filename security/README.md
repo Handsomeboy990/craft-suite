@@ -1,6 +1,6 @@
 # security
 
-Defensive security and authorized assurance. Eleven skills that build a system
+Defensive security and authorized assurance. Twelve skills that build a system
 harder to attack, assess what is wrong in one that exists, and, under written
 authorization only, prove impact. The posture is defensive; offensive technique
 lives in exactly one gated skill.
@@ -13,7 +13,7 @@ were run, with which results, on which revision.
 
 | Category | Skills | Question it answers |
 |---|---|---|
-| [secure-development](secure-development/) | 8 | how a system is built and hardened so it resists attack |
+| [secure-development](secure-development/) | 9 | how a system is built and hardened so it resists attack |
 | [security-assurance](security-assurance/) | 3 | what is wrong in a system that exists, without breaking it |
 
 ## secure-development
@@ -28,6 +28,7 @@ were run, with which results, on which revision.
 | [session-security](secure-development/session-security/) | on sessions | cookie policy, rotation, timeout, revocation, CSRF defence |
 | [dependency-security](secure-development/dependency-security/) | on the supply chain | advisories re-ranked by reachability, safe upgrades |
 | [security-headers](secure-development/security-headers/) | on web responses | CSP, HSTS, CORS and the hardening headers, verified live |
+| [rate-limiting](secure-development/rate-limiting/) | on abusable endpoints | a limit per endpoint by cost, keyed unforgeably, over the real control |
 
 ## security-assurance
 
