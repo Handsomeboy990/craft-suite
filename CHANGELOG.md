@@ -3,11 +3,11 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
-## Unreleased
+## 3.1.0
 
 Phase 1 of the multi-agent architecture expansion: a routing core, added
-without touching a single existing skill's content. Version number left for
-the release step; nothing here is a breaking change to an installed suite.
+without touching a single existing skill's content. Minor version: additive,
+and nothing here is a breaking change to an installed suite.
 
 ### Added
 

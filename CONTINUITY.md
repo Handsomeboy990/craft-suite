@@ -143,6 +143,10 @@ expansion):
   escalation as one event.
 - A fifth validation script, `tests/validate-model-routing.sh`: checks the
   routing table against eleven deterministic fixtures, no live model call.
+- Version 3.1.0, minor: additive, no breaking change to an installed suite.
+  `marketplace.json` and all seven `plugin.json` manifests bumped together,
+  the established lockstep convention, even though only the engineering
+  plugin's skill set changed this time.
 - `model_routing` configuration section added, three tier names resolved to
   real model identifiers by the project rather than hardcoded here, because
   availability differs by account and changes over time.
