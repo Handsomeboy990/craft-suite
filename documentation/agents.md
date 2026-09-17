@@ -1,6 +1,6 @@
 # Agents
 
-Sixteen agent definitions, for a runtime that supports subagents.
+Seventeen agent definitions, for a runtime that supports subagents.
 
 This document explains the difference between a skill, an agent and
 orchestration, and gives the public contract of each agent. The definitions
@@ -38,7 +38,7 @@ handoff.
 For a single task, the skills alone are enough. Install with `--no-agents` and
 let `engineering-orchestrator` sequence the skills in one context.
 
-## The sixteen
+## The seventeen
 
 | Agent | Owns | Runs after | Hands to |
 |---|---|---|---|
@@ -117,7 +117,7 @@ agents reach at the end of their work.
 - Nothing verifies at runtime that a review gate between two agents was
   actually held. `tests/validate-orchestration.sh` verifies the definitions
   are coherent, not that an execution respected them.
-- The sixteen cover software delivery. There is no agent for the writing tree
+- The seventeen cover software delivery. There is no agent for the writing tree
   or the documents tree: both are sequential, single-context work where an
   agent boundary would add a handoff and remove nothing.
 

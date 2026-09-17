@@ -112,11 +112,12 @@ first production deployment and any destructive migration are irreversible.
 
 phase: 11
 name: production-verification
-skills: production-verification, observability, backup-recovery, incident-response
+skills: production-verification, observability, backup-recovery, incident-response, launch-readiness
 gate: verification
 
-The deployed system answers real requests. A successful deploy command is not
-a verified deployment.
+The deployed system answers real requests, and a user-facing product also
+passes the launch completeness gate. A successful deploy command is not a
+verified deployment, and a running system is not a launch-ready product.
 
 ## Phase 12
 

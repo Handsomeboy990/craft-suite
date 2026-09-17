@@ -1,6 +1,6 @@
 # Skills guide
 
-Directory of the 155 skills. One line each: what it does, and when to open it.
+Directory of the 156 skills. One line each: what it does, and when to open it.
 
 Every skill's own `README.md` carries its inputs, outputs, dependencies and
 configuration in four lines. This file is the index; the READMEs are the
@@ -67,6 +67,7 @@ contracts.
 | I have a specification, not a task | `delivery-orchestrator` |
 | Something must be deployed | `devops-core` |
 | Is the deployment actually working | `production-verification` |
+| Is the website actually ready to launch | `launch-readiness` |
 
 ## shared, 2 skills
 
@@ -153,7 +154,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `document-design` | publishing | hierarchy, typography, tables, page furniture, metadata |
 | `pdf-production` | publishing | engine selection, generation, render verification |
 
-## engineering, 73 skills
+## engineering, 74 skills
 
 ### dev-skills, 50
 
@@ -210,7 +211,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `reliability-testing` | what happens when a dependency fails |
 | `test-reporting` | findings, severity, evidence, lifecycle, one verdict |
 
-### delivery-skills, 10
+### delivery-skills, 11
 
 | Skill | What it does |
 |---|---|
@@ -223,6 +224,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `delivery-planning` | ordered atomic tasks with dependencies and milestones |
 | `implementation-integrity` | forbids and detects fake functionality |
 | `scope-and-change-control` | protects an approved scope from silent drift |
+| `launch-readiness` | the completeness gate for a user-facing web product before launch |
 | `client-handover` | the delivery package another team can take over |
 
 ### devops-skills, 13

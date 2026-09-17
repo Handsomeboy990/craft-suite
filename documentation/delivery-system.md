@@ -86,7 +86,7 @@ system executes and reports at phase boundaries. Interrupting the user for a
 filename or a test layout turns one considered decision into a stream of small
 ones, which is exactly what the gate exists to prevent.
 
-## 6. delivery-skills, ten skills
+## 6. delivery-skills, eleven skills
 
 | Skill | Responsibility |
 |---|---|
@@ -99,6 +99,7 @@ ones, which is exactly what the gate exists to prevent.
 | `delivery-planning` | milestones and ordered atomic tasks |
 | `implementation-integrity` | no fake functionality on a reachable path |
 | `scope-and-change-control` | neither scope drift nor architecture drift |
+| `launch-readiness` | the completeness gate for a user-facing web product |
 | `client-handover` | the package another team can take over |
 
 ## 7. devops-skills, eleven skills
@@ -119,7 +120,7 @@ ones, which is exactly what the gate exists to prevent.
 
 ## 8. The agents
 
-Sixteen roles, defined in `agents/`, grouped by kind of work: `core`,
+Seventeen roles, defined in `agents/`, grouped by kind of work: `core`,
 `development`, `design`, `security`, `testing`, `documentation`, `devops`. An
 agent is thin by design:
 the expertise lives in the skills, the agent decides which apply, executes
@@ -208,7 +209,7 @@ Rule: parallelise across a contract, never across an unknown.
 ## 10. Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of the 155 skills
+bash tests/validate-structure.sh      structure and metadata of the 156 skills
 bash tests/validate-rules.sh          the repository-wide prohibitions
 bash tests/validate-orchestration.sh  thirteen coherence checks
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees
@@ -227,7 +228,7 @@ The third script covers:
 7. no orphan engineering skill, absent from every plan and phase;
 8. every `depends_on` naming an existing skill, in every tree;
 9. every `Interfaces` cross reference existing, in every procedural tree;
-10. the sixteen agents, with their metadata and eight mandatory sections;
+10. the seventeen agents, with their metadata and eight mandatory sections;
 11. every skill cited by an agent existing;
 12. the document pipeline: `document-core` declared as a dependency, design
     before production;

@@ -162,11 +162,45 @@ expansion):
   selection, and the Control Center's agent-orchestration and
   model-and-token telemetry sections.
 
+Session 8b, agent-dispatch telemetry (the first real run of the agent layer):
+
+- `control-center/reader.py` gained an agent-dispatch collector, reviewed by
+  security-engineer and qa-engineer before commit. Two review findings that
+  mattered: a non-string `subagent_type` passed through `str()` re-imported
+  the prompt field the collector exists never to read, and the sidechain scan
+  used a two-level glob that structurally could not see the deeper directory
+  where a dispatched agent writes, so it reported an unlooked-for zero as a
+  measurement. Both fixed, both regression-tested.
+- The orchestrator, me, broke the parallelisation rule: two review-and-fix
+  agents dispatched onto the same files at once. No work was lost, owed to one
+  agent's discipline, not to the orchestration. `delivery-orchestrator`
+  section 6 and `docs/architecture/ORCHESTRATION.md` now make the rule
+  operational: parallel agents sharing a write surface are read-only or
+  sequenced. Full account in `multi-agent-assessment.md` section 9.
+
+Session 9, launch readiness (cluster A of the delivery expansion), version
+3.2.0:
+
+- `launch-readiness` skill and `compliance-verifier` agent: the completeness
+  gate for a user-facing web product, consolidating legal, discoverability,
+  content, performance, accessibility, UX integrity, analytics, the security
+  posture and infrastructure into one checklist that delegates to the owning
+  skills and adds the web-launch items no skill covered (legal page scaffold,
+  cookie banner, social preview, favicon, custom 404, broken links, anti-spam,
+  single CTA). Stack agnostic body, Supabase and Next appendix.
+- The gate never writes legal text: it scaffolds and verifies the page, the
+  wording stays the owner's. This was a user decision, recorded.
+- Wired into delivery phase 11. Counts moved 155 to 156 skills, 10 to 11
+  delivery-skills, 16 to 17 agents.
+- This branch is stacked on `feat/agent-routing-core` (PR #15, 3.1.0) because
+  the `compliance-verifier` agent needs the `agents/` tree that PR relocates.
+  It merges after #15.
+
 ## Current state
 
 Working today:
 
-- the five scripts pass: 155 skills, 0 errors, 1 pre-existing warning on a
+- the five scripts pass: 156 skills, 0 errors, 1 pre-existing warning on a
   deliberate typographic counter-example;
 - `install.sh` works in every mode, including the four new scopes, verified
   against a sandbox target through `CLAUDE_SKILLS_DIR`;

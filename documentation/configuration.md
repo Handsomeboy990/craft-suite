@@ -91,7 +91,7 @@ rather than one.
 | Output language | `language.creative_output`, `language.document_output` | per audience | yes |
 
 - **Skill language** is the language the instructions are written in. English
-  for all 155 skills, so the system is usable internationally.
+  for all 156 skills, so the system is usable internationally.
 - **System language** is the language of identifiers, paths, configuration
   keys, commits and technical documentation. English.
 - **Output language** is the language of what a reader receives. It is the

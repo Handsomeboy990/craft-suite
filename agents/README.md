@@ -19,11 +19,12 @@ Agent   who owns this piece of work, what they may touch, what they hand on
 Duplicating a skill's content into an agent produces two documents that drift.
 Every agent below references the skills it uses and never restates them.
 
-## The sixteen
+## The seventeen
 
 | Agent | Owns | Primary skills |
 |---|---|---|
 | `delivery-orchestrator` | the project lifecycle and its gates | delivery-orchestrator |
+| `compliance-verifier` | the launch completeness gate, verified with evidence | launch-readiness, implementation-integrity |
 | `principal-engineer` | a multi surface engineering request and its gates | engineering-orchestrator, engineering-core |
 | `requirements-analyst` | requirements into a specification | requirements-analysis, clarification-gate |
 | `software-architect` | architecture and technology decisions | architecture-proposal, technology-selection, architecture-design |

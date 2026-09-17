@@ -3,6 +3,49 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.2.0
+
+The launch completeness gate. A user-facing web product carries deliverables
+no test suite checks: a legally required privacy policy, a favicon and a
+social preview so a shared link does not look broken, a custom error page, a
+cookie banner where tracking demands one, and a security posture that holds
+when a stranger, not the developer, makes the requests. This release
+consolidates those into one gate that delegates to the skills that already
+own each item and adds the web-launch items that fell between them.
+
+### Added
+
+- `launch-readiness` skill (`engineering/delivery-skills/`): the itemised
+  checklist across eight domains (legal, discoverability, content,
+  performance, accessibility, UX integrity, analytics, security posture,
+  infrastructure), each item a deliverable with a verification and an owning
+  skill. The full grid is in `resources/launch-checklist.md`; the concrete
+  mapping for a Supabase and Next.js project, the stack it is most often
+  written against, is in `resources/supabase-next-appendix.md`. The skill body
+  stays stack agnostic. It never writes the legal text of a privacy policy or
+  terms document: it scaffolds and verifies the page, and the wording, which
+  carries liability, stays the owner's.
+- `compliance-verifier` agent (`agents/core/`): runs the gate against a built
+  or deployed product and reports, with evidence, which deliverables are
+  present and working. It verifies and reports; it does not fix, so the check
+  stays independent of the work. It never issues ready with an open security
+  or legal blocker.
+- The gate is wired into delivery phase 11, so a running system is not
+  mistaken for a launch-ready product.
+
+### Changed
+
+- Counts: 155 to 156 skills, 10 to 11 delivery-skills, 73 to 74 engineering
+  skills, 16 to 17 agents, wherever they appear in current-state prose.
+  Historical entries in this file and in `CONTINUITY.md` are left at the count
+  that was true when they were written.
+
+### Not changed
+
+- No existing skill changed. The security, SEO, accessibility, performance,
+  privacy and backup depth the gate checks lives where it already lived; the
+  gate runs those skills and records their results rather than restating them.
+
 ## 3.1.0
 
 Phase 1 of the multi-agent architecture expansion: a routing core, added

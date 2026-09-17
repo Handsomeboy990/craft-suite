@@ -16,7 +16,7 @@ that does not pass it.
 
 ## validate-structure.sh
 
-Verifies the mandatory shape of all 155 skills across the eight trees.
+Verifies the mandatory shape of all 156 skills across the eight trees.
 
 Per skill:
 
@@ -102,7 +102,7 @@ formed.
 | 1 | `marketplace.json` and every `plugin.json` are valid JSON |
 | 2 | every marketplace source path exists and has a manifest |
 | 3 | each plugin's skill set matches what its scope would install, regenerated into a sandbox and compared |
-| 4 | the engineering plugin carries the 16 agents |
+| 4 | the engineering plugin carries the 17 agents |
 
 Check 3 is the one that catches drift: add a skill to a tree and forget to run
 `bash plugins/build.sh`, and this fails, naming the domain to rebuild. The trees
