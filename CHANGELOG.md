@@ -3,6 +3,40 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.3.0
+
+Design authenticity. There is a look a generated interface falls into when
+nobody decided anything: the same violet-to-black gradient, frosted glass,
+bento grid, default font, hover-everything motion, and the fabricated
+testimonials and empty pricing tiers that travel with them. None is wrong on
+its own; the cluster is, because it means the defaults were accepted rather
+than chosen. This release adds the skill that detects that cluster and the
+agent that runs it against a rendered page.
+
+### Added
+
+- `design-authenticity` skill (`engineering/dev-skills/`): the catalogue of
+  generic-default tells across visuals, typography, motion and content, read
+  as signals rather than verdicts. It never condemns a single element and
+  never prescribes a replacement; it tests intentionality, whether a choice
+  was made on purpose for this product, and names where intent is missing.
+  One class of tell is not aesthetic at all: a fabricated testimonial, an
+  invented metric, a checked feature that is not built, are handed to
+  `implementation-integrity` as truthfulness defects and raised regardless of
+  how well the rest of the page is designed. Wired into the UI_UX and
+  DESIGN_SYSTEM execution plans.
+- `design-verification` agent (`agents/design/`): checks a built interface
+  against the design it was meant to be and against the defaults it should not
+  have fallen into, inspecting the rendered page rather than the source. It
+  verifies and reports, it does not redesign, and it fails a page that
+  animates everywhere and honours reduced motion nowhere on accessibility
+  grounds independent of taste.
+
+### Changed
+
+- Counts: 156 to 157 skills, 50 to 51 dev-skills, 74 to 75 engineering skills,
+  17 to 18 agents, in current-state prose. Historical entries left as written.
+
 ## 3.2.0
 
 The launch completeness gate. A user-facing web product carries deliverables

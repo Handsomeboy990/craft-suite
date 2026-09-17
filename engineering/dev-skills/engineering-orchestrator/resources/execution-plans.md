@@ -110,7 +110,7 @@ produce the baseline, and again at the end to prove the delta.
 ## UI_UX
 
 category: UI_UX
-plan: project-exploration -> ui-ux-engineering -> design-system -> frontend-engineering -> testing-quality -> playwright-automation -> accessibility-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> ui-ux-engineering -> design-system -> frontend-engineering -> design-authenticity -> testing-quality -> playwright-automation -> accessibility-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
 Accessibility and responsive verification live inside `ui-ux-engineering` and
 `playwright-automation`; they are not separate steps.
@@ -269,7 +269,7 @@ Public surfaces only. Verification happens on rendered output, which is why
 ## DESIGN_SYSTEM
 
 category: DESIGN_SYSTEM
-plan: project-exploration -> ui-ux-engineering -> design-system -> frontend-engineering -> accessibility-testing -> testing-quality -> playwright-automation -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> ui-ux-engineering -> design-system -> frontend-engineering -> design-authenticity -> accessibility-testing -> testing-quality -> playwright-automation -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
 Tokens are applied to the existing product before any component is rewritten.
 

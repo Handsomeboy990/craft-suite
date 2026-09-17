@@ -17,7 +17,12 @@ permissions:
 
 jobs:
   validate:
-    name: structure, rules, orchestration, plugins, model routing
+    # This name is the required status check context in branch protection.
+    # Do not rename it when adding a step: the job runs more than the four it
+    # lists (model routing and the Control Center tests too), but renaming the
+    # job would leave branch protection waiting for a context that never
+    # reports again. The name is a stable label, not an inventory.
+    name: structure, rules, orchestration, plugins
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

@@ -1,6 +1,6 @@
 # Skills guide
 
-Directory of the 156 skills. One line each: what it does, and when to open it.
+Directory of the 157 skills. One line each: what it does, and when to open it.
 
 Every skill's own `README.md` carries its inputs, outputs, dependencies and
 configuration in four lines. This file is the index; the READMEs are the
@@ -68,6 +68,7 @@ contracts.
 | Something must be deployed | `devops-core` |
 | Is the deployment actually working | `production-verification` |
 | Is the website actually ready to launch | `launch-readiness` |
+| My site looks like every other AI-generated site | `design-authenticity` |
 
 ## shared, 2 skills
 
@@ -154,9 +155,9 @@ Depend on nothing. Callable from any tree, usable alone.
 | `document-design` | publishing | hierarchy, typography, tables, page furniture, metadata |
 | `pdf-production` | publishing | engine selection, generation, render verification |
 
-## engineering, 74 skills
+## engineering, 75 skills
 
-### dev-skills, 50
+### dev-skills, 51
 
 | Skill | What it does |
 |---|---|
@@ -168,6 +169,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `project-exploration` | maps an unfamiliar codebase before any change |
 | `architecture-design` | the smallest architecture that serves the product |
 | `ui-ux-engineering` | the rendered experience, states, accessibility |
+| `design-authenticity` | detects generic AI-default design, tests for intent |
 | `dependency-selection` | twelve point evaluation before adding a library |
 | `frontend-engineering` | pages, components, state, forms, the five UI states |
 | `backend-engineering` | handlers, services, authorization, transactions, jobs |
