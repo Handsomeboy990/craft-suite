@@ -35,6 +35,18 @@ Written in English, the system language.
 The security, research, career and opportunity trees carry their design in their
 own `README.md` at the tree and category level, next to the skills.
 
+## Architecture and agents
+
+| File | Covers |
+|---|---|
+| `../docs/agents/README.md` | entry point for the agent architecture: what exists, what is deferred, how to install only what is needed |
+| `../docs/architecture/multi-agent-assessment.md` | what existed before this phase, what it added, what is deferred and why |
+| `../docs/architecture/AGENT_ARCHITECTURE.md` | the layered architecture, the sixteen agents by group, the contract, safety |
+| `../docs/architecture/MODEL_ROUTING.md` | why model routing is shaped the way it is, and what capability it refuses to claim |
+| `../docs/architecture/TOKEN_OPTIMIZATION.md` | the seam between the during-the-work discipline and the Control Center's after-the-fact measurement |
+| `../docs/architecture/SKILL_AGENT_MATRIX.md` | which agents a given workflow uses, when it runs in multi-agent mode |
+| `../docs/architecture/ORCHESTRATION.md` | the three orchestrators, gates, safety against runaway orchestration, completion verdicts |
+
 ## Elsewhere
 
 | Location | Contents |
