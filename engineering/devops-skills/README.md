@@ -1,6 +1,6 @@
 # devops-skills
 
-Operations system. Fifteen skills covering how a system is provisioned,
+Operations system. Sixteen skills covering how a system is provisioned,
 configured, built, deployed, observed, recovered, released, and repaired when
 it breaks.
 
@@ -53,6 +53,7 @@ constitution applies to every file: no emoji, no em dash.
 | Skill | Responsibility |
 |---|---|
 | `tls-certificates` | the certificate over its whole life: obtain, enforce, renew, monitor, guard the key |
+| `email-deliverability` | mail into the inbox: SPF, DKIM, DMARC aligned, reputation, bounces |
 
 
 

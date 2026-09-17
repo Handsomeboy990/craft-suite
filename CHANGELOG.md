@@ -3,6 +3,37 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.9.0
+
+Roadmap Phase 2: the highest-value new capability, and the small skill that
+explains a common mystery.
+
+### Added
+
+- `llm-integration` skill (`engineering/dev-skills/`): builds a feature on a
+  language model around the three facts that a model is non-deterministic,
+  costs money per call, and states a wrong answer as confidently as a right
+  one. The prompt and a structured output as a contract, an evaluation set that
+  gates every prompt or model change, retrieval that grounds a factual answer
+  or an honest do-not-know, cost and latency budgeted at the real price,
+  streaming and timeouts, and guardrails against prompt injection, a leaked
+  system prompt, hallucination, truncation and cost abuse, with privileged
+  actions gated outside the model. Reads the provider's current API rather than
+  coding a model, limit or price from memory. Wired into the BACKEND plan.
+- `email-deliverability` skill (`engineering/devops-skills/`): gets a sending
+  domain's mail into the inbox instead of the spam folder or the void. SPF,
+  DKIM and DMARC aligned to the visible From domain, DMARC rolled out from
+  monitor to reject on the evidence of its reports rather than switched hard,
+  transactional mail separated from marketing, a warmed sender, bounces and
+  complaints suppressed, unsubscribe honoured, and the records and inbox
+  placement monitored. The reason a confirmation email never arrives is usually
+  here, not in the code that sent it. Wired into delivery phase 09.
+
+### Changed
+
+- Counts: 163 to 165 skills, 53 to 54 dev-skills, 15 to 16 devops-skills, 79 to
+  81 engineering. Historical entries left as written.
+
 ## 3.8.0
 
 Roadmap Phase 1: the three skills the original brief named and never got built

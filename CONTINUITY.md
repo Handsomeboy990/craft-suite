@@ -300,11 +300,28 @@ Session 15, roadmap Phase 1, version 3.8.0:
   15 devops, 52 to 53 dev-skills, 77 to 79 engineering. The three Phase 1
   roadmap boxes are ticked. Branched fresh from `dev`.
 
+Session 16, roadmap Phase 2, version 3.9.0:
+
+- `llm-integration` (`engineering/dev-skills/`): a feature on a language model
+  engineered around its non-determinism, cost and confident-wrongness. The
+  prompt and structured output as a contract, an evaluation set that gates
+  every change, retrieval for grounding, cost and latency budgeted, guardrails
+  against injection, a leaked prompt, hallucination and truncation, privileged
+  actions gated outside the model, and the provider's real API read rather than
+  a model or price from memory. Wired into the BACKEND plan.
+- `email-deliverability` (`engineering/devops-skills/`): SPF, DKIM and DMARC
+  aligned to the From domain, DMARC monitor to reject on report evidence,
+  transactional separated from marketing, sender warmed, bounces and complaints
+  suppressed, unsubscribe honoured. The reason a confirmation email never
+  arrives is usually here, not in the code. Wired into phase 09.
+- Counts 163 to 165 skills, 53 to 54 dev-skills, 15 to 16 devops, 79 to 81
+  engineering. Both Phase 2 roadmap boxes ticked. Branched fresh from `dev`.
+
 ## Current state
 
 Working today:
 
-- the five scripts pass: 163 skills, 0 errors, 1 pre-existing warning on a
+- the five scripts pass: 165 skills, 0 errors, 1 pre-existing warning on a
   deliberate typographic counter-example;
 - `install.sh` works in every mode, including the four new scopes, verified
   against a sandbox target through `CLAUDE_SKILLS_DIR`;
