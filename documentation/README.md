@@ -39,6 +39,7 @@ own `README.md` at the tree and category level, next to the skills.
 
 | File | Covers |
 |---|---|
+| `../docs/ROADMAP.md` | what is left to build, phased and ordered by leverage |
 | `../docs/agents/README.md` | entry point for the agent architecture: what exists, what is deferred, how to install only what is needed |
 | `../docs/architecture/multi-agent-assessment.md` | what existed before this phase, what it added, what is deferred and why |
 | `../docs/architecture/AGENT_ARCHITECTURE.md` | the layered architecture, the twenty-one agents by group, the contract, safety |
