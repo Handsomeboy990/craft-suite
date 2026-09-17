@@ -394,6 +394,22 @@ Session 20, roadmap Phase 5 first item, per-domain agent packs, version 3.13.0:
 - Phase 5 has two boxes left: the Control Center agent panel, and advisor
   agent-level waste (blocked on real telemetry). Branched fresh from `dev`.
 
+Session 21, roadmap Phase 5 second item, the Control Center agent panel,
+version 3.14.0:
+
+- Added an Agents tab to `control-center/app.html`: dispatch total, dispatched-
+  work records, and breakdowns by agent and by model, from `DATA.usage.agent_dispatches`
+  (which `reader.py` already produced). EN and FR strings for every label, a
+  measured-zero empty state when the layer was not exercised. Backend untouched.
+- Updated the report data-limitation note (EN and FR) to point at the Agents
+  tab instead of saying the telemetry is undisplayed; the evolution doc and
+  control-center.md tab table match.
+- Verified end to end: 100 backend tests pass, the embedded JS parses
+  (node --check), the server serves the page 200 with the tab present, and
+  /api/data returns the agent_dispatches object with real data on this machine.
+- Phase 5 has one box left: advisor agent-level waste, blocked on the agent
+  layer being exercised for real. Branched fresh from `dev`.
+
 ## Current state
 
 Working today:

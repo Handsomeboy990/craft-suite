@@ -97,9 +97,12 @@ a real reference.
   plugin its 24-agent delivery team (which keeps `security-engineer`, since its
   flow dispatches it). The mapping lives in `install.sh` (`agent_domains`) and
   is checked per domain by `validate-plugins.sh` check 4.
-- [ ] **Control Center agent panel** (M). The agent-dispatch telemetry is
-  collected and reachable through the report and the JSON, but the browser
-  dashboard has no panel for it. Add the panel and its EN and FR strings.
+- [x] **Control Center agent panel** (M). The agent-dispatch telemetry was
+  collected and reachable through the report and the JSON but had no browser
+  panel. Added an Agents tab: the dispatch total, the dispatched-work records,
+  and the breakdowns by agent and by model, with EN and FR strings and a
+  measured-zero empty state. The report's data-limitation note no longer says
+  the telemetry is undisplayed.
 - [ ] **Advisor agent-level waste** (M, blocked). Extend `advisor.py` with a
   detection for an agent invoked where a lighter skill would have done, or a
   model tier stronger than the classification justified. Needs the panel or the

@@ -3,6 +3,26 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.14.0
+
+Roadmap Phase 5, second item: the Control Center agent panel, so the
+agent-dispatch telemetry that was already collected has a place in the browser.
+
+### Added
+
+- An Agents tab in the Control Center (`control-center/app.html`): the dispatch
+  total, the dispatched-work records, and the breakdowns by agent and by model,
+  read from the local transcripts. When the layer has not been exercised it
+  shows a measured zero, not a gap, in keeping with the tool's rule that a
+  figure it did not measure is never shown. EN and FR strings for every label.
+
+### Changed
+
+- The report's data-limitation note no longer says the agent-dispatch telemetry
+  is collected but undisplayed; it now points at the Agents tab. The evolution
+  document is updated to match. No backend change: the panel reads the
+  `agent_dispatches` object `reader.py` already produced.
+
 ## 3.13.0
 
 Roadmap Phase 5, first item: per-domain agent packs, so a domain's plugin is

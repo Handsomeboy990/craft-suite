@@ -365,6 +365,7 @@
   <section class="tabpanel" id="tab-usage" role="tabpanel" tabindex="0"></section>
   <section class="tabpanel" id="tab-projects" role="tabpanel" tabindex="0"></section>
   <section class="tabpanel" id="tab-skills" role="tabpanel" tabindex="0"></section>
+  <section class="tabpanel" id="tab-agents" role="tabpanel" tabindex="0"></section>
   <section class="tabpanel" id="tab-health" role="tabpanel" tabindex="0"></section>
   <section class="tabpanel" id="tab-privacy" role="tabpanel" tabindex="0"></section>
   <p class="note-foot" data-i18n="app.footer">All figures are read from local files on this machine. Nothing is sent anywhere. Token counts are the real usage figures recorded in your transcripts.</p>
@@ -394,7 +395,13 @@ const I18N = {
     "controls.export": "Export", "controls.theme": "Toggle theme",
     "tab.dashboard": "Dashboard", "tab.sessions": "Sessions", "tab.analytics": "Analytics",
     "tab.optimization": "Optimization", "tab.usage": "Usage", "tab.projects": "Projects",
-    "tab.skills": "Skills", "tab.health": "System health", "tab.privacy": "Privacy",
+    "tab.skills": "Skills", "tab.agents": "Agents", "tab.health": "System health", "tab.privacy": "Privacy",
+    "agents.title": "Agent dispatches", "agents.desc": "How often a subagent was dispatched, and under which model, read from the local transcripts. Counted only from a well formed dispatch; nothing is estimated.",
+    "agents.total": "Dispatches", "agents.total.note": "Task or Agent tool calls",
+    "agents.sidechain": "Dispatched-work records", "agents.sidechain.note": "Transcript records dispatched work produced",
+    "agents.by_agent": "By agent", "agents.by_agent.desc": "Times each subagent was dispatched.",
+    "agents.by_model": "By model", "agents.by_model.desc": "The model each dispatch requested; default when none was set.",
+    "agents.none": "No agent dispatches recorded. This is a measured zero, not a gap: the agent layer simply has not been exercised in the transcripts on this machine.",
     "stamp.updated": "updated {time}",
     "na": "Not available", "na.nodata": "No data available", "na.notcollected": "Not collected",
     "empty.generic": "Nothing to show.", "empty.nodata": "No session data found. This is not an error; the suite works without it. Once you use the tools locally, activity appears here.",
@@ -454,7 +461,7 @@ const I18N = {
     "report.title": "Craft Suite usage and optimization report", "report.generated": "Generated", "report.period": "Period", "report.sources": "Data sources",
     "report.usage": "Usage statistics", "report.optimization": "Optimization findings", "report.methodology": "Methodology", "report.limitations": "Data limitations", "report.privacy": "Privacy",
     "report.privacy.text": "This report is generated locally from your own transcripts. It contains aggregate statistics and finding summaries, not raw transcript content.",
-    "report.limitations.text": "Only metrics with a reliable local source are reported. Agent dispatch telemetry is collected but is not shown in this dashboard yet; it is available through the command line report and the JSON output. Resource-level and quality-audit telemetry are not collected and are omitted rather than estimated. Token counts include cache reads where the runtime recorded them, shown separately.",
+    "report.limitations.text": "Only metrics with a reliable local source are reported. Agent dispatch telemetry is shown in the Agents tab, and also in the command line report and the JSON output. Resource-level and quality-audit telemetry are not collected and are omitted rather than estimated. Token counts include cache reads where the runtime recorded them, shown separately.",
     "report.sources.text": "Local session transcripts and the installed skill and agent directories.",
     "toast.load_fail": "Could not load local data from the server.",
     "toast.export_fail": "Could not generate the export.",
@@ -466,7 +473,13 @@ const I18N = {
     "controls.export": "Exporter", "controls.theme": "Basculer le thème",
     "tab.dashboard": "Tableau de bord", "tab.sessions": "Sessions", "tab.analytics": "Analytique",
     "tab.optimization": "Optimisation", "tab.usage": "Utilisation", "tab.projects": "Projets",
-    "tab.skills": "Skills", "tab.health": "État du système", "tab.privacy": "Confidentialité",
+    "tab.skills": "Skills", "tab.agents": "Agents", "tab.health": "État du système", "tab.privacy": "Confidentialité",
+    "agents.title": "Dispatchs d'agents", "agents.desc": "Combien de fois un sous-agent a été dispatché, et sous quel modèle, lu depuis les transcriptions locales. Compté seulement à partir d'un dispatch bien formé ; rien n'est estimé.",
+    "agents.total": "Dispatchs", "agents.total.note": "Appels d'outil Task ou Agent",
+    "agents.sidechain": "Enregistrements de travail dispatché", "agents.sidechain.note": "Enregistrements produits par le travail dispatché",
+    "agents.by_agent": "Par agent", "agents.by_agent.desc": "Nombre de dispatchs de chaque sous-agent.",
+    "agents.by_model": "Par modèle", "agents.by_model.desc": "Le modèle demandé par chaque dispatch ; défaut si aucun n'était défini.",
+    "agents.none": "Aucun dispatch d'agent enregistré. C'est un zéro mesuré, pas une lacune : la couche d'agents n'a simplement pas été exercée dans les transcriptions de cette machine.",
     "stamp.updated": "mis à jour {time}",
     "na": "Non disponible", "na.nodata": "Aucune donnée disponible", "na.notcollected": "Non collecté",
     "empty.generic": "Rien à afficher.", "empty.nodata": "Aucune donnée de session trouvée. Ce n'est pas une erreur ; la suite fonctionne sans. Dès que vous utilisez les outils localement, l'activité apparaît ici.",
@@ -526,7 +539,7 @@ const I18N = {
     "report.title": "Rapport d'utilisation et d'optimisation Craft Suite", "report.generated": "Généré le", "report.period": "Période", "report.sources": "Sources de données",
     "report.usage": "Statistiques d'utilisation", "report.optimization": "Constats d'optimisation", "report.methodology": "Méthodologie", "report.limitations": "Limites des données", "report.privacy": "Confidentialité",
     "report.privacy.text": "Ce rapport est généré localement depuis vos propres transcriptions. Il contient des statistiques agrégées et des résumés de constats, pas le contenu brut des transcriptions.",
-    "report.limitations.text": "Seules les métriques avec une source locale fiable sont rapportées. La télémétrie de dispatch d'agents est collectée mais pas encore affichée dans ce tableau de bord ; elle est disponible dans le rapport en ligne de commande et la sortie JSON. La télémétrie par ressource et d'audit qualité n'est pas collectée et est omise plutôt qu'estimée. Les comptes de tokens incluent le cache lu là où le runtime l'a enregistré, montré séparément.",
+    "report.limitations.text": "Seules les métriques avec une source locale fiable sont rapportées. La télémétrie de dispatch d'agents est affichée dans l'onglet Agents, ainsi que dans le rapport en ligne de commande et la sortie JSON. La télémétrie par ressource et d'audit qualité n'est pas collectée et est omise plutôt qu'estimée. Les comptes de tokens incluent le cache lu là où le runtime l'a enregistré, montré séparément.",
     "report.sources.text": "Transcriptions de session locales et répertoires des skills et agents installés.",
     "toast.load_fail": "Impossible de charger les données locales depuis le serveur.",
     "toast.export_fail": "Impossible de générer l'export.",
@@ -652,7 +665,7 @@ function findingText(cat) {
 }
 
 /* ---------------- state ---------------- */
-const TABS = ["dashboard", "sessions", "analytics", "optimization", "usage", "projects", "skills", "health", "privacy"];
+const TABS = ["dashboard", "sessions", "analytics", "optimization", "usage", "projects", "skills", "agents", "health", "privacy"];
 let DATA = null;
 const state = { tab: "dashboard", range: "all", sevFilter: "", projFilter: "", sessionSearch: "" };
 
@@ -1060,6 +1073,25 @@ function renderSkills() {
     el("div", { class: "scroll" }, el("table", null, [el("tbody", null, inst.agents.map(a => el("tr", null, el("td", null, a))))]))));
 }
 
+function renderAgents() {
+  const root = document.getElementById("tab-agents"); clear(root);
+  const u = DATA.usage;
+  if (!u.available) { root.appendChild(panel(t("agents.title"), t("agents.desc"), el("div", { class: "empty" }, t("na.nodata")))); return; }
+  const ad = u.agent_dispatches || { total: 0, by_agent: [], by_model: [], sidechain_records: 0 };
+  root.appendChild(el("div", { class: "grid tiles" }, [
+    tile(t("agents.total"), fmtInt(ad.total), t("agents.total.note")),
+    tile(t("agents.sidechain"), fmtInt(ad.sidechain_records), t("agents.sidechain.note")),
+  ]));
+  if (ad.total > 0) {
+    root.appendChild(el("div", { class: "two-col" }, [
+      panel(t("agents.by_agent"), t("agents.by_agent.desc"), barlist((ad.by_agent || []).map(x => ({ name: x[0], value: x[1] })), { raw: true })),
+      panel(t("agents.by_model"), t("agents.by_model.desc"), barlist((ad.by_model || []).map(x => ({ name: x[0], value: x[1] })), { raw: true })),
+    ]));
+  } else {
+    root.appendChild(panel(t("agents.title"), t("agents.desc"), el("div", { class: "empty" }, t("agents.none"))));
+  }
+}
+
 function renderHealth() {
   const root = document.getElementById("tab-health"); clear(root);
   const inst = DATA.installed, u = DATA.usage, cfg = DATA.config;
@@ -1098,7 +1130,7 @@ function renderPrivacy() {
   ])));
 }
 
-const RENDERERS = { dashboard: renderDashboard, sessions: renderSessions, analytics: renderAnalytics, optimization: renderOptimization, usage: renderUsage, projects: renderProjects, skills: renderSkills, health: renderHealth, privacy: renderPrivacy };
+const RENDERERS = { dashboard: renderDashboard, sessions: renderSessions, analytics: renderAnalytics, optimization: renderOptimization, usage: renderUsage, projects: renderProjects, skills: renderSkills, agents: renderAgents, health: renderHealth, privacy: renderPrivacy };
 
 /* ---------------- session detail modal ---------------- */
 let lastFocus = null;
