@@ -3,6 +3,38 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.4.0
+
+The website auditor. Give it a URL and it reports what is wrong with the site
+behind it, front to back: rendering, performance, accessibility, design,
+observable security posture, and, on an authorized target, what an attacker
+could actually do. The whole thing turns on one line, drawn before anything
+runs: the line between looking and touching.
+
+### Added
+
+- `website-audit` skill (`security/security-assurance/`): the method for a
+  URL-driven audit. Passive observation, loading pages, following links,
+  rendering the DOM, reading response headers, measuring performance, checking
+  accessibility, runs on any public URL, because it does nothing a normal
+  visit does not. Active testing, anything that probes for a weakness, changes
+  state, or creates an account, runs only on a target the requester owns or is
+  authorized in writing to test, delegating to `vulnerability-assessment` and
+  `authorized-pentesting`. Getting an authenticated session is the most
+  sensitive step and the human holds it: if an account must be created, the
+  audit stops, asks which email to use and whether verification is required,
+  and waits for the requester to complete it. It never automates around a
+  verification step, and never concludes a site is secure.
+- `web-auditor` agent (`agents/security/`): runs the audit, keeps passive and
+  active strictly apart, and hands every registration and verification step
+  back to the requester. It audits and reports; it does not fix.
+
+### Changed
+
+- Counts: 157 to 158 skills, 10 to 11 security skills, 2 to 3
+  security-assurance skills, 18 to 19 agents, in current-state prose.
+  Historical entries left as written.
+
 ## 3.3.0
 
 Design authenticity. There is a look a generated interface falls into when

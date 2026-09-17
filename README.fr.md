@@ -1,6 +1,6 @@
 # Craft Suite
 
-**Le métier, encodé.** 157 skills et 18 agents qui tiennent un agent à un
+**Le métier, encodé.** 158 skills et 19 agents qui tiennent un agent à un
 standard professionnel : écrire, produire des documents, construire un
 logiciel, le sécuriser, chercher, mener une recherche d'emploi, évaluer des
 opportunités, et relire son propre travail.
@@ -34,7 +34,7 @@ Markdown et du shell.
 git clone https://github.com/Handsomeboy990/craft-suite.git
 cd craft-suite
 bash install.sh              # un menu, choisissez vos arbres
-bash install.sh --all        # ou prenez les 157 et les 18 agents
+bash install.sh --all        # ou prenez les 158 et les 19 agents
 bash install.sh --configure
 ```
 
@@ -51,7 +51,7 @@ Installations ciblées : `--writing`, `--documents`, `--dev`, `--security`,
 |---|---|---|
 | `craft-writing` | romancier, scénariste, éditeur, critique, correcteur | 42 |
 | `craft-documents` | rédacteur technique, auteur de rapports, producteur de PDF | 7 |
-| `craft-engineering` | une équipe de livraison, de la spécification à la production | 75 et 18 agents |
+| `craft-engineering` | une équipe de livraison, de la spécification à la production | 75 et 19 agents |
 | `craft-security` | ingénieur défensif, et auditeur sur autorisation écrite | 10 |
 | `craft-research` | chercheur qui ne cite que ce qu'il a réellement lu | 5 |
 | `craft-career` | recherche d'emploi qui n'invente jamais une offre | 7 |
@@ -107,7 +107,7 @@ emoji, aucun tiret cadratin. Les deux sont vérifiées par
 | Options d'installation en détail | [documentation/installation.md](documentation/installation.md) |
 | Référence de configuration | [documentation/configuration.md](documentation/configuration.md) |
 | Plugins, et comment les bundles sont générés | [documentation/plugins.md](documentation/plugins.md) |
-| Les 18 agents | [documentation/agents.md](documentation/agents.md) |
+| Les 19 agents | [documentation/agents.md](documentation/agents.md) |
 | Architecture du dépôt | [documentation/architecture.md](documentation/architecture.md) |
 | Tableau de bord local d'utilisation | [control-center/README.md](control-center/README.md) |
 | Contribuer | [CONTRIBUTING.md](CONTRIBUTING.md) |

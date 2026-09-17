@@ -7,7 +7,7 @@ search**, **find and evaluate opportunities**, and **review your own work**.
 Called `claude-writer-suite` until 3.0.0, when the writing tree stopped being
 the whole of it.
 
-157 skills and 18 agents. Not prompts: numbered protocols, decision criteria,
+158 skills and 19 agents. Not prompts: numbered protocols, decision criteria,
 scoring grids and review procedures, each with a stated threshold for what
 counts as finished.
 
@@ -19,8 +19,8 @@ craft-suite/
 ├── writing/         42 creative writing skills
 ├── documents/        7 professional document skills
 ├── engineering/     75 software skills
-├── agents/          18 role definitions, repository wide
-├── security/        10 defensive security skills
+├── agents/          19 role definitions, repository wide
+├── security/        11 defensive security skills
 ├── research/         5 general research skills
 ├── career/           7 job search and application skills
 ├── opportunity/      9 ideation, hackathon and business skills
@@ -47,7 +47,7 @@ The repository separates three languages that are routinely confused.
 
 | Layer | What it is | Value |
 |---|---|---|
-| Skill language | the instructions themselves | English, all 157 skills |
+| Skill language | the instructions themselves | English, all 158 skills |
 | System language | paths, identifiers, config keys, commits | English |
 | Output language | what the reader receives | theirs, set per project |
 
@@ -118,7 +118,7 @@ verified in production.
 | [devops-skills](../engineering/devops-skills/) | 13 | how the system runs, deploys and restores |
 
 Stack and platform agnostic: the system reads the project it is given rather
-than assuming its shape. The eighteen agents are not a category of this tree:
+than assuming its shape. The nineteen agents are not a category of this tree:
 they are a repository-wide layer, at [agents](../agents/), who owns what and
 what is handed on.
 
@@ -133,7 +133,7 @@ finding by reachability and fixing what code can fix.
 | Category | Skills | Question it answers |
 |---|---|---|
 | [secure-development](../security/secure-development/) | 8 | how a system is built and hardened to resist attack |
-| [security-assurance](../security/security-assurance/) | 2 | what is wrong in a system that exists, without breaking it |
+| [security-assurance](../security/security-assurance/) | 3 | what is wrong in a system that exists, without breaking it |
 
 Two rules never bend: no offensive action without written, specific, in-scope
 authorization on record, and no audit ever concludes that a system is secure. It
@@ -210,12 +210,12 @@ novelist's toolkit, and a novelist is never given the engineering tree.
 ```
    1) Creative writing        42 skills   novels, poetry, screenplay, editing
    2) Professional documents   7 skills   guides, manuals, reports, letters, PDF
-   3) Software engineering    75 skills   plus 18 agents
+   3) Software engineering    75 skills   plus 19 agents
    4) Cybersecurity           10 skills   threat models, audits, hardening
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
-   8) Everything             157 skills   plus 18 agents
+   8) Everything             158 skills   plus 19 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -235,14 +235,14 @@ bash install.sh --configure
 ```bash
 bash install.sh --writing      42 creative writing skills
 bash install.sh --documents     7 professional document skills
-bash install.sh --dev          75 engineering skills and 18 agents
-bash install.sh --security     10 defensive security skills
+bash install.sh --dev          75 engineering skills and 19 agents
+bash install.sh --security     11 defensive security skills
 bash install.sh --research      5 general research skills
 bash install.sh --career        7 job search and application skills
 bash install.sh --opportunity   9 ideation, hackathon and business skills
 bash install.sh --all          everything
 bash install.sh --shared        the 2 cross domain skills only
-bash install.sh --agents        the 18 agents only
+bash install.sh --agents        the 19 agents only
 bash install.sh --no-agents     skills without agents
 bash install.sh --all --zip     also build one archive per skill in dist/
 bash install.sh --remove        uninstall the selected scope
@@ -444,7 +444,7 @@ the operations and shared constitutions:
 
 ## Agents
 
-Eighteen role definitions, for a runtime that supports subagents.
+Nineteen role definitions, for a runtime that supports subagents.
 
 ```
 Skill          how this kind of work is done correctly
@@ -521,7 +521,7 @@ marketplace and install only the domains they want.
 |---|---|
 | `craft-writing` | the writing tree, 42 skills |
 | `craft-documents` | the documents tree, 7 skills |
-| `craft-engineering` | the engineering tree, 75 skills and 18 agents |
+| `craft-engineering` | the engineering tree, 75 skills and 19 agents |
 | `craft-security` | the security tree, 10 skills |
 | `craft-research` | the research tree, 5 skills |
 | `craft-career` | the career tree, 7 skills |
@@ -551,7 +551,7 @@ never invented. Detail: [control-center/README.md](../control-center/README.md).
 ## Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of 157 skills
+bash tests/validate-structure.sh      structure and metadata of 158 skills
 bash tests/validate-rules.sh          emoji, em dash, secrets, hardcoded identity
 bash tests/validate-orchestration.sh  plans, phases, agents, cross references
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees
@@ -566,7 +566,7 @@ All five must pass before any commit. Detail in
 | File | Contents |
 |---|---|
 | [documentation/architecture.md](architecture.md) | organisation, skill isolation, metadata |
-| [documentation/skills-guide.md](skills-guide.md) | directory of the 157 skills |
+| [documentation/skills-guide.md](skills-guide.md) | directory of the 158 skills |
 | [documentation/installation.md](installation.md) | full and per-skill installation |
 | [documentation/configuration.md](configuration.md) | the configuration contract |
 | [documentation/agents.md](agents.md) | skill, agent, orchestration |

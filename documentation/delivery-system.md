@@ -120,7 +120,7 @@ ones, which is exactly what the gate exists to prevent.
 
 ## 8. The agents
 
-Eighteen roles, defined in `agents/`, grouped by kind of work: `core`,
+Nineteen roles, defined in `agents/`, grouped by kind of work: `core`,
 `development`, `design`, `security`, `testing`, `documentation`, `devops`. An
 agent is thin by design:
 the expertise lives in the skills, the agent decides which apply, executes
@@ -209,7 +209,7 @@ Rule: parallelise across a contract, never across an unknown.
 ## 10. Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of the 157 skills
+bash tests/validate-structure.sh      structure and metadata of the 158 skills
 bash tests/validate-rules.sh          the repository-wide prohibitions
 bash tests/validate-orchestration.sh  thirteen coherence checks
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees
@@ -228,7 +228,7 @@ The third script covers:
 7. no orphan engineering skill, absent from every plan and phase;
 8. every `depends_on` naming an existing skill, in every tree;
 9. every `Interfaces` cross reference existing, in every procedural tree;
-10. the eighteen agents, with their metadata and eight mandatory sections;
+10. the nineteen agents, with their metadata and eight mandatory sections;
 11. every skill cited by an agent existing;
 12. the document pipeline: `document-core` declared as a dependency, design
     before production;
