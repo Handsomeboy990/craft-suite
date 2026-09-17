@@ -30,12 +30,12 @@ bash install.sh
 ```
    1) Creative writing        42 skills   novels, poetry, screenplay, editing
    2) Professional documents   7 skills   guides, manuals, reports, letters, PDF
-   3) Software engineering    81 skills   plus 21 agents
+   3) Software engineering    81 skills   plus 22 agents
    4) Cybersecurity           10 skills   threat models, audits, hardening
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
-   8) Everything             165 skills   plus 21 agents
+   8) Everything             165 skills   plus 22 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -54,14 +54,14 @@ everything.
 ```bash
 bash install.sh --writing      42 creative writing skills
 bash install.sh --documents     7 professional document skills
-bash install.sh --dev          81 engineering skills and 21 agents
+bash install.sh --dev          81 engineering skills and 22 agents
 bash install.sh --security     12 defensive security skills
 bash install.sh --research      5 general research skills
 bash install.sh --career        7 job search and application skills
 bash install.sh --opportunity   9 ideation, hackathon and business skills
 bash install.sh --all          everything
 bash install.sh --shared        the 2 cross domain skills only
-bash install.sh --agents        the 21 agents only
+bash install.sh --agents        the 22 agents only
 bash install.sh --no-agents     skills without agents
 ```
 

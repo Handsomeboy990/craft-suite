@@ -125,7 +125,7 @@ ones, which is exactly what the gate exists to prevent.
 
 ## 8. The agents
 
-Twenty-one roles, defined in `agents/`, grouped by kind of work: `core`,
+Twenty-two roles, defined in `agents/`, grouped by kind of work: `core`,
 `development`, `design`, `security`, `testing`, `documentation`, `devops`. An
 agent is thin by design:
 the expertise lives in the skills, the agent decides which apply, executes
@@ -233,7 +233,7 @@ The third script covers:
 7. no orphan engineering skill, absent from every plan and phase;
 8. every `depends_on` naming an existing skill, in every tree;
 9. every `Interfaces` cross reference existing, in every procedural tree;
-10. the twenty-one agents, with their metadata and eight mandatory sections;
+10. the twenty-two agents, with their metadata and eight mandatory sections;
 11. every skill cited by an agent existing;
 12. the document pipeline: `document-core` declared as a dependency, design
     before production;

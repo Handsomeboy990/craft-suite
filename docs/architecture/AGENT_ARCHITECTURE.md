@@ -55,7 +55,7 @@ architecture named a role with no equivalent, `source of truth`, `checkup`,
 `multi-agent-assessment.md` section 3 rather than filled with a thin,
 unreviewed stand-in.
 
-## The twenty-one agents, by group
+## The twenty-two agents, by group
 
 Agents live in `agents/<group>/`, a repository-wide tree independent of any
 single skill domain, so a future agent pack, security, design, research,
@@ -66,7 +66,7 @@ installs on its own. Catalog and public contracts: `agents/README.md` and
 |---|---|---|
 | `core` | `delivery-orchestrator`, `principal-engineer`, `requirements-analyst`, `compliance-verifier`, `pr-author`, `pr-reviewer` | the project lifecycle, a multi-surface request, requirements, the launch gate, opening and reviewing pull requests |
 | `development` | `software-architect`, `frontend-engineer`, `backend-engineer`, `database-engineer`, `performance-engineer` | architecture, client and server implementation, schema, measured performance |
-| `design` | `ui-ux-engineer`, `design-verification` | the rendered experience and accessibility, generic-design detection |
+| `design` | `ui-ux-engineer`, `design-verification`, `design-research` | the rendered experience and accessibility, generic-design detection, reference research |
 | `security` | `security-engineer`, `web-auditor` | audits and fixes, URL-driven site audit |
 | `testing` | `qa-engineer`, `playwright-engineer` | test strategy, browser verification |
 | `documentation` | `documentation-engineer` | documentation matching the implementation |
