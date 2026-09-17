@@ -161,6 +161,9 @@ Depend on nothing. Callable from any tree, usable alone.
 |---|---|
 | `engineering-core` | the non-negotiable engineering rules |
 | `engineering-orchestrator` | classifies a task and composes the smallest complete plan |
+| `task-complexity` | one complexity classification, read by every routing decision |
+| `model-routing` | model tier, and effort where a lever exists, from that classification |
+| `token-optimization` | context and output proportional to the task, during the work |
 | `project-exploration` | maps an unfamiliar codebase before any change |
 | `architecture-design` | the smallest architecture that serves the product |
 | `ui-ux-engineering` | the rendered experience, states, accessibility |
@@ -353,6 +356,7 @@ Every other skill declares its dependencies in `depends_on` and in its README.
 | `deployment-engineering` | `engineering.deployment_platform`, `delegation.deployments` |
 | `database-operations` | `delegation.database_operations` |
 | `dependency-selection` | `engineering.package_manager`, `delegation.dependency_changes` |
+| `model-routing` | `model_routing.fast`, `model_routing.balanced`, `model_routing.strongest` |
 | `technical-documentation`, `technical-writing` | `language.documentation` |
 | the `writing/` tree | `language.creative_output` |
 | the `documents/` tree | `language.document_output`, `identity.organization`, `documents.*` |

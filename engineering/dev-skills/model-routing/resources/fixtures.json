@@ -1,0 +1,106 @@
+{
+  "_comment": "Deterministic routing fixtures. tests/validate-model-routing.sh checks each against tier-table.json with no live model call. Scope: this file tests model and effort routing only. Agent failure, retry limits, circular delegation, missing connector or dependency, and final verification outcomes are orchestration-safety and verification scenarios that belong to engineering-orchestrator's anti-loop rules and to the final-verifier agent; they are not fabricated here before those systems exist.",
+  "base_tier_fixtures": [
+    {
+      "id": "trivial-typo",
+      "description": "Fix a typo in a log message.",
+      "complexity": "TRIVIAL",
+      "driving_signal": "none in particular",
+      "override": null,
+      "expected_model_tier": "fast",
+      "expected_effort": "low"
+    },
+    {
+      "id": "low-missing-index",
+      "description": "Add a missing index on a read-heavy column.",
+      "complexity": "LOW",
+      "driving_signal": "production_impact and testing",
+      "override": null,
+      "expected_model_tier": "fast",
+      "expected_effort": "low"
+    },
+    {
+      "id": "medium-resend-invitation",
+      "description": "Add a resend-invitation action to an existing feature.",
+      "complexity": "MEDIUM",
+      "driving_signal": "several signals converge, none dominates",
+      "override": null,
+      "expected_model_tier": "balanced",
+      "expected_effort": "medium"
+    },
+    {
+      "id": "high-breadth-rename",
+      "description": "Rename a widely used utility function across three services.",
+      "complexity": "HIGH",
+      "driving_signal": "files and systems touched",
+      "override": null,
+      "expected_model_tier": "strongest",
+      "expected_effort": "high"
+    },
+    {
+      "id": "critical-double-charge",
+      "description": "Discount code applies twice on a slow network at checkout.",
+      "complexity": "CRITICAL",
+      "driving_signal": "security sensitivity, payments",
+      "override": null,
+      "expected_model_tier": "strongest",
+      "expected_effort": "max"
+    }
+  ],
+  "override_fixtures": [
+    {
+      "id": "override-security-on-medium",
+      "description": "A MEDIUM task touching authorization logic in a login flow.",
+      "complexity": "MEDIUM",
+      "driving_signal": "authorization logic in an authentication flow",
+      "override": "security-driving-signal",
+      "expected_model_tier": "strongest",
+      "expected_effort": "max"
+    },
+    {
+      "id": "override-novelty-on-low",
+      "description": "A LOW-breadth task with no precedent anywhere in the codebase or its history.",
+      "complexity": "LOW",
+      "driving_signal": "genuine novelty, no comparable prior art",
+      "override": "genuine-novelty",
+      "expected_model_tier": "balanced",
+      "expected_effort": "low"
+    },
+    {
+      "id": "override-repeated-pattern-on-medium",
+      "description": "The third occurrence of a pattern already solved correctly earlier in the same session.",
+      "complexity": "MEDIUM",
+      "driving_signal": "repeats an already-solved pattern, no new risk",
+      "override": "repeated-solved-pattern",
+      "expected_model_tier": "fast",
+      "expected_effort": "medium"
+    },
+    {
+      "id": "override-large-mechanical-on-high",
+      "description": "A HIGH-by-breadth bulk file generation with no judgment calls inside it.",
+      "complexity": "HIGH",
+      "driving_signal": "large mechanical output, no judgment calls",
+      "override": "large-mechanical-output",
+      "expected_model_tier": "balanced",
+      "expected_effort": "high"
+    }
+  ],
+  "transition_fixtures": [
+    {
+      "id": "escalation-idor-discovered",
+      "description": "A FRONTEND task reclassified after exploration reveals the endpoint it calls has no ownership check.",
+      "prior": { "complexity": "MEDIUM", "model_tier": "balanced", "effort": "medium" },
+      "new": { "complexity": "CRITICAL", "model_tier": "strongest", "effort": "max" },
+      "reason": "task-complexity signal 4 revised: the endpoint returns another user's data with a forged id",
+      "direction": "escalation"
+    },
+    {
+      "id": "de-escalation-after-decomposition",
+      "description": "A HIGH-by-breadth rename decomposed into three per-service LOW tasks, none carrying a risk signal.",
+      "prior": { "complexity": "HIGH", "model_tier": "strongest", "effort": "high" },
+      "new": { "complexity": "LOW", "model_tier": "fast", "effort": "low" },
+      "reason": "task-complexity section 6: breadth-driven HIGH decomposed, each part re-classified on its own with no risk signal",
+      "direction": "de-escalation"
+    }
+  ]
+}
