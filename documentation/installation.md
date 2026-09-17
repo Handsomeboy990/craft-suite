@@ -195,6 +195,8 @@ yourself and run `install.sh` from inside it.
 bash tests/validate-structure.sh
 bash tests/validate-rules.sh
 bash tests/validate-orchestration.sh
+bash tests/validate-plugins.sh
+bash tests/validate-model-routing.sh
 ```
 
 The installer runs the first one itself and refuses to install a repository
@@ -273,7 +275,7 @@ can be removed deliberately.
 ## Verifying the installation
 
 ```bash
-ls ~/.claude/skills | wc -l      # 44 writing, 9 documents, 72 dev, 152 all
+ls ~/.claude/skills | wc -l      # 44 writing, 9 documents, 75 dev, 155 all
 ls ~/.claude/agents | wc -l      # 16, with the engineering tree
 cat ~/.claude/craft.config.yaml
 ```

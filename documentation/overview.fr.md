@@ -29,7 +29,7 @@ craft-suite/
 ├── control-center/   tableau de bord local optionnel, sans dépendance
 ├── plugins/          bundles de plugins par domaine, générés depuis les arbres
 ├── documentation/    documentation technique des arbres
-└── tests/            quatre scripts de validation
+└── tests/            cinq scripts de validation
 ```
 
 ## Raison d'être
@@ -120,10 +120,11 @@ en production.
 | [dev-skills](../engineering/dev-skills/) | 50 | comment une modification est faite correctement |
 | [delivery-skills](../engineering/delivery-skills/) | 10 | quoi construire, dans quel ordre, avec quelle approbation |
 | [devops-skills](../engineering/devops-skills/) | 13 | comment le système tourne, se déploie et se restaure |
-| [agents](../agents/) | 16 | qui possède quoi, et ce qui est transmis |
 
 Agnostique de la pile et de la plateforme : le système lit le projet qu'on lui
-confie plutôt que d'en présupposer la forme.
+confie plutôt que d'en présupposer la forme. Les seize agents ne sont pas une
+catégorie de cet arbre : ils forment une couche transversale au dépôt, dans
+[agents](../agents/), qui possède quoi et ce qui est transmis.
 
 Index : [engineering/README.md](../engineering/README.md).
 
@@ -568,9 +569,10 @@ bash tests/validate-structure.sh      structure et métadonnées des 155 skills
 bash tests/validate-rules.sh          emoji, tiret cadratin, secrets, identité codée en dur
 bash tests/validate-orchestration.sh  plans, phases, agents, renvois croisés
 bash tests/validate-plugins.sh        bundles de plugins synchronisés avec les arbres
+bash tests/validate-model-routing.sh  fixtures de routage contre la table de tiers
 ```
 
-Les quatre doivent passer avant tout commit. Détail dans
+Les cinq doivent passer avant tout commit. Détail dans
 [tests/README.md](../tests/README.md).
 
 ## Documentation
@@ -614,7 +616,7 @@ dans [.github/CODEOWNERS](../.github/CODEOWNERS).
 Ajouter un skill suppose : créer le dossier avec ses quatre éléments, déclarer
 les métadonnées, renvoyer à la constitution de son arbre sans la recopier,
 ajouter au moins un exemple et une ressource, mettre à jour l'index de
-catégorie et `documentation/skills-guide.md`, puis exécuter les quatre scripts.
+catégorie et `documentation/skills-guide.md`, puis exécuter les cinq scripts.
 
 Règles complètes : [CONTRIBUTING.md](../CONTRIBUTING.md). Règles de branche et
 leur mise en place :

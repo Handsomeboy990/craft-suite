@@ -211,6 +211,8 @@ Rule: parallelise across a contract, never across an unknown.
 bash tests/validate-structure.sh      structure and metadata of the 155 skills
 bash tests/validate-rules.sh          the repository-wide prohibitions
 bash tests/validate-orchestration.sh  thirteen coherence checks
+bash tests/validate-plugins.sh        plugin bundles in sync with the trees
+bash tests/validate-model-routing.sh  routing fixtures against the tier table
 ```
 
 The third script covers:
@@ -245,7 +247,7 @@ Adding a delivery or operations skill:
 5. add it to at least one execution plan or delivery phase, or check 7 reports
    it as an orphan;
 6. update its category index, `skills-guide.md` and this file;
-7. run the four validation scripts.
+7. run the five validation scripts.
 
 Adding an agent: the file in `agents/<group>/`, the eight mandatory
 sections, an entry in `agents/README.md`, and its name added to

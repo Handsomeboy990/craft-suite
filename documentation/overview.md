@@ -28,7 +28,7 @@ craft-suite/
 ├── control-center/   optional local dashboard, zero dependency
 ├── plugins/          per-domain plugin bundles, generated from the trees
 ├── documentation/    technical documentation of the trees
-└── tests/            four validation scripts
+└── tests/            five validation scripts
 ```
 
 ## Why it exists
@@ -116,10 +116,11 @@ verified in production.
 | [dev-skills](../engineering/dev-skills/) | 50 | how a change is made correctly |
 | [delivery-skills](../engineering/delivery-skills/) | 10 | what to build, in what order, with what approval |
 | [devops-skills](../engineering/devops-skills/) | 13 | how the system runs, deploys and restores |
-| [agents](../agents/) | 16 | who owns what, and what is handed on |
 
 Stack and platform agnostic: the system reads the project it is given rather
-than assuming its shape.
+than assuming its shape. The sixteen agents are not a category of this tree:
+they are a repository-wide layer, at [agents](../agents/), who owns what and
+what is handed on.
 
 Index: [engineering/README.md](../engineering/README.md).
 
@@ -554,9 +555,10 @@ bash tests/validate-structure.sh      structure and metadata of 155 skills
 bash tests/validate-rules.sh          emoji, em dash, secrets, hardcoded identity
 bash tests/validate-orchestration.sh  plans, phases, agents, cross references
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees
+bash tests/validate-model-routing.sh  routing fixtures against the tier table
 ```
 
-All four must pass before any commit. Detail in
+All five must pass before any commit. Detail in
 [tests/README.md](../tests/README.md).
 
 ## Documentation
@@ -597,7 +599,7 @@ opened by a maintainer. Both branches require a pull request, a green
 Adding a skill: create the directory with its four elements, declare the
 metadata, refer to the constitution of its tree without restating it, add at
 least one example and one resource, update the category index and
-`documentation/skills-guide.md`, then run the four scripts.
+`documentation/skills-guide.md`, then run the five scripts.
 
 Full rules: [CONTRIBUTING.md](../CONTRIBUTING.md). Branch rules and their setup:
 [documentation/branch-protection.md](branch-protection.md).

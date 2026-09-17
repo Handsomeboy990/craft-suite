@@ -9,7 +9,7 @@ belong here.
 1. Read `README.md`.
 2. Read the constitution of the tree you are touching.
 3. Read `documentation/architecture.md`.
-4. Run the four validation scripts and confirm they pass on a clean
+4. Run the five validation scripts and confirm they pass on a clean
    checkout.
 
 ```bash
@@ -17,6 +17,7 @@ bash tests/validate-structure.sh
 bash tests/validate-rules.sh
 bash tests/validate-orchestration.sh
 bash tests/validate-plugins.sh
+bash tests/validate-model-routing.sh
 ```
 
 ## Branches
@@ -63,7 +64,7 @@ owner. Owners are listed in `.github/CODEOWNERS`.
 
 A pull request is mergeable when:
 
-- the `validate` workflow is green, meaning all four scripts pass;
+- the `validate` workflow is green, meaning all five scripts pass;
 - a code owner has approved it;
 - every conversation is resolved;
 - the branch is up to date with its base.
@@ -208,14 +209,14 @@ rotation.
 ## Before opening a pull request
 
 - [ ] The base branch is `dev`.
-- [ ] The four validation scripts pass.
+- [ ] The five validation scripts pass.
 - [ ] The staged diff was read in full.
 - [ ] No secret, no `.env`, no local configuration.
 - [ ] No emoji, no em dash, in any file.
 - [ ] Every new skill has its four elements and its metadata.
 - [ ] Every index and `skills-guide.md` list the new skill.
 - [ ] `README.md` and `README.fr.md` still say the same thing.
-- [ ] Counts are correct wherever they appear: 152 skills, 16 agents.
+- [ ] Counts are correct wherever they appear: 155 skills, 16 agents.
 - [ ] `CHANGELOG.md` has an entry.
 - [ ] `CONTINUITY.md` reflects the new state if the change is structural.
 
@@ -223,7 +224,7 @@ rotation.
 
 `.github/pull_request_template.md` fills itself in when you open one. Summary,
 what changed and why. Implementation, including what was rejected. Validation,
-the last line of each of the four scripts. Risks, what could break and how it
+the last line of each of the five scripts. Risks, what could break and how it
 would show. Follow up, named, with why it was not done here.
 
 Remove the sections that do not apply rather than filling them with none.

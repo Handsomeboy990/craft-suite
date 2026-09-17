@@ -34,7 +34,7 @@ Markdown et du shell.
 git clone https://github.com/Handsomeboy990/craft-suite.git
 cd craft-suite
 bash install.sh              # un menu, choisissez vos arbres
-bash install.sh --all        # ou prenez les 152 et les 16 agents
+bash install.sh --all        # ou prenez les 155 et les 16 agents
 bash install.sh --configure
 ```
 

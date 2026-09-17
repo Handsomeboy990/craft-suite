@@ -225,7 +225,7 @@ prepares and hands over. Everything handed over is written to
 
 ## Tests
 
-`tests/` holds four scripts with no external dependency.
+`tests/` holds five scripts with no external dependency beyond `python3`.
 
 - `validate-structure.sh`: the mandatory files and directories of every skill,
   the metadata block, duplicate skill names, the `Protocol` and `Interfaces`
@@ -238,13 +238,17 @@ prepares and hands over. Everything handed over is written to
   execution plans, delivery phases, mandatory gates, routing scenarios,
   declared dependencies across every tree, `Interfaces` cross references, agent
   definitions, the document pipeline, and the independence of `shared/`.
+- `validate-plugins.sh`: the per-domain plugin bundles stay in sync with the
+  trees, and the marketplace and manifests are well formed.
+- `validate-model-routing.sh`: the `model-routing` skill's fixtures match its
+  own tier table, with no live model call.
 
 ## Extending
 
 Adding a skill: create the directory with its four elements, declare the
 metadata, refer to the constitution of its tree without restating it, add at
 least one example and one resource, update the category index and
-`skills-guide.md`, then run the four scripts.
+`skills-guide.md`, then run the five scripts.
 
 For a skill in `documents/`, `engineering/` or `shared/`, four further
 requirements: a numbered `Protocol` section, an `Interfaces` section, and for

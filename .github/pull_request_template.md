@@ -25,7 +25,7 @@ bash tests/validate-orchestration.sh
 ## Checklist
 
 - [ ] Base branch is `dev`.
-- [ ] The four validation scripts pass.
+- [ ] The five validation scripts pass.
 - [ ] The staged diff was read in full.
 - [ ] No secret, no `.env`, no local agent configuration.
 - [ ] No emoji, no em dash, in any file.

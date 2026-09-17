@@ -13,7 +13,7 @@ are ignored. See `Why this file exists` at the end.
 
 ## What this repository is
 
-Craft Suite: 152 skills and 16 agents, in eight trees. Named
+Craft Suite: 155 skills and 16 agents, in eight trees. Named
 `claude-writer-suite` until 3.0.0, when the writing tree stopped being the
 whole of it.
 
@@ -22,7 +22,8 @@ whole of it.
 | `shared/` | 2 cross domain skills | none, they depend on nothing |
 | `writing/` | 42 creative writing skills | `writing/core/writing-constitution` |
 | `documents/` | 7 professional document skills | `documents/documentation/document-core` |
-| `engineering/` | 70 software skills, 16 agents | `engineering/dev-skills/engineering-core` and `engineering/devops-skills/devops-core` |
+| `engineering/` | 73 software skills | `engineering/dev-skills/engineering-core` and `engineering/devops-skills/devops-core` |
+| `agents/` | 16 role definitions, repository wide | none, defined once per role |
 | `security/` | 10 defensive security skills | `security/secure-development/security-core` |
 | `research/` | 5 general research skills | `research/research-core` |
 | `career/` | 7 job search and application skills | `career/career-core` |
@@ -82,7 +83,7 @@ skill. Never run a whole chain by reflex: compose the smallest complete plan.
 
 1. No emoji, in any file or any output.
 2. No em dash. The en dash is for dialogue only.
-3. Skill language is English, for all 152 skills and all 16 agents. Output
+3. Skill language is English, for all 155 skills and all 16 agents. Output
    language is the recipient's, set in the configuration. The three layers are
    defined in `documentation/configuration.md`.
 4. Commits are atomic, in English, with no mention of an AI, an assistant or
@@ -113,7 +114,7 @@ Before any modification:
 3. Check consistency with `documentation/architecture.md`, and with the
    system document for the tree: `documents-system.md`,
    `engineering-system.md`, `delivery-system.md`.
-4. Run the four scripts in `tests/`. If you changed a skill tree, run
+4. Run the five scripts in `tests/`. If you changed a skill tree, run
    `bash plugins/build.sh` so the plugin bundles stay in sync.
 5. Commit atomically, in English.
 

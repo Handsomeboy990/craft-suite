@@ -1,4 +1,4 @@
-# Runs the three validation scripts on every pull request into dev and main.
+# Runs the five validation scripts on every pull request into dev and main.
 #
 # Its purpose is to be a required status check. Branch protection that only
 # requires a review lets a broken change through whenever the reviewer is
@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   validate:
-    name: structure, rules, orchestration, plugins
+    name: structure, rules, orchestration, plugins, model routing
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,6 +33,9 @@ jobs:
 
       - name: Plugin bundles in sync with the trees
         run: bash tests/validate-plugins.sh
+
+      - name: Model routing fixtures match the routing table
+        run: bash tests/validate-model-routing.sh
 
       - name: Control Center parses, runs and passes its advisor tests
         run: |

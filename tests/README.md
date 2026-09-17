@@ -1,12 +1,14 @@
 # tests
 
-Four scripts, no external dependency. All four must pass before any commit.
+Five scripts, no external dependency beyond `python3`. All five must pass
+before any commit.
 
 ```bash
 bash tests/validate-structure.sh
 bash tests/validate-rules.sh
 bash tests/validate-orchestration.sh
 bash tests/validate-plugins.sh
+bash tests/validate-model-routing.sh
 ```
 
 `install.sh` runs the first one itself and refuses to install a repository
@@ -14,7 +16,7 @@ that does not pass it.
 
 ## validate-structure.sh
 
-Verifies the mandatory shape of all 152 skills across the eight trees.
+Verifies the mandatory shape of all 155 skills across the eight trees.
 
 Per skill:
 
@@ -106,9 +108,24 @@ Check 3 is the one that catches drift: add a skill to a tree and forget to run
 `bash plugins/build.sh`, and this fails, naming the domain to rebuild. The trees
 are the source of truth; the bundles are generated from them.
 
+## validate-model-routing.sh
+
+Checks the `model-routing` skill's fixtures against its own tier table, with
+no live model call, per its `resources/fixtures.json` and
+`resources/tier-table.json`.
+
+| Check | What it verifies |
+|---|---|
+| 1 | each base tier fixture's expected model and effort match the table |
+| 2 | each override fixture references a real, declared override condition |
+| 3 | each escalation or de-escalation fixture carries a reason and an actual tier change in the stated direction |
+
+Requires only `python3`, reads two JSON files and asserts, no live model call
+and no network access.
+
 ## Adding a skill
 
-The four scripts are the acceptance criteria. A new skill passes when:
+The five scripts are the acceptance criteria. A new skill passes when:
 
 1. it has the four mandatory elements;
 2. its metadata matches its directory and its group;
@@ -128,5 +145,5 @@ the same change as the file.
 
 ## After moving anything
 
-Run all four. Some of them resolve paths and fail cleanly by naming what is
+Run all five. Some of them resolve paths and fail cleanly by naming what is
 missing.

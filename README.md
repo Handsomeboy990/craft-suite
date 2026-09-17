@@ -33,7 +33,7 @@ is Markdown and shell.
 git clone https://github.com/Handsomeboy990/craft-suite.git
 cd craft-suite
 bash install.sh              # a menu, pick the trees you want
-bash install.sh --all        # or take all 152 and the 16 agents
+bash install.sh --all        # or take all 155 and the 16 agents
 bash install.sh --configure
 ```
 

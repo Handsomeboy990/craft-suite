@@ -184,7 +184,7 @@ None is required. Field reference in `config/README.md`.
 
 ## 8. Verification
 
-The four scripts cover this tree as they cover the others.
+The five scripts cover this tree as they cover the others.
 
 - `validate-structure.sh`: the four mandatory files, the metadata block, a
   numbered `Protocol` section and an `Interfaces` section, since this is a
@@ -207,7 +207,7 @@ The four scripts cover this tree as they cover the others.
    rule or the gate.
 6. Add it to `documents/README.md` and to the category index.
 7. Add it to `documentation/skills-guide.md`.
-8. Run the four scripts.
+8. Run the five scripts.
 
 The first step is the one that keeps the tree small. Seven skills cover the
 document types listed in this file because they are separated by reader rather
