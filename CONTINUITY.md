@@ -264,11 +264,31 @@ Session 13, the pull request roles, version 3.6.0:
   reviewing a request it authored. No new skill: both cite existing skills.
 - Counts 19 to 21 agents (core group 4 to 6). Branched fresh from `dev`.
 
+Session 14, the roadmap and the animation skill, version 3.7.0:
+
+- `docs/ROADMAP.md` written, then turned into a tickable checklist, with a
+  design-and-animation phase added.
+- `animation` skill (`engineering/dev-skills/`): the technique ladder from a
+  CSS transition to a WebGL shader, compositor-cheap properties, chosen
+  easing, and `prefers-reduced-motion` as a hard requirement. Taught in part
+  from a real reference analysis of `pear.no`, read from its public page and
+  bundle: React and Vite, a bespoke OGL shader layer, scroll-linked transform
+  motion, masked reveals, custom easing, reduced motion in both CSS and JS,
+  on a Flecha and GT Standard typographic foundation, the opposite of the
+  generic defaults `design-authenticity` flags. Principles extracted, never
+  the code. Wired into the FRONTEND, UI_UX and DESIGN_SYSTEM plans.
+- Counts 159 to 160 skills, 51 to 52 dev-skills, 76 to 77 engineering. Fixed
+  the architecture tree's devops subtree, still reading thirteen since
+  workflow-automation, to fourteen.
+- Still to do from the roadmap's animation phase: the `design-research` agent,
+  and exercising the frontend agents on a real motion task (needs a target
+  web project).
+
 ## Current state
 
 Working today:
 
-- the five scripts pass: 159 skills, 0 errors, 1 pre-existing warning on a
+- the five scripts pass: 160 skills, 0 errors, 1 pre-existing warning on a
   deliberate typographic counter-example;
 - `install.sh` works in every mode, including the four new scopes, verified
   against a sandbox target through `CLAUDE_SKILLS_DIR`;
