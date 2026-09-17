@@ -58,7 +58,7 @@ Deferred by the same scoping conversation, not by oversight discovered later.
 | A dedicated `model-router` agent | `model-routing` exists today as a skill, consulted by every orchestrator; whether a thin agent wrapper adds anything beyond that skill is a design question worth its own review, not a rubber stamp added to hit a section count |
 | `pentester`, `design-research`, `design-verification`, `reproduction`, `research`, `compliance` agents | each requires the same care as the three above, and several depend on tooling (a Playwright-capable environment, an authorized target) that is a precondition, not a file to write |
 | Installer per-agent-group selection | today's installer installs all sixteen agents together or none; splitting by group is an installer change, not an architecture change, and belongs with the agents that would make the split meaningful |
-| Control Center agent-orchestration and model-and-token sections | see section 5: the transcripts this session inspected recorded zero subagent dispatches, so there is no real data to display yet |
+| Control Center agent-orchestration and model-and-token sections | superseded, see section 9: the collector now exists and the data is real. Only the browser panel remains |
 
 ## 4. The capability that does not exist as originally specified
 
@@ -147,3 +147,102 @@ rather than correct an error.
 6. Every numeric count in prose, 152 to 155 skills, four to five scripts,
    swept repository-wide and verified by grep to have no remaining stale
    occurrence outside a dated historical record.
+
+## 9. The first real run of the agent layer
+
+Everything in sections 1 through 8 was architecture. This section is what
+happened when the architecture was executed on a real task for the first
+time: building the Control Center's agent-dispatch telemetry collector,
+dispatched across three agents. It is recorded here because the failures are
+more useful than the successes.
+
+### What the design got right
+
+**The classification's asymmetry earned its keep immediately.** The task
+rated LOW or TRIVIAL on ten of eleven signals and MEDIUM on one, sensitive
+data exposure, because a Task tool_use block's input carries the dispatching
+prompt, which can hold a credential. Under an averaging rule the task would
+have classified LOW, no security review would have been dispatched, and the
+defect described below would have shipped. `task-complexity` section 4's
+highest-signal-wins rule exists for exactly this shape, and this is the first
+case where it was load-bearing rather than theoretical.
+
+**Differential routing inside one task was real, not decorative.** Three
+dispatches, three different decisions: implementation at the balanced tier,
+security review escalated to the strongest tier by the section 5 security
+override, quality review at balanced. The requested model is recorded in the
+transcript, so this is measurable after the fact rather than self-reported;
+the report now shows `by model: sonnet 2, opus 1, default 1`.
+
+**Independent review found what self-review had missed.** The implementing
+agent verified its own work honestly and its claims were true as far as they
+went. The two reviewers, reading the same code with different remits, found
+seven security findings and three test-suite defects between them, including
+two that matter:
+
+```
+the privacy boundary was bypassable   a non-string subagent_type was passed
+                                      through str(), which renders a nested
+                                      object whole, re-importing the prompt
+                                      field the collector deliberately never
+                                      reads
+
+one metric could only ever be zero    the sidechain scan used a two-level
+                                      glob; subagent transcripts live one
+                                      level deeper, so the report printed
+                                      "none recorded" over hundreds of
+                                      unread records
+```
+
+Both were invisible to the implementer, who had tested the boundary and seen
+it hold, because both tests and implementation shared the same blind spot.
+The quality reviewer separately found a `check(..., True)` assertion that
+could never fail, inflating the reported pass count while claiming coverage
+its scenario did not provide.
+
+### What the design got wrong, and it was the orchestrator
+
+The two reviewers were dispatched **in parallel, both with authority to
+modify the same two files**. `delivery-orchestrator` section 6 already states
+the rule this violates: parallelise across a contract, never across an
+unknown. Two review-and-fix agents sharing a write surface have no contract
+between them. The quality reviewer detected the concurrent edits mid-review,
+moved its mutation testing into an isolated copy, re-diffed before finishing,
+and disclosed the episode in its `Known issues` rather than asserting that
+nothing was lost. No work was lost, as far as anyone can establish, but that
+outcome was owed to one agent's discipline, not to the orchestration.
+
+The rule existed and was still violated, which means the rule was not
+operational. Section 6 spoke of contracts without saying what a contract is
+between two reviewers. The correction is in `ORCHESTRATION.md` and in
+`delivery-orchestrator` section 6: parallel agents sharing a file surface are
+read-only, or they are sequenced.
+
+### The honest cost
+
+```
+implementation     roughly 96,000 tokens, 10 minutes
+security review    roughly 138,000 tokens, 21 minutes
+quality review     roughly 142,000 tokens, 15 minutes
+```
+
+Roughly 376,000 tokens and three quarters of an hour, for a collector of a
+few hundred lines. A single context would have produced something that ran.
+It would not plausibly have produced the two-level glob finding, which
+required someone to go looking for the files the scan could not see rather
+than trusting a zero, nor the `str()` finding, which required constructing a
+hostile transcript rather than a well formed one. Whether that trade is worth
+making is a judgement per task, which is precisely what `task-complexity` and
+`model-routing` exist to make deliberately rather than by habit. On a
+TRIVIAL or LOW task it would plainly not be worth it, and the routing table
+says so.
+
+### What was corrected in the suite as a result
+
+- The parallelisation rule, made operational rather than aspirational.
+- Two documents in this repository that stated an unlooked-for zero as a
+  measurement, `TOKEN_OPTIMIZATION.md` and this one. The same two-level glob
+  mistake that the security review found in the collector had already been
+  made in this repository's own prose, by the same reasoning, and was
+  repeated because nobody checked whether the scan could see what it claimed
+  to have counted.

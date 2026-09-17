@@ -63,20 +63,33 @@ Real today, per `docs/control-center-evolution.md`: four token components
 optimization score, and evidence-based findings across the seven patterns
 above, all read from actual transcripts, nothing invented.
 
-Not available today, named as such rather than estimated: agent-level usage,
-which agent ran and how often. This session's own transcripts were checked
-directly: 254 transcript files, 31,606 records, zero `Task` or `Agent` tool
-invocations recorded, zero sidechains. The reason is observable, not a
-missing feature: this suite's agents have not yet been dispatched as
-subagents in a way this environment's transcripts capture. When they are,
-`reader.py` gains a new collector for agent dispatch, `advisor.py` gains a
-detection function for agent-level waste (an agent invoked when a lighter
-skill would have done, a model tier that never should have been requested
-for the classification it received), and the Control Center's Agent
-Orchestration and Model and Token Optimization sections, requested
-explicitly, become real rather than placeholders. Building those sections
-against zero real events would violate the same rule this document has
-followed throughout: never display a fabricated statistic.
+Agent-level usage is collected as of the phase that followed this document's
+first draft: `reader.py` counts agent dispatches by agent and by requested
+model, plus the sidechain records that are the evidence dispatched work
+actually produced messages. `collect()` exposes it, and the text report shows
+it; the browser dashboard does not render it yet, so it is reachable through
+`--json`, `/api/data` and `install.sh --report` only.
+
+**A correction worth keeping, because the mistake is instructive.** This
+document first stated that the transcripts held "zero `Task` or `Agent` tool
+invocations, zero sidechains", from a direct scan of 254 files and 31,606
+records. The first half was true at the time. The second half was not a
+measurement at all: the scan used a two-level glob, `projects/*/*.jsonl`, and
+a dispatched agent writes its own transcript one level deeper, under
+`projects/<project>/<sessionId>/subagents/`. The glob could not see a single
+one of those files. A security review of the collector found the same blind
+spot in the collector's own scan, where it mattered more: the report printed
+`Sidechain records  none recorded` while hundreds of records sat on disk
+unread. An unlooked-for zero is not a measured zero, and presenting one as
+the other is the fabricated statistic this suite's rules forbid. The
+collector now scans both locations; this document no longer states a figure
+it did not actually measure.
+
+Still not built, and named as such: the browser dashboard panel, and an
+`advisor.py` detection function for agent-level waste (an agent invoked where
+a lighter skill would have done, a model tier stronger than the
+classification justified). Both are now buildable, because the data behind
+them exists.
 
 ## The seam, stated once
 
