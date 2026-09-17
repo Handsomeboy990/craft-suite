@@ -1,6 +1,6 @@
 # Skills guide
 
-Directory of the 160 skills. One line each: what it does, and when to open it.
+Directory of the 163 skills. One line each: what it does, and when to open it.
 
 Every skill's own `README.md` carries its inputs, outputs, dependencies and
 configuration in four lines. This file is the index; the READMEs are the
@@ -18,6 +18,9 @@ contracts.
 | I want the defects tests do not find | `exploratory-testing`, `bug-hunting` |
 | Someone asked whether it is accessible | `accessibility-testing` |
 | I am authorised to test the security of a running system | `security-testing` |
+| Users are hammering my login or my forms | `rate-limiting` |
+| I need HTTPS, or a certificate is about to expire | `tls-certificates` |
+| I am building an admin panel or back-office | `admin-console` |
 | I want to know what happens when a provider fails | `reliability-testing` |
 | I have findings and need a report | `test-reporting` |
 | I am designing an endpoint anyone else will call | `api-design` |
@@ -158,9 +161,9 @@ Depend on nothing. Callable from any tree, usable alone.
 | `document-design` | publishing | hierarchy, typography, tables, page furniture, metadata |
 | `pdf-production` | publishing | engine selection, generation, render verification |
 
-## engineering, 77 skills
+## engineering, 79 skills
 
-### dev-skills, 52
+### dev-skills, 53
 
 | Skill | What it does |
 |---|---|
@@ -207,6 +210,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `data-privacy` | what is held, for how long, and deletion that works |
 | `analytics-instrumentation` | events designed from the questions they answer |
 | `feature-flags` | flag types, rollout, stale detection, removal |
+| `admin-console` | the privileged back-office: least-privilege roles, audit log, server-side authz |
 | `quality-engineering` | coordinates a whole quality campaign and its verdict |
 | `api-testing` | an HTTP surface against its contract, past the 200 |
 | `exploratory-testing` | designed exploration under a charter and a time box |
@@ -233,7 +237,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `launch-readiness` | the completeness gate for a user-facing web product before launch |
 | `client-handover` | the delivery package another team can take over |
 
-### devops-skills, 14
+### devops-skills, 15
 
 | Skill | What it does |
 |---|---|
@@ -251,6 +255,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `infrastructure-as-code` | infrastructure in code, state, plans, drift |
 | `incident-response` | declaration to postmortem, mitigation before diagnosis |
 | `workflow-automation` | opt-in workflows through an external engine like n8n, connector never invented |
+| `tls-certificates` | the TLS certificate over its whole life, key never leaked |
 
 ### agents, 16
 
@@ -264,9 +269,9 @@ Depend on nothing. Callable from any tree, usable alone.
 Public contracts in `agents.md`. An agent is a role: it names the skills it
 uses and restates none of them.
 
-## security, 11 skills
+## security, 12 skills
 
-### secure-development, 8
+### secure-development, 9
 
 - `security-core`: constitution. Defensive posture, the authorization boundary,
   the severity scale, the evidence rule, fix-and-verify. Depends on nothing.
@@ -283,6 +288,8 @@ uses and restates none of them.
   safe upgrades, typosquatting.
 - `security-headers`: CSP, HSTS, CORS and the browser hardening headers,
   verified on the live response.
+- `rate-limiting`: a limit per endpoint by the cost of abuse, keyed unforgeably
+  by IP or user, over the real control not instead of it.
 
 ### security-assurance, 3
 

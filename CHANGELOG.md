@@ -3,6 +3,41 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.8.0
+
+Roadmap Phase 1: the three skills the original brief named and never got built
+in their own right. Each was only covered in pieces inside other skills; now
+each is owned.
+
+### Added
+
+- `rate-limiting` skill (`security/secure-development/`): a limit per endpoint
+  by what abuse of it costs, not one number everywhere. Login, one-time codes
+  and password reset tighter than a read; uploads, search and expensive
+  operations by resource cost; keyed by IP, by user, or by both, unforgeable
+  behind a proxy; the right algorithm; a shared store when more than one
+  instance serves, or the real limit is a fraction of the stated one. Returns
+  429 with Retry-After, leaks no account existence, and sits over the real
+  control, not instead of it.
+- `tls-certificates` skill (`engineering/devops-skills/`): the certificate over
+  its whole life, obtaining, installing on the terminating layer, enforcing
+  HTTPS with a redirect and HSTS, renewing automatically with margin and
+  proving the renewal ran once, monitoring the expiry from outside on every
+  hostname, and keeping the private key out of the repository, the logs and
+  the image layers. Wired into delivery phase 09.
+- `admin-console` skill (`engineering/dev-skills/`): the privileged back-office
+  built as the highest-value target it is. Least-privilege roles rather than
+  one god role, authorization on the server at the object level, an
+  append-only audit log of who did what to whom, no secret rendered in the
+  interface, hardened access, and operational controls that are themselves
+  audited privileged actions. Wired into the FULLSTACK plan.
+
+### Changed
+
+- Counts: 160 to 163 skills, 11 to 12 security, 8 to 9 secure-development, 14
+  to 15 devops-skills, 52 to 53 dev-skills, 77 to 79 engineering. Historical
+  entries left as written.
+
 ## 3.7.0
 
 Motion that is intended, not defaulted. A page that animates everything on

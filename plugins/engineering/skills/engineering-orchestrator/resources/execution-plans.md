@@ -50,7 +50,7 @@ plan: project-exploration -> architecture-design -> backend-engineering -> input
 ## FULLSTACK
 
 category: FULLSTACK
-plan: project-exploration -> architecture-design -> api-design -> fullstack-engineering -> backend-engineering -> ui-ux-engineering -> frontend-engineering -> input-validation -> security-audit -> testing-quality -> playwright-automation -> accessibility-testing -> regression-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow -> release-readiness
+plan: project-exploration -> architecture-design -> api-design -> fullstack-engineering -> backend-engineering -> admin-console -> ui-ux-engineering -> frontend-engineering -> input-validation -> security-audit -> testing-quality -> playwright-automation -> accessibility-testing -> regression-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow -> release-readiness
 
 The widest plan. `release-readiness` runs only when the request is to ship.
 
