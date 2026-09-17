@@ -41,6 +41,7 @@ no em dash.
 | `ui-ux-engineering` | the rendered experience, specified before it is built |
 | `design-authenticity` | the generic-defaults cluster, and the intentionality test |
 | `animation` | motion that is intended: the technique ladder, cheap properties, reduced motion |
+| `template-selection` | clean, licence-clear templates that fit the project, shortlisted for the user, then customised |
 | `dependency-selection` | whether a library is added, replaced, upgraded or refused |
 
 ### Implementation

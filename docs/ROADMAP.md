@@ -61,6 +61,14 @@ a real reference.
   references, identifies useful layout, typography, interaction and animation
   patterns, and distinguishes reference from inspiration from pattern from
   implementation. The original section 11, deferred until now.
+- [x] **`template-selection` skill** (M). Finds clean, licence-clear templates
+  that fit the project, shortlists a few with their trade-offs for the user to
+  choose, confirms the chosen template's licence before use, and hands it to
+  customisation. It understands the project first, judges each candidate for fit
+  and cleanliness with `design-authenticity` rather than the screenshot, never
+  picks for the user, never uses a template against its licence, and never ships
+  one unchanged. Wired into the FRONTEND and UI_UX plans as a conditional step,
+  run by `design-research` and `ui-ux-engineer` before building.
 - [ ] **Exercise the frontend agents on a motion task** (M). Run
   `ui-ux-engineer` and `frontend-engineer` with the new `animation` skill on a
   small real interface, and `design-verification` to check the result reads as

@@ -332,11 +332,28 @@ Session 17, roadmap Phase 3, the design-research role, version 3.10.0:
   task, which needs a target web project to build in. The `animation` skill and
   the reference analysis are done.
 
+Session 18, the template-selection skill, version 3.11.0:
+
+- `template-selection` skill (`engineering/dev-skills/`): finds clean,
+  licence-clear templates that fit a project, shortlists a few with their
+  trade-offs for the user to choose, confirms the chosen template's licence
+  before use, and hands it to customisation. It understands the project first,
+  judges candidates on fit and cleanliness with `design-authenticity` rather
+  than the screenshot, never picks for the user, never uses a template against
+  its licence, and never ships one unchanged. Requested by the user before
+  Phase 4.
+- Wired into the FRONTEND and UI_UX execution plans as a conditional step
+  (runs only when the build starts from a template), so the orphan check passes.
+  Run by the `design-research` agent and `ui-ux-engineer`.
+- Counts 165 to 166 skills, dev-skills 54 to 55, engineering 81 to 82. Agents
+  unchanged at 22. Its roadmap box is ticked, under Phase 3. Branched fresh
+  from `dev`.
+
 ## Current state
 
 Working today:
 
-- the five scripts pass: 165 skills, 0 errors, 1 pre-existing warning on a
+- the five scripts pass: 166 skills, 0 errors, 1 pre-existing warning on a
   deliberate typographic counter-example;
 - `install.sh` works in every mode, including the four new scopes, verified
   against a sandbox target through `CLAUDE_SKILLS_DIR`;

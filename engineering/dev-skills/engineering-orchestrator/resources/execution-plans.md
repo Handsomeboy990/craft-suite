@@ -33,11 +33,13 @@ the design implies a new library.
 ## FRONTEND
 
 category: FRONTEND
-plan: project-exploration -> ui-ux-engineering -> frontend-engineering -> animation -> input-validation -> testing-quality -> playwright-automation -> accessibility-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> template-selection -> ui-ux-engineering -> frontend-engineering -> animation -> input-validation -> testing-quality -> playwright-automation -> accessibility-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
-`input-validation` covers client side form constraints and any server action
-the page introduces. `playwright-automation` is dropped when the repository
-has no browser tooling and the change does not justify adding it.
+`template-selection` runs only when the build starts from a template rather
+than a blank page, and hands the chosen one to `ui-ux-engineering` for
+customisation. `input-validation` covers client side form constraints and any
+server action the page introduces. `playwright-automation` is dropped when the
+repository has no browser tooling and the change does not justify adding it.
 
 ## BACKEND
 
@@ -110,9 +112,12 @@ produce the baseline, and again at the end to prove the delta.
 ## UI_UX
 
 category: UI_UX
-plan: project-exploration -> ui-ux-engineering -> design-system -> frontend-engineering -> design-authenticity -> animation -> testing-quality -> playwright-automation -> accessibility-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> template-selection -> ui-ux-engineering -> design-system -> frontend-engineering -> design-authenticity -> animation -> testing-quality -> playwright-automation -> accessibility-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
-Accessibility and responsive verification live inside `ui-ux-engineering` and
+`template-selection` runs only when the design starts from a template rather
+than a blank page; it shortlists clean, licence-clear candidates for the user
+to choose and hands the chosen one on for customisation. Accessibility and
+responsive verification live inside `ui-ux-engineering` and
 `playwright-automation`; they are not separate steps.
 
 ## TESTING

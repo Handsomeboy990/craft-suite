@@ -3,6 +3,34 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.11.0
+
+A design capability requested before Phase 4: finding clean templates that fit
+a project, rather than starting from a blank page or a bad one.
+
+### Added
+
+- `template-selection` skill (`engineering/dev-skills/`): finds clean,
+  licence-clear templates that actually fit a project, shortlists a few with
+  their trade-offs for the user to choose, confirms the chosen template's
+  licence before use, and hands it to customisation. It understands the project
+  first, because "templates that resemble the project" is meaningless without
+  it; searches legitimate sources only; judges each candidate on fit,
+  cleanliness with `design-authenticity` so a vibe-coded template is not called
+  clean because it looks modern, licence, quality and the real cost, which is
+  customisation not download; never decides for the user; never uses a template
+  against its licence; and never ships one unchanged, because a template shipped
+  as-is is the generic default a real product should not have. Depends on
+  `engineering-core`; run by the `design-research` agent and `ui-ux-engineer`.
+
+### Changed
+
+- `template-selection` wired into the FRONTEND and UI_UX execution plans as a
+  conditional step that runs only when the build starts from a template, and
+  hands the chosen one on for customisation.
+- Counts: 165 to 166 skills, dev-skills 54 to 55, engineering 81 to 82. Agents
+  unchanged at 22. Historical entries left as written.
+
 ## 3.10.0
 
 Roadmap Phase 3, the design-research role. The animation skill and its

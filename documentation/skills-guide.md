@@ -1,6 +1,6 @@
 # Skills guide
 
-Directory of the 165 skills. One line each: what it does, and when to open it.
+Directory of the 166 skills. One line each: what it does, and when to open it.
 
 Every skill's own `README.md` carries its inputs, outputs, dependencies and
 configuration in four lines. This file is the index; the READMEs are the
@@ -163,9 +163,9 @@ Depend on nothing. Callable from any tree, usable alone.
 | `document-design` | publishing | hierarchy, typography, tables, page furniture, metadata |
 | `pdf-production` | publishing | engine selection, generation, render verification |
 
-## engineering, 81 skills
+## engineering, 82 skills
 
-### dev-skills, 54
+### dev-skills, 55
 
 | Skill | What it does |
 |---|---|
@@ -179,6 +179,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `ui-ux-engineering` | the rendered experience, states, accessibility |
 | `design-authenticity` | detects generic AI-default design, tests for intent |
 | `animation` | motion that reads as designed: technique ladder, cheap props, reduced motion |
+| `template-selection` | finds clean, licence-clear templates that fit, shortlists them, then customises the chosen one |
 | `dependency-selection` | twelve point evaluation before adding a library |
 | `frontend-engineering` | pages, components, state, forms, the five UI states |
 | `backend-engineering` | handlers, services, authorization, transactions, jobs |

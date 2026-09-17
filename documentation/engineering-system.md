@@ -24,7 +24,7 @@ technical documentation, all in English by rule 6 of `engineering-core`.
 Writing the instructions in the language of their output removes a permanent
 translation and a source of error.
 
-Since version 2.0.0 that is no longer specific to this tree: all 165 skills are
+Since version 2.0.0 that is no longer specific to this tree: all 166 skills are
 written in English, and the output language is a configuration decision. See
 `configuration.md`.
 
@@ -52,6 +52,7 @@ no em dash.
 | `ui-ux-engineering` | the rendered experience, specified before it is built |
 | `design-authenticity` | the generic-defaults cluster and the intentionality test |
 | `animation` | motion that is intended, on the lightest sufficient technique |
+| `template-selection` | clean, licence-clear templates that fit, shortlisted then customised |
 | `dependency-selection` | add, replace, upgrade or refuse a library |
 
 ### Implementation
@@ -243,7 +244,7 @@ delegates the depth here.
 ## 8. Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of the 165 skills
+bash tests/validate-structure.sh      structure and metadata of the 166 skills
 bash tests/validate-rules.sh          the repository-wide prohibitions
 bash tests/validate-orchestration.sh  plans, references and scenarios
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees

@@ -13,7 +13,7 @@ are ignored. See `Why this file exists` at the end.
 
 ## What this repository is
 
-Craft Suite: 165 skills and 22 agents, in eight trees. Named
+Craft Suite: 166 skills and 22 agents, in eight trees. Named
 `claude-writer-suite` until 3.0.0, when the writing tree stopped being the
 whole of it.
 
@@ -22,7 +22,7 @@ whole of it.
 | `shared/` | 2 cross domain skills | none, they depend on nothing |
 | `writing/` | 42 creative writing skills | `writing/core/writing-constitution` |
 | `documents/` | 7 professional document skills | `documents/documentation/document-core` |
-| `engineering/` | 81 software skills | `engineering/dev-skills/engineering-core` and `engineering/devops-skills/devops-core` |
+| `engineering/` | 82 software skills | `engineering/dev-skills/engineering-core` and `engineering/devops-skills/devops-core` |
 | `agents/` | 22 role definitions, repository wide | none, defined once per role |
 | `security/` | 12 defensive security skills | `security/secure-development/security-core` |
 | `research/` | 5 general research skills | `research/research-core` |
@@ -83,7 +83,7 @@ skill. Never run a whole chain by reflex: compose the smallest complete plan.
 
 1. No emoji, in any file or any output.
 2. No em dash. The en dash is for dialogue only.
-3. Skill language is English, for all 165 skills and all 22 agents. Output
+3. Skill language is English, for all 166 skills and all 22 agents. Output
    language is the recipient's, set in the configuration. The three layers are
    defined in `documentation/configuration.md`.
 4. Commits are atomic, in English, with no mention of an AI, an assistant or
