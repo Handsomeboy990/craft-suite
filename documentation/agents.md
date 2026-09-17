@@ -1,6 +1,6 @@
 # Agents
 
-Seventeen agent definitions, for a runtime that supports subagents.
+Eighteen agent definitions, for a runtime that supports subagents.
 
 This document explains the difference between a skill, an agent and
 orchestration, and gives the public contract of each agent. The definitions

@@ -196,11 +196,28 @@ Session 9, launch readiness (cluster A of the delivery expansion), version
   the `compliance-verifier` agent needs the `agents/` tree that PR relocates.
   It merges after #15.
 
+Session 10, design authenticity (cluster C), version 3.3.0:
+
+- `design-authenticity` skill and `design-verification` agent: the detector
+  for the generic-default cluster that makes an interface look machine
+  generated (gradients, glass, bento, default fonts, hover-everywhere motion),
+  read as signals not verdicts, with the intentionality test. Fabricated
+  testimonials and invented metrics are raised as truthfulness defects handed
+  to `implementation-integrity`, not softened into taste. Wired into the
+  UI_UX and DESIGN_SYSTEM plans; the agent joins the `design` group.
+- The skill deliberately refuses to condemn a single element or prescribe a
+  replacement: it names where intent is missing, the identity that fills the
+  gap is the project's. This was the design decision that keeps it from being
+  dogmatic, and it is in the Decisions section below.
+- Counts 156 to 157 skills, 50 to 51 dev-skills, 17 to 18 agents.
+- Stacked on `feat/launch-readiness` (PR #16), giving a linear stack
+  #15 <- #16 <- #C, so the count files never conflict. Merges after #16.
+
 ## Current state
 
 Working today:
 
-- the five scripts pass: 156 skills, 0 errors, 1 pre-existing warning on a
+- the five scripts pass: 157 skills, 0 errors, 1 pre-existing warning on a
   deliberate typographic counter-example;
 - `install.sh` works in every mode, including the four new scopes, verified
   against a sandbox target through `CLAUDE_SKILLS_DIR`;
@@ -300,6 +317,16 @@ Looks finished and is not:
   duplicated business rule the suite's own conventions forbid: these three
   are consulted by the orchestrator before and during dispatch, not steps a
   plan chooses to include or drop.
+- **`design-authenticity` reads tells as signals, never as a banned list.**
+  The alternative was a prohibition: no gradients, no rounded corners, no
+  Space Grotesk. Rejected as wrong on its face, since every one of those can
+  be the right choice; a rule that condemns a single rounded corner mistakes a
+  signal for a verdict and is useless to a designer who had a reason. The
+  skill judges the cluster and tests intentionality instead, and it refuses to
+  prescribe a specific replacement because the identity that fills the gap is
+  the project's, not the reviewer's. The one place it is absolute is the
+  content tells: a fabricated testimonial is a truthfulness defect, not a
+  matter of taste, and it is raised regardless of how good the rest looks.
 
 ## Remaining
 

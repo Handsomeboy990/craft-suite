@@ -55,7 +55,7 @@ architecture named a role with no equivalent, `source of truth`, `checkup`,
 `multi-agent-assessment.md` section 3 rather than filled with a thin,
 unreviewed stand-in.
 
-## The seventeen agents, by group
+## The eighteen agents, by group
 
 Agents live in `agents/<group>/`, a repository-wide tree independent of any
 single skill domain, so a future agent pack, security, design, research,

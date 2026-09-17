@@ -1,6 +1,6 @@
 # Craft Suite
 
-**Craft, encoded.** 156 skills and 17 agents that hold an agent to a
+**Craft, encoded.** 157 skills and 18 agents that hold an agent to a
 professional standard: write, produce documents, build software, secure it,
 research, run a job search, evaluate opportunities, and review its own work.
 
@@ -33,7 +33,7 @@ is Markdown and shell.
 git clone https://github.com/Handsomeboy990/craft-suite.git
 cd craft-suite
 bash install.sh              # a menu, pick the trees you want
-bash install.sh --all        # or take all 156 and the 17 agents
+bash install.sh --all        # or take all 157 and the 18 agents
 bash install.sh --configure
 ```
 
@@ -50,7 +50,7 @@ Scoped installs: `--writing`, `--documents`, `--dev`, `--security`,
 |---|---|---|
 | `craft-writing` | novelist, screenwriter, editor, critic, proofreader | 42 |
 | `craft-documents` | technical writer, report author, PDF producer | 7 |
-| `craft-engineering` | a delivery team, from specification to production | 74 and 17 agents |
+| `craft-engineering` | a delivery team, from specification to production | 75 and 18 agents |
 | `craft-security` | defensive engineer, and auditor under written authorization | 10 |
 | `craft-research` | researcher who cites only what was actually read | 5 |
 | `craft-career` | job search that never invents a listing | 7 |
@@ -105,7 +105,7 @@ emoji, no em dash. Both are enforced by `tests/validate-rules.sh` in CI.
 | Installation options in detail | [documentation/installation.md](documentation/installation.md) |
 | Configuration reference | [documentation/configuration.md](documentation/configuration.md) |
 | Plugins, and how the bundles are built | [documentation/plugins.md](documentation/plugins.md) |
-| The 17 agents | [documentation/agents.md](documentation/agents.md) |
+| The 18 agents | [documentation/agents.md](documentation/agents.md) |
 | Architecture of the repository | [documentation/architecture.md](documentation/architecture.md) |
 | Local usage dashboard | [control-center/README.md](control-center/README.md) |
 | Contributing | [CONTRIBUTING.md](CONTRIBUTING.md) |

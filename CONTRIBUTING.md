@@ -216,7 +216,7 @@ rotation.
 - [ ] Every new skill has its four elements and its metadata.
 - [ ] Every index and `skills-guide.md` list the new skill.
 - [ ] `README.md` and `README.fr.md` still say the same thing.
-- [ ] Counts are correct wherever they appear: 156 skills, 17 agents.
+- [ ] Counts are correct wherever they appear: 157 skills, 18 agents.
 - [ ] `CHANGELOG.md` has an entry.
 - [ ] `CONTINUITY.md` reflects the new state if the change is structural.
 
