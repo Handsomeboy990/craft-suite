@@ -349,6 +349,30 @@ Session 18, the template-selection skill, version 3.11.0:
   unchanged at 22. Its roadmap box is ticked, under Phase 3. Branched fresh
   from `dev`.
 
+Session 19, roadmap Phase 4, the verification layer, version 3.12.0:
+
+- `source-of-truth` agent (`agents/core/`): the authority on what is true about
+  a project. Ground truth is the code, the schema and the configuration; it
+  reconciles the documentation against them, names drift with evidence, records
+  the canonical answer, and hands the prose to `documentation-engineer` rather
+  than rewriting it. Cites `project-exploration`, `project-continuity`,
+  `technical-documentation`.
+- `checkup` agent (`agents/core/`): the pre-intervention inspection. Reports the
+  architecture as built, the debt and fragility, the risks, and the safe versus
+  load-bearing boundaries, before a change is made. Changes nothing. Cites
+  `project-exploration`, `architecture-design`, `dependency-selection`,
+  `security-audit`.
+- `final-verifier` agent (`agents/core/`): the independent, evidence-only final
+  gate that trusts no previous agent. Re-runs the proof rather than reading a
+  claim of it, issues one verdict, treats an unreproducible gate as unverified.
+  Cites `code-review-protocol`, `testing-quality`, `validation-gate`,
+  `production-verification`.
+- Counts 22 to 25 agents, the `core` group 6 to 9. Skills unchanged at 166.
+  All three roadmap boxes ticked, under Phase 4. The engineering plugin bundle
+  carries the three new agents. Branched fresh from `dev`.
+- Phase 4 still has one open box: exercise the full agent layer on a real task,
+  the same target-project gap as the open Phase 3 motion task.
+
 ## Current state
 
 Working today:

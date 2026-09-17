@@ -1,6 +1,6 @@
 # agents
 
-Twenty-two specialised agent definitions for an agent runtime that supports
+Twenty-five specialised agent definitions for an agent runtime that supports
 subagents, such as Claude Code.
 
 An agent here is a role with a narrow responsibility. It is thin by design:
@@ -19,12 +19,15 @@ Agent   who owns this piece of work, what they may touch, what they hand on
 Duplicating a skill's content into an agent produces two documents that drift.
 Every agent below references the skills it uses and never restates them.
 
-## The twenty-two
+## The twenty-five
 
 | Agent | Owns | Primary skills |
 |---|---|---|
 | `delivery-orchestrator` | the project lifecycle and its gates | delivery-orchestrator |
 | `compliance-verifier` | the launch completeness gate, verified with evidence | launch-readiness, implementation-integrity |
+| `source-of-truth` | the canonical facts of a project, docs reconciled against the code | project-exploration, project-continuity |
+| `checkup` | the pre-intervention inspection: architecture, debt, risk, safe boundaries | project-exploration, architecture-design |
+| `final-verifier` | the independent, evidence-only final gate that trusts no previous agent | code-review-protocol, validation-gate |
 | `principal-engineer` | a multi surface engineering request and its gates | engineering-orchestrator, engineering-core |
 | `requirements-analyst` | requirements into a specification | requirements-analysis, clarification-gate |
 | `pr-author` | packages verified work into a pull request and opens it | git-workflow, implementation-integrity |
