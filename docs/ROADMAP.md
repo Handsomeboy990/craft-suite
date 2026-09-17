@@ -90,10 +90,13 @@ a real reference.
 
 ## Phase 5: distribution and telemetry
 
-- [ ] **Per-domain agent packs** (M). Today every agent is bundled in the
-  engineering plugin, so `--security` installs the `website-audit` skill but
-  not the `web-auditor` agent. Split the agents so each domain's pack carries
-  its own, which the suite's own domain-independence rule asks for.
+- [x] **Per-domain agent packs** (M). Agents used to be bundled only in the
+  engineering plugin, so `--security` installed the `website-audit` skill but
+  not the `web-auditor` agent. Each domain now carries its own agents: the
+  security plugin ships `security-engineer` and `web-auditor`, the engineering
+  plugin its 24-agent delivery team (which keeps `security-engineer`, since its
+  flow dispatches it). The mapping lives in `install.sh` (`agent_domains`) and
+  is checked per domain by `validate-plugins.sh` check 4.
 - [ ] **Control Center agent panel** (M). The agent-dispatch telemetry is
   collected and reachable through the report and the JSON, but the browser
   dashboard has no panel for it. Add the panel and its EN and FR strings.

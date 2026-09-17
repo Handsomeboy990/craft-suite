@@ -1,6 +1,6 @@
 {
   "name": "craft-documents",
-  "version": "3.12.0",
+  "version": "3.13.0",
   "description": "Professional documents delivered to a reader: technical writing, user documentation, reports, formal letters, and verified PDF production. Governed by document-core.",
   "author": {
     "name": "Lauret Chacha"

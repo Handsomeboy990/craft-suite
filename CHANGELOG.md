@@ -3,6 +3,31 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.13.0
+
+Roadmap Phase 5, first item: per-domain agent packs, so a domain's plugin is
+self-contained rather than bundling every agent in the engineering one.
+
+### Changed
+
+- Agents now install with the domain that owns them. The security plugin
+  carries `security-engineer` and `web-auditor`; the engineering plugin carries
+  its 24-agent delivery team, which keeps `security-engineer` because its
+  delivery flow dispatches it. `web-auditor` moved out of the engineering
+  bundle: it is a security-only tool with no role in the engineering sequence.
+  Previously `--security` installed the `website-audit` skill but not the
+  `web-auditor` agent; now it installs both.
+- `install.sh` gained an `agent_domains` mapping and a domain-filtered `agents`
+  function; `--agents` still installs the whole 25-agent roster. `plugins/build.sh`
+  builds each domain's own agents and drops the empty `agents/` directory for a
+  domain that owns none.
+- `validate-plugins.sh` check 4 now regenerates and compares each domain's
+  agents against its bundle, replacing the check that only counted the
+  engineering plugin's agents.
+- Stale agent counts in the installer help and menus corrected: they read 16
+  where the roster is 25. Engineering-scoped figures are now 24, the full
+  roster 25.
+
 ## 3.12.0
 
 Roadmap Phase 4, the verification layer: the three agents that hold a project

@@ -6,7 +6,8 @@
 # plugins/<domain>/skills is generated from them by this script, using the same
 # installer that populates ~/.claude/skills, so a plugin contains exactly the
 # skills that scope would install, dependencies resolved, plus the cross domain
-# pair. The engineering plugin also receives the 16 agents.
+# pair. Each domain also receives its own agents: engineering its delivery team,
+# security its auditors. A domain with no agent of its own gets no agents/ dir.
 #
 # Run this after adding or changing a skill, so the plugin bundles stay in sync
 # with the trees. tests/validate-plugins.sh checks that they are.
@@ -33,24 +34,25 @@ printf '%s\n' "$DOMAINS" | while IFS=: read -r dir scope; do
   [ -f "$plugin/.claude-plugin/plugin.json" ] || {
     printf 'skip %s: no plugin.json\n' "$dir"; continue; }
 
-  # Clean and repopulate the skills directory for this domain.
-  rm -rf "$plugin/skills"
-  mkdir -p "$plugin/skills"
+  # Clean and repopulate the skills and agents directories for this domain.
+  # Each domain installs its own agents; the installer emits only the agents
+  # that belong to the domain's scope, so an empty agents/ dir means the domain
+  # owns none, and is dropped.
+  rm -rf "$plugin/skills" "$plugin/agents"
+  mkdir -p "$plugin/skills" "$plugin/agents"
+  CLAUDE_SKILLS_DIR="$plugin/skills" \
+  CLAUDE_AGENTS_DIR="$plugin/agents" \
+    bash "$INSTALL" "$scope" >/dev/null 2>&1
 
-  # The engineering plugin also carries the agents.
-  if [ "$dir" = "engineering" ]; then
-    rm -rf "$plugin/agents"
-    mkdir -p "$plugin/agents"
-    CLAUDE_SKILLS_DIR="$plugin/skills" \
-    CLAUDE_AGENTS_DIR="$plugin/agents" \
-      bash "$INSTALL" "$scope" >/dev/null 2>&1
-  else
-    CLAUDE_SKILLS_DIR="$plugin/skills" \
-      bash "$INSTALL" "$scope" --no-agents >/dev/null 2>&1
-  fi
+  acount="$(find "$plugin/agents" -maxdepth 1 -name '*.md' | wc -l | tr -d ' ')"
+  [ "$acount" -eq 0 ] && rm -rf "$plugin/agents"
 
   count="$(find "$plugin/skills" -maxdepth 1 -mindepth 1 -type d | wc -l | tr -d ' ')"
-  printf 'built %-14s %3s skills\n' "$dir" "$count"
+  if [ "$acount" -gt 0 ]; then
+    printf 'built %-14s %3s skills, %s agents\n' "$dir" "$count" "$acount"
+  else
+    printf 'built %-14s %3s skills\n' "$dir" "$count"
+  fi
 done
 
 printf 'Plugin bundles generated under plugins/.\n'
