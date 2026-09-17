@@ -1,6 +1,6 @@
 # agents
 
-Sixteen specialised agent definitions for an agent runtime that supports
+Eighteen specialised agent definitions for an agent runtime that supports
 subagents, such as Claude Code.
 
 An agent here is a role with a narrow responsibility. It is thin by design:
@@ -19,11 +19,12 @@ Agent   who owns this piece of work, what they may touch, what they hand on
 Duplicating a skill's content into an agent produces two documents that drift.
 Every agent below references the skills it uses and never restates them.
 
-## The sixteen
+## The eighteen
 
 | Agent | Owns | Primary skills |
 |---|---|---|
 | `delivery-orchestrator` | the project lifecycle and its gates | delivery-orchestrator |
+| `compliance-verifier` | the launch completeness gate, verified with evidence | launch-readiness, implementation-integrity |
 | `principal-engineer` | a multi surface engineering request and its gates | engineering-orchestrator, engineering-core |
 | `requirements-analyst` | requirements into a specification | requirements-analysis, clarification-gate |
 | `software-architect` | architecture and technology decisions | architecture-proposal, technology-selection, architecture-design |
@@ -34,6 +35,7 @@ Every agent below references the skills it uses and never restates them.
 | `qa-engineer` | test strategy and quality gates | testing-quality, code-review-protocol |
 | `playwright-engineer` | browser verification | playwright-automation |
 | `ui-ux-engineer` | rendered experience and accessibility | ui-ux-engineering |
+| `design-verification` | design drift and generic-defaults, verified against intent | design-authenticity, ui-ux-engineering |
 | `devops-engineer` | environments, pipeline, deployment | devops-core and family |
 | `performance-engineer` | measured performance work | performance-engineering |
 | `documentation-engineer` | documentation matching the code | technical-documentation |

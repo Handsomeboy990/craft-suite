@@ -48,7 +48,7 @@ AGENT_NAMES="delivery-orchestrator principal-engineer requirements-analyst
 software-architect frontend-engineer backend-engineer database-engineer
 security-engineer qa-engineer playwright-engineer ui-ux-engineer
 devops-engineer performance-engineer documentation-engineer release-engineer
-incident-responder"
+incident-responder compliance-verifier design-verification"
 
 fail() {
   printf 'ERROR   %s\n' "$1"

@@ -1,6 +1,6 @@
 # dev-skills
 
-Senior full-stack engineering skill system. Fifty skills that let an agent
+Senior full-stack engineering skill system. Fifty one skills that let an agent
 work on a production codebase the way an experienced engineer does: read
 before writing, verify before claiming, and finish the whole vertical slice
 rather than the part that demonstrates well.
@@ -39,6 +39,7 @@ no em dash.
 |---|---|
 | `architecture-design` | the smallest architecture that serves the product |
 | `ui-ux-engineering` | the rendered experience, specified before it is built |
+| `design-authenticity` | the generic-defaults cluster, and the intentionality test |
 | `dependency-selection` | whether a library is added, replaced, upgraded or refused |
 
 ### Implementation

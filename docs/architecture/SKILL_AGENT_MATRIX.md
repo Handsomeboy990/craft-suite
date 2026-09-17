@@ -11,7 +11,7 @@ never appears in this matrix as needing one.
 Canonical skill plans are not restated here; they are in
 `engineering/dev-skills/engineering-orchestrator/resources/execution-plans.md`
 and `engineering/delivery-skills/delivery-orchestrator/resources/delivery-phases.md`.
-This matrix adds the one thing those files do not carry: which of the sixteen
+This matrix adds the one thing those files do not carry: which of the seventeen
 agents a plan's steps map to, when the work is dispatched across contexts.
 
 ## Columns
@@ -39,7 +39,7 @@ agents a plan's steps map to, when the work is dispatched across contexts.
 | Required agents | `requirements-analyst` (phase 01 to 02), `software-architect` (phase 03 to 04), the implementation agents the approved architecture names (phase 07), `qa-engineer` (phase 08), `devops-engineer` (phase 09 to 10), `documentation-engineer` (phase 12), `release-engineer` (phase 14) |
 | Optional agents | `database-engineer` when the architecture includes a schema, `performance-engineer` when a measured target exists, `playwright-engineer` when the surface has a browser, `ui-ux-engineer` when the surface is user facing |
 | Preconditions | phase 05, `validation-gate`, is an approval gate; nothing in phase 07 onward starts without it |
-| Verification agent | `qa-engineer` at phase 08, `security-engineer` wherever the gate table in `delivery-orchestrator/SKILL.md` section 4 fires, `release-engineer` at phase 14 |
+| Verification agent | `qa-engineer` at phase 08, `security-engineer` wherever the gate table in `delivery-orchestrator/SKILL.md` section 4 fires, `compliance-verifier` at phase 11 for a user-facing web product, `release-engineer` at phase 14 |
 | Security gate | mandatory whenever auth, payments, uploads, user content, permissions, secrets or dependencies are touched, per the same gate table |
 | Model routing note | phases 01 to 06 are typically MEDIUM, driven by ambiguity; an authentication or payment surface inside phase 07 typically escalates to CRITICAL by `task-complexity`'s security signal regardless of the phase's average size |
 
