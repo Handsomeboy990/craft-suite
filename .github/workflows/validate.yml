@@ -37,7 +37,7 @@ jobs:
       - name: Model routing fixtures match the routing table
         run: bash tests/validate-model-routing.sh
 
-      - name: Control Center parses, runs and passes its advisor tests
+      - name: Control Center parses, runs and passes its tests
         run: |
           python3 -c "import ast; ast.parse(open('control-center/reader.py').read())"
           python3 -c "import ast; ast.parse(open('control-center/server.py').read())"
@@ -45,6 +45,7 @@ jobs:
           python3 control-center/reader.py --json > /dev/null
           python3 control-center/advisor.py > /dev/null
           python3 control-center/test_advisor.py
+          python3 control-center/test_reader.py
           python3 tests/check-app-js.py
 
       - name: Shell syntax

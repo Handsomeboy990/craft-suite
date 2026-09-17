@@ -46,6 +46,17 @@ CONFIG_FILE = os.environ.get(
 # reproducible.
 LARGE_OUTPUT_TOKENS = 4000
 
+# Bounds on the untrusted labels read out of a transcript, so one record cannot
+# decide how large a response or a report line is. A label is a name displayed
+# in a column 26 characters wide, so 80 is generous; the breakdown lists are
+# capped like their neighbours (tools at 30, skills at 60, top_tools at 5) so a
+# transcript holding thousands of distinct names cannot grow the JSON payload
+# without limit. Every "total" beside these lists stays exact; only the
+# breakdown is a top N.
+LABEL_MAX_CHARS = 80
+AGENT_LIST_MAX = 60
+SESSION_AGENT_LIST_MAX = 10
+
 
 def _short_path(path):
     """Shorten an absolute path to its last two segments for display.
@@ -131,6 +142,73 @@ def _median(values):
     return (s[mid - 1] + s[mid]) // 2
 
 
+def _safe_label(value):
+    """A bounded, single-line label from a transcript string, or None.
+
+    A label taken from a transcript is printed in the terminal report and
+    returned by the JSON endpoint, so it is treated as untrusted text:
+
+    - Only a real string is accepted. str() on a nested object would render
+      that object whole, which would re-import through the back door the very
+      fields a collector deliberately does not read.
+    - Non-printable characters are dropped and whitespace runs are collapsed.
+      A newline or a terminal escape inside a recorded name draws extra lines
+      in the report, and padding imitates its aligned columns; a report that
+      can be made to show a figure it did not measure is a report that
+      displays a fabricated metric.
+    - The result is bounded. A recorded string has no length limit of its own,
+      and an unbounded one would be carried verbatim into every response.
+
+    This is the same reasoning as _bash_signature's own 40 character bound and
+    _short_path's shortening, applied to a label rather than to a command.
+    """
+    if not isinstance(value, str):
+        return None
+    # Runs of whitespace collapse to one space. Dropping the newline alone
+    # stops a label from drawing a second line, but a label padded with spaces
+    # still imitates this report's own aligned columns inside the line it is
+    # printed on, so the alignment is taken away from it too.
+    cleaned = " ".join("".join(
+        ch for ch in value if ch.isprintable()).split())
+    if not cleaned:
+        return None
+    return cleaned[:LABEL_MAX_CHARS]
+
+
+def _agent_dispatch_from_input(name, inp):
+    """(subagent_type, model) for an agent dispatch tool call, or None.
+
+    A dispatch is a tool_use block named Task or Agent (both names appear in
+    the wild). Its input also carries a prompt and a description, and those
+    can hold anything the user typed, including a credential. This function
+    reads exactly two keys, subagent_type and model, and nothing else, so
+    there is no code path here by which the prompt or the description could
+    reach a session count, the JSON output or the printed report.
+
+    Both keys go through _safe_label, so a value that is not a plain string,
+    or that carries control characters or unbounded length, is rejected rather
+    than stringified. A block whose subagent_type is not a usable string is
+    not a well formed dispatch and is not counted at all: counting it would
+    require inventing a name for it. A model key that is absent means the
+    agent ran under its own default and is recorded as "default"; a model key
+    that is present but unusable is recorded as "unknown", because "default"
+    would assert something the record does not show.
+    """
+    if name not in ("Task", "Agent"):
+        return None
+    if not isinstance(inp, dict):
+        return None
+    agent = _safe_label(inp.get("subagent_type"))
+    if not agent:
+        return None
+    raw_model = inp.get("model")
+    if raw_model is None or raw_model == "":
+        model = "default"
+    else:
+        model = _safe_label(raw_model) or "unknown"
+    return agent, model
+
+
 def read_transcripts():
     """Aggregate the real figures from every transcript. Returns a dict.
 
@@ -145,6 +223,15 @@ def read_transcripts():
     tools = Counter()
     skills = Counter()
     models = Counter()
+    # Agent dispatch telemetry: which subagent was called and how often, under
+    # which model, and how much sidechain work is on record as evidence that a
+    # dispatch actually produced messages. Built only from subagent_type and
+    # model, both bounded and validated; see _agent_dispatch_from_input for the
+    # boundary that enforces it.
+    agent_dispatches = Counter()
+    agent_dispatch_models = Counter()
+    agent_dispatch_total = 0
+    sidechain_records = 0
     # per_project is aggregated from the finished sessions after the loop, by
     # session identity; per_day is aggregated per record here.
     per_day = defaultdict(lambda: {"tokens_in": 0, "fresh_in": 0, "tokens_out": 0,
@@ -174,8 +261,19 @@ def read_transcripts():
                     rec = json.loads(line)
                 except json.JSONDecodeError:
                     continue
+                # A line can be valid JSON and still not be a record: a bare
+                # list, number or string. Every record field below is read
+                # with .get, which only a mapping supports.
+                if not isinstance(rec, dict):
+                    continue
                 rtype = rec.get("type")
                 sid = rec.get("sessionId")
+                # The session id is used as a dictionary key. A record whose
+                # id is a list or an object would raise on the first lookup
+                # and end the whole collection, so a value that is not a
+                # string names no session, exactly as a missing one does.
+                if not isinstance(sid, str):
+                    sid = None
                 ts = _parse_ts(rec.get("timestamp"))
                 day = ts.date().isoformat() if ts else None
                 rec_cwd = rec.get("cwd")
@@ -208,6 +306,12 @@ def read_transcripts():
                         "bash_signatures": Counter(),
                         "bash_count": 0,
                         "output_tokens_per_msg": [],
+                        # Agent dispatch evidence for this session alone,
+                        # mirroring the run's own totals above.
+                        "agent_dispatch_total": 0,
+                        "agent_dispatches": Counter(),
+                        "agent_dispatch_models": Counter(),
+                        "sidechain_records": 0,
                     }
                 if sid:
                     s = sessions[sid]
@@ -220,6 +324,15 @@ def read_transcripts():
                             s["first"] = ts
                         if s["last"] is None or ts > s["last"]:
                             s["last"] = ts
+
+                # A subagent's own transcript lines carry this flag regardless
+                # of their type. The count is evidence that dispatched work
+                # actually ran, independent of whether the dispatching block
+                # itself is present in this file.
+                if rec.get("isSidechain") is True:
+                    sidechain_records += 1
+                    if sid:
+                        sessions[sid]["sidechain_records"] += 1
 
                 if rtype == "user":
                     totals["user_messages"] += 1
@@ -282,6 +395,58 @@ def read_transcripts():
                                 sname = inp.get("skill")
                                 if sname:
                                     skills[str(sname)] += 1
+                            dispatch = _agent_dispatch_from_input(tname, inp)
+                            if dispatch:
+                                d_agent, d_model = dispatch
+                                agent_dispatches[d_agent] += 1
+                                agent_dispatch_models[d_model] += 1
+                                agent_dispatch_total += 1
+                                if sid:
+                                    sessions[sid]["agent_dispatch_total"] += 1
+                                    sessions[sid]["agent_dispatches"][d_agent] += 1
+                                    sessions[sid]["agent_dispatch_models"][d_model] += 1
+
+    # A dispatched agent writes its own transcript one level deeper than the
+    # session transcripts, under <project>/<sessionId>/subagents/, so the
+    # "*/*.jsonl" scan above never sees a single one of those records. Without
+    # this pass the sidechain count is not a measured zero but an unlooked-for
+    # one, and reporting it as "none recorded" would state that no dispatched
+    # work produced messages while the evidence sits on disk unread.
+    #
+    # These files are read for one purpose: counting the records that
+    # dispatched work produced. They are deliberately not folded into the
+    # token, tool, model and session figures, which are defined over the
+    # session transcripts; folding them in would silently change the meaning
+    # of every existing number. Each record carries its dispatching session's
+    # id, so the evidence lands on the session that asked for it. A record is
+    # written to one file or the other, never both, so the inline check in the
+    # main loop and this pass do not count the same record twice.
+    sidechain_pattern = os.path.join(PROJECTS_DIR, "*", "*", "subagents", "*.jsonl")
+    for path in sorted(glob.glob(sidechain_pattern)):
+        try:
+            fh = open(path, "r", errors="replace")
+        except OSError:
+            continue
+        with fh:
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    rec = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                if not isinstance(rec, dict) or rec.get("isSidechain") is not True:
+                    continue
+                sidechain_records += 1
+                sub_sid = rec.get("sessionId")
+                if not isinstance(sub_sid, str):
+                    sub_sid = None
+                # Only a session the main scan actually saw can carry the
+                # count. An orphan subagent transcript still counts in the
+                # total, where it is true, and nowhere else.
+                if sub_sid and sub_sid in sessions:
+                    sessions[sub_sid]["sidechain_records"] += 1
 
     # Shape sessions for output, newest first by last activity. The evidence
     # block carries only real counts; the advisor turns them into findings.
@@ -327,6 +492,12 @@ def read_transcripts():
             "tool_types": len(s["tools"]),
             "top_tools": s["tools"].most_common(5),
             "models": s["models"].most_common(3),
+            "agent_dispatches": {
+                "total": s["agent_dispatch_total"],
+                "by_agent": s["agent_dispatches"].most_common(SESSION_AGENT_LIST_MAX),
+                "by_model": s["agent_dispatch_models"].most_common(SESSION_AGENT_LIST_MAX),
+                "sidechain_records": s["sidechain_records"],
+            },
             "evidence": {
                 "reads_total": sum(reads.values()),
                 "reads_unique": len(reads),
@@ -427,6 +598,12 @@ def read_transcripts():
         "projects": projects_out,
         "days": days_out,
         "large_output_threshold": LARGE_OUTPUT_TOKENS,
+        "agent_dispatches": {
+            "total": agent_dispatch_total,
+            "by_agent": agent_dispatches.most_common(AGENT_LIST_MAX),
+            "by_model": agent_dispatch_models.most_common(AGENT_LIST_MAX),
+            "sidechain_records": sidechain_records,
+        },
     }
 
 
@@ -595,6 +772,22 @@ def print_report():
             for name, c in u["skills"][:20]:
                 print(f"  {name:<28} {c}")
             print(line)
+        ad = u["agent_dispatches"]
+        # This counts the dispatch calls recorded in the transcripts. A call
+        # the runtime refused, or one that ended in an error, leaves a
+        # tool_use block behind too, so the figure is what was called and not
+        # a claim about how many agents finished; the sidechain count on the
+        # next line is the corroborating evidence for work that actually ran.
+        print(f"Agent dispatches      {ad['total'] if ad['total'] else 'none recorded'}")
+        print(f"Sidechain records     {ad['sidechain_records'] if ad['sidechain_records'] else 'none recorded'}")
+        if ad["total"]:
+            print("  by agent")
+            for name, c in ad["by_agent"][:12]:
+                print(f"    {name:<26} {c}")
+            print("  by model")
+            for name, c in ad["by_model"][:12]:
+                print(f"    {name:<26} {c}")
+        print(line)
         print("Projects by work tokens (fresh input plus output)")
         for p in u["projects"][:10]:
             tot = _fmt(p["fresh_in"] + p["tokens_out"])
