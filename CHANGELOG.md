@@ -3,6 +3,34 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.6.0
+
+Two roles for the pull request itself: one that opens it, one that reviews it.
+The suite already had the skills, `git-workflow` for the commit and the
+request, `code-review-protocol` for the diff. This adds the agents that own
+those two ends of a pull request as distinct roles, so the one who packages a
+change is never the one who passes it.
+
+### Added
+
+- `pr-author` agent (`agents/core/`): packages finished, verified work into a
+  pull request. Atomic commits with the configured identity and no tool
+  attribution, a branch off the integration branch, a description whose
+  validation section quotes commands that were actually run, the correct base.
+  It packages and opens; it does not write the feature, and it does not approve
+  or merge its own request.
+- `pr-reviewer` agent (`agents/core/`): the independent review and mergeability
+  gate. Reads the diff for correctness, security, tests and conventions, checks
+  the repository merge criteria, the required check green, the base correct, no
+  tool attribution, counts consistent, and issues a verdict with evidence. It
+  does not merge, it does not review a request it authored, and it never passes
+  a request with a red required check or an open security finding.
+
+### Changed
+
+- Counts: 19 to 21 agents, in current-state prose. No new skill: both agents
+  cite skills that already exist. Historical entries left as written.
+
 ## 3.5.0
 
 Workflow automation, opt-in and honest about its connector. Some projects want

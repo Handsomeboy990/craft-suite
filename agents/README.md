@@ -1,6 +1,6 @@
 # agents
 
-Nineteen specialised agent definitions for an agent runtime that supports
+Twenty-one specialised agent definitions for an agent runtime that supports
 subagents, such as Claude Code.
 
 An agent here is a role with a narrow responsibility. It is thin by design:
@@ -19,7 +19,7 @@ Agent   who owns this piece of work, what they may touch, what they hand on
 Duplicating a skill's content into an agent produces two documents that drift.
 Every agent below references the skills it uses and never restates them.
 
-## The nineteen
+## The twenty-one
 
 | Agent | Owns | Primary skills |
 |---|---|---|
@@ -27,6 +27,8 @@ Every agent below references the skills it uses and never restates them.
 | `compliance-verifier` | the launch completeness gate, verified with evidence | launch-readiness, implementation-integrity |
 | `principal-engineer` | a multi surface engineering request and its gates | engineering-orchestrator, engineering-core |
 | `requirements-analyst` | requirements into a specification | requirements-analysis, clarification-gate |
+| `pr-author` | packages verified work into a pull request and opens it | git-workflow, implementation-integrity |
+| `pr-reviewer` | the independent review and mergeability gate on a pull request | code-review-protocol, git-workflow |
 | `software-architect` | architecture and technology decisions | architecture-proposal, technology-selection, architecture-design |
 | `frontend-engineer` | client implementation | frontend-engineering, ui-ux-engineering |
 | `backend-engineer` | server implementation | backend-engineering, input-validation |
