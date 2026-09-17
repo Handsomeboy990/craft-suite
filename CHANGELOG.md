@@ -3,6 +3,42 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.5.0
+
+Workflow automation, opt-in and honest about its connector. Some projects want
+a layer of automation that does not belong in the application, a nightly
+export, a webhook that fans out, a message when an order fails, and a workflow
+engine such as n8n does that. This adds the skill that builds those workflows
+cleanly, starting from two refusals: it does not assume a project wants
+automation, and it does not pretend to have a connection it has not been given.
+
+### Added
+
+- `workflow-automation` skill (`engineering/devops-skills/`): builds
+  automation workflows through an external engine reached over a connector,
+  n8n over its MCP server being the concrete target. Automation is opt-in per
+  project and recorded, never a silent default, because a workflow engine is
+  an operational dependency nobody should acquire by accident. The n8n
+  connection is configured and authorized interactively by the user, outside
+  the skill: it detects whether the connector is present, explains what is
+  missing when it is not, guides the user to the configuration step, and never
+  simulates access. Every workflow it builds is idempotent, has real failure
+  paths, bounded retries and timeouts, keeps no secret in its definition,
+  verifies inbound webhook signatures, and is run and observed before it is
+  called done. Wired into delivery phase 09; the n8n specifics are in
+  `resources/n8n-connector.md`.
+
+No agent was added: this is a capability the devops engineer and the
+orchestrator use, not a role with its own boundary and handoffs, so a thin
+agent wrapper would add nothing.
+
+### Changed
+
+- Counts: 158 to 159 skills, 13 to 14 devops-skills, 75 to 76 engineering
+  skills, in current-state prose. The delivery-system devops table, which had
+  long undercounted at eleven and omitted two skills, was corrected to the
+  full fourteen. Historical entries left as written.
+
 ## 3.4.0
 
 The website auditor. Give it a URL and it reports what is wrong with the site

@@ -236,11 +236,29 @@ Session 11, the website auditor (cluster D), version 3.4.0:
 - Counts 157 to 158 skills, 10 to 11 security, 2 to 3 security-assurance, 18
   to 19 agents. Branched fresh from `dev` (clean base, no more stacking).
 
+Session 12, workflow automation (cluster B, the last of the original list),
+version 3.5.0:
+
+- `workflow-automation` skill (`engineering/devops-skills/`): builds
+  automation workflows through an external engine reached over a connector,
+  n8n over its MCP server the concrete target. Two refusals define it: it does
+  not assume a project wants automation (opt-in per project, recorded), and it
+  does not pretend to have a connection it was not given. The n8n MCP server
+  is configured and authorized interactively by the user, outside the skill,
+  which detects the connector, explains its absence, guides the user, and
+  never simulates access. No agent added: a capability, not a role.
+- Wired into delivery phase 09. Counts 158 to 159 skills, 13 to 14
+  devops-skills, 75 to 76 engineering. The delivery-system devops table,
+  which had undercounted at eleven and omitted infrastructure-as-code and
+  incident-response, was corrected to fourteen.
+- All four original clusters (A, C, D, B) now delivered. The stale branches
+  were cleaned; only `main` and `dev` remain.
+
 ## Current state
 
 Working today:
 
-- the five scripts pass: 158 skills, 0 errors, 1 pre-existing warning on a
+- the five scripts pass: 159 skills, 0 errors, 1 pre-existing warning on a
   deliberate typographic counter-example;
 - `install.sh` works in every mode, including the four new scopes, verified
   against a sandbox target through `CLAUDE_SKILLS_DIR`;

@@ -92,7 +92,7 @@ was never run end to end is not integrated.
 
 phase: 09
 name: devops
-skills: devops-core, environment-management, secrets-management, infrastructure-as-code, containerization, ci-cd-pipelines
+skills: devops-core, environment-management, secrets-management, infrastructure-as-code, containerization, ci-cd-pipelines, workflow-automation
 gate: verification
 
 Environments, configuration, pipeline. The pipeline runs and fails correctly

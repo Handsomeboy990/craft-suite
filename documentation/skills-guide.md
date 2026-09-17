@@ -1,6 +1,6 @@
 # Skills guide
 
-Directory of the 158 skills. One line each: what it does, and when to open it.
+Directory of the 159 skills. One line each: what it does, and when to open it.
 
 Every skill's own `README.md` carries its inputs, outputs, dependencies and
 configuration in four lines. This file is the index; the READMEs are the
@@ -66,6 +66,7 @@ contracts.
 | Is it safe to ship | `release-readiness` |
 | I have a specification, not a task | `delivery-orchestrator` |
 | Something must be deployed | `devops-core` |
+| I want scheduled jobs or integrations through a workflow tool | `workflow-automation` |
 | Is the deployment actually working | `production-verification` |
 | Is the website actually ready to launch | `launch-readiness` |
 | My site looks like every other AI-generated site | `design-authenticity` |
@@ -156,7 +157,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `document-design` | publishing | hierarchy, typography, tables, page furniture, metadata |
 | `pdf-production` | publishing | engine selection, generation, render verification |
 
-## engineering, 75 skills
+## engineering, 76 skills
 
 ### dev-skills, 51
 
@@ -230,7 +231,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `launch-readiness` | the completeness gate for a user-facing web product before launch |
 | `client-handover` | the delivery package another team can take over |
 
-### devops-skills, 13
+### devops-skills, 14
 
 | Skill | What it does |
 |---|---|
@@ -247,6 +248,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `release-engineering` | versioning, tagging, changelog, rollout, hotfix path |
 | `infrastructure-as-code` | infrastructure in code, state, plans, drift |
 | `incident-response` | declaration to postmortem, mitigation before diagnosis |
+| `workflow-automation` | opt-in workflows through an external engine like n8n, connector never invented |
 
 ### agents, 16
 
