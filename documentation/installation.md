@@ -30,12 +30,12 @@ bash install.sh
 ```
    1) Creative writing        42 skills   novels, poetry, screenplay, editing
    2) Professional documents   7 skills   guides, manuals, reports, letters, PDF
-   3) Software engineering    70 skills   plus 16 agents
-   4) Cybersecurity           10 skills   threat models, audits, hardening
+   3) Software engineering    82 skills   plus 24 agents
+   4) Cybersecurity           12 skills   threat models, audits, hardening
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
-   8) Everything             152 skills   plus 16 agents
+   8) Everything             166 skills   plus 25 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -54,14 +54,14 @@ everything.
 ```bash
 bash install.sh --writing      42 creative writing skills
 bash install.sh --documents     7 professional document skills
-bash install.sh --dev          70 engineering skills and 16 agents
-bash install.sh --security     10 defensive security skills
+bash install.sh --dev          82 engineering skills and 24 agents
+bash install.sh --security     12 defensive security skills
 bash install.sh --research      5 general research skills
 bash install.sh --career        7 job search and application skills
 bash install.sh --opportunity   9 ideation, hackathon and business skills
 bash install.sh --all          everything
 bash install.sh --shared        the 2 cross domain skills only
-bash install.sh --agents        the 16 agents only
+bash install.sh --agents        the 25 agents only
 bash install.sh --no-agents     skills without agents
 ```
 
@@ -100,11 +100,11 @@ bash install.sh --group devops-skills     operations only
 | `documentation` | 4 | documents |
 | `administrative` | 1 | documents |
 | `publishing` | 2 | documents |
-| `dev-skills` | 47 | engineering |
-| `delivery-skills` | 10 | engineering |
-| `devops-skills` | 13 | engineering |
-| `secure-development` | 8 | security |
-| `security-assurance` | 2 | security |
+| `dev-skills` | 55 | engineering |
+| `delivery-skills` | 11 | engineering |
+| `devops-skills` | 16 | engineering |
+| `secure-development` | 9 | security |
+| `security-assurance` | 3 | security |
 | `research` | 5 | research |
 | `career` | 7 | career |
 | `ideation` | 3 | opportunity |
@@ -195,6 +195,8 @@ yourself and run `install.sh` from inside it.
 bash tests/validate-structure.sh
 bash tests/validate-rules.sh
 bash tests/validate-orchestration.sh
+bash tests/validate-plugins.sh
+bash tests/validate-model-routing.sh
 ```
 
 The installer runs the first one itself and refuses to install a repository
@@ -273,7 +275,7 @@ can be removed deliberately.
 ## Verifying the installation
 
 ```bash
-ls ~/.claude/skills | wc -l      # 44 writing, 9 documents, 72 dev, 152 all
+ls ~/.claude/skills | wc -l      # 44 writing, 9 documents, 75 dev, 155 all
 ls ~/.claude/agents | wc -l      # 16, with the engineering tree
 cat ~/.claude/craft.config.yaml
 ```

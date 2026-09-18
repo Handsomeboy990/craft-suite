@@ -31,10 +31,15 @@ smallest plan that still contains every mandatory gate.
 5. **Compose the plan** from section 3, then apply the mandatory gates in
    section 4 and the exclusion rules in section 5.
 6. **Announce the plan in one block**, at most one line per step.
-7. **Execute step by step.** After each step, check its exit condition before
-   moving on.
+7. **Execute step by step.** Before each step, classify its complexity with
+   `task-complexity` and route it with `model-routing`; the two run per step,
+   not once for the whole request, because a plan's steps rarely carry the
+   same risk. After each step, check its exit condition before moving on.
 8. **Re-plan when a step invalidates an assumption.** A discovery that changes
-   the category restarts planning from step 2, and the change is stated.
+   the category restarts planning from step 2, and the change is stated. The
+   same discovery is a reclassification for `task-complexity` and an
+   escalation or de-escalation for `model-routing`: one event, read by all
+   three, never three separate judgment calls reaching different answers.
 9. **Close** with the completion verdict of section 7.
 
 ## 2. Classification
@@ -150,6 +155,10 @@ The orchestrator does not activate:
 4. Verification is not repeated when its inputs are unchanged.
 5. When a plan produces no progress twice in a row, the orchestrator stops and
    reports the exact blocker rather than cycling.
+
+These five rules are enforced here, at the orchestrator. `token-optimization`
+is the discipline that keeps each individual step proportional; it does not
+duplicate this section and this section does not duplicate it.
 
 ## 7. Completion verdict
 

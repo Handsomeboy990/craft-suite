@@ -8,7 +8,7 @@ Des systèmes d'expertise pour un agent, dans un seul dépôt : **écrire**,
 Le dépôt s'appelait `claude-writer-suite` jusqu'à la version 3.0.0, quand
 l'arbre d'écriture a cessé d'en être la totalité.
 
-152 skills et 16 agents. Pas des prompts : des protocoles numérotés, des
+166 skills et 25 agents. Pas des prompts : des protocoles numérotés, des
 critères de décision, des grilles d'évaluation et des procédures de révision,
 chacun avec un seuil chiffré de ce qui compte comme terminé.
 
@@ -19,8 +19,9 @@ craft-suite/
 ├── shared/           2 skills transversaux, appelés par tous les arbres
 ├── writing/         42 skills d'écriture créative
 ├── documents/        7 skills de document professionnel
-├── engineering/     70 skills d'ingénierie et 16 agents
-├── security/        10 skills de sécurité défensive
+├── engineering/     82 skills d'ingénierie
+├── agents/          25 définitions de rôle, transversales au dépôt
+├── security/        12 skills de sécurité défensive
 ├── research/         5 skills de recherche générale
 ├── career/           7 skills de recherche d'emploi et de candidature
 ├── opportunity/      9 skills d'idéation, de hackathon et de prospection
@@ -28,7 +29,7 @@ craft-suite/
 ├── control-center/   tableau de bord local optionnel, sans dépendance
 ├── plugins/          bundles de plugins par domaine, générés depuis les arbres
 ├── documentation/    documentation technique des arbres
-└── tests/            quatre scripts de validation
+└── tests/            six scripts de validation
 ```
 
 ## Raison d'être
@@ -47,7 +48,7 @@ Le dépôt sépare trois langues que l'on confond couramment.
 
 | Couche | De quoi il s'agit | Valeur |
 |---|---|---|
-| Langue des skills | les instructions elles-mêmes | anglais, pour les 152 skills |
+| Langue des skills | les instructions elles-mêmes | anglais, pour les 166 skills |
 | Langue du système | chemins, identifiants, clés de configuration, commits | anglais |
 | Langue de sortie | ce que reçoit le lecteur | la sienne, réglée par projet |
 
@@ -116,13 +117,14 @@ en production.
 
 | Catégorie | Skills | Question à laquelle elle répond |
 |---|---|---|
-| [dev-skills](../engineering/dev-skills/) | 47 | comment une modification est faite correctement |
-| [delivery-skills](../engineering/delivery-skills/) | 10 | quoi construire, dans quel ordre, avec quelle approbation |
-| [devops-skills](../engineering/devops-skills/) | 13 | comment le système tourne, se déploie et se restaure |
-| [agents](../engineering/agents/) | 16 | qui possède quoi, et ce qui est transmis |
+| [dev-skills](../engineering/dev-skills/) | 55 | comment une modification est faite correctement |
+| [delivery-skills](../engineering/delivery-skills/) | 11 | quoi construire, dans quel ordre, avec quelle approbation |
+| [devops-skills](../engineering/devops-skills/) | 16 | comment le système tourne, se déploie et se restaure |
 
 Agnostique de la pile et de la plateforme : le système lit le projet qu'on lui
-confie plutôt que d'en présupposer la forme.
+confie plutôt que d'en présupposer la forme. Les seize agents ne sont pas une
+catégorie de cet arbre : ils forment une couche transversale au dépôt, dans
+[agents](../agents/), qui possède quoi et ce qui est transmis.
 
 Index : [engineering/README.md](../engineering/README.md).
 
@@ -135,8 +137,8 @@ code peut corriger.
 
 | Catégorie | Skills | Question à laquelle elle répond |
 |---|---|---|
-| [secure-development](../security/secure-development/) | 8 | comment un système est construit et durci pour résister |
-| [security-assurance](../security/security-assurance/) | 2 | ce qui ne va pas dans un système existant, sans le casser |
+| [secure-development](../security/secure-development/) | 9 | comment un système est construit et durci pour résister |
+| [security-assurance](../security/security-assurance/) | 3 | ce qui ne va pas dans un système existant, sans le casser |
 
 Deux règles ne plient jamais : aucune action offensive sans autorisation
 écrite, spécifique et dans le périmètre, consignée ; et aucun audit ne conclut
@@ -215,12 +217,12 @@ reçoit jamais l'arbre d'ingénierie.
 ```
    1) Creative writing        42 skills   romans, poésie, scénario, édition
    2) Professional documents   7 skills   guides, manuels, rapports, lettres, PDF
-   3) Software engineering    70 skills   plus 16 agents
-   4) Cybersecurity           10 skills   modèles de menace, audits, durcissement
+   3) Software engineering    82 skills   plus 24 agents
+   4) Cybersecurity           12 skills   modèles de menace, audits, durcissement
    5) Research                 5 skills   sources, vérification, synthèse
    6) Career                   7 skills   recherche d'emploi, CV, entretiens
    7) Opportunity              9 skills   idéation, hackathons, prospection
-   8) Everything             152 skills   plus 16 agents
+   8) Everything             166 skills   plus 25 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -240,14 +242,14 @@ bash install.sh --configure
 ```bash
 bash install.sh --writing      les 42 skills d'écriture
 bash install.sh --documents     les 7 skills de document
-bash install.sh --dev          les 70 skills d'ingénierie et les 16 agents
-bash install.sh --security     les 10 skills de sécurité défensive
+bash install.sh --dev          les 82 skills d'ingénierie et les 24 agents
+bash install.sh --security     les 12 skills de sécurité défensive
 bash install.sh --research      les 5 skills de recherche générale
 bash install.sh --career        les 7 skills de recherche d'emploi
 bash install.sh --opportunity   les 9 skills d'idéation, hackathon et prospection
 bash install.sh --all          tout
 bash install.sh --shared        les 2 skills transversaux seulement
-bash install.sh --agents        les 16 agents seulement
+bash install.sh --agents        les 25 agents seulement
 bash install.sh --no-agents     les skills sans les agents
 bash install.sh --all --zip     construit aussi une archive par skill dans dist/
 bash install.sh --remove        désinstalle la portée choisie
@@ -281,11 +283,11 @@ bash install.sh --group devops-skills     l'exploitation seule
 | `documentation` | 4 | documents |
 | `administrative` | 1 | documents |
 | `publishing` | 2 | documents |
-| `dev-skills` | 47 | engineering |
-| `delivery-skills` | 10 | engineering |
-| `devops-skills` | 13 | engineering |
-| `secure-development` | 8 | security |
-| `security-assurance` | 2 | security |
+| `dev-skills` | 55 | engineering |
+| `delivery-skills` | 11 | engineering |
+| `devops-skills` | 16 | engineering |
+| `secure-development` | 9 | security |
+| `security-assurance` | 3 | security |
 | `research` | 5 | research |
 | `career` | 7 | career |
 | `ideation` | 3 | opportunity |
@@ -532,7 +534,7 @@ n'installer que les domaines voulus.
 |---|---|
 | `craft-writing` | l'arbre d'écriture, 42 skills |
 | `craft-documents` | l'arbre des documents, 7 skills |
-| `craft-engineering` | l'arbre d'ingénierie, 70 skills et 16 agents |
+| `craft-engineering` | l'arbre d'ingénierie, 82 skills et 24 agents |
 | `craft-security` | l'arbre de sécurité, 10 skills |
 | `craft-research` | l'arbre de recherche, 5 skills |
 | `craft-career` | l'arbre d'emploi, 7 skills |
@@ -563,13 +565,14 @@ est affichée comme indisponible, jamais inventée. Détail :
 ## Validation
 
 ```bash
-bash tests/validate-structure.sh      structure et métadonnées des 152 skills
+bash tests/validate-structure.sh      structure et métadonnées des 166 skills
 bash tests/validate-rules.sh          emoji, tiret cadratin, secrets, identité codée en dur
 bash tests/validate-orchestration.sh  plans, phases, agents, renvois croisés
 bash tests/validate-plugins.sh        bundles de plugins synchronisés avec les arbres
+bash tests/validate-model-routing.sh  fixtures de routage contre la table de tiers
 ```
 
-Les quatre doivent passer avant tout commit. Détail dans
+Les six doivent passer avant tout commit. Détail dans
 [tests/README.md](../tests/README.md).
 
 ## Documentation
@@ -577,7 +580,7 @@ Les quatre doivent passer avant tout commit. Détail dans
 | Fichier | Contenu |
 |---|---|
 | [documentation/architecture.md](architecture.md) | organisation, isolation des skills, métadonnées |
-| [documentation/skills-guide.md](skills-guide.md) | répertoire des 152 skills |
+| [documentation/skills-guide.md](skills-guide.md) | répertoire des 166 skills |
 | [documentation/installation.md](installation.md) | installation complète et par skill |
 | [documentation/configuration.md](configuration.md) | le contrat de configuration |
 | [documentation/agents.md](agents.md) | skill, agent, orchestration |
@@ -613,7 +616,7 @@ dans [.github/CODEOWNERS](../.github/CODEOWNERS).
 Ajouter un skill suppose : créer le dossier avec ses quatre éléments, déclarer
 les métadonnées, renvoyer à la constitution de son arbre sans la recopier,
 ajouter au moins un exemple et une ressource, mettre à jour l'index de
-catégorie et `documentation/skills-guide.md`, puis exécuter les quatre scripts.
+catégorie et `documentation/skills-guide.md`, puis exécuter les six scripts.
 
 Règles complètes : [CONTRIBUTING.md](../CONTRIBUTING.md). Règles de branche et
 leur mise en place :

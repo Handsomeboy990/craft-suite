@@ -132,12 +132,46 @@ the data limitations and a privacy note, so it is explainable and reproducible.
   text nodes rather than HTML, so project names and file paths cannot inject
   markup.
 
+## Agent dispatch telemetry
+
+Collected since the agent routing phase, through the extension point this
+document already described. `reader.py` counts, per run and per session:
+dispatches by agent, dispatches by requested model (an absent model key is
+recorded as `default`, a present but unusable one as `unknown`, because the
+two are different facts), and the sidechain records that are the evidence
+dispatched work actually produced messages.
+
+Two details of this collector are worth carrying forward, because both were
+found by review rather than by writing it:
+
+- **Labels from a transcript are untrusted text.** `subagent_type` and
+  `model` are the only two fields read, and both pass through `_safe_label`,
+  which accepts a string only, drops non-printable characters, collapses
+  whitespace runs and bounds the length. Calling `str()` on a non-string
+  would render a nested object whole, which would re-import the prompt field
+  the collector exists to avoid reading; control characters in a label draw
+  extra lines in the text report and imitate its aligned columns, which turns
+  the report into something that can be made to display a figure it never
+  measured.
+- **A subagent writes its transcript one level deeper.** Session transcripts
+  are at `projects/<project>/*.jsonl`; a dispatched agent's own transcript is
+  at `projects/<project>/<sessionId>/subagents/*.jsonl`. A two-level scan
+  sees none of them, and reports a zero it never looked for. The collector
+  makes a second, strictly scoped pass over the deeper path, counting records
+  and nothing else: folding those files into the token, tool, model and
+  session figures would silently change the meaning of every existing number
+  in the dashboard, and a test pins that boundary.
+
+The browser dashboard renders this data in the Agents tab: the dispatch total,
+the dispatched-work records, and the breakdowns by agent and by model, with a
+measured-zero empty state when the layer was not exercised. It is also reachable
+through `--json`, `/api/data` and `install.sh --report`.
+
 ## What is deliberately not built
 
 The following are not collected by the current data source and are therefore not
 shown, rather than estimated:
 
-- agent-level usage (which agent ran, how often)
 - skill usage beyond explicit `Skill`-tool calls
 - external resources consulted (URLs, documents, repositories)
 - quality-audit or security-audit results

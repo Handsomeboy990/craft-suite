@@ -1,4 +1,4 @@
-# Runs the three validation scripts on every pull request into dev and main.
+# Runs the five validation scripts on every pull request into dev and main.
 #
 # Its purpose is to be a required status check. Branch protection that only
 # requires a review lets a broken change through whenever the reviewer is
@@ -17,6 +17,11 @@ permissions:
 
 jobs:
   validate:
+    # This name is the required status check context in branch protection.
+    # Do not rename it when adding a step: the job runs more than the four it
+    # lists (model routing and the Control Center tests too), but renaming the
+    # job would leave branch protection waiting for a context that never
+    # reports again. The name is a stable label, not an inventory.
     name: structure, rules, orchestration, plugins
     runs-on: ubuntu-latest
     steps:
@@ -34,7 +39,13 @@ jobs:
       - name: Plugin bundles in sync with the trees
         run: bash tests/validate-plugins.sh
 
-      - name: Control Center parses, runs and passes its advisor tests
+      - name: Model routing fixtures match the routing table
+        run: bash tests/validate-model-routing.sh
+
+      - name: Documentation counts match the trees
+        run: bash tests/validate-counts.sh
+
+      - name: Control Center parses, runs and passes its tests
         run: |
           python3 -c "import ast; ast.parse(open('control-center/reader.py').read())"
           python3 -c "import ast; ast.parse(open('control-center/server.py').read())"
@@ -42,6 +53,7 @@ jobs:
           python3 control-center/reader.py --json > /dev/null
           python3 control-center/advisor.py > /dev/null
           python3 control-center/test_advisor.py
+          python3 control-center/test_reader.py
           python3 tests/check-app-js.py
 
       - name: Shell syntax

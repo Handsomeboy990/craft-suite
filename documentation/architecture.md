@@ -2,8 +2,8 @@
 
 ## Overview
 
-The Craft Suite is a library of 152 skills in eighteen groups across
-eight trees, plus sixteen agents, shared resources, the configuration contract,
+The Craft Suite is a library of 166 skills in eighteen groups across
+eight trees, plus twenty-five agents, shared resources, the configuration contract,
 an optional local dashboard, per-domain plugins, documentation, a demonstration
 project and validation scripts. The repository was called
 `claude-writer-suite` until 3.0.0.
@@ -29,14 +29,21 @@ craft-suite/
 │   ├── documentation/      4
 │   ├── administrative/     1
 │   └── publishing/         2
-├── engineering/           70 skills and 16 agents
-│   ├── dev-skills/        47
-│   ├── delivery-skills/   10
-│   ├── devops-skills/     13
-│   └── agents/            16 role definitions
-├── security/              10 skills
-│   ├── secure-development/ 8
-│   └── security-assurance/ 2
+├── engineering/           82 skills
+│   ├── dev-skills/        55
+│   ├── delivery-skills/   11
+│   └── devops-skills/     16
+├── agents/                25 role definitions, repository wide
+│   ├── core/               9
+│   ├── development/        5
+│   ├── design/              3
+│   ├── security/            2
+│   ├── testing/             2
+│   ├── documentation/       1
+│   └── devops/              3
+├── security/              12 skills
+│   ├── secure-development/ 9
+│   └── security-assurance/ 3
 ├── research/               5 skills
 ├── career/                 7 skills
 ├── opportunity/            9 skills
@@ -136,7 +143,7 @@ Three layers, kept apart.
 
 | Layer | Value |
 |---|---|
-| Skill language | English, all 152 skills and all 16 agents |
+| Skill language | English, all 166 skills and all 25 agents |
 | System language | English: paths, identifiers, config keys, commits, technical documentation |
 | Output language | the recipient's, set per project in the configuration |
 
@@ -218,7 +225,7 @@ prepares and hands over. Everything handed over is written to
 
 ## Tests
 
-`tests/` holds four scripts with no external dependency.
+`tests/` holds six scripts with no external dependency beyond `python3`.
 
 - `validate-structure.sh`: the mandatory files and directories of every skill,
   the metadata block, duplicate skill names, the `Protocol` and `Interfaces`
@@ -231,13 +238,17 @@ prepares and hands over. Everything handed over is written to
   execution plans, delivery phases, mandatory gates, routing scenarios,
   declared dependencies across every tree, `Interfaces` cross references, agent
   definitions, the document pipeline, and the independence of `shared/`.
+- `validate-plugins.sh`: the per-domain plugin bundles stay in sync with the
+  trees, and the marketplace and manifests are well formed.
+- `validate-model-routing.sh`: the `model-routing` skill's fixtures match its
+  own tier table, with no live model call.
 
 ## Extending
 
 Adding a skill: create the directory with its four elements, declare the
 metadata, refer to the constitution of its tree without restating it, add at
 least one example and one resource, update the category index and
-`skills-guide.md`, then run the four scripts.
+`skills-guide.md`, then run the six scripts.
 
 For a skill in `documents/`, `engineering/` or `shared/`, four further
 requirements: a numbered `Protocol` section, an `Interfaces` section, and for
@@ -245,6 +256,6 @@ the engineering tree membership of at least one execution plan or delivery
 phase. Detail in `engineering-system.md` section 9, `delivery-system.md`
 section 11 and `documents-system.md` section 9.
 
-Adding an agent: the file in `engineering/agents/`, its eight mandatory
-sections, an entry in `engineering/agents/README.md`, and its name added to
+Adding an agent: the file in `agents/<group>/`, its eight mandatory
+sections, an entry in `agents/README.md`, and its name added to
 the expected list in `tests/validate-orchestration.sh`.

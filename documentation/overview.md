@@ -7,7 +7,7 @@ search**, **find and evaluate opportunities**, and **review your own work**.
 Called `claude-writer-suite` until 3.0.0, when the writing tree stopped being
 the whole of it.
 
-152 skills and 16 agents. Not prompts: numbered protocols, decision criteria,
+166 skills and 25 agents. Not prompts: numbered protocols, decision criteria,
 scoring grids and review procedures, each with a stated threshold for what
 counts as finished.
 
@@ -18,8 +18,9 @@ craft-suite/
 ├── shared/           2 cross domain skills, called by every tree
 ├── writing/         42 creative writing skills
 ├── documents/        7 professional document skills
-├── engineering/     70 software skills and 16 agents
-├── security/        10 defensive security skills
+├── engineering/     82 software skills
+├── agents/          25 role definitions, repository wide
+├── security/        12 defensive security skills
 ├── research/         5 general research skills
 ├── career/           7 job search and application skills
 ├── opportunity/      9 ideation, hackathon and business skills
@@ -27,7 +28,7 @@ craft-suite/
 ├── control-center/   optional local dashboard, zero dependency
 ├── plugins/          per-domain plugin bundles, generated from the trees
 ├── documentation/    technical documentation of the trees
-└── tests/            four validation scripts
+└── tests/            six validation scripts
 ```
 
 ## Why it exists
@@ -46,7 +47,7 @@ The repository separates three languages that are routinely confused.
 
 | Layer | What it is | Value |
 |---|---|---|
-| Skill language | the instructions themselves | English, all 152 skills |
+| Skill language | the instructions themselves | English, all 166 skills |
 | System language | paths, identifiers, config keys, commits | English |
 | Output language | what the reader receives | theirs, set per project |
 
@@ -112,13 +113,14 @@ verified in production.
 
 | Category | Skills | Question it answers |
 |---|---|---|
-| [dev-skills](../engineering/dev-skills/) | 47 | how a change is made correctly |
-| [delivery-skills](../engineering/delivery-skills/) | 10 | what to build, in what order, with what approval |
-| [devops-skills](../engineering/devops-skills/) | 13 | how the system runs, deploys and restores |
-| [agents](../engineering/agents/) | 16 | who owns what, and what is handed on |
+| [dev-skills](../engineering/dev-skills/) | 55 | how a change is made correctly |
+| [delivery-skills](../engineering/delivery-skills/) | 11 | what to build, in what order, with what approval |
+| [devops-skills](../engineering/devops-skills/) | 16 | how the system runs, deploys and restores |
 
 Stack and platform agnostic: the system reads the project it is given rather
-than assuming its shape.
+than assuming its shape. The twenty-five agents are not a category of this tree:
+they are a repository-wide layer, at [agents](../agents/), who owns what and
+what is handed on.
 
 Index: [engineering/README.md](../engineering/README.md).
 
@@ -130,8 +132,8 @@ finding by reachability and fixing what code can fix.
 
 | Category | Skills | Question it answers |
 |---|---|---|
-| [secure-development](../security/secure-development/) | 8 | how a system is built and hardened to resist attack |
-| [security-assurance](../security/security-assurance/) | 2 | what is wrong in a system that exists, without breaking it |
+| [secure-development](../security/secure-development/) | 9 | how a system is built and hardened to resist attack |
+| [security-assurance](../security/security-assurance/) | 3 | what is wrong in a system that exists, without breaking it |
 
 Two rules never bend: no offensive action without written, specific, in-scope
 authorization on record, and no audit ever concludes that a system is secure. It
@@ -208,12 +210,12 @@ novelist's toolkit, and a novelist is never given the engineering tree.
 ```
    1) Creative writing        42 skills   novels, poetry, screenplay, editing
    2) Professional documents   7 skills   guides, manuals, reports, letters, PDF
-   3) Software engineering    70 skills   plus 16 agents
-   4) Cybersecurity           10 skills   threat models, audits, hardening
+   3) Software engineering    82 skills   plus 24 agents
+   4) Cybersecurity           12 skills   threat models, audits, hardening
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
-   8) Everything             152 skills   plus 16 agents
+   8) Everything             166 skills   plus 25 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -233,14 +235,14 @@ bash install.sh --configure
 ```bash
 bash install.sh --writing      42 creative writing skills
 bash install.sh --documents     7 professional document skills
-bash install.sh --dev          70 engineering skills and 16 agents
-bash install.sh --security     10 defensive security skills
+bash install.sh --dev          82 engineering skills and 24 agents
+bash install.sh --security     12 defensive security skills
 bash install.sh --research      5 general research skills
 bash install.sh --career        7 job search and application skills
 bash install.sh --opportunity   9 ideation, hackathon and business skills
 bash install.sh --all          everything
 bash install.sh --shared        the 2 cross domain skills only
-bash install.sh --agents        the 16 agents only
+bash install.sh --agents        the 25 agents only
 bash install.sh --no-agents     skills without agents
 bash install.sh --all --zip     also build one archive per skill in dist/
 bash install.sh --remove        uninstall the selected scope
@@ -272,11 +274,11 @@ bash install.sh --group devops-skills     operations only
 | `documentation` | 4 | documents |
 | `administrative` | 1 | documents |
 | `publishing` | 2 | documents |
-| `dev-skills` | 47 | engineering |
-| `delivery-skills` | 10 | engineering |
-| `devops-skills` | 13 | engineering |
-| `secure-development` | 8 | security |
-| `security-assurance` | 2 | security |
+| `dev-skills` | 55 | engineering |
+| `delivery-skills` | 11 | engineering |
+| `devops-skills` | 16 | engineering |
+| `secure-development` | 9 | security |
+| `security-assurance` | 3 | security |
 | `research` | 5 | research |
 | `career` | 7 | career |
 | `ideation` | 3 | opportunity |
@@ -442,7 +444,7 @@ the operations and shared constitutions:
 
 ## Agents
 
-Sixteen role definitions, for a runtime that supports subagents.
+Twenty-five role definitions, for a runtime that supports subagents.
 
 ```
 Skill          how this kind of work is done correctly
@@ -519,7 +521,7 @@ marketplace and install only the domains they want.
 |---|---|
 | `craft-writing` | the writing tree, 42 skills |
 | `craft-documents` | the documents tree, 7 skills |
-| `craft-engineering` | the engineering tree, 70 skills and 16 agents |
+| `craft-engineering` | the engineering tree, 82 skills and 24 agents |
 | `craft-security` | the security tree, 10 skills |
 | `craft-research` | the research tree, 5 skills |
 | `craft-career` | the career tree, 7 skills |
@@ -549,13 +551,14 @@ never invented. Detail: [control-center/README.md](../control-center/README.md).
 ## Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of 152 skills
+bash tests/validate-structure.sh      structure and metadata of 166 skills
 bash tests/validate-rules.sh          emoji, em dash, secrets, hardcoded identity
 bash tests/validate-orchestration.sh  plans, phases, agents, cross references
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees
+bash tests/validate-model-routing.sh  routing fixtures against the tier table
 ```
 
-All four must pass before any commit. Detail in
+All six must pass before any commit. Detail in
 [tests/README.md](../tests/README.md).
 
 ## Documentation
@@ -563,7 +566,7 @@ All four must pass before any commit. Detail in
 | File | Contents |
 |---|---|
 | [documentation/architecture.md](architecture.md) | organisation, skill isolation, metadata |
-| [documentation/skills-guide.md](skills-guide.md) | directory of the 152 skills |
+| [documentation/skills-guide.md](skills-guide.md) | directory of the 166 skills |
 | [documentation/installation.md](installation.md) | full and per-skill installation |
 | [documentation/configuration.md](configuration.md) | the configuration contract |
 | [documentation/agents.md](agents.md) | skill, agent, orchestration |
@@ -596,7 +599,7 @@ opened by a maintainer. Both branches require a pull request, a green
 Adding a skill: create the directory with its four elements, declare the
 metadata, refer to the constitution of its tree without restating it, add at
 least one example and one resource, update the category index and
-`documentation/skills-guide.md`, then run the four scripts.
+`documentation/skills-guide.md`, then run the six scripts.
 
 Full rules: [CONTRIBUTING.md](../CONTRIBUTING.md). Branch rules and their setup:
 [documentation/branch-protection.md](branch-protection.md).

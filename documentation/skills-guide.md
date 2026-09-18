@@ -1,6 +1,6 @@
 # Skills guide
 
-Directory of the 152 skills. One line each: what it does, and when to open it.
+Directory of the 166 skills. One line each: what it does, and when to open it.
 
 Every skill's own `README.md` carries its inputs, outputs, dependencies and
 configuration in four lines. This file is the index; the READMEs are the
@@ -18,6 +18,11 @@ contracts.
 | I want the defects tests do not find | `exploratory-testing`, `bug-hunting` |
 | Someone asked whether it is accessible | `accessibility-testing` |
 | I am authorised to test the security of a running system | `security-testing` |
+| Users are hammering my login or my forms | `rate-limiting` |
+| I need HTTPS, or a certificate is about to expire | `tls-certificates` |
+| I am building an admin panel or back-office | `admin-console` |
+| I am building a feature on a language model | `llm-integration` |
+| My confirmation emails go to spam or never arrive | `email-deliverability` |
 | I want to know what happens when a provider fails | `reliability-testing` |
 | I have findings and need a report | `test-reporting` |
 | I am designing an endpoint anyone else will call | `api-design` |
@@ -66,7 +71,12 @@ contracts.
 | Is it safe to ship | `release-readiness` |
 | I have a specification, not a task | `delivery-orchestrator` |
 | Something must be deployed | `devops-core` |
+| I want scheduled jobs or integrations through a workflow tool | `workflow-automation` |
 | Is the deployment actually working | `production-verification` |
+| Is the website actually ready to launch | `launch-readiness` |
+| My site looks like every other AI-generated site | `design-authenticity` |
+| I want motion that reads as designed, not hover-everywhere | `animation` |
+| I have a URL and want everything wrong with the site | `website-audit` |
 
 ## shared, 2 skills
 
@@ -153,17 +163,23 @@ Depend on nothing. Callable from any tree, usable alone.
 | `document-design` | publishing | hierarchy, typography, tables, page furniture, metadata |
 | `pdf-production` | publishing | engine selection, generation, render verification |
 
-## engineering, 70 skills
+## engineering, 82 skills
 
-### dev-skills, 47
+### dev-skills, 55
 
 | Skill | What it does |
 |---|---|
 | `engineering-core` | the non-negotiable engineering rules |
 | `engineering-orchestrator` | classifies a task and composes the smallest complete plan |
+| `task-complexity` | one complexity classification, read by every routing decision |
+| `model-routing` | model tier, and effort where a lever exists, from that classification |
+| `token-optimization` | context and output proportional to the task, during the work |
 | `project-exploration` | maps an unfamiliar codebase before any change |
 | `architecture-design` | the smallest architecture that serves the product |
 | `ui-ux-engineering` | the rendered experience, states, accessibility |
+| `design-authenticity` | detects generic AI-default design, tests for intent |
+| `animation` | motion that reads as designed: technique ladder, cheap props, reduced motion |
+| `template-selection` | finds clean, licence-clear templates that fit, shortlists them, then customises the chosen one |
 | `dependency-selection` | twelve point evaluation before adding a library |
 | `frontend-engineering` | pages, components, state, forms, the five UI states |
 | `backend-engineering` | handlers, services, authorization, transactions, jobs |
@@ -197,6 +213,8 @@ Depend on nothing. Callable from any tree, usable alone.
 | `data-privacy` | what is held, for how long, and deletion that works |
 | `analytics-instrumentation` | events designed from the questions they answer |
 | `feature-flags` | flag types, rollout, stale detection, removal |
+| `admin-console` | the privileged back-office: least-privilege roles, audit log, server-side authz |
+| `llm-integration` | a feature on a language model, engineered around its non-determinism and cost |
 | `quality-engineering` | coordinates a whole quality campaign and its verdict |
 | `api-testing` | an HTTP surface against its contract, past the 200 |
 | `exploratory-testing` | designed exploration under a charter and a time box |
@@ -207,7 +225,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `reliability-testing` | what happens when a dependency fails |
 | `test-reporting` | findings, severity, evidence, lifecycle, one verdict |
 
-### delivery-skills, 10
+### delivery-skills, 11
 
 | Skill | What it does |
 |---|---|
@@ -220,9 +238,10 @@ Depend on nothing. Callable from any tree, usable alone.
 | `delivery-planning` | ordered atomic tasks with dependencies and milestones |
 | `implementation-integrity` | forbids and detects fake functionality |
 | `scope-and-change-control` | protects an approved scope from silent drift |
+| `launch-readiness` | the completeness gate for a user-facing web product before launch |
 | `client-handover` | the delivery package another team can take over |
 
-### devops-skills, 13
+### devops-skills, 16
 
 | Skill | What it does |
 |---|---|
@@ -239,6 +258,9 @@ Depend on nothing. Callable from any tree, usable alone.
 | `release-engineering` | versioning, tagging, changelog, rollout, hotfix path |
 | `infrastructure-as-code` | infrastructure in code, state, plans, drift |
 | `incident-response` | declaration to postmortem, mitigation before diagnosis |
+| `workflow-automation` | opt-in workflows through an external engine like n8n, connector never invented |
+| `tls-certificates` | the TLS certificate over its whole life, key never leaked |
+| `email-deliverability` | mail into the inbox: SPF, DKIM, DMARC aligned, reputation, bounces |
 
 ### agents, 16
 
@@ -252,9 +274,9 @@ Depend on nothing. Callable from any tree, usable alone.
 Public contracts in `agents.md`. An agent is a role: it names the skills it
 uses and restates none of them.
 
-## security, 10 skills
+## security, 12 skills
 
-### secure-development, 8
+### secure-development, 9
 
 - `security-core`: constitution. Defensive posture, the authorization boundary,
   the severity scale, the evidence rule, fix-and-verify. Depends on nothing.
@@ -271,13 +293,18 @@ uses and restates none of them.
   safe upgrades, typosquatting.
 - `security-headers`: CSP, HSTS, CORS and the browser hardening headers,
   verified on the live response.
+- `rate-limiting`: a limit per endpoint by the cost of abuse, keyed unforgeably
+  by IP or user, over the real control not instead of it.
 
-### security-assurance, 2
+### security-assurance, 3
 
 - `vulnerability-assessment`: a non-intrusive sweep of an owned system, ranked
   findings, a remediation plan.
 - `authorized-pentesting`: active exploitation to prove impact, strictly inside
   written authorization. The one gated offensive skill.
+- `website-audit`: a URL-driven audit across front, back, security,
+  performance, accessibility and design. Passive on any URL, active only on an
+  owned or authorized target, human in the loop for registration.
 
 ## research, 5 skills
 
@@ -353,6 +380,7 @@ Every other skill declares its dependencies in `depends_on` and in its README.
 | `deployment-engineering` | `engineering.deployment_platform`, `delegation.deployments` |
 | `database-operations` | `delegation.database_operations` |
 | `dependency-selection` | `engineering.package_manager`, `delegation.dependency_changes` |
+| `model-routing` | `model_routing.fast`, `model_routing.balanced`, `model_routing.strongest` |
 | `technical-documentation`, `technical-writing` | `language.documentation` |
 | the `writing/` tree | `language.creative_output` |
 | the `documents/` tree | `language.document_output`, `identity.organization`, `documents.*` |

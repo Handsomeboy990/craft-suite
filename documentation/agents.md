@@ -1,11 +1,11 @@
 # Agents
 
-Sixteen agent definitions, for a runtime that supports subagents.
+Twenty-five agent definitions, for a runtime that supports subagents.
 
 This document explains the difference between a skill, an agent and
 orchestration, and gives the public contract of each agent. The definitions
-themselves are in `engineering/agents/`, and the transfer format is in
-`engineering/agents/handoff-protocol.md`.
+themselves are in `agents/<group>/`, and the transfer format is in
+`agents/handoff-protocol.md`.
 
 ## Skill, agent, orchestration
 
@@ -38,7 +38,7 @@ handoff.
 For a single task, the skills alone are enough. Install with `--no-agents` and
 let `engineering-orchestrator` sequence the skills in one context.
 
-## The sixteen
+## The seventeen
 
 | Agent | Owns | Runs after | Hands to |
 |---|---|---|---|
@@ -85,7 +85,7 @@ overwrites the first.
 ## Reading an agent before using it
 
 ```bash
-sed -n '1,40p' engineering/agents/backend-engineer.md
+sed -n '1,40p' agents/development/backend-engineer.md
 ```
 
 The metadata block gives the name and a description built for selection. The
@@ -95,7 +95,7 @@ back. Those three are enough to decide whether it is the right agent.
 ## Interaction model
 
 Agents communicate through artefacts, not conversation. The format is in
-`engineering/agents/handoff-protocol.md`.
+`agents/handoff-protocol.md`.
 
 An agent that finishes leaves behind what the next one needs to start: what
 was done, what was verified and how, what was decided, what remains, and what
@@ -117,18 +117,18 @@ agents reach at the end of their work.
 - Nothing verifies at runtime that a review gate between two agents was
   actually held. `tests/validate-orchestration.sh` verifies the definitions
   are coherent, not that an execution respected them.
-- The sixteen cover software delivery. There is no agent for the writing tree
+- The seventeen cover software delivery. There is no agent for the writing tree
   or the documents tree: both are sequential, single-context work where an
   agent boundary would add a handoff and remove nothing.
 
 ## Adding an agent
 
-1. Create the file in `engineering/agents/`, with the eight sections and a
+1. Create the file in `agents/<group>/`, with the eight sections and a
    `Skills` section.
 2. Reference skills; never copy their content.
-3. Add a row to `engineering/agents/README.md`.
+3. Add a row to `agents/README.md`.
 4. Add the name to `AGENT_NAMES` in `tests/validate-orchestration.sh`.
-5. Run the four validation scripts.
+5. Run the six validation scripts.
 
 Step 4 is not optional: check 10 fails for a declared agent with no file, and
 also for a file with no declaration. The list and the directory are kept in

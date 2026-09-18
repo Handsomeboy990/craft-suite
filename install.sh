@@ -8,17 +8,17 @@
 #   bash install.sh                ask what to install
 #   bash install.sh --writing      creative writing, 42 skills
 #   bash install.sh --documents    professional documents, 7 skills
-#   bash install.sh --dev          software engineering, 70 skills and 16 agents
-#   bash install.sh --security     defensive security, 10 skills
+#   bash install.sh --dev          software engineering, its skills and 24 agents
+#   bash install.sh --security     defensive security, 10 skills and 2 agents
 #   bash install.sh --research     general research, 5 skills
 #   bash install.sh --career       job search and applications, 7 skills
 #   bash install.sh --opportunity  ideation, hackathons, business, 9 skills
 #   bash install.sh --shared       the 2 cross domain skills only
-#   bash install.sh --all          everything, 152 skills and 16 agents
+#   bash install.sh --all          everything, all skills and 25 agents
 #   bash install.sh --group a,b    only these categories
 #   bash install.sh --skill a,b    only these skills, with their dependencies
 #   bash install.sh --list         print every installable skill and exit
-#   bash install.sh --agents       the 16 agents only
+#   bash install.sh --agents       the 25 agents only
 #   bash install.sh --no-agents    skills without agents
 #   bash install.sh --configure    ask for the user specific values only
 #   bash install.sh --control-center   start the local Control Center and exit
@@ -105,6 +105,7 @@ SELECTED_GROUPS=""
 SCOPE_GIVEN="no"
 WITH_AGENTS=""
 WITH_SKILLS="yes"
+WANT_ALL_AGENTS="no"
 CC_ARGS=""
 
 usage() {
@@ -174,7 +175,7 @@ while [ $# -gt 0 ]; do
       SCOPE_GIVEN="yes"
       continue
       ;;
-    --agents)    WITH_SKILLS="no";  WITH_AGENTS="yes"; SCOPE_GIVEN="yes" ;;
+    --agents)    WITH_SKILLS="no";  WITH_AGENTS="yes"; WANT_ALL_AGENTS="yes"; SCOPE_GIVEN="yes" ;;
     --no-agents) WITH_AGENTS="no" ;;
     *)
       printf 'Unknown option: %s\n\n' "$1"
@@ -361,15 +362,54 @@ removable_skill_dirs() {
   done < <(selected_skill_dirs)
 }
 
-# Agents are single files. README and the handoff protocol are documentation,
-# not agent definitions, and are not installed.
+# Which domain scopes carry a given agent, so a domain's plugin is
+# self-contained. An agent's home is its group's domain: every agent belongs to
+# the engineering domain except the two security-group agents. `security-engineer`
+# is shared, because the engineering delivery flow dispatches it; `web-auditor`
+# is a security-only tool with no role in the engineering sequence. A domain with
+# no agent of its own (writing, documents, research, career, opportunity) simply
+# matches nothing here.
+agent_domains() {
+  case "$1" in
+    web-auditor)        printf 'security' ;;
+    security-engineer)  printf 'engineering security' ;;
+    *)                  printf 'engineering' ;;
+  esac
+}
+
+# True when the given domain name is a wanted scope.
+domain_wanted() {
+  case "$1" in
+    engineering) [ "$WANT_ENGINEERING" = "yes" ] ;;
+    security)    [ "$WANT_SECURITY" = "yes" ] ;;
+    research)    [ "$WANT_RESEARCH" = "yes" ] ;;
+    *) return 1 ;;
+  esac
+}
+
+# Agents are single files, grouped by kind of work under agents/<group>/.
+# README and the handoff protocol are documentation, not agent definitions,
+# and are not installed. Installation is flat: only the basename matters. Each
+# agent is emitted when its own domain is wanted, so a domain's plugin carries
+# exactly its agents; `--agents` installs the whole roster regardless of scope.
 agents() {
-  for agent in "$ROOT/engineering/agents"/*.md; do
+  local agent name domain
+  for agent in "$ROOT/agents"/*/*.md; do
     [ -f "$agent" ] || continue
-    case "$(basename "$agent")" in
-      README.md|handoff-protocol.md) continue ;;
+    name="$(basename "$agent" .md)"
+    case "$name" in
+      README|handoff-protocol) continue ;;
     esac
-    printf '%s\n' "$agent"
+    if [ "$WANT_ALL_AGENTS" = "yes" ]; then
+      printf '%s\n' "$agent"
+      continue
+    fi
+    for domain in $(agent_domains "$name"); do
+      if domain_wanted "$domain"; then
+        printf '%s\n' "$agent"
+        break
+      fi
+    done
   done
 }
 
@@ -457,12 +497,12 @@ interactive_select() {
     printf 'Nothing is installed until you choose. Pick what you actually do.\n\n'
     printf '   1) Creative writing        %2s skills   novels, poetry, screenplay, editing\n' "$writing"
     printf '   2) Professional documents  %2s skills   guides, manuals, reports, letters, PDF\n' "$documents"
-    printf '   3) Software engineering    %2s skills   plus 16 agents\n' "$engineering"
+    printf '   3) Software engineering    %2s skills   plus 24 agents\n' "$engineering"
     printf '   4) Cybersecurity           %2s skills   threat models, audits, hardening\n' "$security"
     printf '   5) Research                %2s skills   sources, verification, synthesis\n' "$research"
     printf '   6) Career                  %2s skills   job search, CV, interviews\n' "$career"
     printf '   7) Opportunity             %2s skills   ideation, hackathons, business\n' "$opportunity"
-    printf '   8) Everything             %3s skills   plus 16 agents\n' "$total"
+    printf '   8) Everything             %3s skills   plus 25 agents\n' "$total"
     printf '   9) Individual skills, chosen by name\n'
     printf '  10) One or more categories, for example genres only\n\n'
     printf 'Every choice also installs the 2 cross domain skills, self-critique and\n'
@@ -524,10 +564,15 @@ Skill names, separated by spaces: ')" || no_terminal
   SELECTED_SKILLS="$SELECTED_SKILLS $answer"
 }
 
-# Agents follow the engineering tree unless stated otherwise.
+# Agents install with the domain that owns them: engineering carries its
+# delivery team, security carries its own auditors. A cherry-picked skill list
+# is not a domain install, so it brings no agents unless --agents is explicit.
 resolve_agents() {
   [ -n "$WITH_AGENTS" ] && return 0
-  if [ "$WANT_ENGINEERING" = "yes" ] && [ -z "${SELECTED_SKILLS// /}" ]; then
+  if [ -z "${SELECTED_SKILLS// /}" ] \
+     && { [ "$WANT_ENGINEERING" = "yes" ] \
+       || [ "$WANT_SECURITY" = "yes" ] \
+       || [ "$WANT_RESEARCH" = "yes" ]; }; then
     WITH_AGENTS="yes"
   else
     WITH_AGENTS="no"

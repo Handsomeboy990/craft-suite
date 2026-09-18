@@ -1,12 +1,15 @@
 # tests
 
-Four scripts, no external dependency. All four must pass before any commit.
+Six scripts, no external dependency beyond `python3` and GNU `grep`. All six
+must pass before any commit.
 
 ```bash
 bash tests/validate-structure.sh
 bash tests/validate-rules.sh
 bash tests/validate-orchestration.sh
 bash tests/validate-plugins.sh
+bash tests/validate-model-routing.sh
+bash tests/validate-counts.sh
 ```
 
 `install.sh` runs the first one itself and refuses to install a repository
@@ -14,7 +17,7 @@ that does not pass it.
 
 ## validate-structure.sh
 
-Verifies the mandatory shape of all 152 skills across the eight trees.
+Verifies the mandatory shape of all 166 skills across the eight trees.
 
 Per skill:
 
@@ -100,15 +103,46 @@ formed.
 | 1 | `marketplace.json` and every `plugin.json` are valid JSON |
 | 2 | every marketplace source path exists and has a manifest |
 | 3 | each plugin's skill set matches what its scope would install, regenerated into a sandbox and compared |
-| 4 | the engineering plugin carries the 16 agents |
+| 4 | every plugin carries its own agents, in sync with the trees |
 
 Check 3 is the one that catches drift: add a skill to a tree and forget to run
 `bash plugins/build.sh`, and this fails, naming the domain to rebuild. The trees
 are the source of truth; the bundles are generated from them.
 
+## validate-model-routing.sh
+
+Checks the `model-routing` skill's fixtures against its own tier table, with
+no live model call, per its `resources/fixtures.json` and
+`resources/tier-table.json`.
+
+| Check | What it verifies |
+|---|---|
+| 1 | each base tier fixture's expected model and effort match the table |
+| 2 | each override fixture references a real, declared override condition |
+| 3 | each escalation or de-escalation fixture carries a reason and an actual tier change in the stated direction |
+
+Requires only `python3`, reads two JSON files and asserts, no live model call
+and no network access.
+
+## validate-counts.sh
+
+Compares the counts written by hand in the documentation against the real
+counts on disk, and fails on drift. It counts `SKILL.md` files and agent
+definitions, then checks the structured places those numbers are written: the
+tree diagrams, the category tables, the installer menus and the totals in
+`README.md`, `README.fr.md`, `AGENTS.md`, `documentation/overview.md`,
+`overview.fr.md`, `installation.md`, `architecture.md` and
+`engineering/README.md`.
+
+It does not parse every prose sentence, nor the plugin bundle sizes (which
+include cross-tree dependencies and are not a plain directory count). A check
+that matches nothing fails on purpose: it means the counted phrase was reworded
+and the check needs updating. Requires GNU `grep` for `-P` (present on the CI
+runner).
+
 ## Adding a skill
 
-The four scripts are the acceptance criteria. A new skill passes when:
+The six scripts are the acceptance criteria. A new skill passes when:
 
 1. it has the four mandatory elements;
 2. its metadata matches its directory and its group;
@@ -128,5 +162,5 @@ the same change as the file.
 
 ## After moving anything
 
-Run all four. Some of them resolve paths and fail cleanly by naming what is
+Run all six. Some of them resolve paths and fail cleanly by naming what is
 missing.

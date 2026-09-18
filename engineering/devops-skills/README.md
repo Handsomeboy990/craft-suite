@@ -1,6 +1,6 @@
 # devops-skills
 
-Operations system. Thirteen skills covering how a system is provisioned,
+Operations system. Sixteen skills covering how a system is provisioned,
 configured, built, deployed, observed, recovered, released, and repaired when
 it breaks.
 
@@ -41,6 +41,21 @@ constitution applies to every file: no emoji, no em dash.
 | `production-verification` | proving the deployed system works by exercising it |
 | `release-engineering` | versioning, tagging, changelog, rollout, hotfix path |
 | `incident-response` | declaration to postmortem, mitigation before diagnosis |
+
+### Automate
+
+| Skill | Responsibility |
+|---|---|
+| `workflow-automation` | opt-in workflows through an external engine like n8n, no invented connection |
+
+### Secure the transport
+
+| Skill | Responsibility |
+|---|---|
+| `tls-certificates` | the certificate over its whole life: obtain, enforce, renew, monitor, guard the key |
+| `email-deliverability` | mail into the inbox: SPF, DKIM, DMARC aligned, reputation, bounces |
+
+
 
 ## The rules that govern the family
 

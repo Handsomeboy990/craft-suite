@@ -1,7 +1,7 @@
 # The project delivery system
 
 Technical documentation of `engineering/delivery-skills`,
-`engineering/devops-skills` and `engineering/agents`.
+`engineering/devops-skills` and the agents in `agents/`.
 
 ## 1. Purpose
 
@@ -86,7 +86,7 @@ system executes and reports at phase boundaries. Interrupting the user for a
 filename or a test layout turns one considered decision into a stream of small
 ones, which is exactly what the gate exists to prevent.
 
-## 6. delivery-skills, ten skills
+## 6. delivery-skills, eleven skills
 
 | Skill | Responsibility |
 |---|---|
@@ -99,15 +99,17 @@ ones, which is exactly what the gate exists to prevent.
 | `delivery-planning` | milestones and ordered atomic tasks |
 | `implementation-integrity` | no fake functionality on a reachable path |
 | `scope-and-change-control` | neither scope drift nor architecture drift |
+| `launch-readiness` | the completeness gate for a user-facing web product |
 | `client-handover` | the package another team can take over |
 
-## 7. devops-skills, eleven skills
+## 7. devops-skills, sixteen skills
 
 | Skill | Responsibility |
 |---|---|
 | `devops-core` | environment ladder, configuration, blast radius |
 | `environment-management` | the variable inventory and drift checks |
 | `secrets-management` | credential lifecycle, rotation, leak handling |
+| `infrastructure-as-code` | infrastructure in code: state, plans, drift, imports |
 | `containerization` | whether a container is warranted, and how to build it |
 | `ci-cd-pipelines` | a pipeline that fails for the right reasons |
 | `deployment-engineering` | getting a verified artefact running |
@@ -116,10 +118,16 @@ ones, which is exactly what the gate exists to prevent.
 | `backup-recovery` | an unrestored backup is a hypothesis |
 | `production-verification` | proving the deployed system works |
 | `release-engineering` | versions, tags, changelog, progressive rollout |
+| `incident-response` | declaration to postmortem, mitigation before diagnosis |
+| `workflow-automation` | opt-in workflows through an external engine like n8n |
+| `tls-certificates` | the TLS certificate over its whole life, key never leaked |
+| `email-deliverability` | mail into the inbox: authentication aligned, reputation, bounces |
 
 ## 8. The agents
 
-Sixteen roles, defined in `engineering/agents/`. An agent is thin by design:
+Twenty-five roles, defined in `agents/`, grouped by kind of work: `core`,
+`development`, `design`, `security`, `testing`, `documentation`, `devops`. An
+agent is thin by design:
 the expertise lives in the skills, the agent decides which apply, executes
 within its boundary, and hands off through a durable artefact.
 
@@ -166,13 +174,13 @@ security-engineer   -> qa-engineer, for the tests encoding each fix
 ### Handoff
 
 Every agent finishes with the block from
-`engineering/agents/handoff-protocol.md`: Completed, Changed, Decisions,
+`agents/handoff-protocol.md`: Completed, Changed, Decisions,
 Verified, Known issues, Next action, For. Nothing important travels through
 conversational context alone, because the next agent may start with none.
 
 ### Location and installation
 
-The definitions live in `engineering/agents/`, tracked, rather than in
+The definitions live in `agents/<group>/`, tracked, rather than in
 `.claude/agents/`, because `.claude/` is local machine configuration and is
 never tracked. The installer copies them where the runtime expects them.
 
@@ -206,9 +214,11 @@ Rule: parallelise across a contract, never across an unknown.
 ## 10. Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of the 152 skills
+bash tests/validate-structure.sh      structure and metadata of the 166 skills
 bash tests/validate-rules.sh          the repository-wide prohibitions
 bash tests/validate-orchestration.sh  thirteen coherence checks
+bash tests/validate-plugins.sh        plugin bundles in sync with the trees
+bash tests/validate-model-routing.sh  routing fixtures against the tier table
 ```
 
 The third script covers:
@@ -223,7 +233,7 @@ The third script covers:
 7. no orphan engineering skill, absent from every plan and phase;
 8. every `depends_on` naming an existing skill, in every tree;
 9. every `Interfaces` cross reference existing, in every procedural tree;
-10. the sixteen agents, with their metadata and eight mandatory sections;
+10. the twenty-five agents, with their metadata and eight mandatory sections;
 11. every skill cited by an agent existing;
 12. the document pipeline: `document-core` declared as a dependency, design
     before production;
@@ -243,8 +253,15 @@ Adding a delivery or operations skill:
 5. add it to at least one execution plan or delivery phase, or check 7 reports
    it as an orphan;
 6. update its category index, `skills-guide.md` and this file;
-7. run the four validation scripts.
+7. run the six validation scripts.
 
-Adding an agent: the file in `engineering/agents/`, the eight mandatory
-sections, an entry in `engineering/agents/README.md`, and its name added to
+Adding an agent: the file in `agents/<group>/`, the eight mandatory
+sections, an entry in `agents/README.md`, and its name added to
 the expected list in `tests/validate-orchestration.sh`.
+
+## 12. Worked example
+
+The fourteen phases are run end to end on one small application, a link
+shortener, under `engineering/examples/delivery-link-shortener/`. It keeps the
+deliverable each phase produces and shows the four approval gates as explicit
+stops, the way `writing/examples/` keeps a finished saga.

@@ -9,6 +9,10 @@ rules of `SKILL.md` sections 3, 4 and 5, and states every adaptation.
 
 `engineering-core` is implicit in every plan and never listed.
 `engineering-orchestrator` is the caller and never lists itself.
+`task-complexity`, `model-routing` and `token-optimization` are implicit in
+every plan as well: the orchestrator consults them before composing and
+dispatching the plan, and they are never listed as a plan step, the same way
+`engineering-core` is never listed.
 
 ## EXPLORATION
 
@@ -29,16 +33,18 @@ the design implies a new library.
 ## FRONTEND
 
 category: FRONTEND
-plan: project-exploration -> ui-ux-engineering -> frontend-engineering -> input-validation -> testing-quality -> playwright-automation -> accessibility-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> template-selection -> ui-ux-engineering -> frontend-engineering -> animation -> input-validation -> testing-quality -> playwright-automation -> accessibility-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
-`input-validation` covers client side form constraints and any server action
-the page introduces. `playwright-automation` is dropped when the repository
-has no browser tooling and the change does not justify adding it.
+`template-selection` runs only when the build starts from a template rather
+than a blank page, and hands the chosen one to `ui-ux-engineering` for
+customisation. `input-validation` covers client side form constraints and any
+server action the page introduces. `playwright-automation` is dropped when the
+repository has no browser tooling and the change does not justify adding it.
 
 ## BACKEND
 
 category: BACKEND
-plan: project-exploration -> architecture-design -> backend-engineering -> input-validation -> security-audit -> testing-quality -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> architecture-design -> backend-engineering -> llm-integration -> input-validation -> security-audit -> testing-quality -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
 `architecture-design` is dropped for a change confined to one existing module.
 `security-audit` is never dropped when the endpoint returns user scoped data.
@@ -46,7 +52,7 @@ plan: project-exploration -> architecture-design -> backend-engineering -> input
 ## FULLSTACK
 
 category: FULLSTACK
-plan: project-exploration -> architecture-design -> api-design -> fullstack-engineering -> backend-engineering -> ui-ux-engineering -> frontend-engineering -> input-validation -> security-audit -> testing-quality -> playwright-automation -> accessibility-testing -> regression-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow -> release-readiness
+plan: project-exploration -> architecture-design -> api-design -> fullstack-engineering -> backend-engineering -> admin-console -> ui-ux-engineering -> frontend-engineering -> input-validation -> security-audit -> testing-quality -> playwright-automation -> accessibility-testing -> regression-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow -> release-readiness
 
 The widest plan. `release-readiness` runs only when the request is to ship.
 
@@ -106,9 +112,12 @@ produce the baseline, and again at the end to prove the delta.
 ## UI_UX
 
 category: UI_UX
-plan: project-exploration -> ui-ux-engineering -> design-system -> frontend-engineering -> testing-quality -> playwright-automation -> accessibility-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> template-selection -> ui-ux-engineering -> design-system -> frontend-engineering -> design-authenticity -> animation -> testing-quality -> playwright-automation -> accessibility-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
-Accessibility and responsive verification live inside `ui-ux-engineering` and
+`template-selection` runs only when the design starts from a template rather
+than a blank page; it shortlists clean, licence-clear candidates for the user
+to choose and hands the chosen one on for customisation. Accessibility and
+responsive verification live inside `ui-ux-engineering` and
 `playwright-automation`; they are not separate steps.
 
 ## TESTING
@@ -265,7 +274,7 @@ Public surfaces only. Verification happens on rendered output, which is why
 ## DESIGN_SYSTEM
 
 category: DESIGN_SYSTEM
-plan: project-exploration -> ui-ux-engineering -> design-system -> frontend-engineering -> accessibility-testing -> testing-quality -> playwright-automation -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> ui-ux-engineering -> design-system -> frontend-engineering -> design-authenticity -> animation -> accessibility-testing -> testing-quality -> playwright-automation -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
 Tokens are applied to the existing product before any component is rewritten.
 

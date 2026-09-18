@@ -67,6 +67,18 @@ engineering:
   deployment_platform: ""
   database: ""
 
+# Read by model-routing before it resolves a tier to a real model. The three
+# tier names are fixed policy; what answers to each name on this account is
+# not, because availability differs by account and changes over time.
+# Empty means: use whichever model this runtime resolves for that tier by
+# default. A value must be a short model name this runtime accepts, never a
+# full versioned identifier, which is exactly the kind of value that goes
+# stale.
+model_routing:
+  fast: ""
+  balanced: ""
+  strongest: ""
+
 documents:
   # Empty means: pdf-production selects the engine from the document, then
   # verifies the engine is installed before promising a PDF.

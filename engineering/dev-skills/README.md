@@ -1,6 +1,6 @@
 # dev-skills
 
-Senior full-stack engineering skill system. Forty seven skills that let an agent
+Senior full-stack engineering skill system. Fifty four skills that let an agent
 work on a production codebase the way an experienced engineer does: read
 before writing, verify before claiming, and finish the whole vertical slice
 rather than the part that demonstrates well.
@@ -29,6 +29,9 @@ no em dash.
 | `engineering-core` | the eight laws, evidence rule, certainty vocabulary, definition of done |
 | `project-exploration` | turns an unfamiliar repository into verified facts |
 | `engineering-orchestrator` | classifies the task, composes the plan, enforces the gates |
+| `task-complexity` | one complexity classification, read by every routing decision |
+| `model-routing` | model tier, and where a lever exists effort, from the classification |
+| `token-optimization` | keeps context and output proportional to the task, during the work |
 
 ### Design
 
@@ -36,6 +39,9 @@ no em dash.
 |---|---|
 | `architecture-design` | the smallest architecture that serves the product |
 | `ui-ux-engineering` | the rendered experience, specified before it is built |
+| `design-authenticity` | the generic-defaults cluster, and the intentionality test |
+| `animation` | motion that is intended: the technique ladder, cheap properties, reduced motion |
+| `template-selection` | clean, licence-clear templates that fit the project, shortlisted for the user, then customised |
 | `dependency-selection` | whether a library is added, replaced, upgraded or refused |
 
 ### Implementation
@@ -86,6 +92,8 @@ Loaded when the request names one of them, and left alone otherwise.
 | `data-privacy` | what is held, for how long, and deletion that works |
 | `analytics-instrumentation` | product measurement designed before it is emitted |
 | `feature-flags` | flags with a lifecycle, and the removal that closes it |
+| `admin-console` | the privileged back-office, bounded by role and on the record |
+| `llm-integration` | a feature on a language model: contract, evals, grounding, guardrails |
 
 ### Change and continuity
 

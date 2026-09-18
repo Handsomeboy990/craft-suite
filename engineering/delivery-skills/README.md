@@ -1,6 +1,6 @@
 # delivery-skills
 
-Project delivery system. Ten skills that take a specification, brief, PRD or
+Project delivery system. Eleven skills that take a specification, brief, PRD or
 client requirement to a delivered, verified, documented system.
 
 Where `dev-skills` answers how a change is made correctly, this category
@@ -44,6 +44,12 @@ constitution still applies to every file: no emoji, no em dash.
 | `delivery-planning` | milestones and atomic tasks in dependency order |
 | `implementation-integrity` | no fake functionality on any reachable path |
 | `scope-and-change-control` | no silent scope growth, no silent architecture drift |
+
+### Launching
+
+| Skill | Responsibility |
+|---|---|
+| `launch-readiness` | the completeness gate for a user-facing web product |
 
 ### Delivering
 

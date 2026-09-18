@@ -24,14 +24,14 @@ technical documentation, all in English by rule 6 of `engineering-core`.
 Writing the instructions in the language of their output removes a permanent
 translation and a source of error.
 
-Since version 2.0.0 that is no longer specific to this tree: all 152 skills are
+Since version 2.0.0 that is no longer specific to this tree: all 166 skills are
 written in English, and the output language is a configuration decision. See
 `configuration.md`.
 
 Rules 1 and 2 of the writing constitution still apply to every file: no emoji,
 no em dash.
 
-## 3. The forty seven skills
+## 3. The fifty five skills
 
 ### Foundation
 
@@ -40,6 +40,9 @@ no em dash.
 | `engineering-core` | eight laws, the evidence rule, the certainty vocabulary, the definition of done |
 | `project-exploration` | turns an unknown repository into verified facts |
 | `engineering-orchestrator` | classifies the task, composes the plan, imposes the gates |
+| `task-complexity` | one complexity classification, read by every routing decision |
+| `model-routing` | model tier, and effort where a lever exists, from that classification |
+| `token-optimization` | context and output proportional to the task, during the work |
 
 ### Design
 
@@ -47,6 +50,9 @@ no em dash.
 |---|---|
 | `architecture-design` | the smallest architecture that serves the product |
 | `ui-ux-engineering` | the rendered experience, specified before it is built |
+| `design-authenticity` | the generic-defaults cluster and the intentionality test |
+| `animation` | motion that is intended, on the lightest sufficient technique |
+| `template-selection` | clean, licence-clear templates that fit, shortlisted then customised |
 | `dependency-selection` | add, replace, upgrade or refuse a library |
 
 ### Implementation
@@ -95,6 +101,8 @@ no em dash.
 | `data-privacy` | inventory, retention, erasure that works |
 | `analytics-instrumentation` | measurement designed before emission |
 | `feature-flags` | flag lifecycle, rollout, and removal |
+| `admin-console` | the privileged back-office, role-bounded and audited |
+| `llm-integration` | a feature on a language model, contract, evals, grounding, guardrails |
 
 ### Change and continuity
 
@@ -128,6 +136,7 @@ request  ->  engineering-core
               classification, locating the affected surface
          ->  project-exploration
               establishing the facts
+         ->  per plan step: task-complexity, then model-routing
          ->  the selected skills, in order
          ->  the mandatory gates
          ->  completion verdict
@@ -235,9 +244,11 @@ delegates the depth here.
 ## 8. Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of the 152 skills
+bash tests/validate-structure.sh      structure and metadata of the 166 skills
 bash tests/validate-rules.sh          the repository-wide prohibitions
 bash tests/validate-orchestration.sh  plans, references and scenarios
+bash tests/validate-plugins.sh        plugin bundles in sync with the trees
+bash tests/validate-model-routing.sh  routing fixtures against the tier table
 ```
 
 The third script covers the eight trees and the agents. It verifies that every
@@ -272,4 +283,4 @@ Adding an engineering skill:
    `Interfaces` section;
 5. add it to at least one execution plan, or check 7 reports it as an orphan;
 6. update `engineering/dev-skills/README.md`, `skills-guide.md` and this file;
-7. run the four validation scripts.
+7. run the six validation scripts.

@@ -92,7 +92,7 @@ was never run end to end is not integrated.
 
 phase: 09
 name: devops
-skills: devops-core, environment-management, secrets-management, infrastructure-as-code, containerization, ci-cd-pipelines
+skills: devops-core, environment-management, secrets-management, infrastructure-as-code, containerization, ci-cd-pipelines, tls-certificates, email-deliverability, workflow-automation
 gate: verification
 
 Environments, configuration, pipeline. The pipeline runs and fails correctly
@@ -112,11 +112,12 @@ first production deployment and any destructive migration are irreversible.
 
 phase: 11
 name: production-verification
-skills: production-verification, observability, backup-recovery, incident-response
+skills: production-verification, observability, backup-recovery, incident-response, launch-readiness
 gate: verification
 
-The deployed system answers real requests. A successful deploy command is not
-a verified deployment.
+The deployed system answers real requests, and a user-facing product also
+passes the launch completeness gate. A successful deploy command is not a
+verified deployment, and a running system is not a launch-ready product.
 
 ## Phase 12
 

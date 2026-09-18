@@ -3,6 +3,559 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.17.0
+
+Roadmap Phase 6, the documents demonstration: the documents tree's missing
+worked example, and the reader rule shown rather than asserted.
+
+### Added
+
+- `documents/examples/jeu-conges/`: one fictional subject, an internal time-off
+  system, written for three readers. A user guide (`user-documentation`), a
+  technical manual and runbook (`technical-writing`), and a deployment report
+  (`report-writing`), each passed through the eight-point gate. A fourth file
+  records the gate report per document, the cross-set reader-split check, and a
+  PDF render verification per `pdf-production`. `documents/examples/README.md`
+  indexes it and `documents-system.md` section 10 points at it. The same fact
+  (the two first-month incidents) appears in all three, formulated for each
+  reader rather than copied, which is the reader split in practice.
+
+### Method
+
+- Produced through a multi-agent workflow: one writer per reader following its
+  skill and `document-core`, a gate review per document, and a cross-set
+  critique that confirmed the reader split holds. The gaps the writers could
+  not fill are marked `[a confirmer]`, never invented, per the evidence rule.
+
+### Changed
+
+- `validate-orchestration.sh` check 12 now skips directories under `documents/`
+  that carry no `SKILL.md`, so an example directory is not mistaken for a skill
+  that must declare `document-core`.
+
+## 3.16.0
+
+Roadmap Phase 6, the delivery demonstration: the proof the repository was
+missing, the delivery process run end to end and kept as artefacts.
+
+### Added
+
+- `engineering/examples/delivery-link-shortener/`: a worked example of the
+  fourteen delivery phases on one small application, a link shortener. Sized
+  small per the sizing rule (phases 01 to 06 on a page, 07 the bulk, 08 to 14 on
+  a page), it keeps the deliverable each phase produces and shows the four
+  approval gates (02, 05, 10, 14) as explicit stops with a recorded answer,
+  including the phases that end `not applicable` with a written reason. An
+  `engineering/examples/README.md` indexes it, and `delivery-system.md` points
+  at it as the worked example, the way `writing/examples/` keeps a saga.
+
+### Changed
+
+- Roadmap: the Phase 3 item to exercise the frontend agents on a motion task is
+  ticked, done on the `lauret-chacha` portfolio (a real audit and a full
+  reduced-motion-safe motion pass, shipped to that project's `main`). The
+  Phase 4 item to exercise the full agent layer is marked partly done, the
+  portfolio audit having dispatched three agents and produced real telemetry;
+  the newer agents will run end to end in a future delivery.
+
+## 3.15.0
+
+Roadmap Phase 0: the count-consistency check, and the drift it caught the day
+it landed.
+
+### Added
+
+- `tests/validate-counts.sh`: computes the real skill and agent counts from the
+  filesystem, then checks the structured places the docs write those numbers
+  (the tree diagrams, the category tables, the installer menus and the totals)
+  and fails on any mismatch. Wired into the CI job as a sixth check. It does not
+  parse free prose or the plugin bundle sizes, which are not a plain directory
+  count; a check that matches nothing fails on purpose, as a signal the phrase
+  was reworded.
+
+### Fixed
+
+- Live count drift the new check caught, all corrected: `delivery-skills`
+  written as 10 in `engineering/README.md` (real 11), the security tree written
+  as 10 in three menus (real 12), `security-assurance` written as 2 in three
+  tables (real 3), the core agent group written as 6 in the architecture diagram
+  (real 9), the agent total written as 16 in `engineering/README.md` and as 16
+  in the French overview diagram (real 25), and the dev-skills section titled
+  "fifty four" (real 55).
+
+### Changed
+
+- Documentation that named the test suite now says six scripts, not five.
+- The engineering plugin description reads 24 role agents, matching what the
+  plugin now carries after the per-domain split.
+
+## 3.14.0
+
+Roadmap Phase 5, second item: the Control Center agent panel, so the
+agent-dispatch telemetry that was already collected has a place in the browser.
+
+### Added
+
+- An Agents tab in the Control Center (`control-center/app.html`): the dispatch
+  total, the dispatched-work records, and the breakdowns by agent and by model,
+  read from the local transcripts. When the layer has not been exercised it
+  shows a measured zero, not a gap, in keeping with the tool's rule that a
+  figure it did not measure is never shown. EN and FR strings for every label.
+
+### Changed
+
+- The report's data-limitation note no longer says the agent-dispatch telemetry
+  is collected but undisplayed; it now points at the Agents tab. The evolution
+  document is updated to match. No backend change: the panel reads the
+  `agent_dispatches` object `reader.py` already produced.
+
+## 3.13.0
+
+Roadmap Phase 5, first item: per-domain agent packs, so a domain's plugin is
+self-contained rather than bundling every agent in the engineering one.
+
+### Changed
+
+- Agents now install with the domain that owns them. The security plugin
+  carries `security-engineer` and `web-auditor`; the engineering plugin carries
+  its 24-agent delivery team, which keeps `security-engineer` because its
+  delivery flow dispatches it. `web-auditor` moved out of the engineering
+  bundle: it is a security-only tool with no role in the engineering sequence.
+  Previously `--security` installed the `website-audit` skill but not the
+  `web-auditor` agent; now it installs both.
+- `install.sh` gained an `agent_domains` mapping and a domain-filtered `agents`
+  function; `--agents` still installs the whole 25-agent roster. `plugins/build.sh`
+  builds each domain's own agents and drops the empty `agents/` directory for a
+  domain that owns none.
+- `validate-plugins.sh` check 4 now regenerates and compares each domain's
+  agents against its bundle, replacing the check that only counted the
+  engineering plugin's agents.
+- Stale agent counts in the installer help and menus corrected: they read 16
+  where the roster is 25. Engineering-scoped figures are now 24, the full
+  roster 25.
+
+## 3.12.0
+
+Roadmap Phase 4, the verification layer: the three agents that hold a project
+to the truth of its own code, before intervention and before it is called done.
+
+### Added
+
+- `source-of-truth` agent (`agents/core/`): the authority on what is actually
+  true about a project. It treats the code, the schema and the running
+  configuration as ground truth, reconciles the documentation, README, comments
+  and continuity notes against them, and when they disagree, says so with
+  evidence and records the canonical answer. It adjudicates truth and detects
+  drift; it does not rewrite the prose, which it hands to `documentation-engineer`.
+- `checkup` agent (`agents/core/`): the pre-intervention inspection. It reads an
+  unfamiliar or inherited project and reports the architecture as built, the
+  debt and fragile areas, the risks of intervening, and which boundaries are
+  safe to change against those that are load-bearing. It changes nothing and
+  surfaces where a full audit is warranted rather than running each one.
+- `final-verifier` agent (`agents/core/`): the independent, evidence-only final
+  gate that trusts no previous agent. It re-runs the proof, the tests actually
+  pass, the review actually happened, the acceptance criteria are actually met,
+  the change actually builds and runs, rather than reading a claim of it, and
+  issues one verdict. A gate that only another agent asserts is unverified.
+
+### Changed
+
+- Counts: 22 to 25 agents, the `core` group 6 to 9. Skills unchanged at 166.
+  Engineering plugin bundle rebuilt to carry the three new agents. Historical
+  entries left as written.
+
+### Not done yet
+
+- The Phase 4 item to exercise the full agent layer on a real task remains open,
+  alongside the Phase 3 motion task: both need a target project to run in.
+
+## 3.11.0
+
+A design capability requested before Phase 4: finding clean templates that fit
+a project, rather than starting from a blank page or a bad one.
+
+### Added
+
+- `template-selection` skill (`engineering/dev-skills/`): finds clean,
+  licence-clear templates that actually fit a project, shortlists a few with
+  their trade-offs for the user to choose, confirms the chosen template's
+  licence before use, and hands it to customisation. It understands the project
+  first, because "templates that resemble the project" is meaningless without
+  it; searches legitimate sources only; judges each candidate on fit,
+  cleanliness with `design-authenticity` so a vibe-coded template is not called
+  clean because it looks modern, licence, quality and the real cost, which is
+  customisation not download; never decides for the user; never uses a template
+  against its licence; and never ships one unchanged, because a template shipped
+  as-is is the generic default a real product should not have. Depends on
+  `engineering-core`; run by the `design-research` agent and `ui-ux-engineer`.
+
+### Changed
+
+- `template-selection` wired into the FRONTEND and UI_UX execution plans as a
+  conditional step that runs only when the build starts from a template, and
+  hands the chosen one on for customisation.
+- Counts: 165 to 166 skills, dev-skills 54 to 55, engineering 81 to 82. Agents
+  unchanged at 22. Historical entries left as written.
+
+## 3.10.0
+
+Roadmap Phase 3, the design-research role. The animation skill and its
+reference analysis already landed; this adds the agent that turns real
+references into principles without turning them into stolen code.
+
+### Added
+
+- `design-research` agent (`agents/design/`): searches and inspects legitimate
+  references, a live site, a template, a design system, and extracts the
+  layout, typography, interaction and animation patterns worth reusing, keeping
+  reference, inspiration, pattern and implementation strictly apart. It reads a
+  page and where useful its bundle to learn how an effect is achieved, states
+  the principle, and never copies the code or the assets; the result built from
+  what it finds is original. It judges a reference with `design-authenticity`,
+  an intentional one to learn from, a generic-default one as a warning of what
+  to avoid, and hands direction to `ui-ux-engineer` and `frontend-engineer`
+  rather than implementing.
+
+### Changed
+
+- Counts: 21 to 22 agents (design group 2 to 3). No new skill: the agent cites
+  skills that already exist. Historical entries left as written.
+
+### Not done yet
+
+- The Phase 3 item to exercise the frontend agents on a real motion task
+  remains open: it needs a target web project to build in.
+
+## 3.9.0
+
+Roadmap Phase 2: the highest-value new capability, and the small skill that
+explains a common mystery.
+
+### Added
+
+- `llm-integration` skill (`engineering/dev-skills/`): builds a feature on a
+  language model around the three facts that a model is non-deterministic,
+  costs money per call, and states a wrong answer as confidently as a right
+  one. The prompt and a structured output as a contract, an evaluation set that
+  gates every prompt or model change, retrieval that grounds a factual answer
+  or an honest do-not-know, cost and latency budgeted at the real price,
+  streaming and timeouts, and guardrails against prompt injection, a leaked
+  system prompt, hallucination, truncation and cost abuse, with privileged
+  actions gated outside the model. Reads the provider's current API rather than
+  coding a model, limit or price from memory. Wired into the BACKEND plan.
+- `email-deliverability` skill (`engineering/devops-skills/`): gets a sending
+  domain's mail into the inbox instead of the spam folder or the void. SPF,
+  DKIM and DMARC aligned to the visible From domain, DMARC rolled out from
+  monitor to reject on the evidence of its reports rather than switched hard,
+  transactional mail separated from marketing, a warmed sender, bounces and
+  complaints suppressed, unsubscribe honoured, and the records and inbox
+  placement monitored. The reason a confirmation email never arrives is usually
+  here, not in the code that sent it. Wired into delivery phase 09.
+
+### Changed
+
+- Counts: 163 to 165 skills, 53 to 54 dev-skills, 15 to 16 devops-skills, 79 to
+  81 engineering. Historical entries left as written.
+
+## 3.8.0
+
+Roadmap Phase 1: the three skills the original brief named and never got built
+in their own right. Each was only covered in pieces inside other skills; now
+each is owned.
+
+### Added
+
+- `rate-limiting` skill (`security/secure-development/`): a limit per endpoint
+  by what abuse of it costs, not one number everywhere. Login, one-time codes
+  and password reset tighter than a read; uploads, search and expensive
+  operations by resource cost; keyed by IP, by user, or by both, unforgeable
+  behind a proxy; the right algorithm; a shared store when more than one
+  instance serves, or the real limit is a fraction of the stated one. Returns
+  429 with Retry-After, leaks no account existence, and sits over the real
+  control, not instead of it.
+- `tls-certificates` skill (`engineering/devops-skills/`): the certificate over
+  its whole life, obtaining, installing on the terminating layer, enforcing
+  HTTPS with a redirect and HSTS, renewing automatically with margin and
+  proving the renewal ran once, monitoring the expiry from outside on every
+  hostname, and keeping the private key out of the repository, the logs and
+  the image layers. Wired into delivery phase 09.
+- `admin-console` skill (`engineering/dev-skills/`): the privileged back-office
+  built as the highest-value target it is. Least-privilege roles rather than
+  one god role, authorization on the server at the object level, an
+  append-only audit log of who did what to whom, no secret rendered in the
+  interface, hardened access, and operational controls that are themselves
+  audited privileged actions. Wired into the FULLSTACK plan.
+
+### Changed
+
+- Counts: 160 to 163 skills, 11 to 12 security, 8 to 9 secure-development, 14
+  to 15 devops-skills, 52 to 53 dev-skills, 77 to 79 engineering. Historical
+  entries left as written.
+
+## 3.7.0
+
+Motion that is intended, not defaulted. A page that animates everything on
+hover is generated, not designed, and `design-authenticity` already flags that.
+This adds the skill that builds the other kind, taught in part from a reference
+analysis of a real, well-made site.
+
+### Added
+
+- `animation` skill (`engineering/dev-skills/`): decides whether an interface
+  should move at all, then picks the lowest sufficient technique, a CSS
+  transition, a CSS keyframe, a scroll-driven animation, a JS library, or a
+  WebGL shader for one signature moment, animating only the compositor-cheap
+  `transform` and `opacity`, easing on chosen `cubic-bezier` curves, and
+  building a `prefers-reduced-motion` path for every motion as a hard
+  requirement rather than an afterthought. Wired into the FRONTEND, UI_UX and
+  DESIGN_SYSTEM plans.
+- `resources/reference-analysis-pear.md`: a worked analysis of a real site
+  (`pear.no`), read from its public page and bundle: a bespoke WebGL shader
+  layer for a signature moment, scroll-linked transform motion, masked
+  reveals, custom easing, reduced motion honoured in both CSS and JS, on a
+  designed typographic foundation. The principles are extracted, never the
+  code or the assets; reference, inspiration, pattern and implementation are
+  kept distinct.
+
+### Changed
+
+- Counts: 159 to 160 skills, 51 to 52 dev-skills, 76 to 77 engineering skills.
+  The architecture tree's devops subtree, which still read thirteen after the
+  workflow-automation addition, was corrected to fourteen. Historical entries
+  left as written.
+
+## 3.6.0
+
+Two roles for the pull request itself: one that opens it, one that reviews it.
+The suite already had the skills, `git-workflow` for the commit and the
+request, `code-review-protocol` for the diff. This adds the agents that own
+those two ends of a pull request as distinct roles, so the one who packages a
+change is never the one who passes it.
+
+### Added
+
+- `pr-author` agent (`agents/core/`): packages finished, verified work into a
+  pull request. Atomic commits with the configured identity and no tool
+  attribution, a branch off the integration branch, a description whose
+  validation section quotes commands that were actually run, the correct base.
+  It packages and opens; it does not write the feature, and it does not approve
+  or merge its own request.
+- `pr-reviewer` agent (`agents/core/`): the independent review and mergeability
+  gate. Reads the diff for correctness, security, tests and conventions, checks
+  the repository merge criteria, the required check green, the base correct, no
+  tool attribution, counts consistent, and issues a verdict with evidence. It
+  does not merge, it does not review a request it authored, and it never passes
+  a request with a red required check or an open security finding.
+
+### Changed
+
+- Counts: 19 to 21 agents, in current-state prose. No new skill: both agents
+  cite skills that already exist. Historical entries left as written.
+
+## 3.5.0
+
+Workflow automation, opt-in and honest about its connector. Some projects want
+a layer of automation that does not belong in the application, a nightly
+export, a webhook that fans out, a message when an order fails, and a workflow
+engine such as n8n does that. This adds the skill that builds those workflows
+cleanly, starting from two refusals: it does not assume a project wants
+automation, and it does not pretend to have a connection it has not been given.
+
+### Added
+
+- `workflow-automation` skill (`engineering/devops-skills/`): builds
+  automation workflows through an external engine reached over a connector,
+  n8n over its MCP server being the concrete target. Automation is opt-in per
+  project and recorded, never a silent default, because a workflow engine is
+  an operational dependency nobody should acquire by accident. The n8n
+  connection is configured and authorized interactively by the user, outside
+  the skill: it detects whether the connector is present, explains what is
+  missing when it is not, guides the user to the configuration step, and never
+  simulates access. Every workflow it builds is idempotent, has real failure
+  paths, bounded retries and timeouts, keeps no secret in its definition,
+  verifies inbound webhook signatures, and is run and observed before it is
+  called done. Wired into delivery phase 09; the n8n specifics are in
+  `resources/n8n-connector.md`.
+
+No agent was added: this is a capability the devops engineer and the
+orchestrator use, not a role with its own boundary and handoffs, so a thin
+agent wrapper would add nothing.
+
+### Changed
+
+- Counts: 158 to 159 skills, 13 to 14 devops-skills, 75 to 76 engineering
+  skills, in current-state prose. The delivery-system devops table, which had
+  long undercounted at eleven and omitted two skills, was corrected to the
+  full fourteen. Historical entries left as written.
+
+## 3.4.0
+
+The website auditor. Give it a URL and it reports what is wrong with the site
+behind it, front to back: rendering, performance, accessibility, design,
+observable security posture, and, on an authorized target, what an attacker
+could actually do. The whole thing turns on one line, drawn before anything
+runs: the line between looking and touching.
+
+### Added
+
+- `website-audit` skill (`security/security-assurance/`): the method for a
+  URL-driven audit. Passive observation, loading pages, following links,
+  rendering the DOM, reading response headers, measuring performance, checking
+  accessibility, runs on any public URL, because it does nothing a normal
+  visit does not. Active testing, anything that probes for a weakness, changes
+  state, or creates an account, runs only on a target the requester owns or is
+  authorized in writing to test, delegating to `vulnerability-assessment` and
+  `authorized-pentesting`. Getting an authenticated session is the most
+  sensitive step and the human holds it: if an account must be created, the
+  audit stops, asks which email to use and whether verification is required,
+  and waits for the requester to complete it. It never automates around a
+  verification step, and never concludes a site is secure.
+- `web-auditor` agent (`agents/security/`): runs the audit, keeps passive and
+  active strictly apart, and hands every registration and verification step
+  back to the requester. It audits and reports; it does not fix.
+
+### Changed
+
+- Counts: 157 to 158 skills, 10 to 11 security skills, 2 to 3
+  security-assurance skills, 18 to 19 agents, in current-state prose.
+  Historical entries left as written.
+
+## 3.3.0
+
+Design authenticity. There is a look a generated interface falls into when
+nobody decided anything: the same violet-to-black gradient, frosted glass,
+bento grid, default font, hover-everything motion, and the fabricated
+testimonials and empty pricing tiers that travel with them. None is wrong on
+its own; the cluster is, because it means the defaults were accepted rather
+than chosen. This release adds the skill that detects that cluster and the
+agent that runs it against a rendered page.
+
+### Added
+
+- `design-authenticity` skill (`engineering/dev-skills/`): the catalogue of
+  generic-default tells across visuals, typography, motion and content, read
+  as signals rather than verdicts. It never condemns a single element and
+  never prescribes a replacement; it tests intentionality, whether a choice
+  was made on purpose for this product, and names where intent is missing.
+  One class of tell is not aesthetic at all: a fabricated testimonial, an
+  invented metric, a checked feature that is not built, are handed to
+  `implementation-integrity` as truthfulness defects and raised regardless of
+  how well the rest of the page is designed. Wired into the UI_UX and
+  DESIGN_SYSTEM execution plans.
+- `design-verification` agent (`agents/design/`): checks a built interface
+  against the design it was meant to be and against the defaults it should not
+  have fallen into, inspecting the rendered page rather than the source. It
+  verifies and reports, it does not redesign, and it fails a page that
+  animates everywhere and honours reduced motion nowhere on accessibility
+  grounds independent of taste.
+
+### Changed
+
+- Counts: 156 to 157 skills, 50 to 51 dev-skills, 74 to 75 engineering skills,
+  17 to 18 agents, in current-state prose. Historical entries left as written.
+
+## 3.2.0
+
+The launch completeness gate. A user-facing web product carries deliverables
+no test suite checks: a legally required privacy policy, a favicon and a
+social preview so a shared link does not look broken, a custom error page, a
+cookie banner where tracking demands one, and a security posture that holds
+when a stranger, not the developer, makes the requests. This release
+consolidates those into one gate that delegates to the skills that already
+own each item and adds the web-launch items that fell between them.
+
+### Added
+
+- `launch-readiness` skill (`engineering/delivery-skills/`): the itemised
+  checklist across eight domains (legal, discoverability, content,
+  performance, accessibility, UX integrity, analytics, security posture,
+  infrastructure), each item a deliverable with a verification and an owning
+  skill. The full grid is in `resources/launch-checklist.md`; the concrete
+  mapping for a Supabase and Next.js project, the stack it is most often
+  written against, is in `resources/supabase-next-appendix.md`. The skill body
+  stays stack agnostic. It never writes the legal text of a privacy policy or
+  terms document: it scaffolds and verifies the page, and the wording, which
+  carries liability, stays the owner's.
+- `compliance-verifier` agent (`agents/core/`): runs the gate against a built
+  or deployed product and reports, with evidence, which deliverables are
+  present and working. It verifies and reports; it does not fix, so the check
+  stays independent of the work. It never issues ready with an open security
+  or legal blocker.
+- The gate is wired into delivery phase 11, so a running system is not
+  mistaken for a launch-ready product.
+
+### Changed
+
+- Counts: 155 to 156 skills, 10 to 11 delivery-skills, 73 to 74 engineering
+  skills, 16 to 17 agents, wherever they appear in current-state prose.
+  Historical entries in this file and in `CONTINUITY.md` are left at the count
+  that was true when they were written.
+
+### Not changed
+
+- No existing skill changed. The security, SEO, accessibility, performance,
+  privacy and backup depth the gate checks lives where it already lived; the
+  gate runs those skills and records their results rather than restating them.
+
+## 3.1.0
+
+Phase 1 of the multi-agent architecture expansion: a routing core, added
+without touching a single existing skill's content. Minor version: additive,
+and nothing here is a breaking change to an installed suite.
+
+### Added
+
+- `task-complexity`: classifies a task into one of five tiers from eleven
+  signals, combined by a highest-signal-wins rule, so a small change with a
+  security or irreversibility signal is never under-classified by its file
+  count. `engineering/dev-skills/task-complexity/`.
+- `model-routing`: recommends a model tier, and where a lever exists an
+  effort level, from that classification. States exactly which two switching
+  mechanisms this runtime supports, an agent's own `model:` frontmatter and a
+  per-dispatch override, and claims neither a session changing its own model
+  mid task nor a universal per-agent effort control, because neither is
+  verified to exist. `engineering/dev-skills/model-routing/`.
+- `token-optimization`: the discipline for keeping context and output
+  proportional to a task during a multi-step or multi-agent run, sharing one
+  vocabulary of seven wasteful patterns with `control-center/advisor.py`'s
+  retrospective measurement rather than defining a second one.
+  `engineering/dev-skills/token-optimization/`.
+- `model_routing` configuration section: three tier names, `fast`,
+  `balanced`, `strongest`, resolved to real model identifiers by the project
+  rather than hardcoded, because availability differs by account and changes
+  over time.
+- `tests/validate-model-routing.sh`: checks the routing table against eleven
+  deterministic fixtures, five base tiers, four override conditions, two
+  escalation and de-escalation transitions, with no live model call.
+- Architecture documentation: `docs/architecture/multi-agent-assessment.md`,
+  `AGENT_ARCHITECTURE.md`, `MODEL_ROUTING.md`, `TOKEN_OPTIMIZATION.md`,
+  `SKILL_AGENT_MATRIX.md`, `ORCHESTRATION.md`, and `docs/agents/README.md`.
+
+### Changed
+
+- The sixteen agents moved from `engineering/agents/` to a repository-wide
+  `agents/<group>/` tree (`core`, `development`, `design`, `security`,
+  `testing`, `documentation`, `devops`, `research` reserved empty), so a
+  future agent pack for a single domain does not have to live inside the
+  engineering plugin. No agent's content changed; `git mv` used throughout,
+  confirmed as renames rather than delete-plus-add.
+- `engineering-orchestrator` now classifies and routes per plan step rather
+  than once per request, and treats a reclassification and a routing
+  escalation or de-escalation as the same event rather than three
+  independent judgment calls.
+- Skill counts corrected wherever they appear in prose: 152 to 155 skills, 47
+  to 50 `dev-skills`, 70 to 73 engineering skills, four to five validation
+  scripts, including in the CI workflow.
+
+### Not changed
+
+- No existing skill's `SKILL.md` content changed, apart from
+  `engineering-orchestrator`'s protocol and anti-loop sections, which now
+  reference the three new skills rather than restate them.
+- No plugin's public skill set changed beyond gaining the three new
+  `dev-skills`; the engineering plugin's agent bundle is unchanged in
+  content.
+
 ## 3.0.0
 
 The suite is renamed Craft Suite. The writing tree stopped being the whole of it
