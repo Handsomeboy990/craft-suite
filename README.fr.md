@@ -27,8 +27,10 @@ Par le marketplace de plugins, un domaine à la fois :
 /plugin install craft-engineering
 ```
 
-Ou tout d'un coup, dans `~/.claude/skills`. Aucune dépendance : le dépôt est du
-Markdown et du shell.
+Ou tout d'un coup, dans `~/.claude/skills`. Les skills et les agents sont du
+Markdown, l'installeur est du shell, et rien d'autre n'est nécessaire pour s'en
+servir. Seuls le Control Center et le rapport, tous deux optionnels, demandent
+en plus `python3`.
 
 ```bash
 git clone https://github.com/Handsomeboy990/craft-suite.git
@@ -43,23 +45,34 @@ quelles étapes l'agent peut exécuter seul plutôt que vous rendre. Aucune vale
 propre à un utilisateur n'est codée en dur dans un skill.
 
 Installations ciblées : `--writing`, `--documents`, `--dev`, `--security`,
-`--research`, `--career`, `--opportunity`, `--no-agents`.
+`--research`, `--career`, `--opportunity`, `--shared`, `--agents`, `--all`,
+`--no-agents`, `--remove`. Première visite : commencez par
+[documentation/usage.fr.md](documentation/usage.fr.md).
 
 ## Les sept plugins
 
-| Plugin | Ce que devient l'agent | Skills du domaine |
-|---|---|---|
-| `craft-writing` | romancier, scénariste, éditeur, critique, correcteur | 42 |
-| `craft-documents` | rédacteur technique, auteur de rapports, producteur de PDF | 7 |
-| `craft-engineering` | une équipe de livraison, de la spécification à la production | 82 et 24 agents |
-| `craft-security` | ingénieur défensif, et auditeur sur autorisation écrite | 10 |
-| `craft-research` | chercheur qui ne cite que ce qu'il a réellement lu | 5 |
-| `craft-career` | recherche d'emploi qui n'invente jamais une offre | 7 |
-| `craft-opportunity` | idées, hackathons, clients, marchés | 9 |
+Deux comptes, parce qu'ils répondent à deux questions. « Domaine », c'est ce que
+l'arbre contient. « Installé », c'est ce qui arrive sur le disque : le domaine,
+les deux skills communs que tous les arbres appellent, et toute dépendance
+inter-arbres déclarée par ces skills.
 
-Chaque plugin est autonome. Il embarque son domaine, les deux skills communs
-que tous les arbres appellent, et toute dépendance inter-arbres déclarée par
-ses skills, résolue transitivement, pour qu'aucun skill ne s'installe cassé.
+| Plugin | Ce que devient l'agent | Domaine | Installé |
+|---|---|---|---|
+| `craft-writing` | romancier, scénariste, éditeur, critique, correcteur | 42 | 44 |
+| `craft-documents` | rédacteur technique, auteur de rapports, producteur de PDF | 7 | 9 |
+| `craft-engineering` | une équipe de livraison, de la spécification à la production | 82 | 84 et 24 agents |
+| `craft-security` | ingénieur défensif, et auditeur sur autorisation écrite | 12 | 18 et 2 agents |
+| `craft-research` | chercheur qui ne cite que ce qu'il a réellement lu | 5 | 7 |
+| `craft-career` | recherche d'emploi qui n'invente jamais une offre | 7 | 9 |
+| `craft-opportunity` | idées, hackathons, clients, marchés | 9 | 11 |
+
+Chaque plugin est autonome, et c'est pourquoi la seconde colonne est plus
+grande. Le bundle security est le seul qui va aujourd'hui chercher dans un autre
+arbre : son `vulnerability-assessment` déclare `security-audit`, qui vit dans
+l'arbre engineering, donc le bundle emporte ce skill et les trois dont il dépend
+à son tour. Le plugin engineering embarque 24 des 25 agents ; `web-auditor` est
+un outil de sécurité sans rôle dans la séquence de livraison et part avec
+`craft-security`.
 
 ## Ce que « terminé » veut dire ici
 

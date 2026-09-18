@@ -29,7 +29,11 @@ whole of it.
 | `career/` | 7 job search and application skills | `career/career-core` |
 | `opportunity/` | 9 ideation, hackathon and business skills | `opportunity/ideation/opportunity-core` |
 
+The counts above are checked against the filesystem by
+`tests/validate-counts.sh`, so this table cannot drift from the trees.
+
 Full picture: `README.md`. Architecture: `documentation/architecture.md`.
+How to use the suite: `documentation/usage.md`.
 
 ## Routing
 
@@ -112,8 +116,9 @@ Before any modification:
 1. Read this file.
 2. Read the constitution of the tree concerned.
 3. Check consistency with `documentation/architecture.md`, and with the
-   system document for the tree: `documents-system.md`,
-   `engineering-system.md`, `delivery-system.md`.
+   system document for the tree: `documentation/documents-system.md`,
+   `documentation/engineering-system.md`,
+   `documentation/delivery-system.md`.
 4. Run the six scripts in `tests/`. If you changed a skill tree, run
    `bash plugins/build.sh` so the plugin bundles stay in sync.
 5. Commit atomically, in English.
