@@ -137,6 +137,39 @@ a real reference.
   multi-agent workflow: one writer per reader following its skill, a gate review
   per document, and a cross-set critique of the reader split.
 
+## Phase 7: the documentation a user actually needs
+
+- [x] **Usage guide** (M). `documentation/usage.md` and `usage.fr.md`. The
+  suite described what it contained in eleven documents and never described
+  what to do with it. The guide covers the host requirement, the install, how a
+  skill is selected (the frontmatter `description`, which nothing else here
+  explained), the routing table, what the gates demand, when not to use an
+  agent, and what to verify. `docs/README.md` states the boundary between
+  `documentation/` (usage) and `docs/` (design reasoning and history).
+- [x] **The claims the audit falsified** (M). Roughly 25 files out of 204
+  READMEs and 30 documents. Six agents named a shipped, a table titled "The
+  seventeen" over sixteen rows for twenty-five agents, a transitive-resolution
+  example that was false, post-install counters of 75, 155 and 16 against 84,
+  166 and 25, and the security tree written as 10 in six places.
+- [x] **The bugs behind the claims** (M). Four in `install.sh`, each reproduced
+  before the fix: `--configure` deleting `model_routing`, `career` and any
+  managed field its scope did not ask about; `depends_on` resolved for
+  `--skill` only, so `--security` shipped `vulnerability-assessment` without
+  `security-audit`; the cross domain pair double counted on a trailing slash;
+  an empty agents directory for `--research`.
+- [x] **Close the drifting zone** (S). `validate-counts.sh` now covers the
+  plugin tables, the per-scope table, the `AGENTS.md` tree table, counts
+  written in words, and an agent named as unbuilt while its file exists.
+  `validate-structure.sh` fails on a skill missing from its category index.
+  Each check was mutation-tested.
+- [ ] **Deflate `overview.md`** (S). 54 lines are duplicated verbatim from
+  `installation.md`, plus the plugin table and the configuration block. Replace
+  the installation section with a paragraph and a link. Deferred: it is a
+  future-drift problem, not a reader problem, and the guide came first.
+- [ ] **Translate `installation.md` and `configuration.md`** (M). Today
+  `usage.fr.md` and `overview.fr.md` are the only French documents, and
+  `usage.fr.md` says so rather than leaving the reader to discover it.
+
 ## Parked and external
 
 Not waiting on work in this repository.
@@ -167,10 +200,14 @@ Not waiting on work in this repository.
 4  the core verification agents, then exercise the full agent layer
 5  per-domain agent packs, then the Control Center panel
 6  the two demonstration projects
+7  the usage guide, and the claims and bugs the audit found
 ```
 
 The count check comes first either way; the demonstration projects come last
-because they exercise everything above them.
+because they exercise everything above them. Phase 7 came after them for a bad
+reason, which is worth recording: the suite was documented for its author, who
+already knew how to use it, so the missing document was invisible until an
+audit went looking for what a new reader could not do.
 
 ## Known limitations carried forward
 
@@ -183,5 +220,7 @@ Recorded so they are chosen, not stumbled into. Detail in `CONTINUITY.md` and
 - The agent layer's review gates and boundaries are a documented discipline,
   not a runtime guarantee; a runtime that grants every subagent full write
   access enforces none of them.
-- Counts in the structured docs are enforced by `tests/validate-counts.sh`
-  since Phase 0 landed. Free prose and plugin bundle sizes are still by hand.
+- Counts are enforced by `tests/validate-counts.sh`, which since Phase 7 also
+  covers the plugin bundles and the one prose location that kept drifting, the
+  number word at the top of a category index. Free prose elsewhere is still by
+  hand, and that is the remaining exposure.
