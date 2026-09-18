@@ -20,7 +20,7 @@ craft-suite/
 ├── writing/         42 skills d'écriture créative
 ├── documents/        7 skills de document professionnel
 ├── engineering/     82 skills d'ingénierie
-├── agents/          16 définitions de rôle, transversales au dépôt
+├── agents/          25 définitions de rôle, transversales au dépôt
 ├── security/        12 skills de sécurité défensive
 ├── research/         5 skills de recherche générale
 ├── career/           7 skills de recherche d'emploi et de candidature
@@ -29,7 +29,7 @@ craft-suite/
 ├── control-center/   tableau de bord local optionnel, sans dépendance
 ├── plugins/          bundles de plugins par domaine, générés depuis les arbres
 ├── documentation/    documentation technique des arbres
-└── tests/            cinq scripts de validation
+└── tests/            six scripts de validation
 ```
 
 ## Raison d'être
@@ -218,7 +218,7 @@ reçoit jamais l'arbre d'ingénierie.
    1) Creative writing        42 skills   romans, poésie, scénario, édition
    2) Professional documents   7 skills   guides, manuels, rapports, lettres, PDF
    3) Software engineering    82 skills   plus 24 agents
-   4) Cybersecurity           10 skills   modèles de menace, audits, durcissement
+   4) Cybersecurity           12 skills   modèles de menace, audits, durcissement
    5) Research                 5 skills   sources, vérification, synthèse
    6) Career                   7 skills   recherche d'emploi, CV, entretiens
    7) Opportunity              9 skills   idéation, hackathons, prospection
@@ -287,7 +287,7 @@ bash install.sh --group devops-skills     l'exploitation seule
 | `delivery-skills` | 11 | engineering |
 | `devops-skills` | 16 | engineering |
 | `secure-development` | 9 | security |
-| `security-assurance` | 2 | security |
+| `security-assurance` | 3 | security |
 | `research` | 5 | research |
 | `career` | 7 | career |
 | `ideation` | 3 | opportunity |
@@ -572,7 +572,7 @@ bash tests/validate-plugins.sh        bundles de plugins synchronisés avec les 
 bash tests/validate-model-routing.sh  fixtures de routage contre la table de tiers
 ```
 
-Les cinq doivent passer avant tout commit. Détail dans
+Les six doivent passer avant tout commit. Détail dans
 [tests/README.md](../tests/README.md).
 
 ## Documentation
@@ -616,7 +616,7 @@ dans [.github/CODEOWNERS](../.github/CODEOWNERS).
 Ajouter un skill suppose : créer le dossier avec ses quatre éléments, déclarer
 les métadonnées, renvoyer à la constitution de son arbre sans la recopier,
 ajouter au moins un exemple et une ressource, mettre à jour l'index de
-catégorie et `documentation/skills-guide.md`, puis exécuter les cinq scripts.
+catégorie et `documentation/skills-guide.md`, puis exécuter les six scripts.
 
 Règles complètes : [CONTRIBUTING.md](../CONTRIBUTING.md). Règles de branche et
 leur mise en place :

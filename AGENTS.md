@@ -114,7 +114,7 @@ Before any modification:
 3. Check consistency with `documentation/architecture.md`, and with the
    system document for the tree: `documents-system.md`,
    `engineering-system.md`, `delivery-system.md`.
-4. Run the five scripts in `tests/`. If you changed a skill tree, run
+4. Run the six scripts in `tests/`. If you changed a skill tree, run
    `bash plugins/build.sh` so the plugin bundles stay in sync.
 5. Commit atomically, in English.
 

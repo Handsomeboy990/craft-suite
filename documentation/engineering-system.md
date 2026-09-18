@@ -31,7 +31,7 @@ written in English, and the output language is a configuration decision. See
 Rules 1 and 2 of the writing constitution still apply to every file: no emoji,
 no em dash.
 
-## 3. The fifty four skills
+## 3. The fifty five skills
 
 ### Foundation
 
@@ -283,4 +283,4 @@ Adding an engineering skill:
    `Interfaces` section;
 5. add it to at least one execution plan, or check 7 reports it as an orphan;
 6. update `engineering/dev-skills/README.md`, `skills-guide.md` and this file;
-7. run the five validation scripts.
+7. run the six validation scripts.

@@ -253,7 +253,7 @@ Adding a delivery or operations skill:
 5. add it to at least one execution plan or delivery phase, or check 7 reports
    it as an orphan;
 6. update its category index, `skills-guide.md` and this file;
-7. run the five validation scripts.
+7. run the six validation scripts.
 
 Adding an agent: the file in `agents/<group>/`, the eight mandatory
 sections, an entry in `agents/README.md`, and its name added to

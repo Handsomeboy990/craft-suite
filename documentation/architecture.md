@@ -34,7 +34,7 @@ craft-suite/
 │   ├── delivery-skills/   11
 │   └── devops-skills/     16
 ├── agents/                25 role definitions, repository wide
-│   ├── core/               6
+│   ├── core/               9
 │   ├── development/        5
 │   ├── design/              3
 │   ├── security/            2
@@ -225,7 +225,7 @@ prepares and hands over. Everything handed over is written to
 
 ## Tests
 
-`tests/` holds five scripts with no external dependency beyond `python3`.
+`tests/` holds six scripts with no external dependency beyond `python3`.
 
 - `validate-structure.sh`: the mandatory files and directories of every skill,
   the metadata block, duplicate skill names, the `Protocol` and `Interfaces`
@@ -248,7 +248,7 @@ prepares and hands over. Everything handed over is written to
 Adding a skill: create the directory with its four elements, declare the
 metadata, refer to the constitution of its tree without restating it, add at
 least one example and one resource, update the category index and
-`skills-guide.md`, then run the five scripts.
+`skills-guide.md`, then run the six scripts.
 
 For a skill in `documents/`, `engineering/` or `shared/`, four further
 requirements: a numbered `Protocol` section, an `Interfaces` section, and for

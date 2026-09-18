@@ -14,7 +14,7 @@ The decisions a reviewer needs, including what was rejected and why.
 
 ## Validation
 
-All five must pass. Paste the last line of each.
+All six must pass. Paste the last line of each.
 
 ```
 bash tests/validate-structure.sh
@@ -27,7 +27,7 @@ bash tests/validate-model-routing.sh
 ## Checklist
 
 - [ ] Base branch is `dev`.
-- [ ] The five validation scripts pass.
+- [ ] The six validation scripts pass.
 - [ ] The staged diff was read in full.
 - [ ] No secret, no `.env`, no local agent configuration.
 - [ ] No emoji, no em dash, in any file.
