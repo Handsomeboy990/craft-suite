@@ -258,3 +258,10 @@ Adding a delivery or operations skill:
 Adding an agent: the file in `agents/<group>/`, the eight mandatory
 sections, an entry in `agents/README.md`, and its name added to
 the expected list in `tests/validate-orchestration.sh`.
+
+## 12. Worked example
+
+The fourteen phases are run end to end on one small application, a link
+shortener, under `engineering/examples/delivery-link-shortener/`. It keeps the
+deliverable each phase produces and shows the four approval gates as explicit
+stops, the way `writing/examples/` keeps a finished saga.

@@ -71,10 +71,12 @@ a real reference.
   picks for the user, never uses a template against its licence, and never ships
   one unchanged. Wired into the FRONTEND and UI_UX plans as a conditional step,
   run by `design-research` and `ui-ux-engineer` before building.
-- [ ] **Exercise the frontend agents on a motion task** (M). Run
-  `ui-ux-engineer` and `frontend-engineer` with the new `animation` skill on a
-  small real interface, and `design-verification` to check the result reads as
-  intended and honours reduced motion. Tests the frontend agents on real work.
+- [x] **Exercise the frontend agents on a motion task** (M). Done on a real
+  target: the `lauret-chacha` portfolio. A read-only audit dispatched
+  `ui-ux-engineer` on its design and motion, then the `animation` skill drove a
+  full motion pass (terminal typewriter, scroll-reveal, a contact terminal,
+  section tags), reduced motion honoured throughout via `MotionConfig` and a
+  global CSS guard. The redesign shipped to the portfolio's `main`.
 
 ## Phase 4: harden verification
 
@@ -84,11 +86,13 @@ a real reference.
   architecture, debt, risks, safe boundaries. Original section 5.3.
 - [x] **`final-verifier` agent** (M). The independent, evidence-only final
   verification that trusts no previous agent. Original section 32.
-- [ ] **Exercise the full agent layer** (M). The new agents
+- [ ] **Exercise the full agent layer** (M). Partly done: the portfolio audit
+  dispatched `ui-ux-engineer`, `security-engineer` and `performance-engineer` on
+  a real target and produced real dispatch telemetry. The newer agents
   (`compliance-verifier`, `design-verification`, `web-auditor`, `pr-author`,
-  `pr-reviewer`, `source-of-truth`, `checkup`, `final-verifier`) have not run
-  on a real task. Run them, capture the telemetry, confirm the routing and the
-  handoffs hold. Needs a target project, like the open Phase 3 motion task.
+  `pr-reviewer`, `source-of-truth`, `checkup`, `final-verifier`) were not
+  installed at dispatch time and still have not run; they are now installed, and
+  the delivery demonstration is the natural place to run them end to end.
 
 ## Phase 5: distribution and telemetry
 
@@ -112,9 +116,11 @@ a real reference.
 
 ## Phase 6: proof
 
-- [ ] **Delivery demonstration project** (L). No worked example exists for the
-  fourteen delivery phases, unlike the writing tree's saga. Run the phases on a
-  small real application and keep the artefacts.
+- [x] **Delivery demonstration project** (L). A worked example of the fourteen
+  delivery phases now lives under `engineering/examples/delivery-link-shortener/`,
+  run on one small application (a link shortener), sized small, with the four
+  approval gates shown as explicit stops and every phase producing its
+  deliverable, including the `not applicable` ones with a reason.
 - [ ] **Documents demonstration set** (M). No worked example for the documents
   tree either. Produce a three-document set for one subject, exercising the
   reader split and the PDF render verification.

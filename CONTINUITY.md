@@ -430,6 +430,24 @@ Session 22, roadmap Phase 0, the count-consistency check, version 3.15.0:
   what remains needs a real target project or is deliberately parked. Branched
   fresh from `dev`.
 
+Session 23, the portfolio redesign and roadmap Phase 6, version 3.16.0:
+
+- Off-repo: exercised the frontend agents and skills on a real target, the
+  `lauret-chacha` portfolio (separate repo at ~/Importants/portfolioo). A
+  read-only audit dispatched ui-ux-engineer, security-engineer and
+  performance-engineer, then a full redesign: amber terminal identity, clean
+  reduced-motion-safe animations across every page, a terminal multi-step
+  contact form, SEO and legal scaffolding, DB resilience and backend security
+  hardening. Shipped to that project's `main`. Its own audit checklist lives in
+  its gitignored `rapport-audit.local.md`. This ticks the Phase 3 motion item
+  and partly the Phase 4 agent-layer item.
+- In-repo: `engineering/examples/delivery-link-shortener/`, a worked example of
+  the fourteen delivery phases on a small link shortener, sized small, all four
+  approval gates shown. `engineering/examples/README.md` indexes it,
+  `delivery-system.md` section 12 points at it. Phase 6 delivery-demo box ticked.
+- No skill or agent count change (the example is not a skill). Manifests 3.16.0.
+  Branched fresh from `dev`.
+
 ## Current state
 
 Working today:

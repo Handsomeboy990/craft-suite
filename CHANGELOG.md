@@ -3,6 +3,31 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.16.0
+
+Roadmap Phase 6, the delivery demonstration: the proof the repository was
+missing, the delivery process run end to end and kept as artefacts.
+
+### Added
+
+- `engineering/examples/delivery-link-shortener/`: a worked example of the
+  fourteen delivery phases on one small application, a link shortener. Sized
+  small per the sizing rule (phases 01 to 06 on a page, 07 the bulk, 08 to 14 on
+  a page), it keeps the deliverable each phase produces and shows the four
+  approval gates (02, 05, 10, 14) as explicit stops with a recorded answer,
+  including the phases that end `not applicable` with a written reason. An
+  `engineering/examples/README.md` indexes it, and `delivery-system.md` points
+  at it as the worked example, the way `writing/examples/` keeps a saga.
+
+### Changed
+
+- Roadmap: the Phase 3 item to exercise the frontend agents on a motion task is
+  ticked, done on the `lauret-chacha` portfolio (a real audit and a full
+  reduced-motion-safe motion pass, shipped to that project's `main`). The
+  Phase 4 item to exercise the full agent layer is marked partly done, the
+  portfolio audit having dispatched three agents and produced real telemetry;
+  the newer agents will run end to end in a future delivery.
+
 ## 3.15.0
 
 Roadmap Phase 0: the count-consistency check, and the drift it caught the day
