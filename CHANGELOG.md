@@ -3,6 +3,41 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.18.0
+
+Roadmap Phase 5, the last item: agent-level detections in the advisor, with
+their limits stated rather than glossed.
+
+### Added
+
+- Three agent-dispatch detections in `control-center/advisor.py`:
+  `agent-fan-out` (the same agent dispatched four or more times in one session,
+  medium at eight), `agent-on-light-session` (a dispatch in a session that
+  produced under fifteen thousand work tokens), and
+  `dispatch-without-recorded-work` (informational, because a missing subagent
+  transcript can mean the records are not on this machine rather than that the
+  work never ran). Their thresholds are published with the others, so every
+  finding stays reproducible. EN and FR templates for the three in the Control
+  Center.
+
+### Note on what this can and cannot show
+
+The roadmap asked for a detection of an agent used where a lighter skill would
+have done, or a model tier stronger than the classification justified. The
+telemetry records which subagent ran, under which model, how often, and whether
+dispatched work left a record. It does not record the task's complexity, nor
+what a direct action would have cost, so neither of those can be proven from it.
+The detections therefore report measurable dispatch patterns and, like every
+other finding in the advisor, never assert that a pattern caused waste. This
+limit is written into the module next to the thresholds.
+
+### Verified
+
+- `test_advisor.py` goes from 26 to 37 checks, each isolating one signal;
+  `test_reader.py` still passes its 74. On the real transcripts the new
+  detections stay silent, which is the correct result: the data shows none of
+  these patterns, and the advisor never invents a finding.
+
 ## 3.17.0
 
 Roadmap Phase 6, the documents demonstration: the documents tree's missing

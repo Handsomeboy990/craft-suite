@@ -54,6 +54,17 @@ BROAD_FILES = 25              # and many distinct files
 CROSS_SESSION_MIN = 3         # a project re-explored in this many sessions
 CROSS_SESSION_READS = 8       # each with at least this many reads
 
+# Agent dispatch thresholds. What the telemetry records is which subagent was
+# dispatched, under which model, how often, and whether dispatched work left
+# any transcript record. It does not record the task's complexity, nor what a
+# direct action would have cost, so the advisor cannot prove that an agent was
+# unnecessary or that a model tier was too strong. These detections therefore
+# report measurable dispatch patterns and, like every other finding here, never
+# assert that the pattern caused waste.
+AGENT_FANOUT_MIN = 4          # same agent dispatched this many times in a session
+AGENT_FANOUT_MEDIUM = 8       # at or above this, the finding is medium not low
+AGENT_LIGHT_SESSION_TOKENS = 15_000  # work tokens below which a session is light
+
 
 def _severity_max(a, b):
     return a if SEVERITY_ORDER.index(a) <= SEVERITY_ORDER.index(b) else b
@@ -164,6 +175,60 @@ def _session_findings(session):
                 "messages": msgs,
                 "tool_types": ttypes,
                 "files_touched": files_touched,
+            },
+        })
+
+    # 7 to 9. Agent dispatch patterns. Absent from older data, so every read is
+    # defensive and a session with no dispatch produces no finding.
+    ad = session.get("agent_dispatches") or {}
+    dispatches = ad.get("total", 0) or 0
+    by_agent = ad.get("by_agent") or []
+    sidechain = ad.get("sidechain_records", 0) or 0
+
+    # 7. Fan out: the same agent dispatched repeatedly in one session. States
+    # the count; whether the repetition was warranted is not measurable here.
+    if by_agent:
+        name, count = by_agent[0][0], by_agent[0][1]
+        if count >= AGENT_FANOUT_MIN:
+            findings.append({
+                "category": "agent-fan-out",
+                "severity": "medium" if count >= AGENT_FANOUT_MEDIUM else "low",
+                "session_id": sid,
+                "evidence": {
+                    "agent": name,
+                    "top_count": count,
+                    "dispatches_total": dispatches,
+                    "agents": [{"agent": a, "count": c} for a, c in by_agent[:5]],
+                },
+            })
+
+    # 8. An agent was dispatched in a session that did little measured work.
+    # This is the closest the data comes to "a lighter path would have done",
+    # and it is still only a correlation, not a verdict.
+    work = session.get("work_tokens", 0) or 0
+    if dispatches >= 1 and work < AGENT_LIGHT_SESSION_TOKENS:
+        findings.append({
+            "category": "agent-on-light-session",
+            "severity": "low",
+            "session_id": sid,
+            "evidence": {
+                "dispatches": dispatches,
+                "work_tokens": work,
+                "threshold": AGENT_LIGHT_SESSION_TOKENS,
+            },
+        })
+
+    # 9. Dispatches happened but no dispatched work left a transcript record.
+    # Informational on purpose: a missing record can mean the subagent
+    # transcripts are not on this disk, not that the work never ran.
+    if dispatches >= 1 and sidechain == 0:
+        findings.append({
+            "category": "dispatch-without-recorded-work",
+            "severity": "informational",
+            "session_id": sid,
+            "evidence": {
+                "dispatches": dispatches,
+                "sidechain_records": sidechain,
             },
         })
 
@@ -289,6 +354,8 @@ def analyze(data):
             "bash_repeat_min": BASH_REPEAT_MIN,
             "large_output_min": LARGE_OUTPUT_MIN,
             "low_cache_ratio": LOW_CACHE_RATIO,
+            "agent_fanout_min": AGENT_FANOUT_MIN,
+            "agent_light_session_tokens": AGENT_LIGHT_SESSION_TOKENS,
         },
     }
 
