@@ -137,10 +137,14 @@ Not waiting on work in this repository.
   delivered, but the n8n MCP server must be configured and authorized
   interactively by the user, and no workflow has been built or run against a
   live instance. The user parked this on 2026-09-17.
-- [ ] **Release to `main`** (parked). `dev` carries everything from 3.1.0
-  onward. Promoting to `main` is a release decision for the user; the merge
-  back into `dev` must be a merge commit, not a squash, per
-  `release-branch-and-push-constraints`.
+- [x] **Release to `main`** (done, 3.17.0). Everything from 3.1.0 to 3.17.0 is
+  on `main`. The two branches had diverged in topology, and skills had moved
+  between categories on `dev`, so a plain merge risked conflicts and resurrected
+  files. The promotion went through `release/v3.17.0`, started from `dev` and
+  merging `main` with the `ours` strategy: `dev`'s content stayed authoritative
+  and `main` became an ancestor, so the merge applied cleanly. Verified before
+  and after: `main`'s tree is identical to `dev`'s. `main` was then merged back
+  into `dev` to keep the histories joined for the next promotion.
 - [ ] **Second code owner** (parked). `enforce_admins` stays off until
   `.github/CODEOWNERS` names a second reviewer, because a lone owner cannot
   approve their own request and turning it on would remove every path to a

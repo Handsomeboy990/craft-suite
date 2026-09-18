@@ -464,6 +464,21 @@ Session 24, roadmap Phase 6 documents demonstration, version 3.17.0:
   the five files; a forbidden-char and email scan ran clean before commit.
 - No skill or agent count change. Manifests 3.17.0. Branched fresh from `dev`.
 
+Session 24b, the release to `main`:
+
+- `main` had sat at 3.0.0 and diverged from `dev` in topology; skills had also
+  moved between categories on `dev`, so a plain merge risked conflicts and
+  resurrecting moved files. The promotion went through `release/v3.17.0`:
+  branched from `dev`, then `git merge -s ours origin/main`, which keeps `dev`'s
+  tree authoritative while making `main` an ancestor. Verified the branch tree
+  was byte-identical to `dev` before opening PR #35, and again after merging.
+- `main` is now `3441087`, its tree identical to `dev`, manifests at 3.17.0, and
+  `dev` is fully contained in `main`. `main` was merged back into `dev` (a
+  fast-forward) so the histories stay joined and the next promotion does not
+  need the same workaround.
+- The roadmap's parked `Release to main` item is ticked. Remaining: the advisor
+  item (thin telemetry), n8n end to end, and a second code owner.
+
 ## Current state
 
 Working today:
