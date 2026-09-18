@@ -163,8 +163,10 @@ n'est pas la même chose que d'être oubliée.
 
 ## 7. Les agents, et quand ne pas s'en servir
 
-Les 25 agents de `~/.claude/agents` sont des définitions de rôle pour un
-runtime qui accepte des sous-agents. Deux règles les gouvernent :
+Les définitions d'agents de `~/.claude/agents` sont des rôles pour un runtime
+qui accepte des sous-agents. Le dépôt en compte 25 ; `--dev` en installe 24 et
+`--security` deux, donc le nombre que vous avez dépend de la portée choisie.
+Deux règles les gouvernent toutes :
 
 - **Ils ne servent que sur demande explicite.** Un agent est un contexte
   séparé avec son propre budget. Pour une tâche unique, les skills suffisent, et

@@ -161,8 +161,10 @@ so it can be waived deliberately, which is different from it being forgotten.
 
 ## 7. Agents, and when not to use them
 
-The 25 agents in `~/.claude/agents` are role definitions for a runtime that
-supports subagents. Two rules govern them:
+The agent definitions in `~/.claude/agents` are roles for a runtime that
+supports subagents. There are 25 in the repository; `--dev` installs 24 of them
+and `--security` two, so how many you have depends on the scope you chose. Two
+rules govern all of them:
 
 - **They are used only when you ask.** An agent is a separate context with its
   own budget. For a single task, the skills alone are enough, and
