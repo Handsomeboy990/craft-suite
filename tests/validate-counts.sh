@@ -9,10 +9,11 @@
 # of error is caught here instead of by a reader months later.
 #
 # What it checks: the structured count locations, the tree diagrams, the
-# category tables, the installer menus and the totals. It does not try to parse
-# every prose sentence, nor the plugin bundle sizes (which include cross-tree
-# dependencies and are not a plain directory count); those stay the reader's
-# job. What it does check, it checks exactly.
+# category tables, the installer menus, the totals, the plugin tables, the
+# per-scope installation table, the count written in words at the top of each
+# category index, and the agent totals whether written as a figure or in words.
+# It does not try to parse every prose sentence. What it does check, it checks
+# exactly.
 #
 #   bash tests/validate-counts.sh
 set -u
@@ -181,6 +182,210 @@ for f in documentation/installation.md documentation/overview.md documentation/o
   check "$f" "$OPPORTUNITY" 'Opportunity +[0-9]+ skills'            "$f menu opportunity"   "$MENU"
   check "$f" "$TOTAL"       'Everything +[0-9]+ skills'             "$f menu everything"    "$MENU"
 done
+
+# --------------------------------------------------------------------------
+# check_nth <file> <expected> <selector-ERE> <n> <label>
+#
+# Same as check, but takes the Nth integer on the matching line. A table row
+# that carries two counts, a tree count and a bundle count, needs this.
+# --------------------------------------------------------------------------
+check_nth() {
+  local rel="$1" expected="$2" sel="$3" n="$4" label="$5"
+  local file="$ROOT/$rel" matches lineno text num
+  [ -f "$file" ] || { fail "$rel: file missing ($label)"; return; }
+  matches="$(grep -nE "$sel" "$file" 2>/dev/null)"
+  if [ -z "$matches" ]; then
+    fail "$rel: no line matched for '$label' (selector reworded? update the check)"
+    return
+  fi
+  while IFS= read -r ml; do
+    [ -n "$ml" ] || continue
+    lineno="${ml%%:*}"; text="${ml#*:}"
+    num="$(printf '%s' "$text" | grep -oE '[0-9]+' | sed -n "${n}p")"
+    if [ -z "$num" ]; then
+      fail "$rel:$lineno: fewer than $n numbers on the line for '$label'"
+    elif [ "$num" != "$expected" ]; then
+      fail "$rel:$lineno: '$label' is $num, expected $expected  ->$text"
+    fi
+  done <<< "$matches"
+}
+
+# --------------------------------------------------------------------------
+# Counts written in words.
+#
+# "Fifty four skills" and "Eight skills" are exactly where drift went unnoticed,
+# because no check reads prose. These two helpers read the one number word that
+# opens a category index or names the agent total, and compare it to the disk.
+# Hyphen and space are both accepted, since the repository uses both.
+# --------------------------------------------------------------------------
+UNIT_WORDS="zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen"
+TEN_WORDS="x x twenty thirty forty fifty sixty seventy eighty ninety"
+WORD_RE='(twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety)[- ](one|two|three|four|five|six|seven|eight|nine)|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|nineteen|eighteen|seventeen|sixteen|fifteen|fourteen|thirteen|twelve|eleven|ten|nine|eight|seven|six|five|four|three|two|one'
+
+word_for() {
+  local n="$1" t u
+  if [ "$n" -lt 20 ]; then
+    printf '%s\n' $UNIT_WORDS | sed -n "$((n + 1))p"
+    return
+  fi
+  t=$((n / 10)); u=$((n % 10))
+  if [ "$u" -eq 0 ]; then
+    printf '%s\n' $TEN_WORDS | sed -n "$((t + 1))p"
+  else
+    printf '%s-%s' "$(printf '%s\n' $TEN_WORDS | sed -n "$((t + 1))p")" \
+                   "$(printf '%s\n' $UNIT_WORDS | sed -n "$((u + 1))p")"
+  fi
+}
+
+# check_word <file> <expected-int> <selector-ERE> <label> [extractor-PCRE]
+#
+# The default extractor takes the first number word on the line, which is wrong
+# whenever the line carries two. Those lines pass an anchored extractor instead.
+check_word() {
+  local rel="$1" expected="$2" sel="$3" label="$4" ext="${5:-$WORD_RE}"
+  local file="$ROOT/$rel" matches lineno text found want
+  want="$(word_for "$expected")"
+  [ -f "$file" ] || { fail "$rel: file missing ($label)"; return; }
+  matches="$(grep -nEi "$sel" "$file" 2>/dev/null)"
+  if [ -z "$matches" ]; then
+    fail "$rel: no line matched for '$label' (selector reworded? update the check)"
+    return
+  fi
+  while IFS= read -r ml; do
+    [ -n "$ml" ] || continue
+    lineno="${ml%%:*}"; text="${ml#*:}"
+    found="$(printf '%s' "$text" | grep -oiP "$ext" | head -1 \
+             | tr 'A-Z ' 'a-z-')"
+    if [ -z "$found" ]; then
+      fail "$rel:$lineno: no number word found for '$label'"
+    elif [ "$found" != "$want" ]; then
+      fail "$rel:$lineno: '$label' says '$found', expected '$want'  ->$text"
+    fi
+  done <<< "$matches"
+}
+
+# --------------------------------------------------------------------------
+# Plugin bundles. A bundle is its tree plus the two cross domain skills plus
+# any cross-tree dependency the tree declares, so it is not a plain tree count
+# and has to be measured on the bundle itself.
+# --------------------------------------------------------------------------
+bundle_skills() {
+  find "$ROOT/plugins/$1/skills" -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
+    | wc -l | tr -d ' '
+}
+bundle_agents() {
+  ls "$ROOT/plugins/$1/agents"/*.md 2>/dev/null | wc -l | tr -d ' '
+}
+
+B_WRITING=$(bundle_skills writing)
+B_DOCUMENTS=$(bundle_skills documents)
+B_ENG=$(bundle_skills engineering)
+B_SECURITY=$(bundle_skills security)
+B_RESEARCH=$(bundle_skills research)
+B_CAREER=$(bundle_skills career)
+B_OPPORTUNITY=$(bundle_skills opportunity)
+B_ENG_AGENTS=$(bundle_agents engineering)
+B_SEC_AGENTS=$(bundle_agents security)
+
+printf '  bundles: writing %s, documents %s, engineering %s (%s agents), security %s (%s agents), research %s, career %s, opportunity %s\n\n' \
+  "$B_WRITING" "$B_DOCUMENTS" "$B_ENG" "$B_ENG_AGENTS" "$B_SECURITY" \
+  "$B_SEC_AGENTS" "$B_RESEARCH" "$B_CAREER" "$B_OPPORTUNITY"
+
+# The plugin table in the two root READMEs and in plugins.md carries two counts
+# per row: the tree, then what the bundle actually holds.
+for f in README.md README.fr.md documentation/plugins.md; do
+  check_nth "$f" "$WRITING"       'craft-writing.*\| [0-9]+ \|'     1 "$f plugin writing tree"
+  check_nth "$f" "$B_WRITING"     'craft-writing.*\| [0-9]+ \|'     2 "$f plugin writing bundle"
+  check_nth "$f" "$DOCUMENTS"     'craft-documents.*\| [0-9]+ \|'   1 "$f plugin documents tree"
+  check_nth "$f" "$B_DOCUMENTS"   'craft-documents.*\| [0-9]+ \|'   2 "$f plugin documents bundle"
+  check_nth "$f" "$ENG"           'craft-engineering.*\| [0-9]+ \|' 1 "$f plugin engineering tree"
+  check_nth "$f" "$B_ENG"         'craft-engineering.*\| [0-9]+ \|' 2 "$f plugin engineering bundle"
+  check_nth "$f" "$B_ENG_AGENTS"  'craft-engineering.*\| [0-9]+ \|' 3 "$f plugin engineering agents"
+  check_nth "$f" "$SECURITY"      'craft-security.*\| [0-9]+ \|'    1 "$f plugin security tree"
+  check_nth "$f" "$B_SECURITY"    'craft-security.*\| [0-9]+ \|'    2 "$f plugin security bundle"
+  check_nth "$f" "$B_SEC_AGENTS"  'craft-security.*\| [0-9]+ \|'    3 "$f plugin security agents"
+  check_nth "$f" "$RESEARCH"      'craft-research.*\| [0-9]+ \|'    1 "$f plugin research tree"
+  check_nth "$f" "$B_RESEARCH"    'craft-research.*\| [0-9]+ \|'    2 "$f plugin research bundle"
+  check_nth "$f" "$CAREER"        'craft-career.*\| [0-9]+ \|'      1 "$f plugin career tree"
+  check_nth "$f" "$B_CAREER"      'craft-career.*\| [0-9]+ \|'      2 "$f plugin career bundle"
+  check_nth "$f" "$OPPORTUNITY"   'craft-opportunity.*\| [0-9]+ \|' 1 "$f plugin opportunity tree"
+  check_nth "$f" "$B_OPPORTUNITY" 'craft-opportunity.*\| [0-9]+ \|' 2 "$f plugin opportunity bundle"
+done
+
+# --------------------------------------------------------------------------
+# The per-scope verification table. These are the numbers the installer prints,
+# and the ones a user compares against `ls ~/.claude/skills | wc -l`. They are
+# the bundle counts, because a scope installs what its bundle holds.
+# --------------------------------------------------------------------------
+for f in documentation/installation.md documentation/usage.md documentation/usage.fr.md; do
+  check_nth "$f" "$B_WRITING"     '^\| `--writing` \|'     1 "$f scope writing skills"
+  check_nth "$f" "$B_DOCUMENTS"   '^\| `--documents` \|'   1 "$f scope documents skills"
+  check_nth "$f" "$B_ENG"         '^\| `--dev` \|'         1 "$f scope dev skills"
+  check_nth "$f" "$B_ENG_AGENTS"  '^\| `--dev` \|'         2 "$f scope dev agents"
+  check_nth "$f" "$B_SECURITY"    '^\| `--security` \|'    1 "$f scope security skills"
+  check_nth "$f" "$B_SEC_AGENTS"  '^\| `--security` \|'    2 "$f scope security agents"
+  check_nth "$f" "$B_RESEARCH"    '^\| `--research` \|'    1 "$f scope research skills"
+  check_nth "$f" "$B_CAREER"      '^\| `--career` \|'      1 "$f scope career skills"
+  check_nth "$f" "$B_OPPORTUNITY" '^\| `--opportunity` \|' 1 "$f scope opportunity skills"
+  check_nth "$f" "$SHARED"        '^\| `--shared` \|'      1 "$f scope shared skills"
+  check_nth "$f" "$TOTAL"         '^\| `--all` \|'         1 "$f scope all skills"
+  check_nth "$f" "$AGENTS"        '^\| `--all` \|'         2 "$f scope all agents"
+  check_nth "$f" "$AGENTS"        '^\| `--agents` \|'      2 "$f scope agents only"
+done
+
+# --------------------------------------------------------------------------
+# AGENTS.md tree table. This is the third hand-written copy of the per-tree
+# counts, and it is where the security 10 against 12 divergence was born.
+# --------------------------------------------------------------------------
+check_nth AGENTS.md "$SHARED"      '^\| `shared/` \|'      1 "AGENTS shared row"
+check_nth AGENTS.md "$WRITING"     '^\| `writing/` \|'     1 "AGENTS writing row"
+check_nth AGENTS.md "$DOCUMENTS"   '^\| `documents/` \|'   1 "AGENTS documents row"
+check_nth AGENTS.md "$ENG"         '^\| `engineering/` \|' 1 "AGENTS engineering row"
+check_nth AGENTS.md "$AGENTS"      '^\| `agents/` \|'      1 "AGENTS agents row"
+check_nth AGENTS.md "$SECURITY"    '^\| `security/` \|'    1 "AGENTS security row"
+check_nth AGENTS.md "$RESEARCH"    '^\| `research/` \|'    1 "AGENTS research row"
+check_nth AGENTS.md "$CAREER"      '^\| `career/` \|'      1 "AGENTS career row"
+check_nth AGENTS.md "$OPPORTUNITY" '^\| `opportunity/` \|' 1 "AGENTS opportunity row"
+
+# --------------------------------------------------------------------------
+# The number word that opens a category index, and the agent total in prose.
+# --------------------------------------------------------------------------
+SKILLS_WORD='[A-Za-z]+([- ][a-z]+)?(?= skills)'
+check_word engineering/dev-skills/README.md      "$DEV"       'system\. [A-Za-z]+ [a-z]+ skills' "dev-skills prose count"      "$SKILLS_WORD"
+check_word engineering/delivery-skills/README.md "$DELIV"     'system\. [A-Za-z]+ skills'        "delivery-skills prose count" "$SKILLS_WORD"
+check_word engineering/devops-skills/README.md   "$DEVOPS"    'system\. [A-Za-z]+ skills'        "devops-skills prose count"   "$SKILLS_WORD"
+check_word security/security-assurance/README.md "$SECASSURE" 'exists\. [A-Za-z]+ skills'        "security-assurance prose count" "$SKILLS_WORD"
+check_word security/secure-development/README.md "$SECDEV"    'hardening one that exists\.'      "secure-development prose count" '(?<=exists\. )[A-Za-z]+'
+
+check_word agents/README.md "$AGENTS" 'specialised agent definitions' "agents/README prose agent total"
+check_word documentation/README.md "$AGENTS" 'public contracts' "documentation/README agent total" \
+  '(?<=the )[a-z-]+(?= public contracts)'
+check_word tests/README.md "$AGENTS" 'agent definitions, with their eight' "tests/README agent total" \
+  '(?<=the )[a-z-]+(?= agent definitions)'
+check_word documentation/engineering-system.md "$AGENTS" 'agent definitions,' "engineering-system agent total" \
+  '(?<=the )[a-z-]+(?= agent definitions)'
+check_word docs/architecture/SKILL_AGENT_MATRIX.md "$AGENTS" 'which of the [a-z-]+' "SKILL_AGENT_MATRIX agent total" \
+  '(?<=which of the )[a-z-]+'
+check_word docs/architecture/AGENT_ARCHITECTURE.md "$AGENTS" '^## The [a-z-]+ agents, by group' "AGENT_ARCHITECTURE agent total"
+check documentation/skills-guide.md "$AGENTS" '^### agents, [0-9]+' "skills-guide agent heading"
+
+# --------------------------------------------------------------------------
+# docs/agents/README.md declares what is not yet built. An agent named there
+# and present on disk is exactly the contradiction that stood for three phases.
+# --------------------------------------------------------------------------
+NOT_BUILT="$(awk '/^## What is not yet built/{p=1; next} /^## /{p=0} p' \
+  "$ROOT/docs/agents/README.md" 2>/dev/null \
+  | sed -n '1,/^$/p;1,/Full reasoning/p' \
+  | grep -oP '(?<=`)[a-z][a-z-]+(?=`)' | sort -u)"
+if [ -z "$NOT_BUILT" ]; then
+  fail "docs/agents/README.md: no names found under 'What is not yet built' (section reworded? update the check)"
+else
+  for name in $NOT_BUILT; do
+    if ls "$ROOT/agents"/*/"$name.md" >/dev/null 2>&1; then
+      fail "docs/agents/README.md: '$name' is listed as not yet built, but agents/*/$name.md exists"
+    fi
+  done
+fi
 
 printf '\n%s errors.\n' "$ERRORS"
 [ "$ERRORS" -eq 0 ] || exit 1

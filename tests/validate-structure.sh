@@ -130,8 +130,25 @@ for group in $ALL_GROUPS; do
 done
 for f in architecture.md skills-guide.md writing-rules.md workflow.md \
          engineering-system.md delivery-system.md documents-system.md \
-         installation.md configuration.md agents.md branch-protection.md; do
+         installation.md configuration.md agents.md branch-protection.md \
+         usage.md usage.fr.md; do
   [ -f "$ROOT/documentation/$f" ] || fail "missing documentation: $f"
+done
+
+# Every skill must be named in the index of its own category. This is the one
+# check that would have caught `rate-limiting`: it was delivered, routed by
+# skills-guide.md and listed by security/README.md, and invisible in the index
+# of the category that holds it. The check is deliberately format agnostic,
+# since some indexes link the directory and others only name it in a table.
+for group in $ALL_GROUPS; do
+  index="$ROOT/$group/README.md"
+  [ -f "$index" ] || continue
+  for skill in "$ROOT/$group"/*/; do
+    [ -f "$skill/SKILL.md" ] || continue
+    name="$(basename "${skill%/}")"
+    grep -qF "$name" "$index" \
+      || fail "$name is not listed in its category index: $group/README.md"
+  done
 done
 for f in .github/CODEOWNERS .github/pull_request_template.md \
          .github/workflows/validate.yml .githooks/pre-push; do
