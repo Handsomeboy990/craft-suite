@@ -121,9 +121,13 @@ a real reference.
   run on one small application (a link shortener), sized small, with the four
   approval gates shown as explicit stops and every phase producing its
   deliverable, including the `not applicable` ones with a reason.
-- [ ] **Documents demonstration set** (M). No worked example for the documents
-  tree either. Produce a three-document set for one subject, exercising the
-  reader split and the PDF render verification.
+- [x] **Documents demonstration set** (M). `documents/examples/jeu-conges/`
+  writes one fictional subject (an internal time-off system) for three readers,
+  a user guide, a technical manual and a deployment report, each passed through
+  the eight-point gate, with an artefact recording the gate reports, the
+  reader-split check and a PDF render verification. Produced through a
+  multi-agent workflow: one writer per reader following its skill, a gate review
+  per document, and a cross-set critique of the reader split.
 
 ## Parked and external
 
