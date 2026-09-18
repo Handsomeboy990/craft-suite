@@ -11,7 +11,7 @@ never appears in this matrix as needing one.
 Canonical skill plans are not restated here; they are in
 `engineering/dev-skills/engineering-orchestrator/resources/execution-plans.md`
 and `engineering/delivery-skills/delivery-orchestrator/resources/delivery-phases.md`.
-This matrix adds the one thing those files do not carry: which of the seventeen
+This matrix adds the one thing those files do not carry: which of the twenty-five
 agents a plan's steps map to, when the work is dispatched across contexts.
 
 ## Columns

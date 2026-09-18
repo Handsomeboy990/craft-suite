@@ -33,12 +33,18 @@ page points to, and referenced everywhere else.
 
 ## What is not yet built
 
-Named honestly rather than implied to exist: a dedicated `source-of-truth`
-agent, a `checkup` agent, a `final-verifier` agent, a `model-router` agent
-distinct from the `model-routing` skill, and several domain agents
-(`pentester`, `design-research`, `design-verification`, `reproduction`,
-`research`, `compliance`). Full reasoning for the boundary in
-`docs/architecture/multi-agent-assessment.md` section 3.
+Named honestly rather than implied to exist: a `model-router` agent distinct
+from the `model-routing` skill, a `pentester`, a `reproduction` agent and a
+`research` agent. Full reasoning for the boundary in
+`docs/architecture/multi-agent-assessment.md` section 3, whose own figures are
+those of the moment it was written.
+
+The rest of the list that used to stand here has since been built and shipped:
+`source-of-truth`, `checkup` and `final-verifier` in Phase 4,
+`design-research`, `design-verification` and `compliance-verifier` before them.
+`agents/README.md` is the roster of what exists, and
+`tests/validate-counts.sh` fails if a name in the paragraph above turns up as a
+file under `agents/`, so this page cannot go stale again in that direction.
 
 ## Installing only what is needed
 

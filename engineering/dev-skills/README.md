@@ -1,6 +1,6 @@
 # dev-skills
 
-Senior full-stack engineering skill system. Fifty four skills that let an agent
+Senior full-stack engineering skill system. Fifty five skills that let an agent
 work on a production codebase the way an experienced engineer does: read
 before writing, verify before claiming, and finish the whole vertical slice
 rather than the part that demonstrates well.
@@ -173,6 +173,9 @@ skill-name/
 bash tests/validate-structure.sh      structure and metadata of all skills
 bash tests/validate-rules.sh          constitution rules on every markdown file
 bash tests/validate-orchestration.sh  plans, references and routing scenarios
+bash tests/validate-plugins.sh        plugin bundles in sync with the trees
+bash tests/validate-model-routing.sh  the routing table against the skills
+bash tests/validate-counts.sh         every count in the docs against the disk
 ```
 
 The third script is specific to this system. It verifies that every task

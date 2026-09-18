@@ -139,8 +139,11 @@ Two rules never bend: no offensive action without written, specific, in-scope
 authorization on record, and no audit ever concludes that a system is secure. It
 reports which checks were run, with which results, on which revision. The
 engineering tree's `security-audit` and `security-testing` stay where twelve
-execution plans call them; this tree governs their posture and installs them with
-it.
+execution plans call them; this tree governs their posture.
+`vulnerability-assessment` declares `security-audit`, so `--security` resolves
+that dependency and installs it, with the three skills it declares in turn.
+`security-testing` is not declared by any security skill and stays in the
+engineering tree alone.
 
 Index: [security/README.md](../security/README.md).
 
@@ -522,10 +525,14 @@ marketplace and install only the domains they want.
 | `craft-writing` | the writing tree, 42 skills |
 | `craft-documents` | the documents tree, 7 skills |
 | `craft-engineering` | the engineering tree, 82 skills and 24 agents |
-| `craft-security` | the security tree, 10 skills |
+| `craft-security` | the security tree, 12 skills and 2 agents |
 | `craft-research` | the research tree, 5 skills |
 | `craft-career` | the career tree, 7 skills |
 | `craft-opportunity` | the opportunity tree, 9 skills |
+
+Those are tree counts. A bundle also carries the two cross domain skills and any
+cross tree dependency its skills declare, so what lands on disk is larger. The
+per bundle figure is in [plugins.md](plugins.md).
 
 The trees are the single source of truth. The plugin bundles under `plugins/`
 are generated from them by `bash plugins/build.sh`, and

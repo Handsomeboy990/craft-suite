@@ -122,8 +122,8 @@ en production.
 | [devops-skills](../engineering/devops-skills/) | 16 | comment le système tourne, se déploie et se restaure |
 
 Agnostique de la pile et de la plateforme : le système lit le projet qu'on lui
-confie plutôt que d'en présupposer la forme. Les seize agents ne sont pas une
-catégorie de cet arbre : ils forment une couche transversale au dépôt, dans
+confie plutôt que d'en présupposer la forme. Les vingt-cinq agents ne sont pas
+une catégorie de cet arbre : ils forment une couche transversale au dépôt, dans
 [agents](../agents/), qui possède quoi et ce qui est transmis.
 
 Index : [engineering/README.md](../engineering/README.md).
@@ -456,7 +456,7 @@ constitution par arbre plus la paire transversale :
 
 ## Agents
 
-Seize définitions de rôles, pour un runtime qui accepte des sous-agents.
+Vingt-cinq définitions de rôles, pour un runtime qui accepte des sous-agents.
 
 ```
 Skill          comment ce type de travail se fait correctement
@@ -535,10 +535,15 @@ n'installer que les domaines voulus.
 | `craft-writing` | l'arbre d'écriture, 42 skills |
 | `craft-documents` | l'arbre des documents, 7 skills |
 | `craft-engineering` | l'arbre d'ingénierie, 82 skills et 24 agents |
-| `craft-security` | l'arbre de sécurité, 10 skills |
+| `craft-security` | l'arbre de sécurité, 12 skills et 2 agents |
 | `craft-research` | l'arbre de recherche, 5 skills |
 | `craft-career` | l'arbre d'emploi, 7 skills |
 | `craft-opportunity` | l'arbre des opportunités, 9 skills |
+
+Ce sont les comptes des arbres. Un bundle emporte aussi les deux skills communs
+et toute dépendance inter-arbres déclarée par ses skills, donc ce qui arrive sur
+le disque est plus grand. Le chiffre par bundle est dans
+[plugins.md](plugins.md).
 
 Les arbres sont la source de vérité unique. Les bundles sous `plugins/` sont
 générés depuis eux par `bash plugins/build.sh`, et `tests/validate-plugins.sh`

@@ -109,10 +109,18 @@ a real reference.
   and the breakdowns by agent and by model, with EN and FR strings and a
   measured-zero empty state. The report's data-limitation note no longer says
   the telemetry is undisplayed.
-- [ ] **Advisor agent-level waste** (M, blocked). Extend `advisor.py` with a
-  detection for an agent invoked where a lighter skill would have done, or a
-  model tier stronger than the classification justified. Needs the panel or the
-  agent layer exercised for real data.
+- [x] **Advisor agent-level waste** (M). `advisor.py` gained three
+  agent-dispatch detections: `agent-fan-out` (the same agent dispatched four or
+  more times in a session), `agent-on-light-session` (a dispatch in a session
+  that produced under fifteen thousand work tokens), and
+  `dispatch-without-recorded-work` (informational, since a missing subagent
+  transcript can mean the records are not on this disk). Honest limit, written
+  into the code: the telemetry records which agent ran under which model, never
+  the task's complexity nor what a direct action would have cost, so the advisor
+  cannot prove an agent was unnecessary or a model tier too strong. These report
+  measurable patterns and, like every finding here, assert no waste. EN and FR
+  interface templates added; eleven new tests, and the detections stay silent on
+  the real data because it shows none of these patterns.
 
 ## Phase 6: proof
 
@@ -129,6 +137,39 @@ a real reference.
   multi-agent workflow: one writer per reader following its skill, a gate review
   per document, and a cross-set critique of the reader split.
 
+## Phase 7: the documentation a user actually needs
+
+- [x] **Usage guide** (M). `documentation/usage.md` and `usage.fr.md`. The
+  suite described what it contained in eleven documents and never described
+  what to do with it. The guide covers the host requirement, the install, how a
+  skill is selected (the frontmatter `description`, which nothing else here
+  explained), the routing table, what the gates demand, when not to use an
+  agent, and what to verify. `docs/README.md` states the boundary between
+  `documentation/` (usage) and `docs/` (design reasoning and history).
+- [x] **The claims the audit falsified** (M). Roughly 25 files out of 204
+  READMEs and 30 documents. Six agents named a shipped, a table titled "The
+  seventeen" over sixteen rows for twenty-five agents, a transitive-resolution
+  example that was false, post-install counters of 75, 155 and 16 against 84,
+  166 and 25, and the security tree written as 10 in six places.
+- [x] **The bugs behind the claims** (M). Four in `install.sh`, each reproduced
+  before the fix: `--configure` deleting `model_routing`, `career` and any
+  managed field its scope did not ask about; `depends_on` resolved for
+  `--skill` only, so `--security` shipped `vulnerability-assessment` without
+  `security-audit`; the cross domain pair double counted on a trailing slash;
+  an empty agents directory for `--research`.
+- [x] **Close the drifting zone** (S). `validate-counts.sh` now covers the
+  plugin tables, the per-scope table, the `AGENTS.md` tree table, counts
+  written in words, and an agent named as unbuilt while its file exists.
+  `validate-structure.sh` fails on a skill missing from its category index.
+  Each check was mutation-tested.
+- [ ] **Deflate `overview.md`** (S). 54 lines are duplicated verbatim from
+  `installation.md`, plus the plugin table and the configuration block. Replace
+  the installation section with a paragraph and a link. Deferred: it is a
+  future-drift problem, not a reader problem, and the guide came first.
+- [ ] **Translate `installation.md` and `configuration.md`** (M). Today
+  `usage.fr.md` and `overview.fr.md` are the only French documents, and
+  `usage.fr.md` says so rather than leaving the reader to discover it.
+
 ## Parked and external
 
 Not waiting on work in this repository.
@@ -137,10 +178,14 @@ Not waiting on work in this repository.
   delivered, but the n8n MCP server must be configured and authorized
   interactively by the user, and no workflow has been built or run against a
   live instance. The user parked this on 2026-09-17.
-- [ ] **Release to `main`** (parked). `dev` carries everything from 3.1.0
-  onward. Promoting to `main` is a release decision for the user; the merge
-  back into `dev` must be a merge commit, not a squash, per
-  `release-branch-and-push-constraints`.
+- [x] **Release to `main`** (done, 3.17.0). Everything from 3.1.0 to 3.17.0 is
+  on `main`. The two branches had diverged in topology, and skills had moved
+  between categories on `dev`, so a plain merge risked conflicts and resurrected
+  files. The promotion went through `release/v3.17.0`, started from `dev` and
+  merging `main` with the `ours` strategy: `dev`'s content stayed authoritative
+  and `main` became an ancestor, so the merge applied cleanly. Verified before
+  and after: `main`'s tree is identical to `dev`'s. `main` was then merged back
+  into `dev` to keep the histories joined for the next promotion.
 - [ ] **Second code owner** (parked). `enforce_admins` stays off until
   `.github/CODEOWNERS` names a second reviewer, because a lone owner cannot
   approve their own request and turning it on would remove every path to a
@@ -155,10 +200,14 @@ Not waiting on work in this repository.
 4  the core verification agents, then exercise the full agent layer
 5  per-domain agent packs, then the Control Center panel
 6  the two demonstration projects
+7  the usage guide, and the claims and bugs the audit found
 ```
 
 The count check comes first either way; the demonstration projects come last
-because they exercise everything above them.
+because they exercise everything above them. Phase 7 came after them for a bad
+reason, which is worth recording: the suite was documented for its author, who
+already knew how to use it, so the missing document was invisible until an
+audit went looking for what a new reader could not do.
 
 ## Known limitations carried forward
 
@@ -171,5 +220,7 @@ Recorded so they are chosen, not stumbled into. Detail in `CONTINUITY.md` and
 - The agent layer's review gates and boundaries are a documented discipline,
   not a runtime guarantee; a runtime that grants every subagent full write
   access enforces none of them.
-- Counts in the structured docs are enforced by `tests/validate-counts.sh`
-  since Phase 0 landed. Free prose and plugin bundle sizes are still by hand.
+- Counts are enforced by `tests/validate-counts.sh`, which since Phase 7 also
+  covers the plugin bundles and the one prose location that kept drifting, the
+  number word at the top of a category index. Free prose elsewhere is still by
+  hand, and that is the remaining exposure.

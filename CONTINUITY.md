@@ -464,6 +464,79 @@ Session 24, roadmap Phase 6 documents demonstration, version 3.17.0:
   the five files; a forbidden-char and email scan ran clean before commit.
 - No skill or agent count change. Manifests 3.17.0. Branched fresh from `dev`.
 
+Session 24b, the release to `main`:
+
+- `main` had sat at 3.0.0 and diverged from `dev` in topology; skills had also
+  moved between categories on `dev`, so a plain merge risked conflicts and
+  resurrecting moved files. The promotion went through `release/v3.17.0`:
+  branched from `dev`, then `git merge -s ours origin/main`, which keeps `dev`'s
+  tree authoritative while making `main` an ancestor. Verified the branch tree
+  was byte-identical to `dev` before opening PR #35, and again after merging.
+- `main` is now `3441087`, its tree identical to `dev`, manifests at 3.17.0, and
+  `dev` is fully contained in `main`. `main` was merged back into `dev` (a
+  fast-forward) so the histories stay joined and the next promotion does not
+  need the same workaround.
+- The roadmap's parked `Release to main` item is ticked. Remaining: the advisor
+  item (thin telemetry), n8n end to end, and a second code owner.
+- Version tags are delegated to Claude from now on; `v3.17.0` is tagged on
+  `main`.
+
+Session 25, roadmap Phase 5 last item, the advisor agent detections,
+version 3.18.0:
+
+- `control-center/advisor.py` gained `agent-fan-out`, `agent-on-light-session`
+  and `dispatch-without-recorded-work`, with published thresholds and EN and FR
+  templates in the Control Center.
+- The honest limit is written into the module: the telemetry records which agent
+  ran under which model and whether dispatched work left a record, never the
+  task's complexity nor the cost of a direct action, so the advisor cannot prove
+  an agent was unnecessary or a model tier too strong. The detections report
+  patterns and assert no waste, consistent with every other finding.
+- `test_advisor.py` 26 to 37 checks, `test_reader.py` still 74. On the real
+  transcripts the new detections stay silent, which is correct: the data shows
+  none of these patterns.
+- Phase 5 is complete. Remaining roadmap items are the two parked ones, n8n end
+  to end and a second code owner.
+
+Session 26, the documentation audit and what it uncovered, version 3.19.0:
+
+- A six-agent audit of the 204 READMEs and 30 documents reported that the
+  repository had no usage document at all: eleven files describe what the suite
+  contains, none described what to do with it. `documentation/usage.md` and
+  `usage.fr.md` are that document. The part nothing else explained is how a
+  skill is selected: the host matches the frontmatter `description`, which is
+  why every description here ends with a "Use to" sentence.
+- Correcting the false claims uncovered four real bugs in `install.sh`, each
+  reproduced before and verified after the fix:
+  1. `--configure` deleted `model_routing` and `career` on every run, because
+     the file was written through a plain redirect. It also wrote back an empty
+     value for any managed field its scope did not ask about, so
+     `--dev --configure` after `--all --configure` erased the documents and
+     creative writing answers. `config/README.md` line 214 and
+     `configuration.md` both promised the opposite.
+  2. Dependencies were resolved for `--skill` only. `vulnerability-assessment`
+     declares `security-audit`, which lives in the engineering tree, so
+     `--security` shipped a skill without what it refers to. The closure now
+     runs for trees and categories too; `--security` is 18 skills, and removal
+     still never takes a skill another tree may use.
+  3. The cross domain pair was counted twice when `--skill` and `--group` were
+     combined: the deduplication compares strings and one code path emitted a
+     trailing slash the other did not.
+  4. `--research` created an empty agents directory and reported 0 agents.
+- The audit's other finding was a class, not a list: the same count written by
+  hand in three or four places, diverging quietly. The response was to widen
+  `validate-counts.sh` to the places it had declared out of scope, including
+  counts written in words, and to add a `validate-structure.sh` check that a
+  skill appears in its own category index. Every new check was mutation-tested:
+  the guarded value was broken, the failure observed, the value restored.
+- The subagent research workflow for the guide hit the account's session limit
+  and returned nothing. The guide was written directly from the repository
+  instead, with each claim verified by reading the file or running the command.
+- `--security` installing 18 rather than 14 is a real footprint change, and the
+  plugin bundles were rebuilt. If that ever needs reversing, the decision to
+  revisit is the `depends_on` line in `vulnerability-assessment`, not the
+  installer: the resolver is now doing what the documentation always said.
+
 ## Current state
 
 Working today:

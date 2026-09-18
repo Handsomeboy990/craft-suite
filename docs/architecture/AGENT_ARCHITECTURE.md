@@ -49,11 +49,11 @@ Delivery                      client-handover, release-readiness
 This mirrors the layered flow requested for the suite's evolution, adapted to
 what actually exists: `delivery-orchestrator` and `principal-engineer` already
 fill the role a generic "Project Lead" would have filled, so no third,
-overlapping orchestrator was added on top of them. Where the requested
-architecture named a role with no equivalent, `source of truth`, `checkup`,
-`final verifier`, that gap is recorded honestly in
-`multi-agent-assessment.md` section 3 rather than filled with a thin,
-unreviewed stand-in.
+overlapping orchestrator was added on top of them. The three roles that this
+page once recorded as unfilled, `source-of-truth`, `checkup` and
+`final-verifier`, were built in Phase 4 and are in the core group below. What
+remains unfilled is recorded in `multi-agent-assessment.md` section 3 and in
+`docs/agents/README.md`, rather than filled with a thin, unreviewed stand-in.
 
 ## The twenty-five agents, by group
 
