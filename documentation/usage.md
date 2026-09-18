@@ -236,9 +236,23 @@ in:
 | `--all` | 166 | 25 |
 | `--agents` | 0 | 25 |
 
-The installer prints the same two numbers when it finishes, so a mismatch is
-visible without counting by hand. After a `--dev` install it also checks that
-the identity fields exist and names the missing one.
+`~/.claude/skills` is shared. It holds every skill you have, not only this
+suite's: a skill installed from somewhere else sits beside them, and claude.ai
+keeps its synced skills in a `synced` subdirectory that `ls` counts as one more
+entry. So the table is a floor, not an equality, and a larger number is normal.
+
+To count only this suite's, from inside the clone:
+
+```bash
+comm -12 <(find . -name SKILL.md -not -path './plugins/*' \
+             | sed 's|/SKILL.md$||' | xargs -n1 basename | sort) \
+         <(ls ~/.claude/skills | sort) | wc -l
+```
+
+The installer prints its own two numbers when it finishes, and those count only
+what it just installed, so they are the ones to compare against the table. After
+a `--dev` install it also checks that the identity fields exist and names the
+missing one.
 
 Then ask for something small and see whether a gate fires. "Fix this typo and
 tell me what you verified" is a good first test: the answer should name what
