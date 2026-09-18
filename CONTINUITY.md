@@ -478,6 +478,25 @@ Session 24b, the release to `main`:
   need the same workaround.
 - The roadmap's parked `Release to main` item is ticked. Remaining: the advisor
   item (thin telemetry), n8n end to end, and a second code owner.
+- Version tags are delegated to Claude from now on; `v3.17.0` is tagged on
+  `main`.
+
+Session 25, roadmap Phase 5 last item, the advisor agent detections,
+version 3.18.0:
+
+- `control-center/advisor.py` gained `agent-fan-out`, `agent-on-light-session`
+  and `dispatch-without-recorded-work`, with published thresholds and EN and FR
+  templates in the Control Center.
+- The honest limit is written into the module: the telemetry records which agent
+  ran under which model and whether dispatched work left a record, never the
+  task's complexity nor the cost of a direct action, so the advisor cannot prove
+  an agent was unnecessary or a model tier too strong. The detections report
+  patterns and assert no waste, consistent with every other finding.
+- `test_advisor.py` 26 to 37 checks, `test_reader.py` still 74. On the real
+  transcripts the new detections stay silent, which is correct: the data shows
+  none of these patterns.
+- Phase 5 is complete. Remaining roadmap items are the two parked ones, n8n end
+  to end and a second code owner.
 
 ## Current state
 

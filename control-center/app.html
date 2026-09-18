@@ -600,6 +600,27 @@ const FINDINGS_I18N = {
       example: "Keep a short docs/architecture.md and a conventions note, and reference them at the start of a session in this project.",
       benefit: "Less repeated rediscovery of the same project structure across sessions.",
     },
+    "agent-fan-out": {
+      title: "The same agent dispatched repeatedly",
+      observed: "The agent '{agent}' was dispatched {top_count} times in this session ({dispatches_total} dispatches in total).",
+      recommendation: "Check whether one dispatch with a wider brief, or a skill applied directly, would have covered the same ground. Repetition is not waste by itself, but it is worth a look.",
+      example: "Instead of dispatching the same reviewer once per file, dispatch it once over the changed set and let it report file by file.",
+      benefit: "Fewer dispatch round trips, and one context built once rather than rebuilt per call.",
+    },
+    "agent-on-light-session": {
+      title: "An agent dispatched in a light session",
+      observed: "{dispatches} agent dispatch(es) in a session that produced {work_tokens} work tokens, below the {threshold} threshold.",
+      recommendation: "For a small task, consider acting directly or loading the governing skill instead of dispatching an agent. The telemetry cannot tell whether the agent was needed, only that the session was small.",
+      example: "A one file rename or a single lookup rarely needs a subagent; the dispatch itself costs a turn and a context.",
+      benefit: "Less overhead on tasks a direct action finishes.",
+    },
+    "dispatch-without-recorded-work": {
+      title: "Dispatch with no recorded dispatched work",
+      observed: "{dispatches} dispatch(es) happened, but no subagent transcript record was found for this session.",
+      recommendation: "Informational only. Check whether the dispatched work ran and produced nothing, or whether its transcripts are simply not on this machine.",
+      example: "Subagent transcripts live one level deeper, under the session folder; a missing folder reads as zero here.",
+      benefit: "Confirms whether a dispatch actually produced work before you trust that it did.",
+    },
   },
   fr: {
     "repeated-exploration": {
@@ -650,6 +671,27 @@ const FINDINGS_I18N = {
       recommendation: "Maintenez une documentation ou une mémoire de projet pour que l'architecture et les conventions n'aient pas à être redécouvertes à chaque session.",
       example: "Gardez un court docs/architecture.md et une note de conventions, et référez-vous-y au début d'une session sur ce projet.",
       benefit: "Moins de redécouverte répétée de la même structure de projet d'une session à l'autre.",
+    },
+    "agent-fan-out": {
+      title: "Le même agent dispatché de façon répétée",
+      observed: "L'agent '{agent}' a été dispatché {top_count} fois dans cette session ({dispatches_total} dispatchs au total).",
+      recommendation: "Vérifiez si un seul dispatch au périmètre plus large, ou un skill appliqué directement, aurait couvert le même terrain. La répétition n'est pas un gaspillage en soi, mais elle mérite un coup d'oeil.",
+      example: "Plutôt que de dispatcher le même relecteur une fois par fichier, dispatchez-le une fois sur l'ensemble modifié et laissez-le rapporter fichier par fichier.",
+      benefit: "Moins d'allers-retours de dispatch, et un contexte construit une fois au lieu d'être reconstruit à chaque appel.",
+    },
+    "agent-on-light-session": {
+      title: "Un agent dispatché dans une session légère",
+      observed: "{dispatches} dispatch(s) d'agent dans une session qui a produit {work_tokens} tokens de travail, sous le seuil de {threshold}.",
+      recommendation: "Pour une petite tâche, envisagez d'agir directement ou de charger le skill gouvernant plutôt que de dispatcher un agent. La télémétrie ne dit pas si l'agent était nécessaire, seulement que la session était petite.",
+      example: "Un renommage d'un fichier ou une simple recherche n'a que rarement besoin d'un sous-agent ; le dispatch lui-même coûte un tour et un contexte.",
+      benefit: "Moins de surcoût sur les tâches qu'une action directe termine.",
+    },
+    "dispatch-without-recorded-work": {
+      title: "Dispatch sans trace de travail dispatché",
+      observed: "{dispatches} dispatch(s) ont eu lieu, mais aucune trace de transcription de sous-agent n'a été trouvée pour cette session.",
+      recommendation: "Informatif seulement. Vérifiez si le travail dispatché a tourné sans rien produire, ou si ses transcriptions ne sont simplement pas sur cette machine.",
+      example: "Les transcriptions de sous-agents vivent un niveau plus bas, sous le dossier de session ; un dossier absent se lit ici comme un zéro.",
+      benefit: "Confirme qu'un dispatch a bien produit du travail avant de le croire.",
     },
   },
 };

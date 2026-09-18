@@ -174,6 +174,73 @@ r = analyze([heavy])
 check("score floored at 0", r["session_reports"][0]["score"] >= 0)
 
 
+# Agent dispatch detections. Each test isolates one signal: work_tokens is kept
+# high unless the light-session case is under test, and sidechain_records is
+# kept non zero unless the missing-record case is under test.
+def agents(total=0, by_agent=None, sidechain=1):
+    return {"total": total, "by_agent": by_agent or [], "by_model": [],
+            "sidechain_records": sidechain}
+
+
+def cats(result):
+    reports = result.get("session_reports") or []
+    return [f["category"] for f in reports[0]["findings"]] if reports else []
+
+
+def sev_of(result, category):
+    for f in result["session_reports"][0]["findings"]:
+        if f["category"] == category:
+            return f["severity"]
+    return None
+
+
+# A session with no dispatch at all raises no agent finding, even when small.
+r = analyze([session(work_tokens=1000)])
+check("no agent finding without dispatches",
+      not [c for c in cats(r) if c.startswith("agent-")
+           or c == "dispatch-without-recorded-work"])
+
+# Fan out fires at the threshold, low, and escalates to medium.
+r = analyze([session(work_tokens=90000,
+                     agent_dispatches=agents(5, [["qa-engineer", 5]]))])
+check("fan-out raised at 5", "agent-fan-out" in cats(r))
+check("fan-out is low at 5", sev_of(r, "agent-fan-out") == "low")
+
+r = analyze([session(work_tokens=90000,
+                     agent_dispatches=agents(9, [["qa-engineer", 9]]))])
+check("fan-out is medium at 9", sev_of(r, "agent-fan-out") == "medium")
+
+# Below the threshold the advisor stays silent.
+r = analyze([session(work_tokens=90000,
+                     agent_dispatches=agents(3, [["qa-engineer", 3]]))])
+check("no fan-out below threshold", "agent-fan-out" not in cats(r))
+
+# A dispatch in a session that produced little work is flagged; a substantial
+# session with the same dispatch is not.
+r = analyze([session(work_tokens=1000, agent_dispatches=agents(1, [["x", 1]]))])
+check("light session flagged", "agent-on-light-session" in cats(r))
+r = analyze([session(work_tokens=90000, agent_dispatches=agents(1, [["x", 1]]))])
+check("substantial session not flagged", "agent-on-light-session" not in cats(r))
+
+# Dispatches with no transcript record are informational; with records, silent.
+r = analyze([session(work_tokens=90000,
+                     agent_dispatches=agents(2, [["x", 2]], sidechain=0))])
+check("missing dispatched-work record raised",
+      "dispatch-without-recorded-work" in cats(r))
+check("missing record is informational",
+      sev_of(r, "dispatch-without-recorded-work") == "informational")
+r = analyze([session(work_tokens=90000,
+                     agent_dispatches=agents(2, [["x", 2]], sidechain=7))])
+check("recorded dispatched work is silent",
+      "dispatch-without-recorded-work" not in cats(r))
+
+# The new thresholds are published with the others, so a finding is reproducible.
+r = analyze([session()])
+check("agent thresholds published",
+      "agent_fanout_min" in r["thresholds"]
+      and "agent_light_session_tokens" in r["thresholds"])
+
+
 if __name__ == "__main__":
     print("%d passed, %d failed" % (PASS, FAIL))
     sys.exit(1 if FAIL else 0)

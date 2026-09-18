@@ -109,10 +109,18 @@ a real reference.
   and the breakdowns by agent and by model, with EN and FR strings and a
   measured-zero empty state. The report's data-limitation note no longer says
   the telemetry is undisplayed.
-- [ ] **Advisor agent-level waste** (M, blocked). Extend `advisor.py` with a
-  detection for an agent invoked where a lighter skill would have done, or a
-  model tier stronger than the classification justified. Needs the panel or the
-  agent layer exercised for real data.
+- [x] **Advisor agent-level waste** (M). `advisor.py` gained three
+  agent-dispatch detections: `agent-fan-out` (the same agent dispatched four or
+  more times in a session), `agent-on-light-session` (a dispatch in a session
+  that produced under fifteen thousand work tokens), and
+  `dispatch-without-recorded-work` (informational, since a missing subagent
+  transcript can mean the records are not on this disk). Honest limit, written
+  into the code: the telemetry records which agent ran under which model, never
+  the task's complexity nor what a direct action would have cost, so the advisor
+  cannot prove an agent was unnecessary or a model tier too strong. These report
+  measurable patterns and, like every finding here, assert no waste. EN and FR
+  interface templates added; eleven new tests, and the detections stay silent on
+  the real data because it shows none of these patterns.
 
 ## Phase 6: proof
 
