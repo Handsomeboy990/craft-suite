@@ -133,6 +133,7 @@ control-center/
   reader.py       reads transcripts, installed skills/agents, configuration
   advisor.py      the Token Optimization Advisor, pure and deterministic
   test_advisor.py deterministic advisor tests, no test-framework dependency
+  test_reader.py  deterministic reader tests, same convention
   app.html        the single self-contained page, inline CSS and SVG charts
   README.md    this file
 ```

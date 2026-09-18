@@ -262,14 +262,24 @@ Depend on nothing. Callable from any tree, usable alone.
 | `tls-certificates` | the TLS certificate over its whole life, key never leaked |
 | `email-deliverability` | mail into the inbox: SPF, DKIM, DMARC aligned, reputation, bounces |
 
-### agents, 16
+### agents, 25
 
-`delivery-orchestrator`, `principal-engineer`, `requirements-analyst`,
-`software-architect`, `frontend-engineer`, `backend-engineer`,
-`database-engineer`, `security-engineer`, `qa-engineer`,
-`playwright-engineer`, `ui-ux-engineer`, `devops-engineer`,
-`performance-engineer`, `documentation-engineer`, `release-engineer`,
-`incident-responder`.
+Core, nine: `delivery-orchestrator`, `principal-engineer`,
+`requirements-analyst`, `compliance-verifier`, `source-of-truth`, `checkup`,
+`final-verifier`, `pr-author`, `pr-reviewer`.
+
+Development, five: `software-architect`, `frontend-engineer`,
+`backend-engineer`, `database-engineer`, `performance-engineer`.
+
+Design, three: `ui-ux-engineer`, `design-research`, `design-verification`.
+
+Security, two: `security-engineer`, `web-auditor`.
+
+Testing, two: `qa-engineer`, `playwright-engineer`.
+
+DevOps, three: `devops-engineer`, `release-engineer`, `incident-responder`.
+
+Documentation, one: `documentation-engineer`.
 
 Public contracts in `agents.md`. An agent is a role: it names the skills it
 uses and restates none of them.

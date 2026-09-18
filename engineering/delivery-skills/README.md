@@ -109,7 +109,12 @@ It does not duplicate their content.
 bash tests/validate-structure.sh
 bash tests/validate-rules.sh
 bash tests/validate-orchestration.sh
+bash tests/validate-plugins.sh
+bash tests/validate-model-routing.sh
+bash tests/validate-counts.sh
 ```
+
+What each one checks: [tests/README.md](../../tests/README.md).
 
 The third script checks the phase sequence, the gate placement, the skill
 references in each phase, and that no phase names a skill that does not exist.

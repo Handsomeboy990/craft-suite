@@ -9,7 +9,7 @@
 #   bash install.sh --writing      creative writing, 42 skills
 #   bash install.sh --documents    professional documents, 7 skills
 #   bash install.sh --dev          software engineering, its skills and 24 agents
-#   bash install.sh --security     defensive security, 10 skills and 2 agents
+#   bash install.sh --security     defensive security, 12 skills and 2 agents
 #   bash install.sh --research     general research, 5 skills
 #   bash install.sh --career       job search and applications, 7 skills
 #   bash install.sh --opportunity  ideation, hackathons, business, 9 skills
@@ -34,9 +34,15 @@
 #   bash install.sh --dev --zip
 #   bash install.sh --writing --remove
 #
+# Control Center options, valid with --control-center and --report:
+#
+#   --port N        serve on this port instead of the default
+#   --no-browser    start the server without opening a browser
+#   --json          print the report as JSON instead of text
+#
 # Run it without a copy of the repository, if the repository is reachable:
 #
-#   curl -fsSL <raw url>/install.sh | bash -s -- --writing
+#   curl -fsSL https://raw.githubusercontent.com/Handsomeboy990/craft-suite/main/install.sh | bash -s -- --writing
 #
 # Targets, all overridable:
 #
@@ -109,7 +115,7 @@ WANT_ALL_AGENTS="no"
 CC_ARGS=""
 
 usage() {
-  sed -n '2,47p' "$0" | sed 's/^# \{0,1\}//'
+  sed -n '2,53p' "$0" | sed 's/^# \{0,1\}//'
 }
 
 die() { printf '%s\n' "$1" >&2; exit 1; }
@@ -306,15 +312,17 @@ active_groups() {
   printf '%s' "$groups"
 }
 
-# Every skill directory the current selection covers: named skills with their
-# dependencies, plus whole categories, plus whole trees, deduplicated.
-selected_skill_dirs() {
+# What the selection names directly: the skills given to --skill, plus every
+# skill in the chosen categories and trees. No dependency is added here, which
+# is what removal needs: removing a tree must never take a skill another tree
+# still depends on.
+selected_skill_dirs_direct() {
   local name group skill
   {
     if [ -n "${SELECTED_SKILLS// /}" ]; then
-      while IFS= read -r name; do
-        [ -n "$name" ] && skill_path "$name"
-      done < <(resolve_with_deps $SELECTED_SKILLS)
+      for name in $SELECTED_SKILLS; do
+        skill_path "$name"
+      done
       # A named selection still gets the cross domain pair, for the same
       # reason every tree does: everything calls it.
       for name in self-critique project-brief; do
@@ -323,10 +331,32 @@ selected_skill_dirs() {
     fi
     for group in $(active_groups); do
       for skill in "$ROOT/$group"/*/; do
-        [ -d "$skill" ] && printf '%s\n' "$skill"
+        # The trailing slash is stripped so this path is spelled exactly as
+        # skill_path spells it above. The deduplication below compares strings,
+        # and without this the cross domain pair arrives twice when --skill and
+        # --group are combined, which the installer would then report as two
+        # more skills than it installed.
+        [ -d "$skill" ] && printf '%s\n' "${skill%/}"
       done
     done
   } | awk '!seen[$0]++'
+}
+
+# Every skill directory that has to be on disk for the selection to work: the
+# direct selection plus the transitive closure of what those skills declare.
+# The closure runs for a tree and a category too, not only for --skill: the
+# security tree declares `security-audit`, which lives in the engineering tree,
+# and installing the dependent without its dependency installs something that
+# refuses to run.
+selected_skill_dirs() {
+  local dir name names=""
+  while IFS= read -r dir; do
+    [ -n "$dir" ] && names="$names $(basename "$dir")"
+  done < <(selected_skill_dirs_direct)
+  [ -n "${names// /}" ] || return 0
+  while IFS= read -r name; do
+    [ -n "$name" ] && skill_path "$name"
+  done < <(resolve_with_deps $names) | awk '!seen[$0]++'
 }
 
 # Removal never takes the cross domain pair unless it was asked for on its
@@ -359,7 +389,7 @@ removable_skill_dirs() {
         ;;
     esac
     printf '%s\n' "$skill"
-  done < <(selected_skill_dirs)
+  done < <(selected_skill_dirs_direct)
 }
 
 # Which domain scopes carry a given agent, so a domain's plugin is
@@ -382,7 +412,6 @@ domain_wanted() {
   case "$1" in
     engineering) [ "$WANT_ENGINEERING" = "yes" ] ;;
     security)    [ "$WANT_SECURITY" = "yes" ] ;;
-    research)    [ "$WANT_RESEARCH" = "yes" ] ;;
     *) return 1 ;;
   esac
 }
@@ -569,10 +598,12 @@ Skill names, separated by spaces: ')" || no_terminal
 # is not a domain install, so it brings no agents unless --agents is explicit.
 resolve_agents() {
   [ -n "$WITH_AGENTS" ] && return 0
+  # Only the domains that actually ship agents. --research used to be listed
+  # here, and since no agent belongs to the research domain it produced an
+  # empty agents directory and a "0 agents installed" line.
   if [ -z "${SELECTED_SKILLS// /}" ] \
      && { [ "$WANT_ENGINEERING" = "yes" ] \
-       || [ "$WANT_SECURITY" = "yes" ] \
-       || [ "$WANT_RESEARCH" = "yes" ]; }; then
+       || [ "$WANT_SECURITY" = "yes" ]; }; then
     WITH_AGENTS="yes"
   else
     WITH_AGENTS="no"
@@ -597,6 +628,63 @@ config_get() {
       exit
     }
   ' "$CONFIG_FILE"
+}
+
+# The sections --configure asks about and therefore rewrites. Anything else in
+# the file was put there by hand and is none of the installer's business.
+MANAGED_SECTIONS="identity delegation git language engineering documents"
+
+# --configure rewrites the configuration file, and a plain redirect would drop
+# every section it does not ask about: model_routing and career are documented
+# in config/craft.config.example.yaml and are edited by hand, so re-running the
+# installer used to silently delete them. This returns those sections verbatim,
+# to be re-emitted after the managed ones. It must be called before the
+# redirect opens the file, since opening it for writing truncates it.
+preserved_sections() {
+  [ -f "$CONFIG_FILE" ] || return 0
+  awk -v managed=" $MANAGED_SECTIONS " '
+    /^[A-Za-z_][A-Za-z0-9_]*:/ {
+      name = $0
+      sub(/:.*$/, "", name)
+      keep = (index(managed, " " name " ") == 0)
+      if (keep) blank = 1
+    }
+    !keep { next }
+    $0 == "" { blank = 1; next }
+    { if (blank) { print ""; blank = 0 } print }
+  ' "$CONFIG_FILE"
+}
+
+# Every field --configure writes, as section:key. The writer at the end of
+# configure() emits exactly this list, so a field missing here would be written
+# empty on any run that does not ask its question.
+MANAGED_FIELDS="
+identity:author_name identity:author_email identity:organization
+delegation:commits delegation:branches delegation:push
+delegation:pull_requests delegation:release_tags delegation:deployments
+delegation:database_operations delegation:dependency_changes
+git:commit_convention git:branch_convention git:default_branch
+git:protected_branches
+language:documentation language:creative_output language:document_output
+engineering:package_manager engineering:deployment_platform
+engineering:database
+documents:pdf_engine documents:page_size documents:date_format
+"
+
+# Seeds the in memory answers from the file before the first question, so a run
+# writes back the fields it did not ask about. Without this, --dev --configure
+# after --all --configure erased every documents and creative writing answer:
+# those questions are asked only under their own scope, and an unasked field
+# reached the writer empty.
+load_existing_config() {
+  local field section key value
+  for field in $MANAGED_FIELDS; do
+    section="${field%%:*}"
+    key="${field##*:}"
+    value="$(config_get "$section" "$key")"
+    [ -n "$value" ] && eval "CFG_${section}_${key}=\"\$value\""
+  done
+  return 0
 }
 
 # A credential must never reach this file.
@@ -734,6 +822,8 @@ configure() {
   printf 'stop at that boundary and list the step for you instead.\n'
   printf 'Never put a secret here. Field reference: config/README.md\n'
 
+  load_existing_config
+
   local need_engineering="$WANT_ENGINEERING"
   local need_writing="$WANT_WRITING"
   local need_documents="$WANT_DOCUMENTS"
@@ -840,6 +930,8 @@ configure() {
   fi
 
   mkdir -p "$(dirname "$CONFIG_FILE")"
+  local carried
+  carried="$(preserved_sections)"
   {
     printf '# Craft Suite configuration\n'
     printf '# Written by install.sh --configure. Never store a secret here.\n'
@@ -875,6 +967,7 @@ configure() {
     printf '  pdf_engine: "%s"\n' "$(value_of documents pdf_engine)"
     printf '  page_size: %s\n'    "$(value_of documents page_size)"
     printf '  date_format: %s\n'  "$(value_of documents date_format)"
+    if [ -n "$carried" ]; then printf '%s\n' "$carried"; fi
   } > "$CONFIG_FILE"
 
   chmod 600 "$CONFIG_FILE" 2>/dev/null || true
@@ -1191,13 +1284,17 @@ if [ "$WITH_SKILLS" = "yes" ]; then
 fi
 
 if [ "$WITH_AGENTS" = "yes" ]; then
-  mkdir -p "$AGENT_TARGET"
   acount=0
+  # The directory is created only when there is something to put in it, so a
+  # scope that carries no agent leaves no empty directory behind.
   while IFS= read -r agent; do
+    [ -n "$agent" ] || continue
+    mkdir -p "$AGENT_TARGET"
     cp "$agent" "$AGENT_TARGET/$(basename "$agent")"
     acount=$((acount + 1))
   done < <(agents)
-  printf '%s agents installed in %s\n' "$acount" "$AGENT_TARGET"
+  [ "$acount" -gt 0 ] \
+    && printf '%s agents installed in %s\n' "$acount" "$AGENT_TARGET"
 fi
 
 if [ "$MODE" = "zip" ]; then

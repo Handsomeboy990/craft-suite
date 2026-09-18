@@ -133,6 +133,10 @@ bash install.sh --no-agents   skills without agents
 
 Skills go to `~/.claude/skills`, agents to `~/.claude/agents`.
 
+The gap between 24 and 25 is deliberate, not a typo. `web-auditor` audits a
+live site from its URL and has no role in the delivery sequence, so it ships
+with `--security` instead. `--agents` and `--all` install all 25.
+
 ## Documentation
 
 - `documentation/engineering-system.md`: the `dev-skills` layer in detail.

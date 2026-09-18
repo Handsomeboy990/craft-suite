@@ -498,6 +498,45 @@ version 3.18.0:
 - Phase 5 is complete. Remaining roadmap items are the two parked ones, n8n end
   to end and a second code owner.
 
+Session 26, the documentation audit and what it uncovered, version 3.19.0:
+
+- A six-agent audit of the 204 READMEs and 30 documents reported that the
+  repository had no usage document at all: eleven files describe what the suite
+  contains, none described what to do with it. `documentation/usage.md` and
+  `usage.fr.md` are that document. The part nothing else explained is how a
+  skill is selected: the host matches the frontmatter `description`, which is
+  why every description here ends with a "Use to" sentence.
+- Correcting the false claims uncovered four real bugs in `install.sh`, each
+  reproduced before and verified after the fix:
+  1. `--configure` deleted `model_routing` and `career` on every run, because
+     the file was written through a plain redirect. It also wrote back an empty
+     value for any managed field its scope did not ask about, so
+     `--dev --configure` after `--all --configure` erased the documents and
+     creative writing answers. `config/README.md` line 214 and
+     `configuration.md` both promised the opposite.
+  2. Dependencies were resolved for `--skill` only. `vulnerability-assessment`
+     declares `security-audit`, which lives in the engineering tree, so
+     `--security` shipped a skill without what it refers to. The closure now
+     runs for trees and categories too; `--security` is 18 skills, and removal
+     still never takes a skill another tree may use.
+  3. The cross domain pair was counted twice when `--skill` and `--group` were
+     combined: the deduplication compares strings and one code path emitted a
+     trailing slash the other did not.
+  4. `--research` created an empty agents directory and reported 0 agents.
+- The audit's other finding was a class, not a list: the same count written by
+  hand in three or four places, diverging quietly. The response was to widen
+  `validate-counts.sh` to the places it had declared out of scope, including
+  counts written in words, and to add a `validate-structure.sh` check that a
+  skill appears in its own category index. Every new check was mutation-tested:
+  the guarded value was broken, the failure observed, the value restored.
+- The subagent research workflow for the guide hit the account's session limit
+  and returned nothing. The guide was written directly from the repository
+  instead, with each claim verified by reading the file or running the command.
+- `--security` installing 18 rather than 14 is a real footprint change, and the
+  plugin bundles were rebuilt. If that ever needs reversing, the decision to
+  revisit is the `depends_on` line in `vulnerability-assessment`, not the
+  installer: the resolver is now doing what the documentation always said.
+
 ## Current state
 
 Working today:

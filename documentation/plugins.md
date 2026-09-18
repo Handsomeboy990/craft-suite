@@ -15,15 +15,20 @@ one plugin per domain.
 
 ## The plugins
 
-| Plugin | Installs | Skills |
-|---|---|---|
-| `craft-writing` | the writing tree | 42 plus the shared pair |
-| `craft-documents` | the documents tree | 7 plus the shared pair |
-| `craft-engineering` | the engineering tree and its agents | 70 plus 24 agents |
-| `craft-security` | the security tree and its agents | 10 plus 2 agents |
-| `craft-research` | the research tree | 5 plus the shared pair |
-| `craft-career` | the career tree | 7 plus the shared pair |
-| `craft-opportunity` | the opportunity tree | 9 plus the shared pair |
+"Tree" is how many skills the domain's own tree holds. "Bundle" is how many
+directories are under `plugins/<domain>/skills` and therefore how many land on
+disk: the tree, plus the two cross domain skills, plus any cross tree
+dependency the tree's skills declare.
+
+| Plugin | Installs | Tree | Bundle |
+|---|---|---|---|
+| `craft-writing` | the writing tree | 42 | 44 |
+| `craft-documents` | the documents tree | 7 | 9 |
+| `craft-engineering` | the engineering tree and its agents | 82 | 84 plus 24 agents |
+| `craft-security` | the security tree and its agents | 12 | 18 plus 2 agents |
+| `craft-research` | the research tree | 5 | 7 |
+| `craft-career` | the career tree | 7 | 9 |
+| `craft-opportunity` | the opportunity tree | 9 | 11 |
 
 Install one:
 
@@ -33,9 +38,15 @@ Install one:
 
 Each plugin is self-contained. It carries the domain's skills, the two cross
 domain skills that every tree calls, and any cross-tree dependency a skill
-declares, resolved transitively, so no skill installs broken. The security
-plugin, for example, carries `security-audit` and `security-testing` from the
-engineering tree because the security skills reference them.
+declares, resolved transitively, so no skill installs broken.
+
+Today exactly one bundle needs that last clause, which is why only its two
+counts differ by more than two. `security/security-assurance/vulnerability-assessment`
+declares `depends_on: [security-core, security-audit]`, and `security-audit`
+lives in `engineering/dev-skills`. The security bundle therefore also carries
+`security-audit` and the three skills it declares in turn, `engineering-core`,
+`project-exploration` and `input-validation`. Every other bundle is its tree
+plus the shared pair.
 
 ## How the bundles are built
 

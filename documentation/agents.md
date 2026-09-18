@@ -38,21 +38,34 @@ handoff.
 For a single task, the skills alone are enough. Install with `--no-agents` and
 let `engineering-orchestrator` sequence the skills in one context.
 
-## The seventeen
+## The agents
+
+The roster, in the order `agents/README.md` lists it. That file is the source
+of truth for which agents exist; this table adds where each one sits in a
+sequence. `tests/validate-counts.sh` fails when the two disagree on the count.
 
 | Agent | Owns | Runs after | Hands to |
 |---|---|---|---|
 | `delivery-orchestrator` | the project and its gates | the brief | every other agent |
+| `compliance-verifier` | the launch completeness gate, on evidence | a built or deployed product | the owning agent per failure, then `delivery-orchestrator` |
+| `source-of-truth` | the canonical facts, docs reconciled against the code | documentation and code may have diverged | `documentation-engineer`, then the orchestrator |
+| `checkup` | the pre-intervention map: architecture, debt, risk | before anyone changes an unfamiliar codebase | `principal-engineer` or `delivery-orchestrator` |
+| `final-verifier` | the independent final gate that trusts no previous agent | every other gate claims to have passed | the owning agent per failure, then the orchestrator |
 | `principal-engineer` | one multi surface request and its gates | a request larger than one task | the specialist agents |
 | `requirements-analyst` | requirements into a specification | the brief | `software-architect` |
+| `pr-author` | packaging verified work into a pull request | the work is complete and validated | `pr-reviewer` |
+| `pr-reviewer` | the independent review and mergeability gate | a pull request exists | `pr-author`, then whoever holds the merge |
 | `software-architect` | architecture and technology decisions | requirements | the validation gate, then implementation |
 | `frontend-engineer` | client implementation | approved architecture, fixed contract | `qa-engineer` |
 | `backend-engineer` | server implementation | approved architecture | `qa-engineer`, `security-engineer` |
 | `database-engineer` | schema, migrations, query quality | approved architecture | `backend-engineer` |
 | `security-engineer` | audit and fix | implementation | `qa-engineer` |
+| `web-auditor` | auditing a live site from its URL | a URL, and authorization for anything active | `security-engineer`, then `compliance-verifier` |
 | `qa-engineer` | test strategy and the quality gate | implementation | `release-engineer` |
 | `playwright-engineer` | browser verification | a working interface | `qa-engineer` |
 | `ui-ux-engineer` | the rendered experience | requirements | `frontend-engineer` |
+| `design-verification` | design drift and generic defaults, against intent | a built interface, before it ships | `ui-ux-engineer`, `frontend-engineer` |
+| `design-research` | reference patterns as principles, never copied | design direction is needed before building | `ui-ux-engineer`, then `design-verification` |
 | `devops-engineer` | environments, pipeline, deployment | a verified build | `release-engineer` |
 | `performance-engineer` | measured performance work | a measurement or a symptom | `qa-engineer` |
 | `documentation-engineer` | documentation matching the code | behaviour change | `release-engineer` |
@@ -117,7 +130,7 @@ agents reach at the end of their work.
 - Nothing verifies at runtime that a review gate between two agents was
   actually held. `tests/validate-orchestration.sh` verifies the definitions
   are coherent, not that an execution respected them.
-- The seventeen cover software delivery. There is no agent for the writing tree
+- The roster covers software delivery. There is no agent for the writing tree
   or the documents tree: both are sequential, single-context work where an
   agent boundary would add a handoff and remove nothing.
 

@@ -3,6 +3,115 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.19.0
+
+A documentation audit found that the one document a new user needs did not
+exist, and that a set of counts and claims had drifted away from the
+repository. Fixing the claims surfaced four bugs in `install.sh` that the prose
+had been describing as if they were not there.
+
+### Added
+
+- `documentation/usage.md` and `documentation/usage.fr.md`. The suite had
+  eleven documents describing what it contains and none describing what to do
+  with it. The guide covers what runs these skills at all, what the install
+  leaves on disk, how a skill is actually selected (the `description` field the
+  host matches against, which nothing else here explained), the routing table
+  by kind of request, what the gates demand, when not to use an agent, what to
+  check, and what the suite does not do.
+- `docs/README.md`, stating the boundary the repository had never written down:
+  `documentation/` is usage, `docs/` is design reasoning and history.
+- A `Configuring` section in `documentation/installation.md`. The only document
+  titled Installation contained no occurrence of `--configure`, so a reader who
+  followed it end to end finished with an unconfigured suite.
+- The `delegation` section of `documentation/configuration.md`, which had zero
+  occurrences of the word although `documentation/README.md` advertised it. The
+  eight fields, what each value changes, and where the manual task list is
+  written.
+
+### Fixed
+
+- `install.sh --configure` destroyed data. The configuration was written
+  through a plain redirect, so every section the installer does not ask about,
+  `model_routing` and `career`, was deleted on each run, and every managed
+  field whose question the scope did not ask was written back empty:
+  `--dev --configure` after `--all --configure` emptied `documents.page_size`,
+  `documents.date_format` and `language.creative_output`. Unmanaged sections are
+  now carried through verbatim and managed fields are seeded from the file
+  before the first question. `config/README.md` and `documentation/configuration.md`
+  claimed this was already true.
+- `install.sh` resolved `depends_on` for `--skill` only, never for a tree or a
+  category. `security/security-assurance/vulnerability-assessment` declares
+  `security-audit`, which lives in the engineering tree, so `--security`
+  installed a skill without the skill it refers to, against the guarantee
+  `documentation/plugins.md` stated. The closure now runs for every selection.
+  `--security` installs 18 rather than 14, and the security bundle carries
+  `security-audit`, `engineering-core`, `project-exploration` and
+  `input-validation`. Removal is unchanged and still never takes a skill
+  another tree may be using.
+- `install.sh` counted the cross domain pair twice when `--skill` and `--group`
+  were combined, because deduplication compared path strings and the two code
+  paths spelled the same directory with and without a trailing slash. The
+  installer reported 14 where `installation.md` correctly promised 12.
+- `install.sh --research` created an empty `~/.claude/agents` and reported
+  `0 agents installed`: the research domain carries no agent. The directory is
+  now created only when there is something to put in it.
+- `install.sh --help` did not list `--port`, `--no-browser` or `--json`, which
+  the argument parser accepts, and its header said the security tree holds 10
+  skills.
+- `documentation/installation.md` told the reader to `git switch dev`, gave
+  `<repository-url>` and `<raw-url>` in place of the real URLs, said `--zip`
+  alone prints the help when it opens the menu, listed six dependency-free
+  skills when there are nine and named one that has a dependency, said
+  dependency resolution crosses trees while giving an example that crosses only
+  categories, and gave post-install counters of 75, 155 and 16 against real
+  values of 84, 166 and 25.
+- `docs/agents/README.md` listed `source-of-truth`, `checkup`, `final-verifier`,
+  `design-research`, `design-verification` and `compliance` as not yet built.
+  All six are shipped, and `docs/architecture/AGENT_ARCHITECTURE.md` listed
+  three of them as missing in one paragraph and as delivered in the table below
+  it.
+- `documentation/agents.md` was titled "The seventeen" over a sixteen-row table
+  describing a twenty-five agent roster. Regenerated from `agents/README.md`.
+- `documentation/plugins.md` gave a transitive-resolution example that was
+  false: the security bundle carries neither `security-audit` nor
+  `security-testing` as claimed. It now names the one dependency that really
+  crosses a tree. `documentation/overview.md` repeated the same claim.
+- Counts corrected against the filesystem: the security tree said 10 in
+  `README.md`, `README.fr.md`, `install.sh`, `plugins.md` and both overviews;
+  `craft-engineering` said 70 in `plugins.md`; `dev-skills` said "Fifty four"
+  over a table of 55; the agent total said 14, 16 or 17 in
+  `documentation/README.md`, `tests/README.md`, `engineering-system.md`,
+  `skills-guide.md`, `SKILL_AGENT_MATRIX.md` and both French passages of
+  `overview.fr.md`.
+- `security/secure-development/README.md` said "Eight skills" and omitted
+  `rate-limiting` from its table entirely, although the skill was delivered,
+  routed by `skills-guide.md` and listed by `security/README.md`.
+- `engineering/devops-skills/README.md` listed 12 rows in its "What each skill
+  refuses" table for 16 skills.
+- The plugin tables now carry two columns, the tree count and what the bundle
+  actually holds, because they answer different questions and mixing them is
+  what let the numbers drift apart.
+
+### Changed
+
+- `tests/validate-counts.sh` covers what it previously declared out of scope:
+  the plugin tables, measured on `plugins/<domain>/skills` rather than on the
+  tree; the per-scope verification table; the `AGENTS.md` tree table; the count
+  written in words at the top of each category index; and the agent total
+  wherever it is spelled out. It also fails when an agent named under "What is
+  not yet built" exists as a file. Each new check was verified by breaking the
+  value it guards and observing the failure.
+- `tests/validate-structure.sh` fails when a skill is absent from the index of
+  its own category. This is the check that would have caught `rate-limiting`.
+- `CONTRIBUTING.md`'s pre-pull-request checklist names what
+  `validate-counts.sh` does and does not cover, rather than only the two
+  totals.
+- The three `## Validation` blocks in the engineering category indexes listed
+  three scripts when `tests/` holds six.
+- `README.md` and `README.fr.md` no longer claim the repository has no
+  dependencies: the Control Center listed underneath them is Python.
+
 ## 3.18.0
 
 Roadmap Phase 5, the last item: agent-level detections in the advisor, with

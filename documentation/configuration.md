@@ -29,13 +29,20 @@ writing tree alone does not ask for a package manager.
 
 | Scope | Asked |
 |---|---|
-| `--dev` or full | identity, git conventions, engineering defaults, documentation language |
+| `--dev` or full | identity, the eight delegation questions, `git.protected_branches`, git conventions, engineering defaults, documentation language |
 | `--writing` | creative output language |
 | `--documents` | organisation, document output language, PDF engine, page size, date format |
 | `--shared` | nothing; neither shared skill requires configuration |
 
 Every prompt is pre-filled with the value already stored. Pressing enter keeps
-it, so re-running is not destructive.
+it, so re-running is not destructive, in three separate senses:
+
+- an answer you already gave is the pre-filled default, so enter keeps it;
+- a field whose question this scope does not ask is written back as it was, so
+  `--dev --configure` after `--all --configure` does not empty the documents
+  answers;
+- a section the installer does not manage at all, `model_routing` and `career`,
+  is carried through the rewrite untouched.
 
 The prompts need a terminal. Without one, the installer says so and points at
 the template, rather than writing defaults nobody chose.
@@ -103,6 +110,46 @@ rules. Those skills are written in English and produce French. Set the field
 to another language and the structural expertise still applies; the
 language-specific rules do not, and the affected skills say so.
 
+## Delegation
+
+The section that decides how much of the work reaches you as a finished action
+and how much reaches you as a prepared step. It is the most concrete thing
+`--configure` produces, and the only section whose answers are written twice:
+once into the configuration, once into a task list you can act on.
+
+| Field | Accepted values | Default | Read by |
+|---|---|---|---|
+| `commits` | `yes`, `stage-only`, `no` | `yes` | `git-workflow` |
+| `branches` | `yes`, `no` | `yes` | `git-workflow` |
+| `push` | `yes`, `branch-only`, `no` | `branch-only` | `git-workflow` |
+| `pull_requests` | `yes`, `draft`, `no` | `yes` | `git-workflow` |
+| `release_tags` | `yes`, `no` | `no` | `release-engineering` |
+| `deployments` | `yes`, `non-production`, `no` | `no` | `deployment-engineering` |
+| `database_operations` | `yes`, `non-production`, `no` | `no` | `database-operations` |
+| `dependency_changes` | `yes`, `with-justification`, `no` | `with-justification` | `dependency-selection` |
+
+Any value other than a plain `yes` is a boundary. The agent does the work up to
+that boundary, hands you what it prepared, and names the step instead of
+performing it. What each value means:
+
+| Value | What it changes |
+|---|---|
+| `stage-only` | the change is staged and the message written, you run `git commit` |
+| `branch-only` | pushes to any branch except a protected one, per `git.protected_branches` |
+| `draft` | the pull request is opened as a draft, never marked ready |
+| `non-production` | the step runs in every environment except production |
+| `with-justification` | each new or upgraded dependency is named and argued before it is added |
+| `no` | the step is never performed, only prepared and handed over |
+
+Every kept step is written to `~/.claude/craft-manual-tasks.md`, next to the
+configuration file, with the exact command to run. `write_manual_tasks` in
+`install.sh` produces it at the end of every `--configure`, so the list and the
+configuration cannot drift apart. `CLAUDE_MANUAL_TASKS_FILE` overrides its path.
+
+Two rules never delegate, in either direction, and are therefore not fields
+here: a destructive operation is counted and confirmed before it runs, and a
+leaked secret is reported for rotation rather than quietly removed.
+
 ## What must never go in this file
 
 ```
@@ -151,6 +198,14 @@ Configuration. Skills with no Configuration section read none.
 | `git.commit_convention` | `git-workflow`, `release-engineering` |
 | `git.branch_convention` | `git-workflow` |
 | `git.default_branch` | `git-workflow`, `ci-cd-pipelines` |
+| `git.protected_branches` | `git-workflow`, `release-engineering` |
+| `delegation.commits`, `.branches`, `.push`, `.pull_requests` | `git-workflow` |
+| `delegation.release_tags` | `release-engineering` |
+| `delegation.deployments` | `deployment-engineering` |
+| `delegation.database_operations` | `database-operations` |
+| `delegation.dependency_changes` | `dependency-selection` |
+| `model_routing.fast`, `.balanced`, `.strongest` | `model-routing` |
+| `career.*` | the `career/` tree |
 | `language.documentation` | `technical-documentation`, `technical-writing` |
 | `language.creative_output` | the `writing/` tree |
 | `language.document_output` | the `documents/` tree, `project-brief` |
@@ -160,6 +215,11 @@ Configuration. Skills with no Configuration section read none.
 | `documents.pdf_engine` | `pdf-production` |
 | `documents.page_size` | `document-design`, `pdf-production` |
 | `documents.date_format` | `administrative-writing`, `report-writing` |
+
+`model_routing` and `career` are the two sections `--configure` never asks
+about: the first is runtime policy that depends on the account, the second is
+personal data the career skills ask for at the moment they need it. Both are
+edited by hand in the file, and `--configure` carries them through untouched.
 
 For the last three engineering fields, empty is the recommended value. Empty
 means detect it from the project, which is what the engineering tree does

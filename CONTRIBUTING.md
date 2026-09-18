@@ -216,7 +216,14 @@ rotation.
 - [ ] Every new skill has its four elements and its metadata.
 - [ ] Every index and `skills-guide.md` list the new skill.
 - [ ] `README.md` and `README.fr.md` still say the same thing.
-- [ ] Counts are correct wherever they appear: 166 skills, 25 agents.
+- [ ] Counts are correct wherever they appear. `bash tests/validate-counts.sh`
+      checks the totals (166 skills, 25 agents), the per-tree and per-category
+      counts, the plugin tables and the installer menu. It does not read free
+      prose, so the sentence at the top of a category README is still on you.
+- [ ] A new skill is listed in its own category README, not only in the
+      indexes above it.
+- [ ] A newly built agent is removed from `docs/agents/README.md`, under
+      "What is not yet built", as well as added to `agents/README.md`.
 - [ ] `CHANGELOG.md` has an entry.
 - [ ] `CONTINUITY.md` reflects the new state if the change is structural.
 

@@ -80,7 +80,7 @@ Thirteen checks on internal coherence.
 | 7 | no orphan engineering skill, absent from every plan and phase |
 | 8 | every declared dependency resolves, in every tree |
 | 9 | every `Interfaces` cross reference resolves, in every procedural tree |
-| 10 | the fourteen agent definitions, with their eight mandatory sections |
+| 10 | the twenty-five agent definitions, with their eight mandatory sections |
 | 11 | agents cite only real skills |
 | 12 | the document pipeline: `document-core` declared, design before production |
 | 13 | `shared/` depends on nothing, so every tree can call it |
@@ -134,11 +134,35 @@ tree diagrams, the category tables, the installer menus and the totals in
 `overview.fr.md`, `installation.md`, `architecture.md` and
 `engineering/README.md`.
 
-It does not parse every prose sentence, nor the plugin bundle sizes (which
-include cross-tree dependencies and are not a plain directory count). A check
-that matches nothing fails on purpose: it means the counted phrase was reworded
-and the check needs updating. Requires GNU `grep` for `-P` (present on the CI
-runner).
+It also checks the plugin tables in `README.md`, `README.fr.md` and
+`plugins.md`, measured on `plugins/<domain>/skills` rather than on the tree,
+because a bundle carries the two cross domain skills and any cross-tree
+dependency; the per-scope verification table in `installation.md`, `usage.md`
+and `usage.fr.md`; the count written in words at the top of each category
+index, which is where `Fifty four` and `Eight` went stale unnoticed; and the
+agent total wherever it is spelled out rather than written as a figure.
+
+It also fails when an agent named under "What is not yet built" in
+`docs/agents/README.md` turns out to exist as a file under `agents/`.
+
+It does not parse every prose sentence. A check that matches nothing fails on
+purpose: it means the counted phrase was reworded and the check needs updating.
+Requires GNU `grep` for `-P` (present on the CI runner).
+
+## check-app-js.py
+
+Not one of the six, and not run by the CI job. It parses the inline JavaScript
+of `control-center/app.html` and reports syntax and structural problems in a
+file that no build step would otherwise check. Run it by hand after editing
+that page:
+
+```bash
+python3 tests/check-app-js.py
+```
+
+`control-center/test_advisor.py` and `control-center/test_reader.py` are the
+same kind of thing for the Python side: plain assertions, no test framework,
+run with `python3`.
 
 ## Adding a skill
 
@@ -153,6 +177,9 @@ The six scripts are the acceptance criteria. A new skill passes when:
 6. for the engineering tree, it belongs to at least one execution plan or
    delivery phase;
 7. its category index and `documentation/skills-guide.md` list it.
+   `validate-structure.sh` fails on a skill absent from its own category
+   index, and `validate-counts.sh` fails when the count at the top of that
+   index no longer matches the table under it.
 
 ## Adding an agent
 

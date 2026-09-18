@@ -26,8 +26,9 @@ Through the plugin marketplace, one domain at a time:
 /plugin install craft-engineering
 ```
 
-Or all of it at once, into `~/.claude/skills`. No dependencies: the repository
-is Markdown and shell.
+Or all of it at once, into `~/.claude/skills`. The skills and agents are
+Markdown, the installer is shell, and nothing else is needed to use them. Only
+the optional Control Center and the report also want `python3`.
 
 ```bash
 git clone https://github.com/Handsomeboy990/craft-suite.git
@@ -42,23 +43,34 @@ steps the agent may perform on its own rather than hand back to you. Nothing
 user specific is ever hardcoded in a skill.
 
 Scoped installs: `--writing`, `--documents`, `--dev`, `--security`,
-`--research`, `--career`, `--opportunity`, `--no-agents`.
+`--research`, `--career`, `--opportunity`, `--shared`, `--agents`, `--all`,
+`--no-agents`, `--remove`. New here: start with
+[documentation/usage.md](documentation/usage.md).
 
 ## The seven plugins
 
-| Plugin | What the agent becomes | Domain skills |
-|---|---|---|
-| `craft-writing` | novelist, screenwriter, editor, critic, proofreader | 42 |
-| `craft-documents` | technical writer, report author, PDF producer | 7 |
-| `craft-engineering` | a delivery team, from specification to production | 82 and 24 agents |
-| `craft-security` | defensive engineer, and auditor under written authorization | 10 |
-| `craft-research` | researcher who cites only what was actually read | 5 |
-| `craft-career` | job search that never invents a listing | 7 |
-| `craft-opportunity` | ideas, hackathons, clients, markets | 9 |
+Two counts, because they answer two questions. "Domain" is how many skills the
+tree itself holds. "Installed" is how many directories land on disk, which is
+the domain plus the two cross domain skills every tree calls, plus any cross
+tree dependency those skills declare.
 
-Each plugin is self contained. It carries its domain, the two cross domain
-skills every tree calls, and any cross tree dependency its skills declare,
-resolved transitively, so no skill installs broken.
+| Plugin | What the agent becomes | Domain | Installed |
+|---|---|---|---|
+| `craft-writing` | novelist, screenwriter, editor, critic, proofreader | 42 | 44 |
+| `craft-documents` | technical writer, report author, PDF producer | 7 | 9 |
+| `craft-engineering` | a delivery team, from specification to production | 82 | 84 and 24 agents |
+| `craft-security` | defensive engineer, and auditor under written authorization | 12 | 18 and 2 agents |
+| `craft-research` | researcher who cites only what was actually read | 5 | 7 |
+| `craft-career` | job search that never invents a listing | 7 | 9 |
+| `craft-opportunity` | ideas, hackathons, clients, markets | 9 | 11 |
+
+Each plugin is self contained, which is why the second column is larger. The
+security bundle is the one that currently reaches into another tree: its
+`vulnerability-assessment` declares `security-audit`, which lives in the
+engineering tree, so the bundle carries that skill and the three it depends on
+in turn. The engineering plugin ships 24 of the 25 agents; `web-auditor` is a
+security tool with no role in the delivery sequence and ships with
+`craft-security` instead.
 
 ## What "finished" means here
 
