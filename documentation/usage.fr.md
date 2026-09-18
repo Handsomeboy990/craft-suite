@@ -238,9 +238,24 @@ Ce que chaque portée doit afficher, les deux skills communs déjà comptés :
 | `--all` | 166 | 25 |
 | `--agents` | 0 | 25 |
 
-L'installeur affiche les deux mêmes nombres quand il termine, donc un écart se
-voit sans rien compter à la main. Après une installation `--dev`, il vérifie en
-plus que les champs d'identité existent et nomme celui qui manque.
+`~/.claude/skills` est partagé. Il contient tous vos skills, pas seulement ceux
+de cette suite : un skill installé ailleurs s'y trouve à côté, et claude.ai
+range ses skills synchronisés dans un sous-répertoire `synced` que `ls` compte
+comme une entrée de plus. Le tableau est donc un plancher, pas une égalité, et
+un nombre plus grand est normal.
+
+Pour ne compter que ceux de cette suite, depuis le clone :
+
+```bash
+comm -12 <(find . -name SKILL.md -not -path './plugins/*' \
+             | sed 's|/SKILL.md$||' | xargs -n1 basename | sort) \
+         <(ls ~/.claude/skills | sort) | wc -l
+```
+
+L'installeur affiche ses propres nombres quand il termine, et ceux-là ne
+comptent que ce qu'il vient d'installer : ce sont eux qu'il faut comparer au
+tableau. Après une installation `--dev`, il vérifie en plus que les champs
+d'identité existent et nomme celui qui manque.
 
 Ensuite, demandez quelque chose de petit et regardez si une porte se déclenche.
 « Corrige cette faute et dis-moi ce que tu as vérifié » est un bon premier

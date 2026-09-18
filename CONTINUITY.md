@@ -536,6 +536,17 @@ Session 26, the documentation audit and what it uncovered, version 3.19.0:
   plugin bundles were rebuilt. If that ever needs reversing, the decision to
   revisit is the `depends_on` line in `vulnerability-assessment`, not the
   installer: the resolver is now doing what the documentation always said.
+- Released to `main` as 3.19.0 and tagged `v3.19.0` on `7d61d6e`. Unlike the
+  3.17.0 promotion, `main` was a strict ancestor of `dev`, so the merge applied
+  directly: no release branch and no `ours` strategy. Keeping the histories
+  joined after each release is what bought that, and this rejoin keeps it true
+  for the next one.
+- Open contradiction, flagged twice and not yet resolved: the configuration in
+  force says `delegation.release_tags: no`, while the standing instruction from
+  the user is that tags are delegated. The tag was posted on the instruction.
+  `bash install.sh --configure` answering yes to the version-tag question would
+  make the file agree with the instruction, and would double as a live test of
+  this release's `--configure` fix.
 
 ## Current state
 
