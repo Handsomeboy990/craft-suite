@@ -42,6 +42,9 @@ jobs:
       - name: Model routing fixtures match the routing table
         run: bash tests/validate-model-routing.sh
 
+      - name: Documentation counts match the trees
+        run: bash tests/validate-counts.sh
+
       - name: Control Center parses, runs and passes its tests
         run: |
           python3 -c "import ast; ast.parse(open('control-center/reader.py').read())"

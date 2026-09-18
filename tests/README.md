@@ -1,7 +1,7 @@
 # tests
 
-Five scripts, no external dependency beyond `python3`. All five must pass
-before any commit.
+Six scripts, no external dependency beyond `python3` and GNU `grep`. All six
+must pass before any commit.
 
 ```bash
 bash tests/validate-structure.sh
@@ -9,6 +9,7 @@ bash tests/validate-rules.sh
 bash tests/validate-orchestration.sh
 bash tests/validate-plugins.sh
 bash tests/validate-model-routing.sh
+bash tests/validate-counts.sh
 ```
 
 `install.sh` runs the first one itself and refuses to install a repository
@@ -123,9 +124,25 @@ no live model call, per its `resources/fixtures.json` and
 Requires only `python3`, reads two JSON files and asserts, no live model call
 and no network access.
 
+## validate-counts.sh
+
+Compares the counts written by hand in the documentation against the real
+counts on disk, and fails on drift. It counts `SKILL.md` files and agent
+definitions, then checks the structured places those numbers are written: the
+tree diagrams, the category tables, the installer menus and the totals in
+`README.md`, `README.fr.md`, `AGENTS.md`, `documentation/overview.md`,
+`overview.fr.md`, `installation.md`, `architecture.md` and
+`engineering/README.md`.
+
+It does not parse every prose sentence, nor the plugin bundle sizes (which
+include cross-tree dependencies and are not a plain directory count). A check
+that matches nothing fails on purpose: it means the counted phrase was reworded
+and the check needs updating. Requires GNU `grep` for `-P` (present on the CI
+runner).
+
 ## Adding a skill
 
-The five scripts are the acceptance criteria. A new skill passes when:
+The six scripts are the acceptance criteria. A new skill passes when:
 
 1. it has the four mandatory elements;
 2. its metadata matches its directory and its group;
@@ -145,5 +162,5 @@ the same change as the file.
 
 ## After moving anything
 
-Run all five. Some of them resolve paths and fail cleanly by naming what is
+Run all six. Some of them resolve paths and fail cleanly by naming what is
 missing.

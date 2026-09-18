@@ -3,6 +3,37 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.15.0
+
+Roadmap Phase 0: the count-consistency check, and the drift it caught the day
+it landed.
+
+### Added
+
+- `tests/validate-counts.sh`: computes the real skill and agent counts from the
+  filesystem, then checks the structured places the docs write those numbers
+  (the tree diagrams, the category tables, the installer menus and the totals)
+  and fails on any mismatch. Wired into the CI job as a sixth check. It does not
+  parse free prose or the plugin bundle sizes, which are not a plain directory
+  count; a check that matches nothing fails on purpose, as a signal the phrase
+  was reworded.
+
+### Fixed
+
+- Live count drift the new check caught, all corrected: `delivery-skills`
+  written as 10 in `engineering/README.md` (real 11), the security tree written
+  as 10 in three menus (real 12), `security-assurance` written as 2 in three
+  tables (real 3), the core agent group written as 6 in the architecture diagram
+  (real 9), the agent total written as 16 in `engineering/README.md` and as 16
+  in the French overview diagram (real 25), and the dev-skills section titled
+  "fifty four" (real 55).
+
+### Changed
+
+- Documentation that named the test suite now says six scripts, not five.
+- The engineering plugin description reads 24 role agents, matching what the
+  plugin now carries after the per-domain split.
+
 ## 3.14.0
 
 Roadmap Phase 5, second item: the Control Center agent panel, so the

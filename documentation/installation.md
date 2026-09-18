@@ -31,7 +31,7 @@ bash install.sh
    1) Creative writing        42 skills   novels, poetry, screenplay, editing
    2) Professional documents   7 skills   guides, manuals, reports, letters, PDF
    3) Software engineering    82 skills   plus 24 agents
-   4) Cybersecurity           10 skills   threat models, audits, hardening
+   4) Cybersecurity           12 skills   threat models, audits, hardening
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
@@ -104,7 +104,7 @@ bash install.sh --group devops-skills     operations only
 | `delivery-skills` | 11 | engineering |
 | `devops-skills` | 16 | engineering |
 | `secure-development` | 9 | security |
-| `security-assurance` | 2 | security |
+| `security-assurance` | 3 | security |
 | `research` | 5 | research |
 | `career` | 7 | career |
 | `ideation` | 3 | opportunity |

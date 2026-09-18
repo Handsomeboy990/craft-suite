@@ -410,11 +410,31 @@ version 3.14.0:
 - Phase 5 has one box left: advisor agent-level waste, blocked on the agent
   layer being exercised for real. Branched fresh from `dev`.
 
+Session 22, roadmap Phase 0, the count-consistency check, version 3.15.0:
+
+- Added `tests/validate-counts.sh`: it computes the real skill and agent counts
+  from the filesystem and checks the structured doc locations (tree diagrams,
+  category tables, installer menus, totals) against them, failing on drift.
+  Wired into the CI job as a sixth check (the job keeps its name, a stable
+  label). Uses GNU grep -P; present on the CI runner.
+- The check caught live drift on landing, all fixed: delivery-skills 10 in
+  engineering/README (real 11), security tree 10 in three menus (real 12),
+  security-assurance 2 in three tables (real 3), core agents 6 in the
+  architecture diagram (real 9), agent total 16 in engineering/README and in the
+  French overview diagram (real 25), dev-skills section titled "fifty four"
+  (real 55).
+- Also swept the test-suite references from five to six scripts across the docs,
+  and set the engineering plugin description to 24 role agents (its post-split
+  count). The script does not check free prose or plugin bundle sizes, by design.
+- Phase 0 box ticked. This closes every non-parked, non-"exercise" roadmap item;
+  what remains needs a real target project or is deliberately parked. Branched
+  fresh from `dev`.
+
 ## Current state
 
 Working today:
 
-- the five scripts pass: 166 skills, 0 errors, 1 pre-existing warning on a
+- the six scripts pass: 166 skills, 0 errors, 1 pre-existing warning on a
   deliberate typographic counter-example;
 - `install.sh` works in every mode, including the four new scopes, verified
   against a sandbox target through `CLAUDE_SKILLS_DIR`;
@@ -634,5 +654,5 @@ Looks finished and is not:
   reached `main` and `dev` and had to be removed by a revert, which is why
   `4c6f7bd` and `be42bb7` sit in the history. Test from an account without
   admin rights, or trust the read-back of the rule.
-- After moving any directory, run all five scripts: some of them resolve paths
+- After moving any directory, run all six scripts: some of them resolve paths
   and fail cleanly by naming what is missing.

@@ -10,11 +10,13 @@ sessions or a precondition outside the repository.
 
 ## Phase 0: foundation hygiene, do first
 
-- [ ] **Count-consistency check** (S). A `tests/validate-counts.sh` that
-  compares the counts written in the key docs against the real directory
-  counts and fails on drift. This session chased count drift by hand and found
-  `delivery-system` had undercounted devops at eleven for a long time. A check
-  removes that whole class of error and pays back on every item after it.
+- [x] **Count-consistency check** (S). `tests/validate-counts.sh` compares the
+  counts written in the key docs against the real directory counts and fails on
+  drift, wired into the CI job as a sixth check. On landing it caught live
+  drift: `delivery-skills` at 10, the security tree at 10, `security-assurance`
+  at 2, the core agents at 6, and the agent total at 16, all stale; every one
+  was corrected. It checks the tree diagrams, category tables, installer menus
+  and totals; it does not parse free prose or plugin bundle sizes.
 
 ## Phase 1: close the original specification
 
@@ -159,4 +161,5 @@ Recorded so they are chosen, not stumbled into. Detail in `CONTINUITY.md` and
 - The agent layer's review gates and boundaries are a documented discipline,
   not a runtime guarantee; a runtime that grants every subagent full write
   access enforces none of them.
-- Counts in prose are maintained by hand until Phase 0 lands.
+- Counts in the structured docs are enforced by `tests/validate-counts.sh`
+  since Phase 0 landed. Free prose and plugin bundle sizes are still by hand.

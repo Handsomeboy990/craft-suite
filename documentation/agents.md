@@ -128,7 +128,7 @@ agents reach at the end of their work.
 2. Reference skills; never copy their content.
 3. Add a row to `agents/README.md`.
 4. Add the name to `AGENT_NAMES` in `tests/validate-orchestration.sh`.
-5. Run the five validation scripts.
+5. Run the six validation scripts.
 
 Step 4 is not optional: check 10 fails for a declared agent with no file, and
 also for a file with no declaration. The list and the directory are kept in
