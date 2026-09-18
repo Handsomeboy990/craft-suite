@@ -378,6 +378,9 @@ printf 'Check 12: document pipeline coherence\n'
 # dependency rather than restating the constitution.
 for skill in "$ROOT/documents"/*/*/; do
   [ -d "$skill" ] || continue
+  # Only real skills carry a SKILL.md; examples and other material under the
+  # tree (documents/examples/...) are not skills and are skipped.
+  [ -f "$skill/SKILL.md" ] || continue
   name="$(basename "$skill")"
   [ "$name" = "document-core" ] && continue
   grep -q '^  depends_on:.*document-core' "$skill/SKILL.md" \

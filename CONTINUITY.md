@@ -448,6 +448,22 @@ Session 23, the portfolio redesign and roadmap Phase 6, version 3.16.0:
 - No skill or agent count change (the example is not a skill). Manifests 3.16.0.
   Branched fresh from `dev`.
 
+Session 24, roadmap Phase 6 documents demonstration, version 3.17.0:
+
+- `documents/examples/jeu-conges/`: one fictional subject (an internal time-off
+  system, CongesPro) written for three readers, a user guide, a technical manual
+  and a deployment report, each passed through the eight-point gate; a fourth
+  file keeps the gate reports, the reader-split critique and a PDF render
+  verification. `documents/examples/README.md` indexes it, `documents-system.md`
+  section 10 points at it. Phase 6 documents-demo box ticked; Phase 6 now fully
+  done.
+- Produced with the Workflow tool (ultracode on): a three-item pipeline, one
+  writer per reader following its skill plus document-core, a gate reviewer per
+  document, then a cross-set critique agent that returned split_lecteur_ok true.
+  Seven agents, no errors. The result was parsed from the run output file into
+  the five files; a forbidden-char and email scan ran clean before commit.
+- No skill or agent count change. Manifests 3.17.0. Branched fresh from `dev`.
+
 ## Current state
 
 Working today:

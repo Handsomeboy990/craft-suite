@@ -3,6 +3,36 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.17.0
+
+Roadmap Phase 6, the documents demonstration: the documents tree's missing
+worked example, and the reader rule shown rather than asserted.
+
+### Added
+
+- `documents/examples/jeu-conges/`: one fictional subject, an internal time-off
+  system, written for three readers. A user guide (`user-documentation`), a
+  technical manual and runbook (`technical-writing`), and a deployment report
+  (`report-writing`), each passed through the eight-point gate. A fourth file
+  records the gate report per document, the cross-set reader-split check, and a
+  PDF render verification per `pdf-production`. `documents/examples/README.md`
+  indexes it and `documents-system.md` section 10 points at it. The same fact
+  (the two first-month incidents) appears in all three, formulated for each
+  reader rather than copied, which is the reader split in practice.
+
+### Method
+
+- Produced through a multi-agent workflow: one writer per reader following its
+  skill and `document-core`, a gate review per document, and a cross-set
+  critique that confirmed the reader split holds. The gaps the writers could
+  not fill are marked `[a confirmer]`, never invented, per the evidence rule.
+
+### Changed
+
+- `validate-orchestration.sh` check 12 now skips directories under `documents/`
+  that carry no `SKILL.md`, so an example directory is not mistaken for a skill
+  that must declare `document-core`.
+
 ## 3.16.0
 
 Roadmap Phase 6, the delivery demonstration: the proof the repository was
