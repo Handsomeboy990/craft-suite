@@ -19,8 +19,8 @@ craft-suite/
 ├── shared/           2 skills transversaux, appelés par tous les arbres
 ├── writing/         42 skills d'écriture créative
 ├── documents/        7 skills de document professionnel
-├── engineering/     82 skills d'ingénierie
-├── agents/          25 définitions de rôle, transversales au dépôt
+├── engineering/     83 skills d'ingénierie
+├── agents/          26 définitions de rôle, transversales au dépôt
 ├── security/        12 skills de sécurité défensive
 ├── research/         5 skills de recherche générale
 ├── career/           7 skills de recherche d'emploi et de candidature
@@ -117,12 +117,12 @@ en production.
 
 | Catégorie | Skills | Question à laquelle elle répond |
 |---|---|---|
-| [dev-skills](../engineering/dev-skills/) | 55 | comment une modification est faite correctement |
+| [dev-skills](../engineering/dev-skills/) | 56 | comment une modification est faite correctement |
 | [delivery-skills](../engineering/delivery-skills/) | 11 | quoi construire, dans quel ordre, avec quelle approbation |
 | [devops-skills](../engineering/devops-skills/) | 16 | comment le système tourne, se déploie et se restaure |
 
 Agnostique de la pile et de la plateforme : le système lit le projet qu'on lui
-confie plutôt que d'en présupposer la forme. Les vingt-cinq agents ne sont pas
+confie plutôt que d'en présupposer la forme. Les vingt-six agents ne sont pas
 une catégorie de cet arbre : ils forment une couche transversale au dépôt, dans
 [agents](../agents/), qui possède quoi et ce qui est transmis.
 
@@ -217,12 +217,12 @@ reçoit jamais l'arbre d'ingénierie.
 ```
    1) Creative writing        42 skills   romans, poésie, scénario, édition
    2) Professional documents   7 skills   guides, manuels, rapports, lettres, PDF
-   3) Software engineering    82 skills   plus 24 agents
+   3) Software engineering    83 skills   plus 25 agents
    4) Cybersecurity           12 skills   modèles de menace, audits, durcissement
    5) Research                 5 skills   sources, vérification, synthèse
    6) Career                   7 skills   recherche d'emploi, CV, entretiens
    7) Opportunity              9 skills   idéation, hackathons, prospection
-   8) Everything             166 skills   plus 25 agents
+   8) Everything             167 skills   plus 26 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -283,7 +283,7 @@ bash install.sh --group devops-skills     l'exploitation seule
 | `documentation` | 4 | documents |
 | `administrative` | 1 | documents |
 | `publishing` | 2 | documents |
-| `dev-skills` | 55 | engineering |
+| `dev-skills` | 56 | engineering |
 | `delivery-skills` | 11 | engineering |
 | `devops-skills` | 16 | engineering |
 | `secure-development` | 9 | security |

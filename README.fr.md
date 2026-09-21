@@ -1,6 +1,6 @@
 # Craft Suite
 
-**Le métier, encodé.** 166 skills et 25 agents qui tiennent un agent à un
+**Le métier, encodé.** 167 skills et 26 agents qui tiennent un agent à un
 standard professionnel : écrire, produire des documents, construire un
 logiciel, le sécuriser, chercher, mener une recherche d'emploi, évaluer des
 opportunités, et relire son propre travail.
@@ -60,7 +60,7 @@ inter-arbres déclarée par ces skills.
 |---|---|---|---|
 | `craft-writing` | romancier, scénariste, éditeur, critique, correcteur | 42 | 44 |
 | `craft-documents` | rédacteur technique, auteur de rapports, producteur de PDF | 7 | 9 |
-| `craft-engineering` | une équipe de livraison, de la spécification à la production | 82 | 84 et 24 agents |
+| `craft-engineering` | une équipe de livraison, de la spécification à la production | 83 | 85 et 25 agents |
 | `craft-security` | ingénieur défensif, et auditeur sur autorisation écrite | 12 | 18 et 2 agents |
 | `craft-research` | chercheur qui ne cite que ce qu'il a réellement lu | 5 | 7 |
 | `craft-career` | recherche d'emploi qui n'invente jamais une offre | 7 | 9 |

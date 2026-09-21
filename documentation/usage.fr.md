@@ -229,14 +229,14 @@ Ce que chaque portée doit afficher, les deux skills communs déjà comptés :
 |---|---|---|
 | `--writing` | 44 | 0 |
 | `--documents` | 9 | 0 |
-| `--dev` | 84 | 24 |
+| `--dev` | 85 | 25 |
 | `--security` | 18 | 2 |
 | `--research` | 7 | 0 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 166 | 25 |
-| `--agents` | 0 | 25 |
+| `--all` | 167 | 26 |
+| `--agents` | 0 | 26 |
 
 `~/.claude/skills` est partagé. Il contient tous vos skills, pas seulement ceux
 de cette suite : un skill installé ailleurs s'y trouve à côté, et claude.ai

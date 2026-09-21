@@ -47,6 +47,7 @@ obvious. When several rows match, the row with the stricter gates wins.
 | visual regression, screenshot diff, has the layout moved | BROWSER_AUTOMATION | UI_UX |
 | notification, transactional mail, push, digest | JOBS | BACKEND |
 | terraform, kubernetes, helm, provision the cluster | INFRASTRUCTURE | SECURITY |
+| a site for a client, portfolio, showcase site, the client must edit it himself | SITE_TEMPLATE | UI_UX, FRONTEND |
 
 ## Surface detection
 

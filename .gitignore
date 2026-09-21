@@ -8,6 +8,30 @@ Thumbs.db
 node_modules/
 drafts-prives/
 
+# Build output and runtime state of the reference implementations. They are
+# examples a reader runs, never artefacts this repository ships.
+#
+# These patterns carry no leading directory on purpose: a pattern with a slash
+# in it is anchored to this file's directory, so `data/*.json` matched only a
+# top level data/ and let an example instance commit its password hash, its
+# sessions and its counters. `**/` matches at any depth, which is what an
+# example nested three levels down needs.
+.next/
+out/
+next-env.d.ts
+package-lock.json
+*.tsbuildinfo
+
+# The instance content file is the worked example and is tracked. Everything
+# else a running instance writes is its own: never.
+**/data/admin.json
+**/data/sessions.json
+**/data/messages.json
+**/data/subscriptions.json
+**/data/rate-limits.json
+**/data/uploads/*
+!**/data/uploads/.gitkeep
+
 __pycache__/
 *.pyc
 

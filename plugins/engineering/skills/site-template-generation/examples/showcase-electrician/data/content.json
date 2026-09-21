@@ -1,0 +1,496 @@
+{
+  "site": {
+    "name": "Roussel Électricité",
+    "shortName": "Roussel",
+    "locale": "fr-FR",
+    "baseUrl": "https://www.example.com",
+    "tagline": "Électricien à Ville-Exemple depuis 2004"
+  },
+  "theme": {
+    "profile": "technical",
+    "palettes": {
+      "light": {
+        "surface": "#ffffff",
+        "surfaceAlt": "#f2f4f7",
+        "foreground": "#14181f",
+        "muted": "#555f6e",
+        "accent": "#0f4c81",
+        "accentHover": "#0c3c66",
+        "accentForeground": "#ffffff",
+        "border": "#dce1e8",
+        "borderStrong": "#828c99",
+        "success": "#1b7a4b",
+        "danger": "#b3261e"
+      },
+      "dark": {
+        "surface": "#0d1218",
+        "surfaceAlt": "#141b24",
+        "foreground": "#eef2f7",
+        "muted": "#9fadbd",
+        "accent": "#5aa9e6",
+        "accentHover": "#7cbcee",
+        "accentForeground": "#0b1016",
+        "border": "#263140",
+        "borderStrong": "#64748b",
+        "success": "#4ade80",
+        "danger": "#ff7b72"
+      }
+    },
+    "type": {
+      "displayFamily": "'Inter Tight', system-ui, sans-serif",
+      "textFamily": "'Inter', system-ui, sans-serif",
+      "scaleRatio": 1.2,
+      "displayWeight": 700,
+      "textWeight": 400
+    },
+    "radius": {
+      "sm": "3px",
+      "md": "6px",
+      "lg": "10px",
+      "pill": "999px"
+    },
+    "spacing": {
+      "unit": "8px",
+      "section": "80px",
+      "pageWidth": "1440px",
+      "proseWidth": "70ch"
+    },
+    "motion": {
+      "intensity": 0.25,
+      "baseDuration": 320,
+      "easing": "ease-out"
+    },
+    "density": "regular"
+  },
+  "company": {
+    "legalName": "Roussel Électricité SARL",
+    "tradeName": "Roussel Électricité",
+    "activity": "Installation, rénovation et mise en conformité électrique pour les particuliers et les petites entreprises.",
+    "serviceArea": [
+      "Ville-Exemple",
+      "Bourg-Exemple",
+      "Canton-Exemple",
+      "30 km autour de Ville-Exemple"
+    ]
+  },
+  "pages": [
+    {
+      "href": "/",
+      "label": "Accueil",
+      "inNav": true
+    },
+    {
+      "href": "/services",
+      "label": "Nos prestations",
+      "inNav": true
+    },
+    {
+      "href": "/about",
+      "label": "L'entreprise",
+      "inNav": true
+    },
+    {
+      "href": "/quote",
+      "label": "Demander un devis",
+      "inNav": true
+    }
+  ],
+  "ui": {
+    "skipToContent": "Aller au contenu",
+    "primaryNavLabel": "Navigation principale",
+    "footerNavLabel": "Informations légales",
+    "themeToggleLabel": "Thème",
+    "themeLight": "Clair",
+    "themeDark": "Sombre",
+    "themeSystem": "Système",
+    "contactHeading": "Nous joindre",
+    "hoursHeading": "Horaires d'ouverture",
+    "serviceAreaHeading": "Zone d'intervention",
+    "form": {
+      "submitLabel": "Envoyer la demande",
+      "sendingLabel": "Envoi en cours",
+      "optionalHint": "facultatif",
+      "selectPlaceholder": "Choisissez une option",
+      "requiredMessage": "ce champ est obligatoire",
+      "invalidMessage": "cette valeur n'est pas valide"
+    },
+    "notFound": {
+      "title": "Cette page n'existe pas",
+      "body": "Le lien que vous avez suivi ne mène nulle part. Les prestations, l'entreprise et la demande de devis sont accessibles depuis le menu.",
+      "action": "Revenir à l'accueil"
+    },
+    "offline": {
+      "title": "Vous êtes hors ligne",
+      "body": "La page demandée n'a pas pu être chargée. Elle sera de nouveau accessible dès le retour de la connexion. Pour une urgence, appelez le numéro affiché en haut du site.",
+      "action": "Réessayer"
+    },
+    "install": {
+      "label": "Installer le site",
+      "dismiss": "Plus tard"
+    },
+    "legalPendingNotice": "Certaines informations légales n'ont pas encore été fournies. Elles apparaissent entre crochets et doivent être complétées avant la mise en ligne."
+  },
+  "home": {
+    "hero": {
+      "title": "Un électricien qui passe, qui explique et qui revient",
+      "subtitle": "Installation, rénovation et mise en conformité, pour les particuliers et les petites entreprises de Ville-Exemple.",
+      "image": {
+        "src": "/media/placeholder-hero.png",
+        "alt": "Tableau électrique en cours de câblage sur un chantier de rénovation"
+      },
+      "actions": [
+        {
+          "label": "Demander un devis",
+          "href": "/quote",
+          "variant": "primary"
+        },
+        {
+          "label": "Voir les prestations",
+          "href": "/services",
+          "variant": "ghost"
+        }
+      ]
+    },
+    "highlights": {
+      "heading": "Ce que vous pouvez attendre",
+      "items": [
+        {
+          "title": "Un devis écrit, détaillé, gratuit",
+          "body": "Chaque poste est chiffré séparément. Aucun travail ne commence avant votre accord écrit."
+        },
+        {
+          "title": "Un interlocuteur unique",
+          "body": "La personne qui établit le devis est celle qui réalise le chantier et qui répond ensuite."
+        },
+        {
+          "title": "Un chantier rendu propre",
+          "body": "Protection des sols, évacuation des gravats, reprise des saignées incluses dans le devis."
+        }
+      ]
+    },
+    "proof": {
+      "heading": "L'entreprise en bref",
+      "items": [
+        {
+          "label": "Année de création",
+          "value": "2004"
+        },
+        {
+          "label": "Compagnons",
+          "value": "4"
+        },
+        {
+          "label": "Délai moyen d'intervention",
+          "value": "6 jours"
+        },
+        {
+          "label": "Zone",
+          "value": "30 km"
+        }
+      ]
+    }
+  },
+  "services": {
+    "heading": "Nos prestations",
+    "intro": "Quatre familles de travaux, chiffrées séparément dans chaque devis.",
+    "items": [
+      {
+        "slug": "renovation",
+        "title": "Rénovation électrique complète",
+        "summary": "Remplacement d'une installation ancienne, du tableau jusqu'aux prises.",
+        "body": "Dépose de l'installation existante, passage des nouveaux circuits, tableau neuf avec différentiels séparés, remise en service et essais. Le logement reste habitable pendant les travaux : nous procédons pièce par pièce.",
+        "image": {
+          "src": "/media/placeholder-gallery-1.png",
+          "alt": "Nouvelle installation électrique dans un logement en rénovation"
+        },
+        "bullets": [
+          "Diagnostic de l'existant avant chiffrage",
+          "Circuits séparés cuisine, chauffage, extérieur",
+          "Essais et attestation de fin de travaux"
+        ]
+      },
+      {
+        "slug": "mise-en-conformite",
+        "title": "Mise en conformité",
+        "summary": "Mise à niveau d'une installation qui fonctionne mais ne respecte plus les règles en vigueur.",
+        "body": "Contrôle des protections, de la liaison équipotentielle et de la mise à la terre, remplacement des points non conformes, puis remise d'un rapport écrit listant ce qui a été repris.",
+        "image": {
+          "src": "/media/placeholder-gallery-2.png",
+          "alt": "Contrôle des protections sur un tableau électrique existant"
+        },
+        "bullets": [
+          "Contrôle des protections et de la terre",
+          "Reprise des points non conformes",
+          "Rapport écrit remis en fin d'intervention"
+        ]
+      },
+      {
+        "slug": "depannage",
+        "title": "Dépannage",
+        "summary": "Panne, disjoncteur qui saute, prise qui chauffe, éclairage hors service.",
+        "body": "Recherche de panne facturée à l'heure, réparation chiffrée avant exécution. Nous intervenons sur les installations que nous n'avons pas posées.",
+        "image": {
+          "src": "/media/placeholder-gallery-3.png",
+          "alt": "Recherche de panne sur un circuit électrique"
+        },
+        "bullets": [
+          "Recherche de panne à l'heure",
+          "Réparation chiffrée avant exécution",
+          "Intervention sur installation existante"
+        ]
+      },
+      {
+        "slug": "bornes-de-recharge",
+        "title": "Bornes de recharge",
+        "summary": "Pose d'une borne pour véhicule électrique, en maison ou en copropriété.",
+        "body": "Étude de la puissance disponible, choix de la borne, pose, protection dédiée et paramétrage. En copropriété, nous fournissons le dossier technique à présenter au syndic.",
+        "image": {
+          "src": "/media/placeholder-gallery-4.png",
+          "alt": "Borne de recharge pour véhicule électrique posée sur un mur de garage"
+        },
+        "bullets": [
+          "Étude de la puissance disponible",
+          "Protection dédiée au circuit de charge",
+          "Dossier technique pour le syndic"
+        ]
+      }
+    ]
+  },
+  "about": {
+    "heading": "L'entreprise",
+    "body": [
+      "Roussel Électricité a été créée en 2004 à Ville-Exemple. Nous sommes quatre : deux compagnons sur les chantiers de rénovation, un sur le dépannage, et une personne à l'atelier qui prépare les tableaux et suit les commandes.",
+      "Nous travaillons surtout sur des logements construits avant 1990, où l'installation d'origine n'a jamais été reprise en entier. C'est un métier de diagnostic autant que de pose : ce qui coûte cher, ce n'est pas le matériel, c'est ce qu'on découvre derrière les murs.",
+      "Nous ne sous-traitons pas. Si nous ne savons pas faire, nous le disons et nous donnons le nom de quelqu'un qui sait."
+    ],
+    "image": {
+      "src": "/media/placeholder-portrait.png",
+      "alt": "Atelier de préparation des tableaux électriques"
+    },
+    "teamHeading": "L'équipe",
+    "team": [
+      {
+        "name": "Marc Roussel",
+        "role": "Gérant, chiffrage et rénovation",
+        "portrait": {
+          "src": "/media/placeholder-gallery-1.png",
+          "alt": "Marc Roussel dans l'atelier"
+        }
+      },
+      {
+        "name": "Sofia Berger",
+        "role": "Dépannage et mise en conformité",
+        "portrait": {
+          "src": "/media/placeholder-gallery-2.png",
+          "alt": "Sofia Berger sur un chantier"
+        }
+      }
+    ],
+    "credentialsHeading": "Assurances et garanties",
+    "credentials": [
+      {
+        "label": "Assurance responsabilité civile professionnelle",
+        "value": "Police 00-000-000",
+        "issuedBy": "Assureur-Exemple"
+      },
+      {
+        "label": "Garantie décennale",
+        "value": "Police 00-000-001",
+        "issuedBy": "Assureur-Exemple"
+      }
+    ]
+  },
+  "quote": {
+    "heading": "Demander un devis",
+    "body": "Décrivez le chantier en quelques lignes. Nous rappelons sous deux jours ouvrés pour convenir d'une visite. Le devis est gratuit et remis par écrit.",
+    "fields": [
+      {
+        "name": "name",
+        "label": "Nom",
+        "type": "text",
+        "required": true,
+        "placeholder": "Prénom et nom"
+      },
+      {
+        "name": "email",
+        "label": "Adresse e-mail",
+        "type": "email",
+        "required": true,
+        "placeholder": "vous@example.com"
+      },
+      {
+        "name": "phone",
+        "label": "Téléphone",
+        "type": "tel",
+        "required": true,
+        "placeholder": "Pour convenir de la visite"
+      },
+      {
+        "name": "postalCode",
+        "label": "Code postal du chantier",
+        "type": "text",
+        "required": true,
+        "placeholder": "00000"
+      },
+      {
+        "name": "kind",
+        "label": "Nature des travaux",
+        "type": "select",
+        "required": true,
+        "options": [
+          "Rénovation électrique complète",
+          "Mise en conformité",
+          "Dépannage",
+          "Borne de recharge",
+          "Autre"
+        ]
+      },
+      {
+        "name": "timeframe",
+        "label": "Échéance souhaitée",
+        "type": "select",
+        "required": false,
+        "options": [
+          "Dès que possible",
+          "Sous un mois",
+          "Sous trois mois",
+          "Pas encore décidé"
+        ]
+      },
+      {
+        "name": "message",
+        "label": "Description du chantier",
+        "type": "textarea",
+        "required": true,
+        "placeholder": "Surface, nombre de pièces, ce qui fonctionne et ce qui ne fonctionne plus"
+      },
+      {
+        "name": "consent",
+        "label": "J'accepte que ces informations soient utilisées pour me recontacter au sujet de ma demande.",
+        "type": "checkbox",
+        "required": true
+      }
+    ]
+  },
+  "contact": {
+    "email": "contact@example.com",
+    "phone": "+33 5 00 00 00 00",
+    "address": {
+      "street": "14 route des Exemples",
+      "postalCode": "00000",
+      "city": "Ville-Exemple",
+      "country": "France"
+    },
+    "hours": [
+      {
+        "days": "Lundi au jeudi",
+        "opens": "08:00",
+        "closes": "18:00"
+      },
+      {
+        "days": "Vendredi",
+        "opens": "08:00",
+        "closes": "16:00"
+      }
+    ],
+    "social": []
+  },
+  "forms": {
+    "successMessage": "Demande envoyée. Nous rappelons sous deux jours ouvrés.",
+    "errorMessage": "L'envoi a échoué. Appelez le +33 5 00 00 00 00 ou écrivez à contact@example.com."
+  },
+  "seo": {
+    "title": "Roussel Électricité, électricien à Ville-Exemple",
+    "description": "Rénovation électrique, mise en conformité, dépannage et bornes de recharge à Ville-Exemple et 30 km alentour. Devis écrit et gratuit.",
+    "ogImage": {
+      "src": "/media/placeholder-og.png",
+      "alt": "Roussel Électricité, électricien à Ville-Exemple"
+    }
+  },
+  "pwa": {
+    "enabled": true,
+    "icons": [
+      {
+        "src": "/media/icon-192.png",
+        "sizes": "192x192",
+        "purpose": "any"
+      },
+      {
+        "src": "/media/icon-512.png",
+        "sizes": "512x512",
+        "purpose": "maskable"
+      }
+    ]
+  },
+  "legal": {
+    "identity": {
+      "legalName": "Roussel Électricité SARL",
+      "legalForm": "Société à responsabilité limitée",
+      "shareCapital": "10 000 EUR",
+      "address": {
+        "street": "14 route des Exemples",
+        "postalCode": "00000",
+        "city": "Ville-Exemple",
+        "country": "France"
+      },
+      "registrationNumber": null,
+      "vatNumber": null,
+      "publicationDirector": "Marc Roussel",
+      "professionalBody": null,
+      "insurance": {
+        "insurer": "Assureur-Exemple",
+        "policy": "00-000-000",
+        "coverage": "responsabilité civile professionnelle et garantie décennale"
+      }
+    },
+    "host": {
+      "name": null,
+      "address": null,
+      "phone": null
+    },
+    "privacy": {
+      "controller": "Roussel Électricité SARL",
+      "controllerContact": "contact@example.com",
+      "retentionMonths": 36,
+      "processors": [
+        "Hébergeur du site"
+      ],
+      "transfersOutsideEu": false,
+      "supervisoryAuthority": null
+    },
+    "cookies": [],
+    "clauses": {
+      "scope": "Les présentes conditions s'appliquent aux devis acceptés et aux travaux réalisés par Roussel Électricité SARL auprès de ses clients.",
+      "prices": "Les prix sont exprimés en euros, hors taxes et toutes taxes comprises sur le devis. Le devis est valable trente jours à compter de sa date d'émission.",
+      "paymentTerms": "Un acompte de 30 pour cent est versé à la commande. Le solde est payable à la réception des travaux.",
+      "executionTerms": null,
+      "withdrawal": null,
+      "warranty": null,
+      "liability": null,
+      "governingLaw": null,
+      "mediation": null
+    },
+    "pages": [
+      {
+        "slug": "mentions-legales",
+        "kind": "legalNotice",
+        "label": "Mentions légales"
+      },
+      {
+        "slug": "conditions-generales-de-vente",
+        "kind": "terms",
+        "label": "Conditions générales de vente"
+      },
+      {
+        "slug": "politique-de-confidentialite",
+        "kind": "privacy",
+        "label": "Politique de confidentialité"
+      },
+      {
+        "slug": "cookies",
+        "kind": "cookies",
+        "label": "Cookies"
+      }
+    ]
+  }
+}

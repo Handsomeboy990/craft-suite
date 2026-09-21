@@ -3,6 +3,139 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.21.0
+
+The site template skill grew a back office. Reviewing the first version against
+what a client actually needs found six things missing, and all six require a
+server, so the deliverable is now an application rather than an exported page.
+
+### Added
+
+- The back office, in `site-template-generation` section 7 and in both
+  reference implementations. The client edits every visitor facing string,
+  every image and its alt text, both palettes, the motion intensity, the hours,
+  the contact details and the legal facts from a browser, signed in, with no
+  rebuild and no developer. The form is generated from the content contract, and
+  the same declaration is the server's allow list: a path that is not in it
+  cannot be written, whatever a request contains.
+- The way in, in section 8 and `resources/admin-security.md`: a scrypt password
+  hash set out of band by a command, server side sessions in an httpOnly cookie
+  whose Secure flag follows the protocol the request arrived on, a CSRF token on
+  every write, rate limits on the login and on the public form with a lockout
+  window, uploads checked by extension and by leading bytes with SVG refused,
+  and a server side session check on every admin route.
+- The inbox, section 9. The contact form posts to the site, the message is
+  stored before anything is announced, the back office lists unread first, and a
+  push notification reaches the client's browser when they subscribed to one.
+- The dark theme, section 4. A palette is now a pair: light and dark are both
+  authored, both measured, and neither is derived from the other. The visitor's
+  choice is applied before first paint, so nothing flashes.
+- The motion system, section 5 and `resources/motion-system.md`. One intensity
+  scalar drives every duration, travel and stagger; the reveal hides through the
+  script rather than the stylesheet, so a failed script leaves the content
+  visible; and reduced motion forces zero whatever the content file says.
+- Full width layout, section 6. `pageWidth` is a token and it is wide;
+  `proseWidth` is the only narrow measure, for long text and legal pages.
+- The site's own 404 and offline pages, with their words in the content file.
+- The installable shell, section 12 and `resources/pwa-and-push.md`: a manifest
+  generated from the content, a worker that serves the shell and the uploaded
+  media and never the back office, and a push subscription that degrades to
+  nothing when refused.
+- `resources/motion-system.md`, `resources/admin-security.md` and
+  `resources/pwa-and-push.md`.
+
+### Changed
+
+- The gate grew from ten points to sixteen, covering both themes, the back
+  office writes, the upload refusals, the rate limits, the inbox, the 404 and
+  the offline page, and the handover.
+- The reference implementations are Next.js applications with a server, a data
+  directory, a back office and an inbox. Both were run, not only built: the
+  observed results are in `examples/README.md`.
+- The `SITE_TEMPLATE` execution plan carries the server side skills the back
+  office implies, from `admin-console` and `authentication-security` through
+  `rate-limiting`, `file-handling` and `security-audit`.
+
+### Fixed
+
+Found by driving a real browser, which the first write-up had wrongly claimed
+was impossible here. Playwright and its Chromium are available; `examples/
+verification/` now holds the two scripts, twenty five checks on the portfolio
+and thirteen on the showcase.
+
+- The contact form told the visitor it had failed while the server had accepted
+  and stored the message. `event.currentTarget.reset()` ran after an await,
+  React had already cleared the event, and the throw landed in the catch that
+  shows the failure state. Every visitor would have been told their message
+  failed after it arrived, and would have sent it again or given up. The form
+  element is captured before the await.
+- The page scrolled sideways at 360px: a one word section title at display size
+  cannot break, and a flex item does not shrink below its min-content width.
+  `body { overflow-x: hidden }` was hiding it from every measurement taken on
+  the document. The crutch is removed, the section and page titles are fluid,
+  headings may break inside a word, and the flex children may shrink.
+- A push subscription that failed left the client clicking a button that
+  appeared to do nothing. Every step of subscribing and unsubscribing is caught
+  and its reason shown, with the inbox unaffected.
+- `align-items: end` replaced by `flex-end`, which the build had been warning
+  about.
+
+### Decided
+
+- The contact rate limit answers visibly rather than returning a success shaped
+  response. Hiding it would keep a crawler from learning that a limit exists, at
+  the price of a real customer believing a dropped message had been sent. On a
+  business site that trade runs the wrong way, so the refusal carries the direct
+  address instead.
+- The session cookie's Secure flag follows `x-forwarded-proto` rather than the
+  build mode. Tying it to `NODE_ENV=production` made a production build
+  impossible to sign into over http on the operator's own machine, while a real
+  deployment behind a proxy is unaffected.
+
+## 3.20.0
+
+Client sites, delivered as templates rather than as pages. One skill, one
+agent, and two reference implementations that build and export.
+
+### Added
+
+- `site-template-generation` in `dev-skills`. Builds a client website as a
+  fixed template driven by an external content file, so the site can still be
+  changed a year after delivery without a developer. It fixes the content
+  contract per kind, portfolio for a person and showcase for a company; chooses
+  the design tokens by trade rather than by taste, including a motion intensity
+  that separates an energetic profile from a technical one without a second
+  template; states which fields the client may edit and verifies each one is
+  actually wired, because a field promised in the handover and not connected is
+  the defect the client finds first; and assembles the legal pages from the
+  company's real facts, rendering a visible marker for every fact not provided
+  rather than inventing a registration number under the client's name. A clause
+  that binds is the client's own text or a marker: the template never drafts
+  one. Accessibility and responsive rules are applied while building, and a ten
+  point gate decides whether the template is finished.
+- `site-template-engineer` in `agents/development`. Scaffolds a template from a
+  trade and a kind, holds the gate, and hands over the field map. Thin, as every
+  agent here is: the expertise is in the skill.
+- Two reference implementations under the skill's `examples/`, both with
+  clearly fictional data and no photograph of any real person: a one page
+  portfolio for an invented sports coach, motion intensity 0.9, two legal pages;
+  and a multi page showcase for an invented electrical company, motion intensity
+  0.25, four legal pages, quotation form. Both build and export statically, both
+  refuse a removed required field by name, and the showcase refuses to build
+  when a legal page its kind requires is missing.
+- The `SITE_TEMPLATE` task category, with its classification row, its routing
+  phrases and its execution plan.
+
+### Decided
+
+- The palette carries two border tokens rather than one. Measuring the contrast
+  of the two reference palettes, as the skill demands, failed on exactly one
+  pair: the border, at 1.41 and 1.55 against its surface. Raising a single token
+  to 3:1 would have fixed an input boundary and made every card separator loud.
+  `border` is now decorative with no minimum, `borderStrong` draws the boundary
+  of a control and is measured at 3:1, and both references reach every required
+  ratio. The measured figures are in each reference README.
+
 ## 3.19.0
 
 A documentation audit found that the one document a new user needs did not

@@ -27,7 +27,9 @@ fail() { printf 'ERROR   %s\n' "$1"; ERRORS=$((ERRORS + 1)); }
 # Canonical counts, from the filesystem.
 # --------------------------------------------------------------------------
 
-skills_in() { find "$ROOT/$1" -name SKILL.md 2>/dev/null | wc -l | tr -d ' '; }
+skills_in() {
+  find "$ROOT/$1" -name SKILL.md -not -path '*/node_modules/*' 2>/dev/null | wc -l | tr -d ' '
+}
 agents_in() {
   ls "$ROOT/agents/$1"/*.md 2>/dev/null \
     | grep -vE '/(README|handoff-protocol)\.md$' | wc -l | tr -d ' '
@@ -49,7 +51,8 @@ ENG=$((DEV + DELIV + DEVOPS))
 SECDEV=$(skills_in security/secure-development)
 SECASSURE=$(skills_in security/security-assurance)
 
-TOTAL=$(find "$ROOT" -name SKILL.md -not -path "*/plugins/*" | wc -l | tr -d ' ')
+TOTAL=$(find "$ROOT" -name SKILL.md -not -path "*/plugins/*" \
+  -not -path '*/node_modules/*' | wc -l | tr -d ' ')
 
 AG_CORE=$(agents_in core)
 AG_DEV=$(agents_in development)

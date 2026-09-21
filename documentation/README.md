@@ -21,7 +21,7 @@ Written in English, the system language.
 | `documents-system.md` | `documents/`: the constitution, the pipeline, the boundaries |
 | `engineering-system.md` | `engineering/dev-skills`: execution chain, mandatory gates, task categories |
 | `delivery-system.md` | `engineering/delivery-skills`, `engineering/devops-skills`, the fourteen phases and their approval gates |
-| `agents.md` | skill against agent against orchestration, the twenty-five public contracts |
+| `agents.md` | skill against agent against orchestration, the twenty-six public contracts |
 | `writing-rules.md` | the writing rules, operational form |
 | `workflow.md` | the writing workflow, eleven phases, cadence, non-regression |
 
@@ -48,7 +48,7 @@ own `README.md` at the tree and category level, next to the skills.
 | `../docs/ROADMAP.md` | internal planning: what is left to build, phased and ordered by leverage |
 | `../docs/agents/README.md` | entry point for the agent architecture: what exists, what is deferred, how to install only what is needed |
 | `../docs/architecture/multi-agent-assessment.md` | historical record: what existed before that phase, what it added, what was deferred. Its figures are those of the moment it was written |
-| `../docs/architecture/AGENT_ARCHITECTURE.md` | the layered architecture, the twenty-five agents by group, the contract, safety |
+| `../docs/architecture/AGENT_ARCHITECTURE.md` | the layered architecture, the twenty-six agents by group, the contract, safety |
 | `../docs/architecture/MODEL_ROUTING.md` | why model routing is shaped the way it is, and what capability it refuses to claim |
 | `../docs/architecture/TOKEN_OPTIMIZATION.md` | the seam between the during-the-work discipline and the Control Center's after-the-fact measurement |
 | `../docs/architecture/SKILL_AGENT_MATRIX.md` | which agents a given workflow uses, when it runs in multi-agent mode |

@@ -1,0 +1,404 @@
+{
+  "site": {
+    "name": "Camille Vass",
+    "shortName": "C. Vass",
+    "locale": "fr-FR",
+    "baseUrl": "https://www.example.com",
+    "tagline": "Coach sportif indépendant, préparation  et remise en forme"
+  },
+  "theme": {
+    "profile": "energetic",
+    "palettes": {
+      "light": {
+        "surface": "#fdfcfb",
+        "surfaceAlt": "#f8e45c",
+        "foreground": "#14120f",
+        "muted": "#986a44",
+        "accent": "#f4f1ed",
+        "accentHover": "#dc8add",
+        "accentForeground": "#ffffff",
+        "border": "#e3ded7",
+        "borderStrong": "#8c847a",
+        "success": "#1c7c4a",
+        "danger": "#b3261e"
+      },
+      "dark": {
+        "surface": "#0f1115",
+        "surfaceAlt": "#171a21",
+        "foreground": "#f5f7fa",
+        "muted": "#aab2c0",
+        "accent": "#ff6a2b",
+        "accentHover": "#ff8a55",
+        "accentForeground": "#14161a",
+        "border": "#2a2f3a",
+        "borderStrong": "#626b7c",
+        "success": "#3ddc97",
+        "danger": "#ff6b6b"
+      }
+    },
+    "type": {
+      "displayFamily": "'Archivo', system-ui, sans-serif",
+      "textFamily": "'Inter', system-ui, sans-serif",
+      "scaleRatio": 1.333,
+      "displayWeight": 800,
+      "textWeight": 400
+    },
+    "radius": {
+      "sm": "4px",
+      "md": "12px",
+      "lg": "24px",
+      "pill": "999px"
+    },
+    "spacing": {
+      "unit": "8px",
+      "section": "104px",
+      "pageWidth": "1600px",
+      "proseWidth": "68ch"
+    },
+    "motion": {
+      "intensity": 0.9,
+      "baseDuration": 460,
+      "easing": "cubic-bezier(0.2, 0.7, 0.2, 1)"
+    },
+    "density": "airy"
+  },
+  "nav": [
+    {
+      "label": "Profil",
+      "href": "#about"
+    },
+    {
+      "label": "Accompagnements",
+      "href": "#offers"
+    },
+    {
+      "label": "Résultats",
+      "href": "#results"
+    },
+    {
+      "label": "Galerie",
+      "href": "#gallery"
+    },
+    {
+      "label": "Contact",
+      "href": "#contact"
+    }
+  ],
+  "ui": {
+    "skipToContent": "Aller au contenu",
+    "primaryNavLabel": "Navigation principale",
+    "footerNavLabel": "Informations légales",
+    "themeToggleLabel": "Thème",
+    "themeLight": "Clair",
+    "themeDark": "Sombre",
+    "themeSystem": "Système",
+    "contactHeading": "Contact",
+    "hoursHeading": "Horaires",
+    "form": {
+      "submitLabel": "Envoyer le message",
+      "sendingLabel": "Envoi en cours",
+      "optionalHint": "facultatif",
+      "selectPlaceholder": "Choisissez une option",
+      "requiredMessage": "ce champ est obligatoire",
+      "invalidMessage": "cette valeur n'est pas valide"
+    },
+    "notFound": {
+      "title": "Cette page n'existe pas",
+      "body": "Le lien que vous avez suivi ne mène nulle part. Les accompagnements, les résultats et le formulaire de contact sont sur la page d'accueil.",
+      "action": "Revenir à l'accueil"
+    },
+    "offline": {
+      "title": "Vous êtes hors ligne",
+      "body": "La page demandée n'a pas pu être chargée. Elle sera de nouveau accessible dès le retour de la connexion.",
+      "action": "Réessayer"
+    },
+    "install": {
+      "label": "Installer le site",
+      "dismiss": "Plus tard"
+    },
+    "legalPendingNotice": "Certaines informations légales n'ont pas encore été fournies. Elles apparaissent entre crochets et doivent être complétées avant la mise en ligne."
+  },
+  "hero": {
+    "title": "Retrouver de la force, sans y laisser vos genoux",
+    "subtitle": "Préparation physique individuelle à Ville-Exemple. Séances en salle, à domicile ou en extérieur.",
+    "image": {
+      "src": "/media/placeholder-hero.png",
+      "alt": "Séance de préparation physique en extérieur, au lever du jour"
+    },
+    "actions": [
+      {
+        "label": "Demander une séance d'essai",
+        "href": "#contact",
+        "variant": "primary"
+      },
+      {
+        "label": "Voir les accompagnements",
+        "href": "#offers",
+        "variant": "ghost"
+      }
+    ]
+  },
+  "about": {
+    "heading": "Qui je suis",
+    "body": [
+      "Je travaille depuis neuf ans avec des personnes qui n'ont pas de passé sportif récent : reprise après une blessure, après une grossesse, après quinze ans de bureau.",
+      "Je ne vends pas de programme type. Chaque cycle part d'un bilan, se corrige toutes les quatre semaines, et s'arrête quand vous tenez seul."
+    ],
+    "portrait": {
+      "src": "/media/placeholder-portrait.png",
+      "alt": "Portrait de Camille Vasseur en tenue de travail"
+    },
+    "facts": [
+      {
+        "label": "Expérience",
+        "value": "9 ans"
+      },
+      {
+        "label": "Suivi en cours",
+        "value": "24 personnes"
+      },
+      {
+        "label": "Lieu",
+        "value": "Ville-Exemple et 20 km"
+      }
+    ]
+  },
+  "offers": {
+    "heading": "Accompagnements",
+    "items": [
+      {
+        "title": "Bilan et plan de reprise",
+        "description": "Un rendez-vous de 90 minutes : tests, historique, objectifs, et le plan des huit premières semaines.",
+        "price": "90 EUR",
+        "duration": "90 min",
+        "highlight": false
+      },
+      {
+        "title": "Suivi individuel",
+        "description": "Deux séances par semaine, ajustement du plan toutes les quatre semaines, messagerie entre les séances.",
+        "price": "à partir de 240 EUR par mois",
+        "duration": "2 x 60 min par semaine",
+        "highlight": true
+      },
+      {
+        "title": "Duo",
+        "description": "La même chose à deux, même niveau requis. Tarif par personne.",
+        "price": "160 EUR par mois et par personne",
+        "duration": "2 x 60 min par semaine",
+        "highlight": false
+      }
+    ]
+  },
+  "results": {
+    "heading": "En chiffres",
+    "items": [
+      {
+        "metric": "24",
+        "label": "personnes suivies",
+        "detail": "en accompagnement individuel cette année"
+      },
+      {
+        "metric": "8 sem.",
+        "label": "premier cycle",
+        "detail": "durée du plan de reprise avant réévaluation"
+      },
+      {
+        "metric": "3",
+        "label": "séances hebdomadaires",
+        "detail": "maximum, pour laisser place à la récupération"
+      }
+    ]
+  },
+  "gallery": {
+    "heading": "Galerie",
+    "items": [
+      {
+        "src": "/media/placeholder-gallery-1.png",
+        "alt": "Travail de gainage sur tapis",
+        "caption": "Renforcement, séance du matin"
+      },
+      {
+        "src": "/media/placeholder-gallery-2.png",
+        "alt": "Montée d'escalier chronométrée en extérieur",
+        "caption": "Cardio en extérieur"
+      },
+      {
+        "src": "/media/placeholder-gallery-3.png",
+        "alt": "Correction d'un mouvement de soulevé de terre",
+        "caption": "Technique avant charge"
+      },
+      {
+        "src": "/media/placeholder-gallery-4.png",
+        "alt": "Étirements de fin de séance",
+        "caption": "Retour au calme"
+      }
+    ]
+  },
+  "testimonials": {
+    "heading": "Ils sont passés par là",
+    "items": [
+      {
+        "quote": "Je suis arrivée après deux ans d'arrêt et une cheville fragile. Six mois plus tard je cours quarante minutes sans douleur.",
+        "author": "Léa M.",
+        "context": "Reprise après blessure"
+      },
+      {
+        "quote": "Ce que j'ai apprécié : on m'a expliqué pourquoi chaque exercice était là. J'ai fini par savoir m'entraîner seul.",
+        "author": "Nicolas T.",
+        "context": "Remise en forme"
+      }
+    ]
+  },
+  "contactSection": {
+    "heading": "Parler d'abord, s'inscrire ensuite",
+    "body": "Écrivez-moi ce que vous voulez retrouver et ce qui vous en empêche aujourd'hui. Je réponds sous deux jours ouvrés.",
+    "fields": [
+      {
+        "name": "name",
+        "label": "Votre nom",
+        "type": "text",
+        "required": true,
+        "placeholder": "Prénom et nom"
+      },
+      {
+        "name": "email",
+        "label": "Votre adresse e-mail",
+        "type": "email",
+        "required": true,
+        "placeholder": "vous@example.com"
+      },
+      {
+        "name": "phone",
+        "label": "Votre téléphone",
+        "type": "tel",
+        "required": false,
+        "placeholder": "Facultatif"
+      },
+      {
+        "name": "goal",
+        "label": "Ce que vous cherchez",
+        "type": "select",
+        "required": true,
+        "options": [
+          "Reprise après blessure",
+          "Remise en forme",
+          "Préparation à une épreuve",
+          "Autre"
+        ]
+      },
+      {
+        "name": "message",
+        "label": "Votre message",
+        "type": "textarea",
+        "required": true,
+        "placeholder": "Votre situation en quelques lignes"
+      }
+    ]
+  },
+  "contact": {
+    "email": "contact@example.com",
+    "phone": "+33 6 00 00 00 00",
+    "address": {
+      "street": "8 rue des Exemples",
+      "postalCode": "00000",
+      "city": "Ville-Exemple",
+      "country": "France"
+    },
+    "hours": [
+      {
+        "days": "Lundi au vendredi",
+        "opens": "07:00",
+        "closes": "20:00"
+      },
+      {
+        "days": "Samedi",
+        "opens": "09:00",
+        "closes": "13:00"
+      }
+    ],
+    "social": [
+      {
+        "platform": "Instagram",
+        "url": "https://www.example.com/social"
+      }
+    ]
+  },
+  "forms": {
+    "successMessage": "Message envoyé. Vous recevrez une réponse sous deux jours ouvrés.",
+    "errorMessage": "L'envoi a échoué. Écrivez directement à contact@example.com."
+  },
+  "seo": {
+    "title": "Camille Vasseur, coach sportif  à Ville-Exemple",
+    "description": "Préparation physique , reprise après blessure et remise en forme à Ville-Exemple. Bilan, plan sur huit semaines, suivi individuel ou en duo.",
+    "ogImage": {
+      "src": "/media/placeholder-og.png",
+      "alt": "Camille Vasseur, coach sportif à Ville-Exemple"
+    }
+  },
+  "pwa": {
+    "enabled": true,
+    "icons": [
+      {
+        "src": "/media/icon-192.png",
+        "sizes": "192x192",
+        "purpose": "any"
+      },
+      {
+        "src": "/media/icon-512.png",
+        "sizes": "512x512",
+        "purpose": "maskable"
+      }
+    ]
+  },
+  "legal": {
+    "identity": {
+      "legalName": "Camille Vasseur",
+      "legalForm": "Entrepreneur individuel",
+      "shareCapital": null,
+      "address": {
+        "street": "8 rue des Exemples",
+        "postalCode": "00000",
+        "city": "Ville-Exemple",
+        "country": "France"
+      },
+      "registrationNumber": null,
+      "vatNumber": null,
+      "publicationDirector": "Camille Vasseur",
+      "professionalBody": null,
+      "insurance": null
+    },
+    "host": {
+      "name": null,
+      "address": null,
+      "phone": null
+    },
+    "privacy": {
+      "controller": "Camille Vasseur",
+      "controllerContact": "contact@example.com",
+      "retentionMonths": 24,
+      "processors": [
+        "Hébergeur du site"
+      ],
+      "transfersOutsideEu": false,
+      "supervisoryAuthority": null
+    },
+    "cookies": [],
+    "clauses": {
+      "liability": null,
+      "governingLaw": null,
+      "mediation": null
+    },
+    "pages": [
+      {
+        "slug": "mentions-legales",
+        "kind": "legalNotice",
+        "label": "Mentions légales"
+      },
+      {
+        "slug": "politique-de-confidentialite",
+        "kind": "privacy",
+        "label": "Politique de confidentialité"
+      }
+    ]
+  }
+}

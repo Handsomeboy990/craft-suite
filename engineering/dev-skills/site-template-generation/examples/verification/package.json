@@ -1,0 +1,14 @@
+{
+  "name": "site-template-verification",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Drives a real browser through the gate items that only a browser can prove.",
+  "scripts": {
+    "portfolio": "node portfolio.mjs",
+    "showcase": "node showcase.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.63.0"
+  }
+}

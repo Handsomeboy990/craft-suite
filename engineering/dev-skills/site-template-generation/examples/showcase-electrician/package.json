@@ -1,0 +1,26 @@
+{
+  "name": "showcase-electrician",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "set-password": "node scripts/set-password.mjs",
+    "push-keys": "node scripts/push-keys.mjs",
+    "backup": "tar -czf backup-$(date +%Y%m%d-%H%M%S).tar.gz data",
+    "seed-media": "node scripts/seed-media.mjs"
+  },
+  "dependencies": {
+    "next": "15.5.4",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "web-push": "3.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "@types/react": "19.0.2",
+    "@types/web-push": "3.6.4",
+    "typescript": "5.7.2"
+  }
+}
