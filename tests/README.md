@@ -80,7 +80,7 @@ Thirteen checks on internal coherence.
 | 7 | no orphan engineering skill, absent from every plan and phase |
 | 8 | every declared dependency resolves, in every tree |
 | 9 | every `Interfaces` cross reference resolves, in every procedural tree |
-| 10 | the twenty-five agent definitions, with their eight mandatory sections |
+| 10 | the twenty-six agent definitions, with their eight mandatory sections |
 | 11 | agents cite only real skills |
 | 12 | the document pipeline: `document-core` declared, design before production |
 | 13 | `shared/` depends on nothing, so every tree can call it |

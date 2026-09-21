@@ -11,8 +11,11 @@ files() {
   # plugins/ holds generated copies of the trees, which are already checked at
   # their canonical location; sweeping the copies too is redundant, exactly as
   # dist/ is excluded. tests/validate-plugins.sh keeps the copies in sync.
+  # node_modules/ belongs to whoever ran a reference implementation: it is other
+  # people's code, it is never committed, and its prose is not ours to rule on.
   find "$ROOT" -type f -name '*.md' \
-    -not -path '*/.git/*' -not -path '*/dist/*' -not -path '*/plugins/*' | sort
+    -not -path '*/.git/*' -not -path '*/dist/*' -not -path '*/plugins/*' \
+    -not -path '*/node_modules/*' | sort
 }
 
 report_error() {
@@ -73,7 +76,7 @@ while IFS= read -r file; do
   fi
 done < <(find "$ROOT/writing" "$ROOT/documents" "$ROOT/engineering" "$ROOT/shared" \
   "$ROOT/security" "$ROOT/research" "$ROOT/career" "$ROOT/opportunity" \
-  -type f -name '*.md' 2>/dev/null | sort)
+  -type f -name '*.md' -not -path '*/node_modules/*' 2>/dev/null | sort)
 
 # Prose lines only: outside fenced code blocks, where straight quotes are
 # syntax rather than a typographic fault.

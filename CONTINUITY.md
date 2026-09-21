@@ -548,11 +548,79 @@ Session 26, the documentation audit and what it uncovered, version 3.19.0:
   make the file agree with the instruction, and would double as a live test of
   this release's `--configure` fix.
 
+Session 27, the site-template-generation skill, version 3.20.0:
+
+- `site-template-generation` skill (`engineering/dev-skills/`): builds a client
+  website as a fixed template driven by an external content file, so the client
+  can still change it a year later without a developer. Content contract per
+  kind (portfolio for a person, showcase for a company), design tokens chosen by
+  trade with a motion intensity scalar, a no-code field map that is verified to
+  be wired rather than promised, legal pages assembled from the company's real
+  facts with a visible marker for every fact not provided, and a ten point gate.
+- `site-template-engineer` agent (`agents/development/`), thin as the others:
+  it scaffolds from a trade and a kind and holds the gate.
+- New `SITE_TEMPLATE` task category with its classification row, its routing
+  phrases and its execution plan, so the skill is not an orphan.
+- Two reference implementations under the skill's `examples/`, both Next.js with
+  a static export and clearly fictional data: `portfolio-sports-coach` (one page,
+  intensity 0.9, two legal pages) and `showcase-electrician` (four pages,
+  intensity 0.25, four legal pages). Both were installed and built for real:
+  6 and 11 static pages exported, and the two deliberate failures were observed
+  rather than described, a removed `hero.title` and a removed terms page each
+  stopping the build with the field named.
+- Counts 166 to 167 skills, dev-skills 55 to 56, engineering 82 to 83, agents
+  25 to 26, engineering bundle 84 to 85 with 25 agents.
+
+Session 28, the back office behind the site template, version 3.21.0:
+
+- Review of the 3.20.0 skill against what a client site actually needs found six
+  gaps: no visible animation, no administration surface, a framework 404, one
+  theme, a centred narrow column, and a contact form with no destination. All
+  six require a server, so `site-template-generation` now produces an
+  application rather than an exported page, and says so in section 13.
+- Added to the skill: the back office (section 7), its authentication and rate
+  limits (section 8, `resources/admin-security.md`), the inbox (section 9), the
+  dark theme as an authored pair (section 4), the motion system (section 5,
+  `resources/motion-system.md`), full width layout (section 6), the 404 and
+  offline pages (section 11), and the installable shell (section 12,
+  `resources/pwa-and-push.md`). The gate went from ten points to sixteen.
+- Both reference implementations were rebuilt as Next.js applications with a
+  data directory, a back office and an inbox, and both were run: the observed
+  results, twenty three checks, are in `examples/README.md`. The admin surface
+  was attacked deliberately, without a session, without the CSRF token, with a
+  path outside the schema, with a disguised upload, past the login limit, and
+  after signing out. Every refusal was observed rather than assumed.
+- Two decisions came out of running it rather than writing it. The contact rate
+  limit now answers visibly, because a success shaped refusal loses a real
+  customer's message to protect a detail a crawler would learn anyway. The
+  session cookie's Secure flag now follows `x-forwarded-proto` rather than the
+  build mode, because tying it to production made a production build impossible
+  to sign into locally.
+- The `SITE_TEMPLATE` plan carries the server side skills the back office
+  implies. Counts unchanged: the skill and the agent already existed.
+- The write-up first said the browser items of the gate could not be checked
+  here, and that was false: Playwright and its Chromium are available. Driving
+  them found three defects no request library could see. The worst was a form
+  that told the visitor it had failed while the server had stored the message,
+  because `event.currentTarget.reset()` ran after an await and the throw landed
+  in the catch that shows the failure. The second was 32px of horizontal
+  overflow at 360px, hidden from every document level measurement by a
+  `body { overflow-x: hidden }`. The third was a push subscription that failed
+  silently. The lesson to carry: a claim of "cannot be verified here" is itself
+  a claim, and it needs checking before it is written down.
+- `examples/verification/` holds the two scripts, so the claims are rerunnable
+  rather than asserted. What they cannot prove is named in their README: push
+  delivery needs a real push service, and no assistive technology is available.
+- The admin form and the server allow list are one declaration, `lib/schema.ts`
+  in each reference. That is the piece worth carrying forward: it is why a field
+  added to the contract appears in the back office without new admin code, and
+  why an unknown path is refused without a second list to maintain.
+
 ## Current state
 
 Working today:
 
-- the six scripts pass: 166 skills, 0 errors, 1 pre-existing warning on a
+- the six scripts pass: 167 skills, 0 errors, 1 pre-existing warning on a
   deliberate typographic counter-example;
 - `install.sh` works in every mode, including the four new scopes, verified
   against a sandbox target through `CLAUDE_SKILLS_DIR`;

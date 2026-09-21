@@ -24,7 +24,7 @@ dependency the tree's skills declare.
 |---|---|---|---|
 | `craft-writing` | the writing tree | 42 | 44 |
 | `craft-documents` | the documents tree | 7 | 9 |
-| `craft-engineering` | the engineering tree and its agents | 82 | 84 plus 24 agents |
+| `craft-engineering` | the engineering tree and its agents | 83 | 85 plus 25 agents |
 | `craft-security` | the security tree and its agents | 12 | 18 plus 2 agents |
 | `craft-research` | the research tree | 5 | 7 |
 | `craft-career` | the career tree | 7 | 9 |

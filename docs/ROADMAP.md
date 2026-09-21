@@ -71,6 +71,16 @@ a real reference.
   picks for the user, never uses a template against its licence, and never ships
   one unchanged. Wired into the FRONTEND and UI_UX plans as a conditional step,
   run by `design-research` and `ui-ux-engineer` before building.
+- [x] **`site-template-generation` skill and its agent** (L). Requested by the
+  user after Phase 7. Builds a client site as a template driven by a content
+  file: the contract per kind, portfolio for a person and showcase for a
+  company; tokens chosen by trade, with a motion intensity scalar rather than a
+  second template; a no-code field map verified to be wired; legal pages
+  assembled from the company's real facts, with a visible marker for every fact
+  not provided and no clause the template drafted itself; a ten point gate.
+  `site-template-engineer` scaffolds from a trade and a kind. Two reference
+  implementations under the skill's `examples/`, a coach portfolio and an
+  electrician showcase, both built and exported for real.
 - [x] **Exercise the frontend agents on a motion task** (M). Done on a real
   target: the `lauret-chacha` portfolio. A read-only audit dispatched
   `ui-ux-engineer` on its design and motion, then the `animation` skill drove a

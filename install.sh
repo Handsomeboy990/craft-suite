@@ -8,17 +8,17 @@
 #   bash install.sh                ask what to install
 #   bash install.sh --writing      creative writing, 42 skills
 #   bash install.sh --documents    professional documents, 7 skills
-#   bash install.sh --dev          software engineering, its skills and 24 agents
+#   bash install.sh --dev          software engineering, its skills and 25 agents
 #   bash install.sh --security     defensive security, 12 skills and 2 agents
 #   bash install.sh --research     general research, 5 skills
 #   bash install.sh --career       job search and applications, 7 skills
 #   bash install.sh --opportunity  ideation, hackathons, business, 9 skills
 #   bash install.sh --shared       the 2 cross domain skills only
-#   bash install.sh --all          everything, all skills and 25 agents
+#   bash install.sh --all          everything, all skills and 26 agents
 #   bash install.sh --group a,b    only these categories
 #   bash install.sh --skill a,b    only these skills, with their dependencies
 #   bash install.sh --list         print every installable skill and exit
-#   bash install.sh --agents       the 25 agents only
+#   bash install.sh --agents       the 26 agents only
 #   bash install.sh --no-agents    skills without agents
 #   bash install.sh --configure    ask for the user specific values only
 #   bash install.sh --control-center   start the local Control Center and exit
@@ -526,12 +526,12 @@ interactive_select() {
     printf 'Nothing is installed until you choose. Pick what you actually do.\n\n'
     printf '   1) Creative writing        %2s skills   novels, poetry, screenplay, editing\n' "$writing"
     printf '   2) Professional documents  %2s skills   guides, manuals, reports, letters, PDF\n' "$documents"
-    printf '   3) Software engineering    %2s skills   plus 24 agents\n' "$engineering"
+    printf '   3) Software engineering    %2s skills   plus 25 agents\n' "$engineering"
     printf '   4) Cybersecurity           %2s skills   threat models, audits, hardening\n' "$security"
     printf '   5) Research                %2s skills   sources, verification, synthesis\n' "$research"
     printf '   6) Career                  %2s skills   job search, CV, interviews\n' "$career"
     printf '   7) Opportunity             %2s skills   ideation, hackathons, business\n' "$opportunity"
-    printf '   8) Everything             %3s skills   plus 25 agents\n' "$total"
+    printf '   8) Everything             %3s skills   plus 26 agents\n' "$total"
     printf '   9) Individual skills, chosen by name\n'
     printf '  10) One or more categories, for example genres only\n\n'
     printf 'Every choice also installs the 2 cross domain skills, self-critique and\n'
@@ -1263,6 +1263,32 @@ bash "$ROOT/tests/validate-structure.sh" >/dev/null 2>&1 || {
   exit 1
 }
 
+# Copies one skill directory without the artefacts a reader's own machine leaves
+# beside it. A skill whose examples are a runnable project acquires a
+# node_modules, a build directory and runtime state on the machine of whoever
+# ran it. None of that is the skill: the build output would multiply an install
+# a thousandfold, and the runtime state would carry that operator's password
+# hash, sessions and received messages into every later install. The example
+# content file is kept, because it is the worked example.
+copy_skill() {
+  local source="$1" destination="$2"
+  mkdir -p "$destination"
+  ( cd "$source" && tar -cf - \
+      --exclude='node_modules' \
+      --exclude='.next' \
+      --exclude='out' \
+      --exclude='*.tsbuildinfo' \
+      --exclude='next-env.d.ts' \
+      --exclude='package-lock.json' \
+      --exclude='uploads' \
+      --exclude='admin.json' \
+      --exclude='sessions.json' \
+      --exclude='messages.json' \
+      --exclude='subscriptions.json' \
+      --exclude='rate-limits.json' \
+      . ) | ( cd "$destination" && tar -xf - )
+}
+
 if [ "$WITH_SKILLS" = "yes" ]; then
   mkdir -p "$TARGET"
   count=0
@@ -1271,7 +1297,7 @@ if [ "$WITH_SKILLS" = "yes" ]; then
     [ -n "$skill" ] || continue
     name="$(basename "$skill")"
     rm -rf "${TARGET:?}/$name"
-    cp -r "$skill" "$TARGET/$name"
+    copy_skill "$skill" "$TARGET/$name"
     count=$((count + 1))
     added="$added $name"
   done < <(selected_skill_dirs)
