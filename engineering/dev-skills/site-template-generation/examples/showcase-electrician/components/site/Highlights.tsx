@@ -4,7 +4,7 @@ import Reveal from './Reveal';
 
 type Highlights = NonNullable<ShowcaseContent['home']['highlights']>;
 
-export default function Highlights({ highlights }: { highlights: Highlights }) {
+export default function Highlights({ highlights, stagger }: { highlights: Highlights; stagger: boolean }) {
   return (
     <section className="section" aria-labelledby="highlights-title">
       <div className="page">
@@ -13,10 +13,10 @@ export default function Highlights({ highlights }: { highlights: Highlights }) {
             {highlights.heading}
           </h2>
         </div>
-        <Reveal stagger>
+        <Reveal stagger={stagger}>
           <ul className="grid grid--cards">
             {highlights.items.map((item, index) => (
-              <li key={item.title} className="card" style={{ '--i': index } as CSSProperties}>
+              <li key={item.title} className="card reveal-item" style={{ '--i': index } as CSSProperties}>
                 <h3 className="card__title">{item.title}</h3>
                 <p className="card__body">{item.body}</p>
               </li>

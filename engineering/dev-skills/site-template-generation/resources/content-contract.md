@@ -19,12 +19,13 @@ optional, and absent means the section does not render at all.
 | `site.locale` | R | string | the BCP 47 tag driving the html lang attribute |
 | `site.baseUrl` | R | string | the canonical origin, used by metadata and the manifest |
 | `site.tagline` | O | string | one line under the name |
+| `site.favicon` | O | image | what the browser tab shows, uploaded by the client |
 | `theme.palettes.light` | R | palette | the light theme, see `trade-profiles.md` |
 | `theme.palettes.dark` | R | palette | the dark theme, authored on its own |
 | `theme.type` | R | object | display family, text family, scale ratio, weights |
 | `theme.radius` | R | object | sm, md, lg, pill |
 | `theme.spacing` | R | object | unit, section, `pageWidth`, `proseWidth` |
-| `theme.motion` | R | object | intensity 0 to 1, base duration, easing |
+| `theme.motion` | R | object | signature, intensity 0 to 1, base duration, easing |
 | `theme.density` | R | string | compact, regular or airy |
 | `nav` | R | array | ordered entries, each `{ label, href }` |
 | `ui` | R | object | the interface strings, below |

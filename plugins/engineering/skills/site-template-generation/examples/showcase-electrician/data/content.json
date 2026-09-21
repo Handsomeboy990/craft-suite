@@ -4,7 +4,11 @@
     "shortName": "Roussel",
     "locale": "fr-FR",
     "baseUrl": "https://www.example.com",
-    "tagline": "Électricien à Ville-Exemple depuis 2004"
+    "tagline": "Électricien à Ville-Exemple depuis 2004",
+    "favicon": {
+      "src": "/media/icon-192.png",
+      "alt": "Icône du site Roussel Électricité"
+    }
   },
   "theme": {
     "profile": "technical",
@@ -56,6 +60,7 @@
       "proseWidth": "70ch"
     },
     "motion": {
+      "signature": "technical",
       "intensity": 0.25,
       "baseDuration": 320,
       "easing": "ease-out"
@@ -98,6 +103,8 @@
   "ui": {
     "skipToContent": "Aller au contenu",
     "primaryNavLabel": "Navigation principale",
+    "menuOpen": "Menu",
+    "menuClose": "Fermer",
     "footerNavLabel": "Informations légales",
     "themeToggleLabel": "Thème",
     "themeLight": "Clair",

@@ -15,6 +15,8 @@ not prose, it is the contract.
 | Legal | the legal facts and the clauses provided by counsel | the content file |
 | Messages | the contact inbox: unread, read, archived | the message store |
 | Notifications | the browser subscription for a new message | the subscription store |
+| Identity | the favicon, the installed icons, the social preview image | the uploads and the content file |
+| Security | the password of this account, given the current one | the credential store, and every session |
 
 ## Editable, not editable
 
@@ -29,6 +31,8 @@ not prose, it is the contract.
 | the search title and description | what a form does with a submission |
 | the form fields and where they are sent | the legal clauses that bind |
 | the legal facts | the secrets the instance runs on |
+| the favicon and the installed icons | |
+| the password of the account | |
 
 ## The shape the content file must keep
 
@@ -81,3 +85,6 @@ the client finds first and trusts you least for.
 - How the site is started, restarted and updated, and what happens to the data
   directory in each case.
 - Which secrets the instance needs, and who holds them.
+- That changing the password ends every session, including the one changing it,
+  and that the first password was set on the server while every later one is
+  theirs to set.

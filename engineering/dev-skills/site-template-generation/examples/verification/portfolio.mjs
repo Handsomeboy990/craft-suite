@@ -45,25 +45,26 @@ const browser = await chromium.launch();
   const page = await context.newPage();
   await page.goto(BASE);
   await page.waitForTimeout(600);
-  const hidden = await page.locator('.reveal:not(.is-visible)').count();
-  const revealed = await page.locator('.reveal.is-visible').count();
-  record('the reveal runs on the sections in view', revealed > 0, `${revealed} revealed, ${hidden} still waiting`);
+  // Nothing below the first screen is revealed on load, which is the point: the
+  // hero has its entrance and the rest waits for the visitor.
+  const armed = await page.locator('.motion-on').count();
+  record('the sections below the fold are armed and waiting', armed > 0, `${armed} armed`);
 
   await page.locator('#contact').scrollIntoViewIfNeeded();
-  await page.waitForTimeout(800);
-  const afterScroll = await page.locator('.reveal.is-visible').count();
-  record('scrolling reveals further sections', afterScroll > revealed, `${revealed} -> ${afterScroll}`);
+  await page.waitForTimeout(1000);
+  const afterScroll = await page.locator('.motion-on.is-visible').count();
+  record('scrolling reveals them', afterScroll > 0, `${afterScroll} revealed`);
   await context.close();
 
   const reduced = await browser.newContext({ reducedMotion: 'reduce' });
   const page2 = await reduced.newPage();
   await page2.goto(BASE);
   await page2.waitForTimeout(400);
-  const withReduced = await page2.locator('.reveal').count();
+  const withReduced = await page2.locator('.motion-on').count();
   const everythingVisible = await page2.evaluate(() =>
     [...document.querySelectorAll('section')].every((node) =>
       getComputedStyle(node).opacity === '1'));
-  record('prefers-reduced-motion adds no reveal at all', withReduced === 0, `${withReduced} reveal nodes`);
+  record('prefers-reduced-motion adds no motion class at all', withReduced === 0, `${withReduced} nodes`);
   record('every section is visible with reduced motion', everythingVisible);
   await reduced.close();
 }
