@@ -19,6 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: { default: content.seo.title, template: `%s | ${content.site.name}` },
     description: content.seo.description,
     manifest: content.pwa.enabled ? '/manifest.webmanifest' : undefined,
+    icons: content.site.favicon ? { icon: content.site.favicon.src } : undefined,
     openGraph: {
       title: content.seo.title,
       description: content.seo.description,

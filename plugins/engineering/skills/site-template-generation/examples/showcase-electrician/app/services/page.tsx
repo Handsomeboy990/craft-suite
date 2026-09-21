@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getContent } from '@/lib/content';
+import { has } from '@/lib/motion';
 import PageHeader from '@/components/site/PageHeader';
 import ServiceList from '@/components/site/ServiceList';
 
@@ -19,6 +20,7 @@ export default function ServicesPage() {
         heading={content.services.heading}
         intro={content.services.intro}
         items={content.services.items}
+        stagger={has(content.theme.motion.signature, 'stagger')}
         detailed
       />
     </>

@@ -7,11 +7,13 @@ export default function ServiceList({
   heading,
   intro,
   items,
+  stagger,
   detailed = false,
 }: {
   heading: string;
   intro?: string;
   items: Service[];
+  stagger: boolean;
   detailed?: boolean;
 }) {
   return (
@@ -24,13 +26,13 @@ export default function ServiceList({
           {intro ? <p className="section__lead">{intro}</p> : null}
         </div>
 
-        <Reveal stagger>
+        <Reveal stagger={stagger}>
           <ul className={detailed ? 'services services--detailed' : 'grid grid--cards'}>
             {items.map((service, index) => (
               <li
                 key={service.slug}
                 id={service.slug}
-                className={detailed ? 'service' : 'card'}
+                className={detailed ? 'service reveal-item' : 'card reveal-item'}
                 style={{ '--i': index } as CSSProperties}
               >
                 {detailed && service.image ? (

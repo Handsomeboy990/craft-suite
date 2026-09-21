@@ -5,7 +5,7 @@ import Reveal from './Reveal';
 
 type Gallery = NonNullable<PortfolioContent['gallery']>;
 
-export default function Gallery({ gallery }: { gallery: Gallery }) {
+export default function Gallery({ gallery, stagger }: { gallery: Gallery; stagger: boolean }) {
   return (
     <section id="gallery" className="section" aria-labelledby="gallery-title">
       <div className="page">
@@ -14,10 +14,10 @@ export default function Gallery({ gallery }: { gallery: Gallery }) {
             {gallery.heading}
           </h2>
         </div>
-        <Reveal stagger>
+        <Reveal stagger={stagger}>
           <ul className="grid grid--media gallery">
             {gallery.items.map((item, index) => (
-              <li key={item.src} className="gallery__item" style={{ '--i': index } as CSSProperties}>
+              <li key={item.src} className="gallery__item reveal-item" style={{ '--i': index } as CSSProperties}>
                 <figure>
                   <div className="gallery__media">
                     <Image

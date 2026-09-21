@@ -70,6 +70,7 @@ export const GROUPS: Group[] = [
       { path: 'site.name', label: 'Nom affiché', kind: 'text', changes: 'en-tête, pied de page, titres' },
       { path: 'site.shortName', label: 'Nom court (application installée)', kind: 'text', changes: "le nom sous l'icône une fois le site installé" },
       { path: 'site.tagline', label: 'Accroche', kind: 'text', changes: "la ligne sous le nom dans l'en-tête" },
+      { path: 'site.favicon', label: "Icône de l'onglet (favicon)", kind: 'image', changes: "l'icône affichée par le navigateur dans son onglet" },
       { path: 'company.legalName', label: 'Raison sociale', kind: 'text', changes: 'les pages légales' },
       { path: 'company.tradeName', label: 'Nom commercial', kind: 'text', changes: 'les pages légales' },
       { path: 'company.activity', label: "Phrase d'activité", kind: 'textarea', changes: 'les en-têtes de page et la description' },
@@ -263,6 +264,8 @@ export const GROUPS: Group[] = [
       { path: 'ui.contactHeading', label: 'Titre du bloc coordonnées', kind: 'text', changes: 'la page devis' },
       { path: 'ui.hoursHeading', label: 'Titre des horaires', kind: 'text', changes: 'le pied de page' },
       { path: 'ui.serviceAreaHeading', label: "Titre de la zone d'intervention", kind: 'text', changes: 'le pied de page et la page devis' },
+      { path: 'ui.menuOpen', label: 'Bouton menu, ouvrir', kind: 'text', changes: 'le menu sur mobile' },
+      { path: 'ui.menuClose', label: 'Bouton menu, fermer', kind: 'text', changes: 'le menu sur mobile' },
       { path: 'ui.form.submitLabel', label: 'Bouton envoyer', kind: 'text', changes: 'le formulaire' },
       { path: 'ui.form.sendingLabel', label: 'Bouton pendant envoi', kind: 'text', changes: 'le formulaire' },
       { path: 'ui.form.requiredMessage', label: 'Message champ obligatoire', kind: 'text', changes: 'le refus affiché quand un champ obligatoire est vide' },
@@ -276,6 +279,14 @@ export const GROUPS: Group[] = [
     fields: [
       ...palette('light', 'Clair'),
       ...palette('dark', 'Sombre'),
+      {
+        path: 'theme.motion.signature',
+        label: 'Style d’animation (métier)',
+        kind: 'select',
+        options: ['energetic', 'creative', 'crafted', 'technical', 'clinical'],
+        hint: "Décide quels effets existent : entrée, révélation, cascade, compteurs, parallaxe, relief. Un métier technique en garde deux.",
+        changes: 'la nature des mouvements sur tout le site',
+      },
       {
         path: 'theme.motion.intensity',
         label: "Intensité de l'animation",

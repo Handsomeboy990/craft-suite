@@ -1,4 +1,5 @@
 import type { ShowcaseContent } from '@/lib/types';
+import SiteNav from './SiteNav';
 import ThemeToggle from './ThemeToggle';
 
 export default function SiteHeader({ content }: { content: ShowcaseContent }) {
@@ -14,23 +15,16 @@ export default function SiteHeader({ content }: { content: ShowcaseContent }) {
             <span className="site-header__name">{site.name}</span>
             {site.tagline ? <span className="site-header__tagline">{site.tagline}</span> : null}
           </a>
-          <nav aria-label={ui.primaryNavLabel}>
-            <ul className="site-header__nav">
-              {pages
-                .filter((page) => page.inNav)
-                .map((page) => (
-                  <li key={page.href}>
-                    <a href={page.href}>{page.label}</a>
-                  </li>
-                ))}
-            </ul>
-          </nav>
+          {/* On a trade site the telephone outranks everything else in the
+              header, so it stays visible at every width rather than hiding
+              inside the menu. */}
           {contact.phone ? (
             <a className="site-header__phone" href={`tel:${contact.phone.replace(/\s/g, '')}`}>
               {contact.phone}
             </a>
           ) : null}
           <ThemeToggle ui={ui} />
+          <SiteNav pages={pages} ui={ui} />
         </div>
       </header>
     </>

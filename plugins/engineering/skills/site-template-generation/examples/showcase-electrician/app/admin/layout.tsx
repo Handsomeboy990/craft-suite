@@ -17,6 +17,7 @@ const LINKS = [
   ['/admin/media', 'Images'],
   ['/admin/theme', 'Couleurs'],
   ['/admin/messages', 'Messages'],
+  ['/admin/security', 'Sécurité'],
 ];
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
