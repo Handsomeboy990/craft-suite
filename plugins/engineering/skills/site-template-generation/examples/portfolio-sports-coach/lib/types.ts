@@ -32,9 +32,10 @@ export type Theme = {
   };
   radius: { sm: string; md: string; lg: string; pill: string };
   spacing: { unit: string; section: string; pageWidth: string; proseWidth: string };
-  /** intensity between 0 and 1 scales every duration and travel distance.
-   *  0 disables motion; prefers-reduced-motion forces 0 whatever this says. */
-  motion: { intensity: number; baseDuration: number; easing: string };
+  /** `signature` names which effects exist at all, after the trade;
+   *  `intensity` between 0 and 1 says how far they go. 0 disables motion, and
+   *  prefers-reduced-motion forces 0 whatever this says. */
+  motion: { signature: string; intensity: number; baseDuration: number; easing: string };
   density: 'compact' | 'regular' | 'airy';
 };
 
@@ -66,6 +67,8 @@ export type UiStrings = {
   themeSystem: string;
   contactHeading: string;
   hoursHeading: string;
+  menuOpen: string;
+  menuClose: string;
   form: {
     submitLabel: string;
     sendingLabel: string;
@@ -109,7 +112,15 @@ export type LegalBlock = {
 };
 
 export type PortfolioContent = {
-  site: { name: string; shortName?: string; locale: string; baseUrl: string; tagline?: string };
+  site: {
+    name: string;
+    shortName?: string;
+    locale: string;
+    baseUrl: string;
+    tagline?: string;
+    /** What the browser tab shows. Uploaded by the client like any other image. */
+    favicon?: ImageRef;
+  };
   theme: Theme;
   nav: { label: string; href: string }[];
   ui: UiStrings;

@@ -1,3 +1,4 @@
+import { has } from './motion';
 import type { Palette, Theme } from './types';
 
 // The single place where the content file becomes CSS. Components read
@@ -51,7 +52,7 @@ export function cssVariables(theme: Theme): string {
     `--motion-duration:${duration}ms`,
     `--motion-travel:${Math.round(32 * intensity)}px`,
     `--motion-stagger:${Math.round(70 * intensity)}ms`,
-    `--motion-lift:${(intensity * 4).toFixed(2)}px`,
+    `--motion-lift:${(has(theme.motion.signature, 'lift') ? intensity * 4 : 0).toFixed(2)}px`,
     `--motion-easing:${motion.easing}`,
   ].join(';');
 

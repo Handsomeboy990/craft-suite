@@ -1,4 +1,5 @@
 import type { PortfolioContent } from '@/lib/types';
+import SiteNav from './SiteNav';
 import ThemeToggle from './ThemeToggle';
 
 export default function SiteHeader({ content }: { content: PortfolioContent }) {
@@ -14,16 +15,8 @@ export default function SiteHeader({ content }: { content: PortfolioContent }) {
             <span className="site-header__name">{site.name}</span>
             {site.tagline ? <span className="site-header__tagline">{site.tagline}</span> : null}
           </a>
-          <nav aria-label={ui.primaryNavLabel}>
-            <ul className="site-header__nav">
-              {nav.map((entry) => (
-                <li key={entry.href}>
-                  <a href={entry.href}>{entry.label}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
           <ThemeToggle ui={ui} />
+          <SiteNav nav={nav} ui={ui} />
         </div>
       </header>
     </>

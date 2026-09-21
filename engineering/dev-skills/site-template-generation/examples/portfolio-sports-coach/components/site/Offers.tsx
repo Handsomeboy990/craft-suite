@@ -4,7 +4,7 @@ import Reveal from './Reveal';
 
 type Offers = NonNullable<PortfolioContent['offers']>;
 
-export default function Offers({ offers }: { offers: Offers }) {
+export default function Offers({ offers, stagger }: { offers: Offers; stagger: boolean }) {
   return (
     <section id="offers" className="section" aria-labelledby="offers-title">
       <div className="page">
@@ -13,12 +13,12 @@ export default function Offers({ offers }: { offers: Offers }) {
             {offers.heading}
           </h2>
         </div>
-        <Reveal stagger>
+        <Reveal stagger={stagger}>
           <ul className="grid grid--cards">
             {offers.items.map((offer, index) => (
               <li
                 key={offer.title}
-                className={offer.highlight ? 'card card--highlight' : 'card'}
+                className={offer.highlight ? 'card card--highlight reveal-item' : 'card reveal-item'}
                 style={{ '--i': index } as CSSProperties}
               >
                 <h3 className="card__title">{offer.title}</h3>

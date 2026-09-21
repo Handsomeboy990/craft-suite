@@ -153,11 +153,12 @@ img {
   top: var(--space-unit);
 }
 
-/* Motion ------------------------------------------------------------------
-   The hidden state is applied by the script, never by this stylesheet, so a
-   failed script leaves the content visible rather than a blank page. */
+/* Motion -----------------------------------------------------------------
+   Every hidden state below is scoped under a class the script adds. Without
+   JavaScript, without IntersectionObserver, with reduced motion or at intensity
+   0, none of these classes exist and the page is simply visible. */
 
-.reveal {
+.motion-on {
   opacity: 0;
   transform: translateY(var(--motion-travel));
   transition:
@@ -165,13 +166,51 @@ img {
     transform var(--motion-duration) var(--motion-easing);
 }
 
-.reveal.is-visible {
+.motion-on.is-visible {
   opacity: 1;
   transform: none;
 }
 
-.stagger > * {
+/* A staggered section does not fade as a block: its items do, each with its own
+   index. The delay on the container was the defect that made the whole system
+   look like nothing was happening. */
+.motion-on.motion-stagger {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.motion-on.motion-stagger .reveal-item {
+  opacity: 0;
+  transform: translateY(var(--motion-travel));
+  transition:
+    opacity var(--motion-duration) var(--motion-easing),
+    transform var(--motion-duration) var(--motion-easing);
   transition-delay: calc(var(--motion-stagger) * var(--i, 0));
+}
+
+.motion-on.motion-stagger.is-visible .reveal-item {
+  opacity: 1;
+  transform: none;
+}
+
+/* The entrance runs once, on load, and only where the trade's signature carries
+   it. `backwards` holds the first frame during the delay, so the element is
+   hidden while it waits and visible for ever after. */
+.entrance.is-running > * {
+  animation: entrance var(--motion-duration) var(--motion-easing) backwards;
+  animation-delay: calc(var(--motion-stagger) * 2 * var(--i, 0));
+}
+
+@keyframes entrance {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--motion-travel) * 1.4));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -185,7 +224,8 @@ img {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .reveal {
+  .motion-on,
+  .motion-on .reveal-item {
     opacity: 1;
     transform: none;
   }
@@ -197,57 +237,155 @@ img {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--color-border);
-  transition: padding var(--motion-duration) var(--motion-easing);
 }
 
 .site-header__inner {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-gutter);
-  padding-block: calc(var(--space-unit) * 2);
+  gap: var(--space-unit);
+  padding-block: calc(var(--space-unit) * 1.5);
 }
 
 .site-header__brand {
   display: grid;
   text-decoration: none;
   margin-right: auto;
+  min-width: 0;
 }
 
 .site-header__name {
   font-family: var(--font-display);
   font-weight: var(--weight-display);
   font-size: var(--size-lg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .site-header__tagline {
   color: var(--color-muted);
   font-size: var(--size-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.site-header__nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: calc(var(--space-unit) * 2);
+/* The menu button exists only where the stylesheet shows it, so the wide
+   layout carries no extra control. */
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-unit);
+  min-height: 44px;
+  padding-inline: calc(var(--space-unit) * 1.5);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-foreground);
+  font: inherit;
+  font-size: var(--size-xs);
+  cursor: pointer;
+}
+
+.nav-toggle__bars,
+.nav-toggle__bars::before,
+.nav-toggle__bars::after {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  content: '';
+}
+
+.nav-toggle__bars {
+  position: relative;
+}
+
+.nav-toggle__bars::before {
+  position: absolute;
+  top: -6px;
+}
+
+.nav-toggle__bars::after {
+  position: absolute;
+  top: 6px;
+}
+
+.site-nav {
+  display: none;
+}
+
+.site-nav[data-open='true'] {
+  display: block;
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  padding: var(--space-unit) var(--space-gutter) calc(var(--space-unit) * 2);
+  background: var(--color-surface);
+  border-block: 1px solid var(--color-border);
+}
+
+.site-nav__list {
+  display: grid;
+  gap: 2px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.site-header__nav a {
-  display: inline-block;
-  min-height: 44px;
-  line-height: 44px;
+.site-nav__list a {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding-inline: var(--space-unit);
+  border-radius: var(--radius-sm);
   text-decoration: none;
-  color: var(--color-muted);
-  transition: color var(--motion-duration) var(--motion-easing);
+  color: var(--color-foreground);
 }
 
-.site-header__nav a:hover {
-  color: var(--color-foreground);
+.site-nav__list a:hover {
+  background: var(--color-surface-alt);
+}
+
+@media (min-width: 900px) {
+  .nav-toggle {
+    display: none;
+  }
+
+  .site-nav {
+    display: block;
+  }
+
+  .site-nav[data-open='false'],
+  .site-nav[data-open='true'] {
+    position: static;
+    display: block;
+    padding: 0;
+    background: none;
+    border: 0;
+  }
+
+  .site-nav__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--space-unit) * 2);
+  }
+
+  .site-nav__list a {
+    min-height: 44px;
+    padding-inline: 0;
+    color: var(--color-muted);
+    transition: color var(--motion-duration) var(--motion-easing);
+  }
+
+  .site-nav__list a:hover {
+    background: none;
+    color: var(--color-foreground);
+  }
 }
 
 /* Controls ---------------------------------------------------------------- */
@@ -333,6 +471,8 @@ img {
   position: absolute;
   inset: 0;
   z-index: -1;
+  transform: translate3d(0, var(--parallax, 0px), 0) scale(1.12);
+  will-change: transform;
 }
 
 .hero__media img {

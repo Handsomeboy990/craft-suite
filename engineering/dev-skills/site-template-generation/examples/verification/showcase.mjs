@@ -41,8 +41,9 @@ const browser = await chromium.launch();
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto(BASE);
-  await page.waitForTimeout(600);
-  const revealed = await page.locator('.reveal.is-visible').count();
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await page.waitForTimeout(1200);
+  const revealed = await page.locator('.motion-on.is-visible').count();
   const duration = await page.evaluate(() =>
     getComputedStyle(document.documentElement).getPropertyValue('--motion-duration').trim());
   record('the reveal runs at low intensity too', revealed > 0, `${revealed} revealed, duration ${duration}`);

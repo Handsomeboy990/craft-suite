@@ -1,4 +1,5 @@
 import { readFileSync, statSync } from 'node:fs';
+import { SIGNATURES } from './motion';
 import { FILES } from './paths';
 import { writeJson } from './store';
 import type { Palette, ShowcaseContent } from './types';
@@ -32,6 +33,7 @@ const REQUIRED = [
   'theme.spacing.pageWidth',
   'theme.spacing.proseWidth',
   'theme.motion',
+  'theme.motion.signature',
   'ui.skipToContent',
   'ui.primaryNavLabel',
   'ui.footerNavLabel',
@@ -42,6 +44,8 @@ const REQUIRED = [
   'ui.contactHeading',
   'ui.hoursHeading',
   'ui.serviceAreaHeading',
+  'ui.menuOpen',
+  'ui.menuClose',
   'ui.form.submitLabel',
   'ui.form.sendingLabel',
   'ui.form.optionalHint',
@@ -125,6 +129,11 @@ export function validate(source: Record<string, unknown>): ShowcaseContent {
         throw new ContentError(`palette token missing: theme.palettes.${theme}.${key}`);
       }
     }
+  }
+
+  const signature = at(source, 'theme.motion.signature');
+  if (typeof signature !== 'string' || !(SIGNATURES as readonly string[]).includes(signature)) {
+    throw new ContentError(`theme.motion.signature must be one of: ${SIGNATURES.join(', ')}`);
   }
 
   const intensity = at(source, 'theme.motion.intensity');

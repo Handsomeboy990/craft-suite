@@ -104,26 +104,49 @@ The theme resolves in this order: the visitor's stored choice, then the system
 preference, then light. The stored choice is applied before first paint, so the
 page never flashes the wrong theme.
 
-## 5. Motion is a system, not decoration
+## 5. Motion is chosen by trade, not only scaled
 
-`theme.motion.intensity` is one number between 0 and 1 that scales every
-duration and every travel distance in the template. It is a business decision,
-not a code decision: a personal trainer sells energy and a page that moves is an
-argument; an electrician quoting a rewiring job sells reliability and a page
-that moves is noise in front of a decision.
+Two values in the content file decide every movement on the site.
 
 ```
-0        nothing moves. A legal value, and what prefers-reduced-motion forces
-0.2-0.4  transitions on interactive elements, a short reveal, nothing else
-0.5-0.7  the above, plus staggered reveals and a hero entrance
-0.8-1.0  the above, plus counters, parallax where it is cheap, longer travel
+theme.motion.signature   which effects exist at all, named after the trade
+theme.motion.intensity   how far and how fast those effects go, 0 to 1
 ```
 
-What is always animated, at any intensity above zero: the interactive states,
-because a hover or focus that snaps reads as broken. What is never animated: a
-page's first paint above the fold beyond a fade, anything that delays reading,
-anything that moves while a form is being filled, and any property that is not
-`transform` or `opacity`. The motion system, its components and its techniques:
+A scalar alone produces the same site twice, once faster. The signature is what
+makes a coach's page and an electrician's page move differently in kind:
+
+| Signature | Trades | Effects it turns on |
+|---|---|---|
+| energetic | coaching, fitness, dance | entrance, reveal, stagger, counters, parallax, lift |
+| creative | photography, design, architecture | entrance, reveal, stagger, parallax, lift |
+| crafted | artisan food, ceramics, florists | entrance, reveal, stagger, counters, lift |
+| technical | building trades, industrial services | reveal, lift |
+| clinical | medical, legal, accounting | reveal |
+
+```
+entrance   the first screen assembles once on load, title then subtitle then
+           actions, and never again
+reveal     a section fades and rises as it enters the viewport, once
+stagger    the items of a list follow one another rather than arriving as a
+           block, which is the effect that makes a page feel alive
+counters   a figure counts up to its value when it becomes visible, keeping any
+           suffix the content wrote
+parallax   the hero image moves slower than the page, on transform only
+lift       cards and buttons rise under the pointer
+```
+
+The intensity scales all of them and zero disables all of them.
+`prefers-reduced-motion: reduce` forces zero whatever the content file says, and
+a browser without JavaScript shows everything, because the hidden state is
+applied by the script and never by the stylesheet.
+
+A stagger that decorates the container instead of its items is not a stagger.
+The delay belongs on each item, with its index, or nothing moves in sequence and
+the page looks static however high the intensity is set. Both reference
+implementations shipped that defect once; the gate now checks it.
+
+The technique ladder, the components and what must never move:
 `resources/motion-system.md`.
 
 ## 6. The page uses its width
@@ -160,6 +183,8 @@ without a rebuild. This surface is part of the deliverable.
 | Legal | the legal facts and the clauses the counsel provided | the content file |
 | Messages | the inbox of the contact form: read, unread, archived | the message store |
 | Notifications | the browser subscription that receives a new message | the subscription store |
+| Identity | the favicon, the installed icons, the social preview | the uploads and the content file |
+| Security | the password of this account | the credential store, and every session |
 
 Rules the surface obeys:
 
@@ -186,7 +211,10 @@ The back office is the highest value target on the site and is built as one.
 ```
 credential      one account, password hashed with a memory hard function and a
                 per-account salt. No password in the repository, in the content
-                file or in an environment variable in plain text
+                file or in an environment variable in plain text. Set out of
+                band the first time, changed from the back office afterwards,
+                with the current one required and a minimum length enforced on
+                the server
 session         a random token, stored hashed server side with an expiry, in an
                 httpOnly SameSite cookie, Secure outside development. Signing
                 out deletes the record, not only the cookie
@@ -251,6 +279,10 @@ Applied while building, not audited afterwards.
 ```
 mobile first  designed at 360px, then widened; no horizontal scroll at any
               supported width
+navigation    a navigation that does not fit becomes a menu, never a wrapping
+              row. The button says what it controls and whether it is open, the
+              panel is reachable and dismissible by keyboard, Escape closes it
+              and focus returns to the button
 contrast      measured on both palettes, 4.5:1 for text, 3:1 for the boundary
               of a control and for large text
 keyboard      every action reachable and operable, focus visible on both
@@ -326,7 +358,7 @@ deployment   the handover states how the site is started, restarted and
 
 ## 15. The completion gate
 
-Sixteen checks. All sixteen pass, or the template is not finished.
+Twenty checks. All twenty pass, or the template is not finished.
 
 ```
 1   every visitor facing string, image, colour, hour and contact detail
@@ -388,7 +420,7 @@ Sixteen checks. All sixteen pass, or the template is not finished.
     degrading to nothing when refused.
 11. Produce the example content file with clearly fictional data, and run the
     site from it.
-12. Run the sixteen point gate in section 15, whole. Fix and re-run what a fix
+12. Run the twenty point gate in section 15, whole. Fix and re-run what a fix
     touched.
 13. Write the handover: the field map, the data directory, the backup command,
     the secrets, and how the site is started and updated.

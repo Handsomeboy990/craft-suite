@@ -1,15 +1,17 @@
 # Motion system
 
-One scalar in the content file drives everything that moves. This file says what
-that scalar controls, what it never controls, and how the motion is built so
-that setting it to zero leaves a site that still works.
+Two values in the content file drive every movement: the signature says which
+effects exist, the intensity says how far they go. A scalar alone gives the same
+site twice at different speeds; the signature is what makes a trade's page move
+in its own way.
 
-## The scalar
+## The two values
 
 ```
+theme.motion.signature     energetic | creative | crafted | technical | clinical
 theme.motion.intensity     0 to 1
 theme.motion.baseDuration  milliseconds at intensity 1
-theme.motion.easing        a curve, not a keyword chosen at random
+theme.motion.easing        a curve, not a keyword picked at random
 ```
 
 Everything derives:
@@ -18,67 +20,85 @@ Everything derives:
 --motion-duration   baseDuration * intensity
 --motion-travel     the reveal distance * intensity
 --motion-stagger    the delay between two items of a list * intensity
---motion-scale      the hover lift, 0 at intensity 0
+--motion-lift       the hover rise, 0 at intensity 0
 ```
 
-`prefers-reduced-motion: reduce` forces the effective intensity to zero,
-whatever the content file says. That is a hard requirement, not a courtesy.
+`prefers-reduced-motion: reduce` forces the effective intensity to zero, whatever
+the content file says. That is a hard requirement, not a courtesy.
 
-## The ladder, by intensity
+## What each signature turns on
 
-| Intensity | What moves |
-|---|---|
-| 0 | nothing. Interactive states change instantly, and the site is complete |
-| 0.2 to 0.4 | interactive states, a short fade on reveal |
-| 0.5 to 0.7 | the above, plus travel on reveal and a stagger inside a list, plus a hero entrance |
-| 0.8 to 1 | the above, plus counters on figures, a longer travel, a parallax that costs nothing because it is a transform |
+| Effect | energetic | creative | crafted | technical | clinical |
+|---|---|---|---|---|---|
+| entrance | yes | yes | yes | no | no |
+| reveal | yes | yes | yes | yes | yes |
+| stagger | yes | yes | yes | no | no |
+| counters | yes | no | yes | no | no |
+| parallax | yes | yes | no | no | no |
+| lift | yes | yes | yes | yes | no |
+
+```
+entrance   the first screen assembles once on load: title, then subtitle, then
+           actions. Never on a later navigation, never a second time
+reveal     a section fades and rises as it enters the viewport, once, then the
+           observer stops watching it
+stagger    the items of a list follow one another. The delay sits on each item
+           with its index; a delay on the container is not a stagger and looks
+           like nothing
+counters   a figure counts to its value when it becomes visible, keeping the
+           suffix the content wrote: "8 sem." counts the 8 and keeps " sem."
+parallax   the hero image moves slower than the page, on transform only, driven
+           by one scroll listener that writes a custom property
+lift       cards and buttons rise a few pixels under the pointer
+```
+
+## The rule that makes a script failure harmless
+
+The hidden state is applied by the script, never by the stylesheet. Each motion
+component adds a class to itself on mount, and every rule that hides something
+is scoped under that class:
+
+```
+.motion-on .reveal-item      hidden, because the script decided motion is on
+.motion-on.is-visible .item  shown, when the observer fired
+no class at all              everything visible, which is what a browser with no
+                             JavaScript, no IntersectionObserver or a reduced
+                             motion preference gets
+```
+
+A reveal implemented by hiding in CSS and showing in JavaScript turns a script
+failure into a blank page. This one turns it into a page without animation.
 
 ## Techniques, cheapest first
 
 ```
 1  a CSS transition on transform or opacity. Covers every interactive state
-2  a CSS animation on transform or opacity, triggered by a class
-3  an IntersectionObserver that adds that class when an element enters view
-4  a small amount of JavaScript for a value that must be computed, such as a
-   counter, and nothing more
+2  a CSS transition triggered by a class an observer adds
+3  an IntersectionObserver, one per section, disconnected after it fires
+4  a small amount of JavaScript for a value that must be computed: a counter, or
+   a scroll position written into a custom property
 ```
 
-Nothing here needs an animation library. A library is a dependency decision
-under `dependency-selection`, justified by an effect this ladder cannot
-produce, not by convenience.
-
-## The reveal
-
-```
-markup     the element carries the reveal class and an index for its stagger
-initial    opacity 0 and a translate of --motion-travel, applied only when
-           motion is enabled, so a page with motion off is never invisible
-trigger    IntersectionObserver with a small root margin, fired once
-           per element, then the observer stops watching it
-fallback   no IntersectionObserver, or JavaScript disabled: the element is
-           visible. The initial hidden state is set by the script, never by the
-           stylesheet, so nothing can hide content permanently
-```
-
-That last rule is the one that matters. A reveal implemented by hiding in CSS
-and showing in JavaScript turns a script failure into a blank page.
+Nothing here needs an animation library. A library is a dependency decision under
+`dependency-selection`, justified by an effect this ladder cannot produce.
 
 ## What never moves
 
-- The first screen beyond a fade. A hero that assembles itself delays reading.
+- The first screen beyond its entrance, which happens once.
 - Anything while a form is being filled.
 - Anything that shifts layout: no animated height, width, top or margin.
 - A focus ring. It appears instantly or it is not an accessibility feature.
-- Anything triggered by a hover on a touch device, where the hover does not
-  exist.
+- Anything triggered by a hover on a touch device, where hover does not exist.
 
 ## Verification
 
 ```
-at 0     no movement anywhere, the site complete and usable
-at 0.5   reveals and interactive states, no counter
-at 1     the whole ladder, no layout shift, no dropped frame on a mid range
-         device
-reduced  the same as 0, with the content file untouched
-no JS    every section visible, nothing stuck hidden
+at 0        no movement anywhere, the site complete and usable
+mid range   reveals, stagger and interactive states; no counter, no parallax
+at 1        the whole signature, no layout shift, no dropped frame
+reduced     the same as 0, with the content file untouched
+no JS       every section visible, nothing stuck hidden
+by trade    the effects the signature names happen, and the ones it does not
+            name do not: a technical instance has no counter and no parallax
+sequence    a staggered list arrives item by item, not as a block
 ```

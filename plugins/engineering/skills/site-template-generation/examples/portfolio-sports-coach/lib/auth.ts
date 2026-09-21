@@ -35,6 +35,25 @@ export async function verifyPassword(password: string): Promise<boolean> {
   return timingSafeEqual(expected, derived);
 }
 
+// Rotation belongs to the client, not to whoever has a shell on the server.
+// The current password is required, the new one is checked for length here as
+// well as in the browser, and every session dies with the change, including the
+// one that made it.
+export const MINIMUM_PASSWORD_LENGTH = 12;
+
+export async function changePassword(current: string, next: string): Promise<'ok' | 'wrong' | 'short'> {
+  if (next.length < MINIMUM_PASSWORD_LENGTH) return 'short';
+  if (!(await verifyPassword(current))) return 'wrong';
+
+  const record = readJson<AdminRecord | null>(FILES.admin, null);
+  const params = record?.params ?? { N: 16384, r: 8, p: 1, keylen: 64 };
+  const salt = randomBytes(16).toString('hex');
+  const hash = (await scrypt(next, salt, params.keylen, params)).toString('hex');
+  writeJson(FILES.admin, { salt, hash, params, updatedAt: new Date().toISOString() });
+  writeJson(FILES.sessions, {});
+  return 'ok';
+}
+
 function hashToken(token: string): string {
   return createHash('sha256').update(token).digest('hex');
 }

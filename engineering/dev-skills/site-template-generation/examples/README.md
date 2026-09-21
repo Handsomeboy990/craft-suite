@@ -11,6 +11,7 @@ content file that the back office writes, and both carry clearly fictional data.
 | Owner | an invented independent coach | an invented electrical company |
 | Public routes | one page, plus two legal pages | four pages, plus four legal pages |
 | Profile | energetic | technical |
+| Motion signature | energetic | technical |
 | Motion intensity | 0.9 | 0.25 |
 | Form | a message | a quotation request |
 | Back office | the same surface, generated from its own contract | the same |
@@ -102,18 +103,25 @@ contrast               every required pair passes, in both themes, on both
 
 The first version of this file claimed the browser items of the gate could not
 be checked here. They could: Playwright and its Chromium are available, and
-`verification/` now holds the two scripts that drive them. Twenty five checks on
-the portfolio and thirteen on the showcase, all passing:
+`verification/` now holds five scripts. Fifty three checks on the portfolio and
+thirty nine on the showcase, all passing:
 
 ```
 theme            dark under the system preference, the toggle switching, the
-                 choice surviving a reload, and the attribute already set on
-                 the first evaluation, which is what "no flash" means
-motion           the reveal class appearing on the sections in view and on more
-                 of them after scrolling; no reveal node at all under
-                 prefers-reduced-motion, with every section visible
-keyboard         the first Tab reaching the skip link, a 3px focus outline on
-                 it, and the tab order walking into links, buttons and fields
+                 choice surviving a reload, the attribute already set on the
+                 first evaluation, which is what "no flash" means
+motion, present  the hero entrance running once on load; each staggered item
+                 carrying its own delay (0s, 0.063s, 0.126s); items hidden
+                 before they enter and visible after; a counter reaching 24;
+                 parallax writing 100px into its property
+motion, absent   on the technical trade: no entrance, no stagger, no parallax,
+                 no counter, with the reveal and the lift still there
+reduced motion   no motion class anywhere, nothing hidden
+navigation       the menu button at 360px naming what it controls and whether
+                 it is open, 48px targets, Escape closing it, focus returning,
+                 and the button gone above the breakpoint
+keyboard         the first Tab reaching the skip link, a 3px focus outline, the
+                 order walking into links, buttons and fields
 layout           no horizontal scroll at 360px or 1920px, on every route
 service worker   registering and activating; a never visited page falling back
                  to the offline page with the network cut; the cached home page
@@ -122,13 +130,17 @@ back office      an unauthenticated visit landing on the login, signing in
                  landing on the page that was asked for, the cookie httpOnly
                  and SameSite=Lax, a field edited there appearing on the public
                  page, and put back through the same surface
+identity         the favicon coming from the content file and being served
+account          the password changed from the back office: the wrong current
+                 one refused, a short one refused, every session ended, the new
+                 one working
 public form      the visitor seeing the success state and the form clearing
 404              the site's own page, with status 404
 quotation form   filled as a visitor would, then found unread in the inbox with
                  its count in the navigation
 ```
 
-Three defects came out of it, none of which a request library could have seen:
+Four defects came out of it, none of which a request library could have seen:
 
 ```
 the form lied    the API answered 200 and stored the message, and the visitor
@@ -137,13 +149,15 @@ the form lied    the API answered 200 and stored the message, and the visitor
                  the throw landed in the catch that shows the failure. Every
                  visitor would have been told their message failed after it
                  arrived. The element is now captured before the await
+nothing moved    the stagger delay sat on the container instead of on each
+                 item, so the whole system produced one slow fade per section
+                 and the page looked static at any intensity. The delay is on
+                 each item now, with its index, and the trade chooses which
+                 effects exist at all rather than only how fast they run
 32px of overflow a one word section title at display size cannot break, and a
-                 flex item does not shrink below its min-content width. The
-                 page scrolled sideways at 360px, and `body { overflow-x:
-                 hidden }` was hiding it from every measurement that looked at
-                 the document. The crutch is gone, the titles are fluid, the
-                 headings may break inside a word, and the flex children may
-                 shrink
+                 flex item does not shrink below its min-content width. A
+                 `body { overflow-x: hidden }` was hiding it from every
+                 measurement that looked at the document
 push said nothing a subscription that fails left the client clicking a button
                  that appeared to do nothing. Every step is now caught and the
                  reason shown, with the inbox still working

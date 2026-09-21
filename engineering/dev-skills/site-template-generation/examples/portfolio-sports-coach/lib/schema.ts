@@ -70,6 +70,7 @@ export const GROUPS: Group[] = [
       { path: 'site.name', label: 'Nom affiché', kind: 'text', changes: 'en-tête, pied de page, titres' },
       { path: 'site.shortName', label: 'Nom court (application installée)', kind: 'text', changes: "le nom sous l'icône une fois le site installé" },
       { path: 'site.tagline', label: 'Accroche', kind: 'text', changes: "la ligne sous le nom dans l'en-tête" },
+      { path: 'site.favicon', label: "Icône de l'onglet (favicon)", kind: 'image', changes: "l'icône affichée par le navigateur dans son onglet" },
       { path: 'seo.title', label: 'Titre pour les moteurs de recherche', kind: 'text', changes: "le titre de l'onglet et des résultats de recherche" },
       { path: 'seo.description', label: 'Description pour les moteurs de recherche', kind: 'textarea', changes: 'la description dans les résultats de recherche' },
     ],
@@ -256,6 +257,8 @@ export const GROUPS: Group[] = [
       { path: 'ui.offline.action', label: 'Hors ligne, bouton', kind: 'text', changes: 'la page hors ligne' },
       { path: 'ui.contactHeading', label: 'Titre du bloc coordonnées', kind: 'text', changes: 'le bloc coordonnées' },
       { path: 'ui.hoursHeading', label: 'Titre des horaires', kind: 'text', changes: 'le bloc horaires' },
+      { path: 'ui.menuOpen', label: 'Bouton menu, ouvrir', kind: 'text', changes: "le menu sur mobile" },
+      { path: 'ui.menuClose', label: 'Bouton menu, fermer', kind: 'text', changes: "le menu sur mobile" },
       { path: 'ui.form.submitLabel', label: 'Bouton envoyer', kind: 'text', changes: 'le formulaire' },
       { path: 'ui.form.sendingLabel', label: 'Bouton pendant envoi', kind: 'text', changes: 'le formulaire' },
       { path: 'ui.form.requiredMessage', label: 'Message champ obligatoire', kind: 'text', changes: 'le refus affiché quand un champ obligatoire est vide' },
@@ -269,6 +272,14 @@ export const GROUPS: Group[] = [
     fields: [
       ...palette('light', 'Clair'),
       ...palette('dark', 'Sombre'),
+      {
+        path: 'theme.motion.signature',
+        label: 'Style d’animation (métier)',
+        kind: 'select',
+        options: ['energetic', 'creative', 'crafted', 'technical', 'clinical'],
+        hint: "Décide quels effets existent : entrée, révélation, cascade, compteurs, parallaxe, relief. Un métier technique en garde deux, un métier énergique les garde tous.",
+        changes: 'la nature des mouvements sur tout le site',
+      },
       {
         path: 'theme.motion.intensity',
         label: "Intensité de l'animation",

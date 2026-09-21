@@ -4,7 +4,11 @@
     "shortName": "C. Vass",
     "locale": "fr-FR",
     "baseUrl": "https://www.example.com",
-    "tagline": "Coach sportif indépendant, préparation  et remise en forme"
+    "tagline": "Coach sportif indépendant, préparation  et remise en forme",
+    "favicon": {
+      "src": "/media/icon-192.png",
+      "alt": "Icône du site Camille Vasseur"
+    }
   },
   "theme": {
     "profile": "energetic",
@@ -56,6 +60,7 @@
       "proseWidth": "68ch"
     },
     "motion": {
+      "signature": "energetic",
       "intensity": 0.9,
       "baseDuration": 460,
       "easing": "cubic-bezier(0.2, 0.7, 0.2, 1)"
@@ -87,6 +92,8 @@
   "ui": {
     "skipToContent": "Aller au contenu",
     "primaryNavLabel": "Navigation principale",
+    "menuOpen": "Menu",
+    "menuClose": "Fermer",
     "footerNavLabel": "Informations légales",
     "themeToggleLabel": "Thème",
     "themeLight": "Clair",

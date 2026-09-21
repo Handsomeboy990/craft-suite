@@ -4,7 +4,7 @@ import Reveal from './Reveal';
 
 type Testimonials = NonNullable<PortfolioContent['testimonials']>;
 
-export default function Testimonials({ testimonials }: { testimonials: Testimonials }) {
+export default function Testimonials({ testimonials, stagger }: { testimonials: Testimonials; stagger: boolean }) {
   return (
     <section id="testimonials" className="section section--alt" aria-labelledby="testimonials-title">
       <div className="page">
@@ -13,10 +13,10 @@ export default function Testimonials({ testimonials }: { testimonials: Testimoni
             {testimonials.heading}
           </h2>
         </div>
-        <Reveal stagger>
+        <Reveal stagger={stagger}>
           <ul className="grid grid--cards">
             {testimonials.items.map((item, index) => (
-              <li key={item.author} className="quote" style={{ '--i': index } as CSSProperties}>
+              <li key={item.author} className="quote reveal-item" style={{ '--i': index } as CSSProperties}>
                 <figure>
                   <blockquote>
                     <p>{item.quote}</p>
