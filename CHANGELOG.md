@@ -3,6 +3,71 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.21.0
+
+The site template skill grew a back office. Reviewing the first version against
+what a client actually needs found six things missing, and all six require a
+server, so the deliverable is now an application rather than an exported page.
+
+### Added
+
+- The back office, in `site-template-generation` section 7 and in both
+  reference implementations. The client edits every visitor facing string,
+  every image and its alt text, both palettes, the motion intensity, the hours,
+  the contact details and the legal facts from a browser, signed in, with no
+  rebuild and no developer. The form is generated from the content contract, and
+  the same declaration is the server's allow list: a path that is not in it
+  cannot be written, whatever a request contains.
+- The way in, in section 8 and `resources/admin-security.md`: a scrypt password
+  hash set out of band by a command, server side sessions in an httpOnly cookie
+  whose Secure flag follows the protocol the request arrived on, a CSRF token on
+  every write, rate limits on the login and on the public form with a lockout
+  window, uploads checked by extension and by leading bytes with SVG refused,
+  and a server side session check on every admin route.
+- The inbox, section 9. The contact form posts to the site, the message is
+  stored before anything is announced, the back office lists unread first, and a
+  push notification reaches the client's browser when they subscribed to one.
+- The dark theme, section 4. A palette is now a pair: light and dark are both
+  authored, both measured, and neither is derived from the other. The visitor's
+  choice is applied before first paint, so nothing flashes.
+- The motion system, section 5 and `resources/motion-system.md`. One intensity
+  scalar drives every duration, travel and stagger; the reveal hides through the
+  script rather than the stylesheet, so a failed script leaves the content
+  visible; and reduced motion forces zero whatever the content file says.
+- Full width layout, section 6. `pageWidth` is a token and it is wide;
+  `proseWidth` is the only narrow measure, for long text and legal pages.
+- The site's own 404 and offline pages, with their words in the content file.
+- The installable shell, section 12 and `resources/pwa-and-push.md`: a manifest
+  generated from the content, a worker that serves the shell and the uploaded
+  media and never the back office, and a push subscription that degrades to
+  nothing when refused.
+- `resources/motion-system.md`, `resources/admin-security.md` and
+  `resources/pwa-and-push.md`.
+
+### Changed
+
+- The gate grew from ten points to sixteen, covering both themes, the back
+  office writes, the upload refusals, the rate limits, the inbox, the 404 and
+  the offline page, and the handover.
+- The reference implementations are Next.js applications with a server, a data
+  directory, a back office and an inbox. Both were run, not only built: the
+  observed results are in `examples/README.md`.
+- The `SITE_TEMPLATE` execution plan carries the server side skills the back
+  office implies, from `admin-console` and `authentication-security` through
+  `rate-limiting`, `file-handling` and `security-audit`.
+
+### Decided
+
+- The contact rate limit answers visibly rather than returning a success shaped
+  response. Hiding it would keep a crawler from learning that a limit exists, at
+  the price of a real customer believing a dropped message had been sent. On a
+  business site that trade runs the wrong way, so the refusal carries the direct
+  address instead.
+- The session cookie's Secure flag follows `x-forwarded-proto` rather than the
+  build mode. Tying it to `NODE_ENV=production` made a production build
+  impossible to sign into over http on the operator's own machine, while a real
+  deployment behind a proxy is unaffected.
+
 ## 3.20.0
 
 Client sites, delivered as templates rather than as pages. One skill, one

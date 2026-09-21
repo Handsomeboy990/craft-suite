@@ -571,6 +571,38 @@ Session 27, the site-template-generation skill, version 3.20.0:
 - Counts 166 to 167 skills, dev-skills 55 to 56, engineering 82 to 83, agents
   25 to 26, engineering bundle 84 to 85 with 25 agents.
 
+Session 28, the back office behind the site template, version 3.21.0:
+
+- Review of the 3.20.0 skill against what a client site actually needs found six
+  gaps: no visible animation, no administration surface, a framework 404, one
+  theme, a centred narrow column, and a contact form with no destination. All
+  six require a server, so `site-template-generation` now produces an
+  application rather than an exported page, and says so in section 13.
+- Added to the skill: the back office (section 7), its authentication and rate
+  limits (section 8, `resources/admin-security.md`), the inbox (section 9), the
+  dark theme as an authored pair (section 4), the motion system (section 5,
+  `resources/motion-system.md`), full width layout (section 6), the 404 and
+  offline pages (section 11), and the installable shell (section 12,
+  `resources/pwa-and-push.md`). The gate went from ten points to sixteen.
+- Both reference implementations were rebuilt as Next.js applications with a
+  data directory, a back office and an inbox, and both were run: the observed
+  results, twenty three checks, are in `examples/README.md`. The admin surface
+  was attacked deliberately, without a session, without the CSRF token, with a
+  path outside the schema, with a disguised upload, past the login limit, and
+  after signing out. Every refusal was observed rather than assumed.
+- Two decisions came out of running it rather than writing it. The contact rate
+  limit now answers visibly, because a success shaped refusal loses a real
+  customer's message to protect a detail a crawler would learn anyway. The
+  session cookie's Secure flag now follows `x-forwarded-proto` rather than the
+  build mode, because tying it to production made a production build impossible
+  to sign into locally.
+- The `SITE_TEMPLATE` plan carries the server side skills the back office
+  implies. Counts unchanged: the skill and the agent already existed.
+- The admin form and the server allow list are one declaration, `lib/schema.ts`
+  in each reference. That is the piece worth carrying forward: it is why a field
+  added to the contract appears in the back office without new admin code, and
+  why an unknown path is refused without a second list to maintain.
+
 ## Current state
 
 Working today:

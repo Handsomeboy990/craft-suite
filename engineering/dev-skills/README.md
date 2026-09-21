@@ -42,7 +42,7 @@ no em dash.
 | `design-authenticity` | the generic-defaults cluster, and the intentionality test |
 | `animation` | motion that is intended: the technique ladder, cheap properties, reduced motion |
 | `template-selection` | clean, licence-clear templates that fit the project, shortlisted for the user, then customised |
-| `site-template-generation` | a client site driven by a content file: contract, trade tokens, no-code fields, legal pages from real facts |
+| `site-template-generation` | a client site the client runs: content contract, trade tokens in both themes, a back office with its own security, an inbox, legal pages from real facts |
 | `dependency-selection` | whether a library is added, replaced, upgraded or refused |
 
 ### Implementation

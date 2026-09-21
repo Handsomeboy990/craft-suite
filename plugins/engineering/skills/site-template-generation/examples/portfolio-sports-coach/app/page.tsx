@@ -1,22 +1,26 @@
-import { content } from '@/lib/content';
-import SiteHeader from '@/components/SiteHeader';
-import Hero from '@/components/Hero';
-import About from '@/components/About';
-import Offers from '@/components/Offers';
-import Results from '@/components/Results';
-import Gallery from '@/components/Gallery';
-import Testimonials from '@/components/Testimonials';
-import ContactSection from '@/components/ContactSection';
-import SiteFooter from '@/components/SiteFooter';
+import { getContent } from '@/lib/content';
+import AppShell from '@/components/site/AppShell';
+import SiteHeader from '@/components/site/SiteHeader';
+import SiteFooter from '@/components/site/SiteFooter';
+import Hero from '@/components/site/Hero';
+import About from '@/components/site/About';
+import Offers from '@/components/site/Offers';
+import Results from '@/components/site/Results';
+import Gallery from '@/components/site/Gallery';
+import Testimonials from '@/components/site/Testimonials';
+import ContactSection from '@/components/site/ContactSection';
+
+export const dynamic = 'force-dynamic';
 
 // One page, anchored sections. An optional block absent from the content file
 // removes its section entirely rather than rendering an empty frame.
 export default function HomePage() {
+  const content = getContent();
   const { offers, gallery, results, testimonials } = content;
 
   return (
     <>
-      <SiteHeader site={content.site} nav={content.nav} ui={content.ui} />
+      <SiteHeader content={content} />
       <main id="main">
         <Hero hero={content.hero} />
         <About about={content.about} />
@@ -26,19 +30,10 @@ export default function HomePage() {
         {testimonials && testimonials.items.length > 0 ? (
           <Testimonials testimonials={testimonials} />
         ) : null}
-        <ContactSection
-          section={content.contactSection}
-          contact={content.contact}
-          forms={content.forms}
-          ui={content.ui}
-        />
+        <ContactSection content={content} />
       </main>
-      <SiteFooter
-        site={content.site}
-        contact={content.contact}
-        legal={content.legal}
-        ui={content.ui}
-      />
+      <SiteFooter content={content} />
+      <AppShell enabled={content.pwa.enabled} ui={content.ui} />
     </>
   );
 }

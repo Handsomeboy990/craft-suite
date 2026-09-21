@@ -8,6 +8,17 @@ Thumbs.db
 node_modules/
 drafts-prives/
 
+# Build output of the reference implementations. They are examples a reader
+# runs, never artefacts this repository ships.
+.next/
+out/
+next-env.d.ts
+package-lock.json
+data/*.json
+!data/content.json
+data/uploads/*
+!data/uploads/.gitkeep
+
 __pycache__/
 *.pyc
 

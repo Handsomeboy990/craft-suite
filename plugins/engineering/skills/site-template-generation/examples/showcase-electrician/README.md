@@ -1,118 +1,113 @@
 # showcase-electrician
 
-Reference implementation of the `showcase` kind: several pages, professional
-voice, technical token profile, quotation form, and the four legal pages a
-company site publishes. The instance is an invented electrical company, Roussel
+Reference implementation of the `showcase` kind: four public pages, a
+professional voice, a technical token profile, a quotation form that reaches an
+inbox, the four legal pages a company publishes, and the back office the company
+runs it from. The instance is an invented electrical company, Roussel
 Électricité, in a town called Ville-Exemple. Every name, address, telephone
-number, policy number and figure in `content/content.json` is fictional.
-
-## What it demonstrates
-
-| Rule of the skill | Where to look |
-|---|---|
-| Template, content and tokens kept apart | `components/`, `content/content.json`, `lib/tokens.ts` |
-| Required fields refused by name at build | `lib/content.ts`, `REQUIRED` and `validate` |
-| The four legal pages are required of a showcase | `lib/content.ts`, the `declared` check |
-| A clause that binds is never drafted by the template | `lib/legal.ts`, the `clause` helper |
-| Facts not provided become visible markers | `lib/legal.ts`, `components/LegalDocument.tsx` |
-| The privacy page names the forms that exist | `lib/legal.ts`, `privacy()` reads `quote.fields` |
-| The cookie page states what the site actually sets | `lib/legal.ts`, `cookies()` with an empty list |
-| Tokens carry every visual value | `lib/tokens.ts` and `app/globals.css` |
-| A technical trade keeps motion low | `theme.motion.intensity`, 0.25 against 0.9 for the coach |
-| Static export has no server | `next.config.mjs`, `components/QuoteForm.tsx` |
+number, policy number and figure in `data/content.json` is fictional, and no
+photograph ships with it.
 
 ## Running it
 
 ```bash
 npm install
-npm run dev          # http://localhost:3000
-npm run build        # static export into out/
+npm run seed-media                              # placeholder images, clearly artificial
+npm run set-password -- 'at least 12 characters'
+npm run dev                                     # http://localhost:3000
 ```
 
-Removing a legal page from `legal.pages` stops the build with
-`content/content.json: legal page missing for a showcase site: terms`. That is
-deliberate: a company site without its terms is not a delivery.
+For a production run: `npm run build` then `npm start`. The back office is at
+`/admin`, and a content change is live on reload.
 
-## Routes and their slugs
-
-Route directories are English, by the repository convention that identifiers and
-paths are English. What the visitor reads comes from the content file.
+## Routes
 
 ```
-/                 app/page.tsx          label from pages[0].label
-/services/        app/services/page.tsx
-/about/           app/about/page.tsx
-/quote/           app/quote/page.tsx
-/legal/<slug>/    app/legal/[slug]/page.tsx, one route per legal.pages entry
+/                 accueil        hero, engagements, prestations, chiffres
+/services         prestations    the same services, in full
+/about            entreprise     text, team, insurances
+/quote            devis          the quotation form
+/legal/<slug>     four pages, one per legal.pages entry
+/admin            the back office
+/media/<name>     uploaded media, streamed from the data directory
 ```
 
-The legal slugs are data: `mentions-legales`,
-`conditions-generales-de-vente`, `politique-de-confidentialite`, `cookies`. To
-localise the other four addresses for an instance, rename the route directory
-and change `href` in `pages`, which is the only place they appear.
+Route directories are English, by the repository convention that paths and
+identifiers are English. What the visitor reads, including the labels of these
+routes in the menu, comes from the content file. The legal slugs are data:
+`mentions-legales`, `conditions-generales-de-vente`,
+`politique-de-confidentialite`, `cookies`.
 
-## Images are not shipped
+## What it demonstrates, beyond the portfolio
 
-`public/images/` is empty on purpose. The content file names the files the
-client provides, and the alt text next to each one is already written. No
-photograph of a real person belongs in a template repository.
+| Rule of the skill | Where to look |
+|---|---|
+| The four legal pages are required of a showcase | `lib/content.ts`, the `declared` check |
+| A clause that binds is never drafted by the template | `lib/legal.ts`, the `clause` helper |
+| The privacy page names the form that exists | `lib/legal.ts`, `privacy()` reads `quote.fields` |
+| The cookie page states what the site actually sets | `lib/legal.ts`, `cookies()` with an empty list |
+| A technical trade keeps motion low | `theme.motion.intensity`, 0.25 against 0.9 for the coach |
+| A trade palette in both themes | `data/content.json`, `theme.palettes` |
+| A service is a collection the client edits | `lib/schema.ts`, `services.items` |
+| Unique slugs enforced | `lib/content.ts` |
+
+Everything else, the back office, the sessions, the rate limits, the uploads,
+the inbox, the manifest and the worker, is the same surface over a different
+contract. That is the point of fixing the contract per kind.
 
 ## Contrast, measured
 
-Computed from the palette in the content file, not judged by eye. Every pair the
-skill requires, with the ratio it actually reaches:
+Computed from both palettes in the content file, not judged by eye.
 
-| Pair | Ratio | Minimum |
-|---|---|---|
-| `foreground` on `surface` | 17.79 | 4.5 |
-| `muted` on `surface` | 6.46 | 4.5 |
-| `muted` on `surfaceAlt` | 5.87 | 4.5 |
-| `accentForeground` on `accent` | 8.86 | 4.5 |
-| `accent` on `surface` | 8.86 | 3 |
-| `borderStrong` on `surface` | 3.41 | 3 |
-| `borderStrong` on `surfaceAlt` | 3.09 | 3 |
-| `danger` on `surfaceAlt` | 5.93 | 4.5 |
-| `success` on `surfaceAlt` | 4.85 | 4.5 |
+| Pair | Light | Dark | Minimum |
+|---|---|---|---|
+| `foreground` on `surface` | 17.79 | 16.73 | 4.5 |
+| `muted` on `surface` | 6.46 | 8.23 | 4.5 |
+| `muted` on `surfaceAlt` | 5.87 | 7.58 | 4.5 |
+| `accentForeground` on `accent` | 8.86 | 7.50 | 4.5 |
+| `accent` on `surface` | 8.86 | 7.39 | 3 |
+| `borderStrong` on `surface` | 3.41 | 3.95 | 3 |
+| `borderStrong` on `surfaceAlt` | 3.09 | 3.64 | 3 |
+| `danger` on `surfaceAlt` | 5.93 | 6.87 | 4.5 |
+| `success` on `surfaceAlt` | 4.85 | 9.94 | 4.5 |
 
-`border` carries no minimum: it separates cards and is decorative.
-`borderStrong` draws the boundary of an input and of a bordered button, which is
-what identifies the control, so it is measured. Splitting the two is what lets a
-restrained page stay restrained without failing an interactive control.
+The accent differs between themes on purpose: the deep blue that reaches 8.86:1
+on white would not survive on near black, so the dark theme carries a lighter
+one that reaches 7.39:1. That is what "dark is authored, not derived" means.
+
+## The data directory, secrets, and the proxy
+
+Identical to the portfolio: everything the instance owns is in `data/`,
+`npm run backup` archives it, `DATA_DIR` moves it, the password hash lives in
+`data/admin.json`, the VAPID keys live in the environment, and a proxy must
+forward `x-forwarded-for` and `x-forwarded-proto`.
 
 ## The no-code field map
 
-| Field | Type | Changes |
+| Section of the back office | Fields | Changes |
 |---|---|---|
-| `site.*` | string | header, footer, titles |
-| `theme.palette.*` | colour | every surface, text and accent |
-| `theme.motion.intensity` | 0 to 1 | how much the page moves; 0.25 here |
-| `company.*` | string, list | the activity sentence and the service area |
-| `pages[]` | list | the navigation and its labels |
-| `ui.*` | string | interface labels, hints and notices |
-| `home.hero.*` | string, image | the first screen |
-| `home.highlights.*` | string, list | the three promises |
-| `home.proof.*` | string, list | the figures band |
-| `services.items[]` | list | the prestations, on the home page and the services page |
-| `about.body[]`, `about.team[]`, `about.credentials[]` | lists | the company page |
-| `quote.fields[]` | list of field definitions | the quotation form itself |
-| `contact.*` | string, list | address, telephone, hours |
-| `forms.endpoint` | https URL or empty | where the form posts; empty falls back to mailto |
-| `legal.identity.*`, `legal.privacy.*`, `legal.cookies[]` | facts | the legal pages |
-| `legal.clauses.*` | the company's own text | the binding clauses of the terms |
+| Contenu, Entreprise | name, short name, tagline, legal name, trade name, activity, service area, search title and description | header, footer, page headers, search results |
+| Contenu, Navigation | the menu entries and their order | the main menu |
+| Contenu, Accueil | hero title, subtitle, image, buttons, engagements, figures | the home page |
+| Contenu, Prestations | heading, intro, and each service with its summary, body, image and bullets | the home page and the services page |
+| Contenu, L'entreprise | heading, paragraphs, image, team, insurances | the company page |
+| Contenu, Devis | heading, intro, the form fields themselves, success and failure messages | the quotation page |
+| Contenu, Coordonnées | email, telephone, address, opening hours, social links | the header, the footer, the quotation page |
+| Contenu, Interface | 404 and offline pages, form labels, notices | the pages nobody designs |
+| Contenu, Légal | identity, host, controller, and the nine clauses of the terms | the four legal pages |
+| Contenu, Application | installable on or off, icons | the manifest |
+| Couleurs | both palettes, motion intensity, density, page and prose widths | every colour, every movement, every spacing |
+| Images | upload, replace, delete | the media the content points at |
+| Messages | read, unread, archive, delete | the quotation inbox |
 
-A content change requires a rebuild.
+The nine clause fields are the company's own text. Left empty, the terms page
+shows a marker naming the clause: the template never drafts an obligation.
 
 ## Legal facts and clauses still missing in this instance
 
-Deliberately incomplete, so the marker behaviour is visible rather than only
-described:
-
-- registration number and VAT identifier
-- host name, address and telephone
-- supervisory authority
-- the clauses on execution, withdrawal, warranty, liability, governing law and
-  mediation, which the company's counsel provides and the template never writes
-
-The terms page therefore renders six clause markers under a notice. An instance
-carrying markers may be reviewed and staged; it may not be announced as
-delivered.
+Deliberately incomplete: registration number, VAT identifier, host name, address
+and telephone, supervisory authority, and the clauses on execution, withdrawal,
+warranty, liability, governing law and mediation. The terms page renders six
+clause markers and one fact marker, the legal notice six fact markers, under a
+notice at the top. An instance carrying markers may be reviewed and staged; it
+may not be announced as delivered.

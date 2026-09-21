@@ -28,7 +28,11 @@ export function marker(fact: string): string {
 
 function fact(label: string, value: string | null | undefined): LegalLine {
   const provided = value !== null && value !== undefined && String(value).trim() !== '';
-  return { label, value: provided ? String(value) : marker(label.toLowerCase()), missing: !provided };
+  return {
+    label,
+    value: provided ? String(value) : marker(label.toLowerCase()),
+    missing: !provided,
+  };
 }
 
 function formatAddress(address: LegalBlock['identity']['address']): string | null {
@@ -49,6 +53,8 @@ function collectMarkers(sections: LegalSection[]): string[] {
 
 function legalNotice(legal: LegalBlock, siteName: string): LegalSection[] {
   const { identity, host } = legal;
+  const isCompany =
+    identity.legalForm.toLowerCase().includes('société') || Boolean(identity.shareCapital);
   return [
     {
       heading: 'Éditeur du site',
@@ -56,9 +62,7 @@ function legalNotice(legal: LegalBlock, siteName: string): LegalSection[] {
       lines: [
         fact('Dénomination', identity.legalName),
         fact('Forme juridique', identity.legalForm),
-        ...(identity.legalForm.toLowerCase().includes('société') || identity.shareCapital
-          ? [fact('Capital social', identity.shareCapital)]
-          : []),
+        ...(isCompany ? [fact('Capital social', identity.shareCapital)] : []),
         fact('Adresse', formatAddress(identity.address)),
         fact("Numéro d'immatriculation", identity.registrationNumber),
         fact('Numéro de TVA intracommunautaire', identity.vatNumber),
@@ -85,7 +89,6 @@ function legalNotice(legal: LegalBlock, siteName: string): LegalSection[] {
 
 function privacy(legal: LegalBlock, formFields: FormField[]): LegalSection[] {
   const { privacy: block } = legal;
-  const collected = formFields.map((field) => field.label).join(', ');
   return [
     {
       heading: 'Responsable du traitement',
@@ -96,14 +99,13 @@ function privacy(legal: LegalBlock, formFields: FormField[]): LegalSection[] {
     },
     {
       heading: 'Données collectées',
-      intro: 'Le site collecte uniquement les données saisies dans le formulaire de contact.',
-      lines: [
-        {
-          label: 'Champs du formulaire',
-          value: collected,
-          missing: false,
-        },
-      ],
+      intro:
+        'Le site collecte uniquement les données saisies dans le formulaire de contact, qui sont conservées sur le serveur du site et consultables par son propriétaire.',
+      lines: formFields.map((field) => ({
+        label: field.label,
+        value: field.required ? 'obligatoire' : 'facultatif',
+        missing: false,
+      })),
     },
     {
       heading: 'Conservation',
@@ -118,13 +120,18 @@ function privacy(legal: LegalBlock, formFields: FormField[]): LegalSection[] {
       heading: 'Destinataires',
       lines: [
         {
-          label: 'Destinataires',
-          value: block.processors.length > 0 ? block.processors.join(', ') : marker('destinataires des données'),
+          label: 'Destinataires et sous-traitants',
+          value:
+            block.processors.length > 0
+              ? block.processors.join(', ')
+              : marker('destinataires des données'),
           missing: block.processors.length === 0,
         },
         {
           label: "Transferts hors de l'Union européenne",
-          value: block.transfersOutsideEu ? marker('détail des transferts hors Union européenne') : 'Aucun',
+          value: block.transfersOutsideEu
+            ? marker('détail des transferts hors Union européenne')
+            : 'Aucun',
           missing: block.transfersOutsideEu,
         },
       ],
@@ -140,26 +147,29 @@ function privacy(legal: LegalBlock, formFields: FormField[]): LegalSection[] {
       lines: [fact('Autorité de contrôle', block.supervisoryAuthority)],
     },
     {
-      heading: 'Cookies',
+      heading: 'Cookies et stockage local',
       paragraphs: [
         legal.cookies.length === 0
-          ? "Ce site ne dépose aucun cookie et n'utilise aucun traceur de mesure d'audience."
+          ? "Ce site ne dépose aucun cookie et n'utilise aucun traceur de mesure d'audience. Le choix de thème clair ou sombre est conservé dans le navigateur du visiteur, sur son appareil, et n'est jamais transmis."
           : legal.cookies
-              .map((cookie) => `${cookie.name} : ${cookie.purpose}, ${cookie.lifetime}, déposé par ${cookie.owner}.`)
+              .map(
+                (cookie) =>
+                  `${cookie.name} : ${cookie.purpose}, ${cookie.lifetime}, déposé par ${cookie.owner}.`,
+              )
               .join(' '),
       ],
     },
   ];
 }
 
-export function buildLegalPages(legal: LegalBlock, siteName: string, formFields: FormField[]): LegalPage[] {
+export function buildLegalPages(
+  legal: LegalBlock,
+  siteName: string,
+  formFields: FormField[],
+): LegalPage[] {
   return legal.pages.map((page) => {
     const sections =
-      page.kind === 'legalNotice'
-        ? legalNotice(legal, siteName)
-        : page.kind === 'privacy'
-          ? privacy(legal, formFields)
-          : [];
+      page.kind === 'legalNotice' ? legalNotice(legal, siteName) : privacy(legal, formFields);
     return {
       slug: page.slug,
       label: page.label,

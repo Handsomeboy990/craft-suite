@@ -1,6 +1,6 @@
 {
   "name": "craft-security",
-  "version": "3.20.0",
+  "version": "3.21.0",
   "description": "Defensive security and authorized assurance: threat modeling, security architecture, authentication and authorization, session, dependency and header hardening, vulnerability assessment, and strictly gated pentesting.",
   "author": {
     "name": "Lauret Chacha"

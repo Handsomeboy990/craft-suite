@@ -1,6 +1,5 @@
-// The content contract of the showcase kind, as types. Every visitor-facing
-// value lives in content/content.json. A component that needs a value the
-// contract does not have extends the contract; it does not hardcode.
+// The content contract of the showcase kind, as types. Every visitor facing
+// value lives in the content file, which the back office writes.
 
 export type ImageRef = { src: string; alt: string };
 
@@ -13,8 +12,8 @@ export type Palette = {
   accentHover: string;
   accentForeground: string;
   border: string;
-  // The boundary of an interactive control, which must reach 3:1 against the
-  // surface behind it. The decorative border does not, and does not need to.
+  /** The boundary of an interactive control. Measured at 3:1 against the
+   *  surface behind it; the decorative border is not, and does not need to be. */
   borderStrong: string;
   success: string;
   danger: string;
@@ -22,7 +21,8 @@ export type Palette = {
 
 export type Theme = {
   profile: string;
-  palette: Palette;
+  /** Both themes are authored, never derived from one another. */
+  palettes: { light: Palette; dark: Palette };
   type: {
     displayFamily: string;
     textFamily: string;
@@ -31,10 +31,9 @@ export type Theme = {
     textWeight: number;
   };
   radius: { sm: string; md: string; lg: string; pill: string };
-  spacing: { unit: string; sectionY: string };
-  // intensity between 0 and 1 multiplies every duration and travel distance.
-  // A trade that sells reliability keeps it low. 0 disables motion, and
-  // prefers-reduced-motion forces 0 whatever this says.
+  spacing: { unit: string; section: string; pageWidth: string; proseWidth: string };
+  /** intensity between 0 and 1 scales every duration and travel distance.
+   *  0 disables motion; prefers-reduced-motion forces 0 whatever this says. */
   motion: { intensity: number; baseDuration: number; easing: string };
   density: 'compact' | 'regular' | 'airy';
 };
@@ -55,10 +54,16 @@ export type Address = {
   country: string;
 };
 
+export type Section<T> = { heading: string; items: T[] };
+
 export type UiStrings = {
   skipToContent: string;
   primaryNavLabel: string;
   footerNavLabel: string;
+  themeToggleLabel: string;
+  themeLight: string;
+  themeDark: string;
+  themeSystem: string;
   contactHeading: string;
   hoursHeading: string;
   serviceAreaHeading: string;
@@ -67,12 +72,28 @@ export type UiStrings = {
     sendingLabel: string;
     optionalHint: string;
     selectPlaceholder: string;
+    requiredMessage: string;
     invalidMessage: string;
   };
+  notFound: { title: string; body: string; action: string };
+  offline: { title: string; body: string; action: string };
+  install?: { label: string; dismiss: string };
   legalPendingNotice: string;
 };
 
-// A clause that binds is the client's own text or null. Null becomes a visible
+export type LegalIdentity = {
+  legalName: string;
+  legalForm: string;
+  shareCapital: string | null;
+  address: Address | null;
+  registrationNumber: string | null;
+  vatNumber: string | null;
+  publicationDirector: string | null;
+  professionalBody: string | null;
+  insurance: { insurer: string; policy: string; coverage: string } | null;
+};
+
+// A clause that binds is the company's own text or null. Null becomes a visible
 // marker: the template never drafts an obligation.
 export type LegalClauses = {
   scope: string | null;
@@ -87,17 +108,7 @@ export type LegalClauses = {
 };
 
 export type LegalBlock = {
-  identity: {
-    legalName: string;
-    legalForm: string;
-    shareCapital: string | null;
-    address: Address | null;
-    registrationNumber: string | null;
-    vatNumber: string | null;
-    publicationDirector: string | null;
-    professionalBody: string | null;
-    insurance: { insurer: string; policy: string; coverage: string } | null;
-  };
+  identity: LegalIdentity;
   host: { name: string | null; address: string | null; phone: string | null };
   privacy: {
     controller: string | null;
@@ -126,7 +137,7 @@ export type Service = {
 };
 
 export type ShowcaseContent = {
-  site: { name: string; locale: string; baseUrl: string; tagline?: string };
+  site: { name: string; shortName?: string; locale: string; baseUrl: string; tagline?: string };
   theme: Theme;
   company: {
     legalName: string;
@@ -143,8 +154,8 @@ export type ShowcaseContent = {
       image: ImageRef;
       actions?: { label: string; href: string; variant: 'primary' | 'ghost' }[];
     };
-    highlights?: { heading: string; items: { title: string; body: string }[] };
-    proof?: { heading: string; items: { label: string; value: string }[] };
+    highlights?: Section<{ title: string; body: string }>;
+    proof?: Section<{ label: string; value: string }>;
   };
   services: { heading: string; intro?: string; items: Service[] };
   about: {
@@ -152,8 +163,8 @@ export type ShowcaseContent = {
     body: string[];
     image?: ImageRef;
     teamHeading?: string;
-    credentialsHeading?: string;
     team?: { name: string; role: string; portrait?: ImageRef }[];
+    credentialsHeading?: string;
     credentials?: { label: string; value: string; issuedBy?: string }[];
   };
   quote: { heading: string; body?: string; fields: FormField[] };
@@ -164,7 +175,8 @@ export type ShowcaseContent = {
     hours?: { days: string; opens: string; closes: string }[];
     social?: { platform: string; url: string }[];
   };
-  forms: { endpoint?: string; successMessage: string; errorMessage: string };
+  forms: { successMessage: string; errorMessage: string; notifyEmail?: string };
   seo: { title: string; description: string; ogImage?: ImageRef };
+  pwa: { enabled: boolean; icons?: { src: string; sizes: string; purpose?: string }[] };
   legal: LegalBlock;
 };

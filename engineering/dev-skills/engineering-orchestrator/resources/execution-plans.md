@@ -315,12 +315,14 @@ since deleting a branch changes behaviour for whoever was on it.
 ## SITE_TEMPLATE
 
 category: SITE_TEMPLATE
-plan: project-exploration -> template-selection -> site-template-generation -> design-system -> ui-ux-engineering -> frontend-engineering -> design-authenticity -> animation -> seo-engineering -> input-validation -> accessibility-testing -> testing-quality -> playwright-automation -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> template-selection -> site-template-generation -> design-system -> ui-ux-engineering -> frontend-engineering -> backend-engineering -> admin-console -> authentication-security -> rate-limiting -> input-validation -> file-handling -> data-privacy -> design-authenticity -> animation -> seo-engineering -> security-audit -> accessibility-testing -> testing-quality -> playwright-automation -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
-A site delivered to a client, driven by a content file the client can still
-edit. `site-template-generation` fixes the content contract, the token profile
-and the legal surface before any component exists, and holds the ten point gate
-at the end. `template-selection` runs only when the work starts from an existing
+A site delivered to a client, driven by a content file the client edits from a
+back office. `site-template-generation` fixes the content contract, both token
+palettes and the legal surface before any component exists, and holds the
+sixteen point gate at the end. The back office is why this plan carries the
+server side skills: it authenticates, it writes, it accepts uploads and it holds
+the client's messages, which makes it the highest value target on the
+deployment. `template-selection` runs only when the work starts from an existing
 template. `animation` is reduced to almost nothing on a trade whose motion
-intensity is low, and is not dropped, because the intensity scalar is still a
-decision.
+intensity is low, and is not dropped, because the intensity is still a decision.

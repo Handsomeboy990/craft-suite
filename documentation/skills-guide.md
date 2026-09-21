@@ -180,7 +180,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `design-authenticity` | detects generic AI-default design, tests for intent |
 | `animation` | motion that reads as designed: technique ladder, cheap props, reduced motion |
 | `template-selection` | finds clean, licence-clear templates that fit, shortlists them, then customises the chosen one |
-| `site-template-generation` | builds a client site from a content file: contract, trade tokens, no-code fields, legal pages from real facts |
+| `site-template-generation` | builds a client site with its own back office: content contract, both themes, motion by trade, an inbox, legal pages from real facts |
 | `dependency-selection` | twelve point evaluation before adding a library |
 | `frontend-engineering` | pages, components, state, forms, the five UI states |
 | `backend-engineering` | handlers, services, authorization, transactions, jobs |

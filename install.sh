@@ -1263,6 +1263,32 @@ bash "$ROOT/tests/validate-structure.sh" >/dev/null 2>&1 || {
   exit 1
 }
 
+# Copies one skill directory without the artefacts a reader's own machine leaves
+# beside it. A skill whose examples are a runnable project acquires a
+# node_modules, a build directory and runtime state on the machine of whoever
+# ran it. None of that is the skill: the build output would multiply an install
+# a thousandfold, and the runtime state would carry that operator's password
+# hash, sessions and received messages into every later install. The example
+# content file is kept, because it is the worked example.
+copy_skill() {
+  local source="$1" destination="$2"
+  mkdir -p "$destination"
+  ( cd "$source" && tar -cf - \
+      --exclude='node_modules' \
+      --exclude='.next' \
+      --exclude='out' \
+      --exclude='*.tsbuildinfo' \
+      --exclude='next-env.d.ts' \
+      --exclude='package-lock.json' \
+      --exclude='uploads' \
+      --exclude='admin.json' \
+      --exclude='sessions.json' \
+      --exclude='messages.json' \
+      --exclude='subscriptions.json' \
+      --exclude='rate-limits.json' \
+      . ) | ( cd "$destination" && tar -xf - )
+}
+
 if [ "$WITH_SKILLS" = "yes" ]; then
   mkdir -p "$TARGET"
   count=0
@@ -1271,7 +1297,7 @@ if [ "$WITH_SKILLS" = "yes" ]; then
     [ -n "$skill" ] || continue
     name="$(basename "$skill")"
     rm -rf "${TARGET:?}/$name"
-    cp -r "$skill" "$TARGET/$name"
+    copy_skill "$skill" "$TARGET/$name"
     count=$((count + 1))
     added="$added $name"
   done < <(selected_skill_dirs)

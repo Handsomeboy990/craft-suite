@@ -1,13 +1,15 @@
-import raw from '../content/content.json';
-import type { ShowcaseContent } from './types';
+import { readFileSync, statSync } from 'node:fs';
+import { FILES } from './paths';
+import { writeJson } from './store';
+import type { Palette, ShowcaseContent } from './types';
 
-// Validation runs at build time and refuses the first missing required field by
-// name. A company site that renders with an invented address because a field
-// was silently defaulted is worse than a build that stops.
+// The content file is read from the data directory at request time, never
+// imported into the bundle, because the back office writes it while the site
+// runs. It is parsed once and re-read when its modification time changes.
 
-class ContentError extends Error {
+export class ContentError extends Error {
   constructor(message: string) {
-    super(`content/content.json: ${message}`);
+    super(message);
     this.name = 'ContentError';
   }
 }
@@ -23,15 +25,20 @@ const REQUIRED = [
   'site.name',
   'site.locale',
   'site.baseUrl',
-  'theme.palette',
+  'theme.palettes.light',
+  'theme.palettes.dark',
   'theme.type',
+  'theme.radius',
+  'theme.spacing.pageWidth',
+  'theme.spacing.proseWidth',
   'theme.motion',
-  'company.legalName',
-  'company.activity',
-  'pages',
   'ui.skipToContent',
   'ui.primaryNavLabel',
   'ui.footerNavLabel',
+  'ui.themeToggleLabel',
+  'ui.themeLight',
+  'ui.themeDark',
+  'ui.themeSystem',
   'ui.contactHeading',
   'ui.hoursHeading',
   'ui.serviceAreaHeading',
@@ -39,8 +46,18 @@ const REQUIRED = [
   'ui.form.sendingLabel',
   'ui.form.optionalHint',
   'ui.form.selectPlaceholder',
+  'ui.form.requiredMessage',
   'ui.form.invalidMessage',
+  'ui.notFound.title',
+  'ui.notFound.body',
+  'ui.notFound.action',
+  'ui.offline.title',
+  'ui.offline.body',
+  'ui.offline.action',
   'ui.legalPendingNotice',
+  'company.legalName',
+  'company.activity',
+  'pages',
   'home.hero.title',
   'home.hero.image',
   'services.heading',
@@ -54,36 +71,27 @@ const REQUIRED = [
   'forms.errorMessage',
   'seo.title',
   'seo.description',
+  'pwa.enabled',
   'legal.identity.legalName',
   'legal.identity.legalForm',
   'legal.pages',
 ];
 
-const REQUIRED_TOKENS = [
-  'palette.surface',
-  'palette.surfaceAlt',
-  'palette.foreground',
-  'palette.muted',
-  'palette.accent',
-  'palette.accentHover',
-  'palette.accentForeground',
-  'palette.border',
-  'palette.borderStrong',
-  'palette.success',
-  'palette.danger',
-  'type.displayFamily',
-  'type.textFamily',
-  'type.scaleRatio',
-  'radius.sm',
-  'radius.md',
-  'radius.lg',
-  'radius.pill',
-  'spacing.unit',
-  'spacing.sectionY',
-  'motion.intensity',
-  'motion.baseDuration',
-  'motion.easing',
+const PALETTE_KEYS: (keyof Palette)[] = [
+  'surface',
+  'surfaceAlt',
+  'foreground',
+  'muted',
+  'accent',
+  'accentHover',
+  'accentForeground',
+  'border',
+  'borderStrong',
+  'success',
+  'danger',
 ];
+
+const OPTIONAL_SECTIONS = ['home.highlights', 'home.proof'] as const;
 
 function images(source: Record<string, unknown>): { path: string; value: Record<string, unknown> }[] {
   const found: { path: string; value: Record<string, unknown> }[] = [];
@@ -94,13 +102,15 @@ function images(source: Record<string, unknown>): { path: string; value: Record<
     }
     if (node === null || typeof node !== 'object') return;
     const record = node as Record<string, unknown>;
-    if (typeof record.src === 'string') found.push({ path, value: record });
+    if (typeof record.src === 'string' && 'alt' in record) found.push({ path, value: record });
     for (const [key, value] of Object.entries(record)) walk(value, path ? `${path}.${key}` : key);
   };
   walk(source, '');
   return found;
 }
 
+// The same validation guards the first read and every back office write, so a
+// rejected edit changes nothing on disk.
 export function validate(source: Record<string, unknown>): ShowcaseContent {
   for (const path of REQUIRED) {
     const value = at(source, path);
@@ -109,9 +119,11 @@ export function validate(source: Record<string, unknown>): ShowcaseContent {
     }
   }
 
-  for (const token of REQUIRED_TOKENS) {
-    if (at(source, `theme.${token}`) === undefined) {
-      throw new ContentError(`required theme token missing: theme.${token}`);
+  for (const theme of ['light', 'dark'] as const) {
+    for (const key of PALETTE_KEYS) {
+      if (typeof at(source, `theme.palettes.${theme}.${key}`) !== 'string') {
+        throw new ContentError(`palette token missing: theme.palettes.${theme}.${key}`);
+      }
     }
   }
 
@@ -126,17 +138,21 @@ export function validate(source: Record<string, unknown>): ShowcaseContent {
     }
   }
 
-  const endpoint = at(source, 'forms.endpoint');
-  if (endpoint !== undefined && endpoint !== '' && !String(endpoint).startsWith('https://')) {
-    throw new ContentError('forms.endpoint must be empty or an absolute https URL');
+  for (const section of OPTIONAL_SECTIONS) {
+    const block = at(source, section);
+    if (block === undefined) continue;
+    if (typeof at(source, `${section}.heading`) !== 'string') {
+      throw new ContentError(`optional section without a heading: ${section}.heading`);
+    }
+    if (!Array.isArray(at(source, `${section}.items`))) {
+      throw new ContentError(`optional section without items: ${section}.items`);
+    }
   }
 
-  // An optional block that renders a heading must carry it: a heading is a
-  // string the visitor reads, so it is content.
   for (const pair of [
     ['about.team', 'about.teamHeading'],
     ['about.credentials', 'about.credentialsHeading'],
-  ]) {
+  ] as const) {
     const block = at(source, pair[0]);
     if (Array.isArray(block) && block.length > 0 && typeof at(source, pair[1]) !== 'string') {
       throw new ContentError(`optional section without a heading: ${pair[1]}`);
@@ -152,11 +168,9 @@ export function validate(source: Record<string, unknown>): ShowcaseContent {
     slugs.add(service.slug);
   }
 
-  // Every legal page the showcase kind requires must be declared. A company
-  // site missing its terms or its privacy page is not a delivery.
-  const declared = new Set(
-    (at(source, 'legal.pages') as { kind: string }[]).map((page) => page.kind),
-  );
+  // A company site missing its terms or its privacy page is not a delivery, so
+  // the four pages the kind requires are checked here rather than hoped for.
+  const declared = new Set((at(source, 'legal.pages') as { kind: string }[]).map((page) => page.kind));
   for (const kind of ['legalNotice', 'terms', 'privacy', 'cookies']) {
     if (!declared.has(kind)) {
       throw new ContentError(`legal page missing for a showcase site: ${kind}`);
@@ -166,4 +180,20 @@ export function validate(source: Record<string, unknown>): ShowcaseContent {
   return source as unknown as ShowcaseContent;
 }
 
-export const content: ShowcaseContent = validate(raw as unknown as Record<string, unknown>);
+let cached: { mtimeMs: number; value: ShowcaseContent } | null = null;
+
+export function getContent(): ShowcaseContent {
+  const stat = statSync(FILES.content);
+  if (cached && cached.mtimeMs === stat.mtimeMs) return cached.value;
+  const parsed = JSON.parse(readFileSync(FILES.content, 'utf8')) as Record<string, unknown>;
+  const value = validate(parsed);
+  cached = { mtimeMs: stat.mtimeMs, value };
+  return value;
+}
+
+export function saveContent(next: Record<string, unknown>): ShowcaseContent {
+  const value = validate(next);
+  writeJson(FILES.content, next);
+  cached = null;
+  return value;
+}

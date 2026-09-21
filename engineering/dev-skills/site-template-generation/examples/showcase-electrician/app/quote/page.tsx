@@ -1,14 +1,18 @@
 import type { Metadata } from 'next';
-import { content } from '@/lib/content';
-import PageHeader from '@/components/PageHeader';
-import QuoteForm from '@/components/QuoteForm';
+import { getContent } from '@/lib/content';
+import PageHeader from '@/components/site/PageHeader';
+import QuoteForm from '@/components/site/QuoteForm';
+import Reveal from '@/components/site/Reveal';
 
-export const metadata: Metadata = {
-  title: content.quote.heading,
-  description: content.quote.body ?? content.company.activity,
-};
+export const dynamic = 'force-dynamic';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const content = getContent();
+  return { title: content.quote.heading, description: content.quote.body ?? content.company.activity };
+}
 
 export default function QuotePage() {
+  const content = getContent();
   const { quote, contact, forms, ui, company } = content;
 
   return (
@@ -16,8 +20,8 @@ export default function QuotePage() {
       <PageHeader title={quote.heading} intro={quote.body} />
 
       <section className="section" aria-labelledby="quote-title">
-        <div className="container quote__grid">
-          <div className="quote__aside">
+        <Reveal className="page contact">
+          <div>
             <h2 id="quote-title" className="section__title">
               {ui.contactHeading}
             </h2>
@@ -32,7 +36,7 @@ export default function QuotePage() {
               ) : null}
               {contact.address ? (
                 <li>
-                  <address>
+                  <address style={{ fontStyle: 'normal' }}>
                     {contact.address.street}
                     <br />
                     {contact.address.postalCode} {contact.address.city}
@@ -43,8 +47,8 @@ export default function QuotePage() {
 
             {company.serviceArea && company.serviceArea.length > 0 ? (
               <>
-                <h3 className="quote__subtitle">{ui.serviceAreaHeading}</h3>
-                <ul className="quote__areas">
+                <h3>{ui.serviceAreaHeading}</h3>
+                <ul className="contact__details">
                   {company.serviceArea.map((area) => (
                     <li key={area}>{area}</li>
                   ))}
@@ -52,14 +56,8 @@ export default function QuotePage() {
               </>
             ) : null}
           </div>
-
-          <QuoteForm
-            fields={quote.fields}
-            forms={forms}
-            ui={ui}
-            fallbackEmail={contact.email}
-          />
-        </div>
+          <QuoteForm fields={quote.fields} forms={forms} ui={ui} />
+        </Reveal>
       </section>
     </>
   );

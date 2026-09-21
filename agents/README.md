@@ -34,7 +34,7 @@ Every agent below references the skills it uses and never restates them.
 | `pr-reviewer` | the independent review and mergeability gate on a pull request | code-review-protocol, git-workflow |
 | `software-architect` | architecture and technology decisions | architecture-proposal, technology-selection, architecture-design |
 | `frontend-engineer` | client implementation | frontend-engineering, ui-ux-engineering |
-| `site-template-engineer` | a client site template driven by a content file | site-template-generation, design-system |
+| `site-template-engineer` | a client site template and the back office its owner runs it from | site-template-generation, admin-console |
 | `backend-engineer` | server implementation | backend-engineering, input-validation |
 | `database-engineer` | schema, migrations, query quality | database-operations, performance-engineering |
 | `security-engineer` | audits and fixes security | security-audit, input-validation |

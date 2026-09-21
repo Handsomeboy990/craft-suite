@@ -1,12 +1,13 @@
-import { content } from '@/lib/content';
-import Hero from '@/components/Hero';
-import Highlights from '@/components/Highlights';
-import Proof from '@/components/Proof';
-import ServiceList from '@/components/ServiceList';
+import { getContent } from '@/lib/content';
+import Hero from '@/components/site/Hero';
+import Highlights from '@/components/site/Highlights';
+import Proof from '@/components/site/Proof';
+import ServiceList from '@/components/site/ServiceList';
 
-// An optional block absent from the content file removes its section entirely
-// rather than rendering an empty frame.
+export const dynamic = 'force-dynamic';
+
 export default function HomePage() {
+  const content = getContent();
   const { home, services } = content;
 
   return (

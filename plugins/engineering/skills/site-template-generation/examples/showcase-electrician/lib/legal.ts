@@ -1,11 +1,9 @@
 import type { FormField, LegalBlock, LegalClauses } from './types';
 
-// Legal pages are assembled from the facts the company provided. Three kinds of
-// content live here and are treated differently:
-//   fact        rendered when provided, marked when not, never invented
-//   structural  headings and connective sentences, which carry no claim
-//   obligation  a clause that binds, taken from the company's own text or left
-//               marked for its counsel. The template never drafts one.
+// Legal pages are assembled from the facts the owner provided. A fact that was
+// not provided becomes a visible marker naming it. Nothing here writes a legal
+// claim: the structural sentences carry no obligation, and every clause that
+// binds comes from the owner's own text or stays marked.
 
 export type LegalLine = { label: string; value: string; missing: boolean };
 
@@ -65,7 +63,8 @@ function collectMarkers(sections: LegalSection[]): string[] {
 
 function legalNotice(legal: LegalBlock, siteName: string): LegalSection[] {
   const { identity, host } = legal;
-  const isCompany = identity.legalForm.toLowerCase().includes('société') || identity.shareCapital !== null;
+  const isCompany =
+    identity.legalForm.toLowerCase().includes('société') || Boolean(identity.shareCapital);
   return [
     {
       heading: 'Éditeur du site',
@@ -98,38 +97,6 @@ function legalNotice(legal: LegalBlock, siteName: string): LegalSection[] {
   ];
 }
 
-function terms(legal: LegalBlock, services: { title: string }[]): LegalSection[] {
-  const { identity, clauses } = legal;
-  const order: { heading: string; key: keyof LegalClauses }[] = [
-    { heading: "Objet et champ d'application", key: 'scope' },
-    { heading: 'Prix et validité du devis', key: 'prices' },
-    { heading: 'Conditions de paiement', key: 'paymentTerms' },
-    { heading: 'Délais et exécution des travaux', key: 'executionTerms' },
-    { heading: 'Droit de rétractation', key: 'withdrawal' },
-    { heading: 'Garanties', key: 'warranty' },
-    { heading: 'Responsabilité', key: 'liability' },
-    { heading: 'Droit applicable', key: 'governingLaw' },
-    { heading: 'Médiation et règlement des litiges', key: 'mediation' },
-  ];
-
-  return [
-    {
-      heading: 'Identification du prestataire',
-      lines: [
-        fact('Dénomination sociale', identity.legalName),
-        fact('Siège social', formatAddress(identity.address)),
-        fact("Numéro d'immatriculation", identity.registrationNumber),
-      ],
-    },
-    {
-      heading: 'Prestations concernées',
-      intro: 'Les prestations proposées par le prestataire sont les suivantes.',
-      list: services.map((service) => service.title),
-    },
-    ...order.map((entry) => clause(entry.heading, clauses[entry.key])),
-  ];
-}
-
 function privacy(legal: LegalBlock, formFields: FormField[]): LegalSection[] {
   const { privacy: block } = legal;
   return [
@@ -143,18 +110,12 @@ function privacy(legal: LegalBlock, formFields: FormField[]): LegalSection[] {
     {
       heading: 'Données collectées',
       intro:
-        'Le site collecte uniquement les données saisies dans le formulaire de demande de devis.',
+        'Le site collecte uniquement les données saisies dans le formulaire de demande de devis, qui sont conservées sur le serveur du site et consultables par son propriétaire.',
       lines: formFields.map((field) => ({
         label: field.label,
         value: field.required ? 'obligatoire' : 'facultatif',
         missing: false,
       })),
-    },
-    {
-      heading: 'Finalité',
-      paragraphs: [
-        'Ces données servent à répondre à la demande de devis et à recontacter la personne à ce sujet.',
-      ],
     },
     {
       heading: 'Conservation',
@@ -198,13 +159,45 @@ function privacy(legal: LegalBlock, formFields: FormField[]): LegalSection[] {
   ];
 }
 
+function terms(legal: LegalBlock, services: { title: string }[]): LegalSection[] {
+  const { identity, clauses } = legal;
+  const order: { heading: string; key: keyof LegalClauses }[] = [
+    { heading: "Objet et champ d'application", key: 'scope' },
+    { heading: 'Prix et validité du devis', key: 'prices' },
+    { heading: 'Conditions de paiement', key: 'paymentTerms' },
+    { heading: "Délais et exécution des travaux", key: 'executionTerms' },
+    { heading: 'Droit de rétractation', key: 'withdrawal' },
+    { heading: 'Garanties', key: 'warranty' },
+    { heading: 'Responsabilité', key: 'liability' },
+    { heading: 'Droit applicable', key: 'governingLaw' },
+    { heading: 'Médiation et règlement des litiges', key: 'mediation' },
+  ];
+
+  return [
+    {
+      heading: 'Identification du prestataire',
+      lines: [
+        fact('Dénomination sociale', identity.legalName),
+        fact('Siège social', formatAddress(identity.address)),
+        fact("Numéro d'immatriculation", identity.registrationNumber),
+      ],
+    },
+    {
+      heading: 'Prestations concernées',
+      intro: 'Les prestations proposées par le prestataire sont les suivantes.',
+      list: services.map((service) => service.title),
+    },
+    ...order.map((entry) => clause(entry.heading, clauses[entry.key])),
+  ];
+}
+
 function cookies(legal: LegalBlock): LegalSection[] {
   if (legal.cookies.length === 0) {
     return [
       {
         heading: 'Cookies déposés par ce site',
         paragraphs: [
-          "Ce site ne dépose aucun cookie et n'utilise aucun traceur de mesure d'audience. Aucun consentement n'est donc demandé.",
+          "Ce site ne dépose aucun cookie et n'utilise aucun traceur de mesure d'audience. Aucun consentement n'est donc demandé. Le choix de thème clair ou sombre est conservé dans le navigateur du visiteur, sur son appareil, et n'est jamais transmis.",
         ],
       },
     ];

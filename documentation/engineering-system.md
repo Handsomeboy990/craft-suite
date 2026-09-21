@@ -53,7 +53,7 @@ no em dash.
 | `design-authenticity` | the generic-defaults cluster and the intentionality test |
 | `animation` | motion that is intended, on the lightest sufficient technique |
 | `template-selection` | clean, licence-clear templates that fit, shortlisted then customised |
-| `site-template-generation` | a client site driven by a content file, with a true no-code contract |
+| `site-template-generation` | a client site with its own back office, editable by the client, secured as the target it is |
 | `dependency-selection` | add, replace, upgrade or refuse a library |
 
 ### Implementation

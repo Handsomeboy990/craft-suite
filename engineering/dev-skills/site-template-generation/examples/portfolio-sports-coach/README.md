@@ -1,103 +1,160 @@
 # portfolio-sports-coach
 
-Reference implementation of the `portfolio` kind: one page, anchored sections,
-personal voice, energetic token profile. The instance is an invented
-independent sports coach, Camille Vasseur, in a town called Ville-Exemple. Every
-name, address, telephone number, price and testimonial in `content/content.json`
-is fictional.
-
-## What it demonstrates
-
-| Rule of the skill | Where to look |
-|---|---|
-| Template, content and tokens kept apart | `components/`, `content/content.json`, `lib/tokens.ts` |
-| Required fields refused by name at build | `lib/content.ts`, `REQUIRED` and `validate` |
-| Alt text is content, never a constant | `lib/content.ts`, the `images` walker |
-| Headings and interface strings are content | `content.ui`, and every `Section<T>.heading` |
-| Tokens carry every visual value | `lib/tokens.ts` and `app/globals.css`, which contains no literal |
-| Motion intensity as a business decision | `theme.motion.intensity`, currently 0.9 |
-| Optional section absent removes the section | `app/page.tsx` |
-| Legal pages built from facts, gaps marked | `lib/legal.ts`, `components/LegalDocument.tsx` |
-| Static export has no server | `next.config.mjs`, `components/ContactForm.tsx` |
+Reference implementation of the `portfolio` kind: one page, personal voice,
+energetic token profile, and the back office the client runs it from. The
+instance is an invented independent sports coach, Camille Vasseur, in a town
+called Ville-Exemple. Every name, address, telephone number, price and
+testimonial in `data/content.json` is fictional, and no photograph ships with
+it.
 
 ## Running it
 
 ```bash
 npm install
-npm run dev          # http://localhost:3000
-npm run build        # static export into out/
+npm run seed-media                              # placeholder images, clearly artificial
+npm run set-password -- 'at least 12 characters'
+npm run dev                                     # http://localhost:3000
 ```
 
-The build fails, on purpose and by name, if a required field is removed from
-the content file. Try it: delete `hero.title` and the build stops with
-`content/content.json: required field missing: hero.title`.
+For a production run:
 
-## Images are not shipped
+```bash
+npm run build
+npm start
+```
 
-`public/images/` is empty on purpose: this repository ships no photograph of a
-real person, and a stock portrait passed off as the client is exactly the
-demonstration data the skill forbids. The paths in the content file name the
-files the client provides, and the alt text next to each one is already written.
+The back office is at `/admin`. A content change is live on reload: no rebuild,
+no developer.
+
+Optional, for notifications:
+
+```bash
+npm run push-keys        # prints a VAPID pair to put in the environment
+```
+
+## What it demonstrates
+
+| Rule of the skill | Where to look |
+|---|---|
+| Template, content and tokens kept apart | `components/`, `data/content.json`, `lib/tokens.ts` |
+| Content read at runtime, written by the back office | `lib/content.ts`, `app/api/admin/content/route.ts` |
+| Required fields refused by name, on read and on write | `lib/content.ts`, `validate` |
+| Alt text is content, and required | `lib/content.ts`, `lib/schema.ts` |
+| Both palettes authored, neither derived | `data/content.json`, `theme.palettes` |
+| Theme choice before first paint | `lib/tokens.ts`, `themeScript` |
+| Motion driven by one intensity scalar | `lib/tokens.ts`, `components/site/Reveal.tsx`, `app/globals.css` |
+| The page uses its width | `.page` at 1600px, `.prose` the only narrow measure |
+| The back office is generated from the contract | `lib/schema.ts`, `components/admin/ContentEditor.tsx` |
+| A path outside the schema cannot be written | `lib/schema.ts`, `applyPatch` |
+| Sessions server side, CSRF on every write | `lib/auth.ts` |
+| Login and public form rate limited | `lib/rate-limit.ts` |
+| Uploads checked by type and by content, no SVG | `lib/uploads.ts` |
+| Path traversal refused on media | `lib/uploads.ts`, `resolveUpload` |
+| The contact form reaches an inbox | `app/api/contact/route.ts`, `app/admin/messages` |
+| Legal pages from facts, gaps marked | `lib/legal.ts` |
+| The site's own 404 and offline pages | `app/not-found.tsx`, `app/offline/page.tsx` |
+| Manifest generated, worker that never caches the admin | `app/manifest.webmanifest/route.ts`, `public/sw.js` |
+
+## The data directory
+
+Everything the instance owns is in `data/`, and nothing else has to be backed
+up:
+
+```
+data/content.json        the site itself, written by the back office
+data/admin.json          the password hash, its salt and its parameters
+data/sessions.json       server side sessions
+data/messages.json       the contact inbox
+data/subscriptions.json  push subscriptions
+data/rate-limits.json    the counters
+data/uploads/            the images, served by /media
+```
+
+```bash
+npm run backup           # one archive of the whole directory
+```
+
+`DATA_DIR` moves it elsewhere, which is what a container mount does.
+
+## Secrets the instance needs
+
+| Name | Held where | Absent means |
+|---|---|---|
+| the password hash | `data/admin.json`, written by `set-password` | the login refuses everything and says so |
+| `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT` | the server environment | no push notifications; the inbox is unchanged |
+
+None of them is in the repository, in the content file or in the bundle.
+
+## Behind a proxy
+
+The rate limits key on the caller's address, read from `x-forwarded-for` and
+then `x-real-ip`. A deployment that terminates TLS in front of the site must set
+those headers, and must set `x-forwarded-proto`, which is what decides whether
+the session cookie carries `Secure`.
 
 ## Contrast, measured
 
-Computed from the palette in the content file, not judged by eye. Every pair the
-skill requires, with the ratio it actually reaches:
+Computed from both palettes in the content file, not judged by eye.
 
-| Pair | Ratio | Minimum |
-|---|---|---|
-| `foreground` on `surface` | 17.61 | 4.5 |
-| `muted` on `surface` | 8.85 | 4.5 |
-| `muted` on `surfaceAlt` | 8.16 | 4.5 |
-| `accentForeground` on `accent` | 5.81 | 4.5 |
-| `accent` on `surface` | 6.06 | 3 |
-| `borderStrong` on `surface` | 3.52 | 3 |
-| `borderStrong` on `surfaceAlt` | 3.24 | 3 |
-| `danger` on `surfaceAlt` | 6.27 | 4.5 |
-| `success` on `surfaceAlt` | 9.85 | 4.5 |
+| Pair | Light | Dark | Minimum |
+|---|---|---|---|
+| `foreground` on `surface` | 18.25 | 17.61 | 4.5 |
+| `muted` on `surface` | 6.98 | 8.85 | 4.5 |
+| `muted` on `surfaceAlt` | 6.35 | 8.16 | 4.5 |
+| `accentForeground` on `accent` | 4.59 | 6.34 | 4.5 |
+| `accent` on `surface` | 4.48 | 6.61 | 3 |
+| `borderStrong` on `surface` | 3.60 | 3.52 | 3 |
+| `borderStrong` on `surfaceAlt` | 3.27 | 3.24 | 3 |
+| `danger` on `surfaceAlt` | 5.81 | 6.27 | 4.5 |
+| `success` on `surfaceAlt` | 4.63 | 9.85 | 4.5 |
 
 `border` carries no minimum: it separates cards and is decorative.
 `borderStrong` draws the boundary of an input and of a bordered button, which is
-what identifies the control, so it is measured. Splitting the two is what lets a
-restrained page stay restrained without failing an interactive control.
+what identifies the control, so it is measured in both themes.
 
 ## The no-code field map
 
-The client changes these without a developer, in `content/content.json`.
+The back office generates this table from `lib/schema.ts`, which is also the
+server's allow list: a path that is not in it cannot be written, whatever a
+request contains.
 
-| Field | Type | Changes |
+| Section of the back office | Fields | Changes |
 |---|---|---|
-| `site.name`, `site.tagline` | string | header, footer, page titles |
-| `theme.palette.*` | colour | every surface, text and accent on the site |
-| `theme.motion.intensity` | 0 to 1 | how much the page moves; 0 stops it entirely |
-| `nav[]` | list of `{ label, href }` | the header navigation |
-| `ui.*` | string | interface labels, hints and notices |
-| `hero.title`, `hero.subtitle`, `hero.image` | string, image | the first screen |
-| `hero.actions[]` | list | the buttons under the title |
-| `about.body[]` | list of strings | the paragraphs of the profile |
-| `about.facts[]` | list of `{ label, value }` | the credential row |
-| `offers.heading`, `offers.items[]` | string, list | the accompaniment cards, in order |
-| `results.heading`, `results.items[]` | string, list | the figures block |
-| `gallery.heading`, `gallery.items[]` | string, list | the gallery, in order |
-| `testimonials.heading`, `testimonials.items[]` | string, list | the quotes |
-| `contactSection.fields[]` | list of field definitions | the form fields themselves |
-| `contact.*` | string, list | address, hours, telephone, social links |
-| `forms.endpoint` | https URL or empty | where the form posts; empty falls back to mailto |
-| `legal.*` | facts | the legal pages |
+| Contenu, Identité | name, short name, tagline, search title and description | header, footer, titles, search results |
+| Contenu, Première section | title, subtitle, image, buttons | the first screen |
+| Contenu, Profil | heading, paragraphs, portrait, key figures | the profile section |
+| Contenu, Accompagnements | heading, offers with price, duration, highlight | the cards, in order |
+| Contenu, Chiffres | heading, figures | the figures band |
+| Contenu, Galerie | heading, images with alt text and captions | the gallery, in order |
+| Contenu, Témoignages | heading, quotes | the quotes |
+| Contenu, Formulaire | heading, intro, the form fields themselves, success and failure messages | what the visitor fills in and sees |
+| Contenu, Coordonnées | email, telephone, address, opening hours, social links | the contact block and the footer |
+| Contenu, Interface | 404 and offline pages, form labels, notices | the pages nobody designs |
+| Contenu, Légal | identity, host, controller, supervisory authority | the legal pages |
+| Contenu, Application | installable on or off, icons | the manifest |
+| Couleurs | both palettes, motion intensity, density, page and prose widths | every colour, every movement, every spacing |
+| Images | upload, replace, delete | the media the content points at |
+| Messages | read, unread, archive, delete | the inbox |
 
-Removing an optional section from the file removes it from the page and from
-the navigation. A content change requires a rebuild.
+Not editable here, by design: the structure of a page, the components, the
+routing, the validation rules, the breakpoints, what a form does with a
+submission, and the legal clauses that bind.
 
 ## Legal facts still missing in this instance
 
-Deliberately incomplete, so the marker behaviour is visible in the rendered
-page rather than only described:
+Deliberately incomplete, so the marker behaviour is visible in the rendered page
+rather than only described: registration number, VAT identifier, host name,
+address and telephone, supervisory authority. Each appears as
+`[ à compléter : ... ]` in the danger colour, under a notice at the top of the
+page. An instance carrying markers may be reviewed and staged; it may not be
+announced as delivered.
 
-- registration number
-- VAT identifier
-- host name, address and telephone
-- supervisory authority
+## Where the file store stops being enough
 
-Each appears in the page as `[ à compléter : ... ]`, in the danger colour, under
-a notice at the top of the document. An instance carrying markers may be
-reviewed and staged; it may not be announced as delivered.
+Messages, sessions, subscriptions and counters are JSON files written whole,
+atomically. That is right for one site on one process, which is what this is.
+Two thresholds change it: more than one server process, because the rate limit
+counters and the sessions must then be visible to both, and a message volume
+where rewriting the file on each write becomes noticeable, in the thousands
+rather than the hundreds. At either point the store moves to a database and
+`lib/store.ts` is the only module that changes.
