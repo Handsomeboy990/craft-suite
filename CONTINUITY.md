@@ -598,6 +598,19 @@ Session 28, the back office behind the site template, version 3.21.0:
   to sign into locally.
 - The `SITE_TEMPLATE` plan carries the server side skills the back office
   implies. Counts unchanged: the skill and the agent already existed.
+- The write-up first said the browser items of the gate could not be checked
+  here, and that was false: Playwright and its Chromium are available. Driving
+  them found three defects no request library could see. The worst was a form
+  that told the visitor it had failed while the server had stored the message,
+  because `event.currentTarget.reset()` ran after an await and the throw landed
+  in the catch that shows the failure. The second was 32px of horizontal
+  overflow at 360px, hidden from every document level measurement by a
+  `body { overflow-x: hidden }`. The third was a push subscription that failed
+  silently. The lesson to carry: a claim of "cannot be verified here" is itself
+  a claim, and it needs checking before it is written down.
+- `examples/verification/` holds the two scripts, so the claims are rerunnable
+  rather than asserted. What they cannot prove is named in their README: push
+  delivery needs a real push service, and no assistive technology is available.
 - The admin form and the server allow list are one declaration, `lib/schema.ts`
   in each reference. That is the piece worth carrying forward: it is why a field
   added to the contract appears in the back office without new admin code, and

@@ -56,6 +56,30 @@ server, so the deliverable is now an application rather than an exported page.
   office implies, from `admin-console` and `authentication-security` through
   `rate-limiting`, `file-handling` and `security-audit`.
 
+### Fixed
+
+Found by driving a real browser, which the first write-up had wrongly claimed
+was impossible here. Playwright and its Chromium are available; `examples/
+verification/` now holds the two scripts, twenty five checks on the portfolio
+and thirteen on the showcase.
+
+- The contact form told the visitor it had failed while the server had accepted
+  and stored the message. `event.currentTarget.reset()` ran after an await,
+  React had already cleared the event, and the throw landed in the catch that
+  shows the failure state. Every visitor would have been told their message
+  failed after it arrived, and would have sent it again or given up. The form
+  element is captured before the await.
+- The page scrolled sideways at 360px: a one word section title at display size
+  cannot break, and a flex item does not shrink below its min-content width.
+  `body { overflow-x: hidden }` was hiding it from every measurement taken on
+  the document. The crutch is removed, the section and page titles are fluid,
+  headings may break inside a word, and the flex children may shrink.
+- A push subscription that failed left the client clicking a button that
+  appeared to do nothing. Every step of subscribing and unsubscribing is caught
+  and its reason shown, with the inbox unaffected.
+- `align-items: end` replaced by `flex-end`, which the build had been warning
+  about.
+
 ### Decided
 
 - The contact rate limit answers visibly rather than returning a success shaped

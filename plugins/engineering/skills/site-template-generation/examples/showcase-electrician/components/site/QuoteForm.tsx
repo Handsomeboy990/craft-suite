@@ -22,7 +22,12 @@ export default function QuoteForm({
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    // The element is captured before the first await. React clears the event
+    // afterwards, and reading currentTarget later throws inside the try, which
+    // showed the failure message for a submission the server had accepted and
+    // stored. A visitor told their message failed sends it again or gives up.
+    const form = event.currentTarget;
+    const data = new FormData(form);
     const payload: Record<string, unknown> = {};
     for (const field of fields) {
       payload[field.name] =
@@ -40,7 +45,7 @@ export default function QuoteForm({
       if (response.ok && body.ok) {
         setStatus('success');
         setMessage(body.message ?? forms.successMessage);
-        event.currentTarget.reset();
+        form.reset();
       } else {
         setStatus('error');
         setMessage(body.error ?? forms.errorMessage);

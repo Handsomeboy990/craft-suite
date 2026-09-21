@@ -42,38 +42,61 @@ export default function PushToggle({ publicKey, csrf }: { publicKey: string | nu
     return <p className="admin-field__hint">Ce navigateur ne prend pas en charge les notifications.</p>;
   }
 
+  // Every step here can refuse: the permission, the browser's push service, the
+  // network. A failure that says nothing leaves the client clicking a button
+  // that appears to do nothing, so each one is caught and shown.
   async function subscribe() {
-    const permission = await Notification.requestPermission();
-    if (permission !== 'granted') {
-      setMessage('Notifications refusées par le navigateur.');
-      return;
+    setMessage('');
+    try {
+      const permission = await Notification.requestPermission();
+      if (permission !== 'granted') {
+        setMessage('Notifications refusées dans les réglages du navigateur.');
+        return;
+      }
+      const registration = await navigator.serviceWorker.ready;
+      const subscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: toUint8Array(publicKey!),
+      });
+      const response = await fetch('/api/admin/push', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-csrf-token': csrf },
+        body: JSON.stringify(subscription.toJSON()),
+      });
+      if (!response.ok) {
+        setMessage("L'abonnement n'a pas été enregistré par le serveur. Réessayez.");
+        return;
+      }
+      setState('on');
+      setMessage('Ce navigateur recevra une notification à chaque nouveau message.');
+    } catch (error) {
+      setMessage(
+        `Ce navigateur n'a pas pu s'abonner : ${
+          error instanceof Error ? error.message : 'raison inconnue'
+        }. La boîte de réception continue de fonctionner.`,
+      );
     }
-    const registration = await navigator.serviceWorker.ready;
-    const subscription = await registration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: toUint8Array(publicKey!),
-    });
-    await fetch('/api/admin/push', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-csrf-token': csrf },
-      body: JSON.stringify(subscription.toJSON()),
-    });
-    setState('on');
-    setMessage('Ce navigateur recevra une notification à chaque nouveau message.');
   }
 
   async function unsubscribe() {
-    const registration = await navigator.serviceWorker.ready;
-    const subscription = await registration.pushManager.getSubscription();
-    if (subscription) {
-      await fetch(`/api/admin/push?endpoint=${encodeURIComponent(subscription.endpoint)}`, {
-        method: 'DELETE',
-        headers: { 'x-csrf-token': csrf },
-      });
-      await subscription.unsubscribe();
+    setMessage('');
+    try {
+      const registration = await navigator.serviceWorker.ready;
+      const subscription = await registration.pushManager.getSubscription();
+      if (subscription) {
+        await fetch(`/api/admin/push?endpoint=${encodeURIComponent(subscription.endpoint)}`, {
+          method: 'DELETE',
+          headers: { 'x-csrf-token': csrf },
+        });
+        await subscription.unsubscribe();
+      }
+      setState('off');
+      setMessage('Ce navigateur ne recevra plus de notification.');
+    } catch (error) {
+      setMessage(
+        `Le désabonnement a échoué : ${error instanceof Error ? error.message : 'raison inconnue'}.`,
+      );
     }
-    setState('off');
-    setMessage('Ce navigateur ne recevra plus de notification.');
   }
 
   return (

@@ -98,7 +98,75 @@ contrast               every required pair passes, in both themes, on both
                        palettes of both instances
 ```
 
-## Two things running them changed
+## What a browser proved, and what it found
+
+The first version of this file claimed the browser items of the gate could not
+be checked here. They could: Playwright and its Chromium are available, and
+`verification/` now holds the two scripts that drive them. Twenty five checks on
+the portfolio and thirteen on the showcase, all passing:
+
+```
+theme            dark under the system preference, the toggle switching, the
+                 choice surviving a reload, and the attribute already set on
+                 the first evaluation, which is what "no flash" means
+motion           the reveal class appearing on the sections in view and on more
+                 of them after scrolling; no reveal node at all under
+                 prefers-reduced-motion, with every section visible
+keyboard         the first Tab reaching the skip link, a 3px focus outline on
+                 it, and the tab order walking into links, buttons and fields
+layout           no horizontal scroll at 360px or 1920px, on every route
+service worker   registering and activating; a never visited page falling back
+                 to the offline page with the network cut; the cached home page
+                 still served; the back office never served from cache
+back office      an unauthenticated visit landing on the login, signing in
+                 landing on the page that was asked for, the cookie httpOnly
+                 and SameSite=Lax, a field edited there appearing on the public
+                 page, and put back through the same surface
+public form      the visitor seeing the success state and the form clearing
+404              the site's own page, with status 404
+quotation form   filled as a visitor would, then found unread in the inbox with
+                 its count in the navigation
+```
+
+Three defects came out of it, none of which a request library could have seen:
+
+```
+the form lied    the API answered 200 and stored the message, and the visitor
+                 was shown "L'envoi a échoué". `event.currentTarget.reset()`
+                 ran after an await, React had already cleared the event, and
+                 the throw landed in the catch that shows the failure. Every
+                 visitor would have been told their message failed after it
+                 arrived. The element is now captured before the await
+32px of overflow a one word section title at display size cannot break, and a
+                 flex item does not shrink below its min-content width. The
+                 page scrolled sideways at 360px, and `body { overflow-x:
+                 hidden }` was hiding it from every measurement that looked at
+                 the document. The crutch is gone, the titles are fluid, the
+                 headings may break inside a word, and the flex children may
+                 shrink
+push said nothing a subscription that fails left the client clicking a button
+                 that appeared to do nothing. Every step is now caught and the
+                 reason shown, with the inbox still working
+```
+
+## What a browser could not prove here
+
+```
+push delivery   a subscription needs a browser push service, and headless
+                Chromium here closes on the permission request. The path is
+                exercised server side instead, and that part was observed: the
+                public key served only to a signed in session, a malformed
+                subscription refused, a well formed one stored, a send against
+                an unreachable endpoint logged rather than swallowed with the
+                message surviving it, and an unsubscribe deleting the record
+screen reader   no assistive technology is available here. Labels, landmarks, a
+                skip link and visible focus are in the markup, which is a
+                different claim from having been heard
+```
+
+## Five things running them changed
+
+The three defects above, and these two:
 
 - **The contact rate limit answers visibly.** It first returned a success shaped
   response so that a crawler would learn nothing. Running it showed the cost: a
