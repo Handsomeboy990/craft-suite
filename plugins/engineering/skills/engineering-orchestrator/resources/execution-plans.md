@@ -311,3 +311,16 @@ plan: project-exploration -> feature-flags -> backend-engineering -> frontend-en
 `release-engineering` owns the rollout steps and their thresholds.
 `regression-testing` runs on flag removal as well as on flag introduction,
 since deleting a branch changes behaviour for whoever was on it.
+
+## SITE_TEMPLATE
+
+category: SITE_TEMPLATE
+plan: project-exploration -> template-selection -> site-template-generation -> design-system -> ui-ux-engineering -> frontend-engineering -> design-authenticity -> animation -> seo-engineering -> input-validation -> accessibility-testing -> testing-quality -> playwright-automation -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+
+A site delivered to a client, driven by a content file the client can still
+edit. `site-template-generation` fixes the content contract, the token profile
+and the legal surface before any component exists, and holds the ten point gate
+at the end. `template-selection` runs only when the work starts from an existing
+template. `animation` is reduced to almost nothing on a trade whose motion
+intensity is low, and is not dropped, because the intensity scalar is still a
+decision.

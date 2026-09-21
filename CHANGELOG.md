@@ -3,6 +3,50 @@
 Every notable change to this project is recorded here. The format follows
 semantic versioning.
 
+## 3.20.0
+
+Client sites, delivered as templates rather than as pages. One skill, one
+agent, and two reference implementations that build and export.
+
+### Added
+
+- `site-template-generation` in `dev-skills`. Builds a client website as a
+  fixed template driven by an external content file, so the site can still be
+  changed a year after delivery without a developer. It fixes the content
+  contract per kind, portfolio for a person and showcase for a company; chooses
+  the design tokens by trade rather than by taste, including a motion intensity
+  that separates an energetic profile from a technical one without a second
+  template; states which fields the client may edit and verifies each one is
+  actually wired, because a field promised in the handover and not connected is
+  the defect the client finds first; and assembles the legal pages from the
+  company's real facts, rendering a visible marker for every fact not provided
+  rather than inventing a registration number under the client's name. A clause
+  that binds is the client's own text or a marker: the template never drafts
+  one. Accessibility and responsive rules are applied while building, and a ten
+  point gate decides whether the template is finished.
+- `site-template-engineer` in `agents/development`. Scaffolds a template from a
+  trade and a kind, holds the gate, and hands over the field map. Thin, as every
+  agent here is: the expertise is in the skill.
+- Two reference implementations under the skill's `examples/`, both with
+  clearly fictional data and no photograph of any real person: a one page
+  portfolio for an invented sports coach, motion intensity 0.9, two legal pages;
+  and a multi page showcase for an invented electrical company, motion intensity
+  0.25, four legal pages, quotation form. Both build and export statically, both
+  refuse a removed required field by name, and the showcase refuses to build
+  when a legal page its kind requires is missing.
+- The `SITE_TEMPLATE` task category, with its classification row, its routing
+  phrases and its execution plan.
+
+### Decided
+
+- The palette carries two border tokens rather than one. Measuring the contrast
+  of the two reference palettes, as the skill demands, failed on exactly one
+  pair: the border, at 1.41 and 1.55 against its surface. Raising a single token
+  to 3:1 would have fixed an input boundary and made every card separator loud.
+  `border` is now decorative with no minimum, `borderStrong` draws the boundary
+  of a control and is measured at 3:1, and both references reach every required
+  ratio. The measured figures are in each reference README.
+
 ## 3.19.0
 
 A documentation audit found that the one document a new user needs did not

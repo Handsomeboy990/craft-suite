@@ -42,12 +42,13 @@ AUTHENTICATION SECURITY VALIDATION DEBUGGING PERFORMANCE UI_UX TESTING
 BROWSER_AUTOMATION DOCUMENTATION GIT RELEASE REFACTORING DEPENDENCY
 QUALITY_CAMPAIGN ACCESSIBILITY REGRESSION MIGRATION LEGACY INCIDENT
 INFRASTRUCTURE PAYMENTS JOBS REALTIME FILES I18N SEO DESIGN_SYSTEM PRIVACY
-CACHING ANALYTICS FEATURE_FLAGS"
+CACHING ANALYTICS FEATURE_FLAGS SITE_TEMPLATE"
 
 AGENT_NAMES="delivery-orchestrator principal-engineer requirements-analyst
 software-architect frontend-engineer backend-engineer database-engineer
 security-engineer qa-engineer playwright-engineer ui-ux-engineer
 devops-engineer performance-engineer documentation-engineer release-engineer
+site-template-engineer
 incident-responder compliance-verifier design-verification web-auditor pr-author pr-reviewer design-research
 source-of-truth checkup final-verifier"
 

@@ -35,6 +35,7 @@ Orchestration                delivery-orchestrator (a project)
   +-- Architecture             software-architect
   +-- Design                   ui-ux-engineer
   +-- Implementation           frontend-engineer, backend-engineer, database-engineer
+  +-- Site templates           site-template-engineer
   +-- Security                 security-engineer
   +-- QA / Testing             qa-engineer, playwright-engineer
   +-- Documentation            documentation-engineer
@@ -55,7 +56,7 @@ page once recorded as unfilled, `source-of-truth`, `checkup` and
 remains unfilled is recorded in `multi-agent-assessment.md` section 3 and in
 `docs/agents/README.md`, rather than filled with a thin, unreviewed stand-in.
 
-## The twenty-five agents, by group
+## The twenty-six agents, by group
 
 Agents live in `agents/<group>/`, a repository-wide tree independent of any
 single skill domain, so each domain's plugin carries its own agents rather than
@@ -69,7 +70,7 @@ and `documentation/agents.md`.
 | Group | Agents | Owns |
 |---|---|---|
 | `core` | `delivery-orchestrator`, `principal-engineer`, `requirements-analyst`, `compliance-verifier`, `pr-author`, `pr-reviewer`, `source-of-truth`, `checkup`, `final-verifier` | the project lifecycle, a multi-surface request, requirements, the launch gate, opening and reviewing pull requests, canonical project truth, the pre-intervention inspection, the independent final gate |
-| `development` | `software-architect`, `frontend-engineer`, `backend-engineer`, `database-engineer`, `performance-engineer` | architecture, client and server implementation, schema, measured performance |
+| `development` | `software-architect`, `frontend-engineer`, `backend-engineer`, `database-engineer`, `performance-engineer`, `site-template-engineer` | architecture, client and server implementation, schema, measured performance, client site templates |
 | `design` | `ui-ux-engineer`, `design-verification`, `design-research` | the rendered experience and accessibility, generic-design detection, reference research |
 | `security` | `security-engineer`, `web-auditor` | audits and fixes, URL-driven site audit |
 | `testing` | `qa-engineer`, `playwright-engineer` | test strategy, browser verification |

@@ -31,7 +31,7 @@ written in English, and the output language is a configuration decision. See
 Rules 1 and 2 of the writing constitution still apply to every file: no emoji,
 no em dash.
 
-## 3. The fifty five skills
+## 3. The fifty six skills
 
 ### Foundation
 
@@ -53,6 +53,7 @@ no em dash.
 | `design-authenticity` | the generic-defaults cluster and the intentionality test |
 | `animation` | motion that is intended, on the lightest sufficient technique |
 | `template-selection` | clean, licence-clear templates that fit, shortlisted then customised |
+| `site-template-generation` | a client site driven by a content file, with a true no-code contract |
 | `dependency-selection` | add, replace, upgrade or refuse a library |
 
 ### Implementation
@@ -175,12 +176,12 @@ EXPLORATION, ARCHITECTURE, FRONTEND, BACKEND, FULLSTACK, DATABASE, API,
 AUTHENTICATION, SECURITY, VALIDATION, DEBUGGING, PERFORMANCE, UI_UX, TESTING,
 BROWSER_AUTOMATION, DOCUMENTATION, GIT, RELEASE, REFACTORING, DEPENDENCY.
 
-The eighteen surface categories, each naming a domain with its own failure
+The nineteen surface categories, each naming a domain with its own failure
 modes:
 
 QUALITY_CAMPAIGN, ACCESSIBILITY, REGRESSION, MIGRATION, LEGACY, INCIDENT,
 INFRASTRUCTURE, PAYMENTS, JOBS, REALTIME, FILES, I18N, SEO, DESIGN_SYSTEM,
-PRIVACY, CACHING, ANALYTICS, FEATURE_FLAGS.
+PRIVACY, CACHING, ANALYTICS, FEATURE_FLAGS, SITE_TEMPLATE.
 
 Every plan begins with `project-exploration`, with one deliberate exception:
 INCIDENT begins with `incident-response`, because production is restored
@@ -257,7 +258,7 @@ mandatory gates appear where they are required, that plan ordering is
 coherent, that no engineering skill is orphaned, that `depends_on` and cross
 references resolve, and that the five reference routing scenarios hold.
 
-It also covers the fourteen delivery phases, the twenty-five agent definitions,
+It also covers the fourteen delivery phases, the twenty-six agent definitions,
 the document pipeline and the independence of `shared/`. The thirteen checks
 are listed in `tests/README.md`.
 

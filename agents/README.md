@@ -1,6 +1,6 @@
 # agents
 
-Twenty-five specialised agent definitions for an agent runtime that supports
+Twenty-six specialised agent definitions for an agent runtime that supports
 subagents, such as Claude Code.
 
 An agent here is a role with a narrow responsibility. It is thin by design:
@@ -19,7 +19,7 @@ Agent   who owns this piece of work, what they may touch, what they hand on
 Duplicating a skill's content into an agent produces two documents that drift.
 Every agent below references the skills it uses and never restates them.
 
-## The twenty-five
+## The twenty-six
 
 | Agent | Owns | Primary skills |
 |---|---|---|
@@ -34,6 +34,7 @@ Every agent below references the skills it uses and never restates them.
 | `pr-reviewer` | the independent review and mergeability gate on a pull request | code-review-protocol, git-workflow |
 | `software-architect` | architecture and technology decisions | architecture-proposal, technology-selection, architecture-design |
 | `frontend-engineer` | client implementation | frontend-engineering, ui-ux-engineering |
+| `site-template-engineer` | a client site template driven by a content file | site-template-generation, design-system |
 | `backend-engineer` | server implementation | backend-engineering, input-validation |
 | `database-engineer` | schema, migrations, query quality | database-operations, performance-engineering |
 | `security-engineer` | audits and fixes security | security-audit, input-validation |
@@ -88,13 +89,16 @@ to the orchestrator, which holds the gates.
 No agent is the only authority over its own critical work.
 
 ```
-frontend-engineer   -> qa-engineer, ui-ux-engineer, code review
-backend-engineer    -> security-engineer, qa-engineer, code review
-database-engineer   -> backend-engineer, performance-engineer, release-engineer
-devops-engineer     -> security-engineer, release-engineer
-security-engineer   -> qa-engineer, for the tests that encode each fix
-incident-responder  -> qa-engineer for the regression, release-engineer for
-                       the hotfix path
+frontend-engineer      -> qa-engineer, ui-ux-engineer, code review
+site-template-engineer -> ui-ux-engineer for the rendered result, qa-engineer
+                          for the gate
+backend-engineer       -> security-engineer, qa-engineer, code review
+database-engineer      -> backend-engineer, performance-engineer,
+                          release-engineer
+devops-engineer        -> security-engineer, release-engineer
+security-engineer      -> qa-engineer, for the tests that encode each fix
+incident-responder     -> qa-engineer for the regression, release-engineer for
+                          the hotfix path
 ```
 
 ## Handoff

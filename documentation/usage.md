@@ -227,14 +227,14 @@ in:
 |---|---|---|
 | `--writing` | 44 | 0 |
 | `--documents` | 9 | 0 |
-| `--dev` | 84 | 24 |
+| `--dev` | 85 | 25 |
 | `--security` | 18 | 2 |
 | `--research` | 7 | 0 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 166 | 25 |
-| `--agents` | 0 | 25 |
+| `--all` | 167 | 26 |
+| `--agents` | 0 | 26 |
 
 `~/.claude/skills` is shared. It holds every skill you have, not only this
 suite's: a skill installed from somewhere else sits beside them, and claude.ai

@@ -548,11 +548,34 @@ Session 26, the documentation audit and what it uncovered, version 3.19.0:
   make the file agree with the instruction, and would double as a live test of
   this release's `--configure` fix.
 
+Session 27, the site-template-generation skill, version 3.20.0:
+
+- `site-template-generation` skill (`engineering/dev-skills/`): builds a client
+  website as a fixed template driven by an external content file, so the client
+  can still change it a year later without a developer. Content contract per
+  kind (portfolio for a person, showcase for a company), design tokens chosen by
+  trade with a motion intensity scalar, a no-code field map that is verified to
+  be wired rather than promised, legal pages assembled from the company's real
+  facts with a visible marker for every fact not provided, and a ten point gate.
+- `site-template-engineer` agent (`agents/development/`), thin as the others:
+  it scaffolds from a trade and a kind and holds the gate.
+- New `SITE_TEMPLATE` task category with its classification row, its routing
+  phrases and its execution plan, so the skill is not an orphan.
+- Two reference implementations under the skill's `examples/`, both Next.js with
+  a static export and clearly fictional data: `portfolio-sports-coach` (one page,
+  intensity 0.9, two legal pages) and `showcase-electrician` (four pages,
+  intensity 0.25, four legal pages). Both were installed and built for real:
+  6 and 11 static pages exported, and the two deliberate failures were observed
+  rather than described, a removed `hero.title` and a removed terms page each
+  stopping the build with the field named.
+- Counts 166 to 167 skills, dev-skills 55 to 56, engineering 82 to 83, agents
+  25 to 26, engineering bundle 84 to 85 with 25 agents.
+
 ## Current state
 
 Working today:
 
-- the six scripts pass: 166 skills, 0 errors, 1 pre-existing warning on a
+- the six scripts pass: 167 skills, 0 errors, 1 pre-existing warning on a
   deliberate typographic counter-example;
 - `install.sh` works in every mode, including the four new scopes, verified
   against a sandbox target through `CLAUDE_SKILLS_DIR`;

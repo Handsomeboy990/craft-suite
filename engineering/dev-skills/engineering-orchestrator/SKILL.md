@@ -88,6 +88,7 @@ own failure modes and its own plan.
 | CACHING | cache, invalidation, CDN, stale data |
 | ANALYTICS | events, funnels, conversion, product measurement |
 | FEATURE_FLAGS | toggle, gradual rollout, kill switch, experiment |
+| SITE_TEMPLATE | a client site from a content file, portfolio or showcase, no-code handover |
 
 Misclassification is cheap to fix and expensive to ignore. When two categories
 compete, take the one with the stricter gates.

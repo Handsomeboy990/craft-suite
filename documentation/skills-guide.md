@@ -180,6 +180,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `design-authenticity` | detects generic AI-default design, tests for intent |
 | `animation` | motion that reads as designed: technique ladder, cheap props, reduced motion |
 | `template-selection` | finds clean, licence-clear templates that fit, shortlists them, then customises the chosen one |
+| `site-template-generation` | builds a client site from a content file: contract, trade tokens, no-code fields, legal pages from real facts |
 | `dependency-selection` | twelve point evaluation before adding a library |
 | `frontend-engineering` | pages, components, state, forms, the five UI states |
 | `backend-engineering` | handlers, services, authorization, transactions, jobs |
@@ -262,14 +263,15 @@ Depend on nothing. Callable from any tree, usable alone.
 | `tls-certificates` | the TLS certificate over its whole life, key never leaked |
 | `email-deliverability` | mail into the inbox: SPF, DKIM, DMARC aligned, reputation, bounces |
 
-### agents, 25
+### agents, 26
 
 Core, nine: `delivery-orchestrator`, `principal-engineer`,
 `requirements-analyst`, `compliance-verifier`, `source-of-truth`, `checkup`,
 `final-verifier`, `pr-author`, `pr-reviewer`.
 
-Development, five: `software-architect`, `frontend-engineer`,
-`backend-engineer`, `database-engineer`, `performance-engineer`.
+Development, six: `software-architect`, `frontend-engineer`,
+`backend-engineer`, `database-engineer`, `performance-engineer`,
+`site-template-engineer`.
 
 Design, three: `ui-ux-engineer`, `design-research`, `design-verification`.
 
