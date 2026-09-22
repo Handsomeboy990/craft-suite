@@ -1,5 +1,7 @@
-import { HttpError, requireSession } from '@/lib/auth';
+import { HttpError, requireSession , refuseOversizedBody } from '@/lib/auth';
+import { record } from '@/lib/audit';
 import { addSubscription, listSubscriptions, pushPublicKey, removeSubscription } from '@/lib/push';
+import { callerAddress } from '@/lib/rate-limit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -19,6 +21,9 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  const oversized = refuseOversizedBody(request);
+  if (oversized) return oversized;
+
   try {
     await requireSession(request);
   } catch (error) {
@@ -38,6 +43,7 @@ export async function POST(request: Request) {
   }
 
   addSubscription({ endpoint, keys: { p256dh, auth } });
+  record('push-subscribe', callerAddress(request.headers));
   return Response.json({ ok: true });
 }
 
@@ -50,5 +56,6 @@ export async function DELETE(request: Request) {
   }
   const endpoint = new URL(request.url).searchParams.get('endpoint') ?? '';
   removeSubscription(endpoint);
+  record('push-unsubscribe', callerAddress(request.headers));
   return Response.json({ ok: true });
 }

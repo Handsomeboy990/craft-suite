@@ -57,7 +57,12 @@ export default function ContactForm({
   }
 
   return (
-    <form className="form" onSubmit={onSubmit}>
+    <form method="post" className="form" onSubmit={onSubmit}>
+      {/* Without JavaScript the submission cannot reach the endpoint. Saying so,
+          and pointing at the telephone, loses a message instead of losing a client. */}
+      <noscript>
+        <p className="form__status form__status--error">{ui.form.noScript}</p>
+      </noscript>
       {fields.map((field) => {
         const id = `field-${field.name}`;
 

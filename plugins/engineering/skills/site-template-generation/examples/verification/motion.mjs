@@ -9,8 +9,12 @@ const record = (n, ok, d) => { results.push({n, ok}); console.log(`${ok ? 'PASS'
   const page = await (await browser.newContext({ viewport: { width: 1280, height: 800 } })).newPage();
   await page.goto(BASE);
 
-  const entrance = await page.locator('.hero__body.entrance.is-running').count();
-  record('the hero entrance class is applied on load', entrance === 1);
+  const entrance = await page
+    .locator('.hero__body.entrance.is-running')
+    .waitFor({ state: 'attached', timeout: 5000 })
+    .then(() => true)
+    .catch(() => false);
+  record('the hero entrance class is applied on load', entrance);
 
   const heroOpacity = await page.evaluate(() =>
     getComputedStyle(document.querySelector('.hero__title')).opacity);

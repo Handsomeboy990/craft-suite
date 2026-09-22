@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import ThemeToggle from './ThemeToggle';
 import type { PortfolioContent } from '@/lib/types';
 
 // A navigation that does not fit becomes a menu, not a wrapping row. The button
@@ -66,6 +67,7 @@ export default function SiteNav({
             ))}
           </ul>
         </nav>
+        <ThemeToggle ui={ui} />
       </div>
     </>
   );

@@ -78,6 +78,8 @@ export type UiStrings = {
     selectPlaceholder: string;
     requiredMessage: string;
     invalidMessage: string;
+    /** Shown when the page loads without JavaScript, instead of a silent failure. */
+    noScript: string;
   };
   notFound: { title: string; body: string; action: string };
   offline: { title: string; body: string; action: string };
@@ -151,9 +153,11 @@ export type ShowcaseContent = {
     favicon?: ImageRef;
   };
   theme: Theme;
+  // One fact, one field. The name a visitor reads is `site.name`; the
+  // registered entity the legal pages state is `legal.identity.legalName`.
+  // A third copy here was editable, promised to change the legal pages, and
+  // changed nothing.
   company: {
-    legalName: string;
-    tradeName?: string;
     activity: string;
     serviceArea?: string[];
   };
@@ -188,7 +192,7 @@ export type ShowcaseContent = {
     social?: { platform: string; url: string }[];
   };
   forms: { successMessage: string; errorMessage: string; notifyEmail?: string };
-  seo: { title: string; description: string; ogImage?: ImageRef };
+  seo: { title: string; description: string; ogImage?: ImageRef; businessType: string };
   pwa: { enabled: boolean; icons?: { src: string; sizes: string; purpose?: string }[] };
   legal: LegalBlock;
 };

@@ -1,4 +1,5 @@
 import { arrivedOverHttps, createSession, isConfigured, verifyPassword } from '@/lib/auth';
+import { record } from '@/lib/audit';
 import { callerAddress, consume, reset } from '@/lib/rate-limit';
 
 export const runtime = 'nodejs';
@@ -28,6 +29,7 @@ export async function POST(request: Request) {
   // an instance whose password was never set.
   const accepted = password.length > 0 && (await verifyPassword(password));
   if (!accepted) {
+    record('sign-in-refused', address);
     return Response.json(
       { ok: false, error: REFUSED, configured: isConfigured() },
       { status: 401 },
@@ -36,5 +38,6 @@ export async function POST(request: Request) {
 
   await createSession(address, arrivedOverHttps(request));
   reset('login', address);
+  record('sign-in', address);
   return Response.json({ ok: true });
 }

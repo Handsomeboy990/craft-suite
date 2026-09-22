@@ -1,5 +1,7 @@
+import { refuseOversizedBody } from '@/lib/auth';
 import { getContent } from '@/lib/content';
 import { addMessage } from '@/lib/messages';
+import { send } from '@/lib/mail';
 import { notify } from '@/lib/push';
 import { callerAddress, consume } from '@/lib/rate-limit';
 
@@ -15,6 +17,9 @@ export const dynamic = 'force-dynamic';
 // site that trade is the wrong way round, so the visitor is told, and given the
 // direct address that the failure message carries.
 export async function POST(request: Request) {
+  const oversized = refuseOversizedBody(request);
+  if (oversized) return oversized;
+
   const content = getContent();
   const address = callerAddress(request.headers);
   const limit = consume('contact', address);
@@ -71,6 +76,22 @@ export async function POST(request: Request) {
 
   // The message is stored before anything is announced, so a failing
   // notification never loses it.
+  // Both announcements happen after the message is stored, and neither can
+  // lose it. forms.notifyEmail was in the contract and sent nothing until now.
+  if (content.forms.notifyEmail) {
+    void send(
+      content.forms.notifyEmail,
+      `Nouveau message depuis ${content.site.name}`,
+      [
+        `Reçu le ${new Date(message.receivedAt).toLocaleString(content.site.locale)}.`,
+        '',
+        ...fields.map((field) => `${field.label} : ${field.value}`),
+        '',
+        `À lire et à répondre depuis ${content.site.baseUrl.replace(/\/$/, '')}/admin/messages`,
+      ].join('\n'),
+    ).catch((error) => console.error('notification mail failed for message', message.id, error));
+  }
+
   const first = fields[0]?.value ?? '';
   void notify('Nouveau message', first.slice(0, 120), '/admin/messages').catch((error) => {
     console.error('notification failed for message', message.id, error);

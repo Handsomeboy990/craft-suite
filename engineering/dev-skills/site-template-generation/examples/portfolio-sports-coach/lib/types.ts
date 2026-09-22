@@ -76,6 +76,8 @@ export type UiStrings = {
     selectPlaceholder: string;
     requiredMessage: string;
     invalidMessage: string;
+    /** Shown when the page loads without JavaScript, instead of a silent failure. */
+    noScript: string;
   };
   notFound: { title: string; body: string; action: string };
   offline: { title: string; body: string; action: string };
@@ -155,7 +157,13 @@ export type PortfolioContent = {
     social?: { platform: string; url: string }[];
   };
   forms: { successMessage: string; errorMessage: string; notifyEmail?: string };
-  seo: { title: string; description: string; ogImage?: ImageRef };
+  seo: {
+    title: string;
+    description: string;
+    ogImage?: ImageRef;
+    /** What the business is, in the vocabulary a search engine reads. */
+    businessType: string;
+  };
   pwa: { enabled: boolean; icons?: { src: string; sizes: string; purpose?: string }[] };
   legal: LegalBlock;
 };

@@ -1,10 +1,10 @@
 {
   "site": {
-    "name": "Camille Vass",
+    "name": "Camille Vasseur",
     "shortName": "C. Vass",
     "locale": "fr-FR",
     "baseUrl": "https://www.example.com",
-    "tagline": "Coach sportif indépendant, préparation  et remise en forme",
+    "tagline": "Coach sportif indépendant, préparation physique et remise en forme",
     "favicon": {
       "src": "/media/icon-192.png",
       "alt": "Icône du site Camille Vasseur"
@@ -14,15 +14,15 @@
     "profile": "energetic",
     "palettes": {
       "light": {
-        "surface": "#fdfcfb",
-        "surfaceAlt": "#f8e45c",
-        "foreground": "#14120f",
-        "muted": "#986a44",
-        "accent": "#f4f1ed",
-        "accentHover": "#dc8add",
+        "surface": "#ffffff",
+        "surfaceAlt": "#fdf3ec",
+        "foreground": "#1a1512",
+        "muted": "#6b5449",
+        "accent": "#b8410b",
+        "accentHover": "#8f3208",
         "accentForeground": "#ffffff",
-        "border": "#e3ded7",
-        "borderStrong": "#8c847a",
+        "border": "#ece0d6",
+        "borderStrong": "#8a7466",
         "success": "#1c7c4a",
         "danger": "#b3261e"
       },
@@ -107,7 +107,8 @@
       "optionalHint": "facultatif",
       "selectPlaceholder": "Choisissez une option",
       "requiredMessage": "ce champ est obligatoire",
-      "invalidMessage": "cette valeur n'est pas valide"
+      "invalidMessage": "cette valeur n'est pas valide",
+      "noScript": "Ce formulaire a besoin de JavaScript pour nous envoyer votre message. Activez-le, ou appelez-nous directement : les coordonnées sont sur cette page."
     },
     "notFound": {
       "title": "Cette page n'existe pas",
@@ -332,15 +333,17 @@
   },
   "forms": {
     "successMessage": "Message envoyé. Vous recevrez une réponse sous deux jours ouvrés.",
-    "errorMessage": "L'envoi a échoué. Écrivez directement à contact@example.com."
+    "errorMessage": "L'envoi a échoué. Écrivez directement à contact@example.com.",
+    "notifyEmail": null
   },
   "seo": {
-    "title": "Camille Vasseur, coach sportif  à Ville-Exemple",
-    "description": "Préparation physique , reprise après blessure et remise en forme à Ville-Exemple. Bilan, plan sur huit semaines, suivi individuel ou en duo.",
+    "title": "Camille Vasseur, coach sportif indépendant à Ville-Exemple",
+    "description": "Préparation physique individuelle, reprise après blessure et remise en forme à Ville-Exemple. Bilan, plan sur huit semaines, suivi individuel ou en duo.",
     "ogImage": {
       "src": "/media/placeholder-og.png",
       "alt": "Camille Vasseur, coach sportif à Ville-Exemple"
-    }
+    },
+    "businessType": "SportsActivityLocation"
   },
   "pwa": {
     "enabled": true,

@@ -67,6 +67,7 @@ data/sessions.json       server side sessions
 data/messages.json       the contact inbox
 data/subscriptions.json  push subscriptions
 data/rate-limits.json    the counters
+data/audit.log           one line per privileged action, appended
 data/uploads/            the images, served by /media
 ```
 
@@ -111,6 +112,37 @@ Computed from both palettes in the content file, not judged by eye.
 `border` carries no minimum: it separates cards and is decorative.
 `borderStrong` draws the boundary of an input and of a bordered button, which is
 what identifies the control, so it is measured in both themes.
+
+## Security, caching and operations
+
+Checked on a running instance, not asserted:
+
+```
+headers          Content-Security-Policy with a per request nonce, nosniff,
+                 strict-origin-when-cross-origin, X-Frame-Options DENY, a
+                 permissions policy, HSTS. The back office and every endpoint
+                 are no-store
+injection        a value typed into a style field is refused by name; written
+                 straight into the file it is escaped and inert; and the policy
+                 would stop a script anyway. All three were tested
+body size        a request over 1 MB is refused before it is parsed
+audit log        data/audit.log, one line per privileged action, with no
+                 password, token or message body
+retention        the months the privacy page states are enforced: an older
+                 message is dropped the next time the inbox is read
+dependencies     npm audit: 0 vulnerabilities at the pinned versions, checked
+                 on 2026-09-22. Next.js is pinned to a release past the
+                 advisories that affected 15.5.4, one of which was a cross-site
+                 scripting hole in App Router applications using CSP nonces
+backup           npm run backup, then the data directory removed, then the
+                 archive restored: the site came back identical. A backup is
+                 untested until that has been done
+caching          uploaded media and static assets are cached for a year and
+                 never reused under the same name; the HTML is rendered per
+                 request because the policy nonce differs per response, which
+                 is the right trade at this scale and is stated so nobody has
+                 to guess
+```
 
 ## The no-code field map
 

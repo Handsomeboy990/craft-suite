@@ -10,6 +10,11 @@ export default function PasswordForm({ csrf }: { csrf: string }) {
 
   return (
     <form
+      // Submission is handled in JavaScript. The method is still declared, because
+      // a form with no method falls back to GET, and a GET puts everything typed
+      // here into the URL: the server log, the browser history, the Referer sent
+      // to the next site. A password or a visitor message must never travel there.
+      method="post"
       className="form"
       onSubmit={async (event) => {
         event.preventDefault();

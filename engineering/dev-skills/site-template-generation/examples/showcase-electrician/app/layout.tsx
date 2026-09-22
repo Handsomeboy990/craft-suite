@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import type { ReactNode } from 'react';
 import { getContent } from '@/lib/content';
 import { cssVariables, themeScript } from '@/lib/tokens';
@@ -6,6 +7,7 @@ import AppShell from '@/components/site/AppShell';
 import SiteHeader from '@/components/site/SiteHeader';
 import SiteFooter from '@/components/site/SiteFooter';
 import './globals.css';
+import StructuredData from '@/components/site/StructuredData';
 
 // The content file is read at request time, so an edit in the back office is
 // live on reload with no rebuild. The chrome lives here, so each page carries
@@ -34,14 +36,16 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
   const content = getContent();
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
   return (
     <html lang={content.site.locale} suppressHydrationWarning>
       <head>
-        <style dangerouslySetInnerHTML={{ __html: cssVariables(content.theme) }} />
+        <style nonce={nonce} dangerouslySetInnerHTML={{ __html: cssVariables(content.theme) }} />
         {/* Applied before first paint: the page never flashes the wrong theme. */}
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <StructuredData content={content} nonce={nonce} />
       </head>
       <body>
         <SiteHeader content={content} />

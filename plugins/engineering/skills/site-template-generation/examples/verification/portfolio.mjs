@@ -21,13 +21,30 @@ const browser = await chromium.launch();
   const light = await page.evaluate(() =>
     getComputedStyle(document.body).backgroundColor);
   const stored = await page.evaluate(() => localStorage.getItem('theme'));
+  const tokens = await page.evaluate(() => {
+    const read = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      return getComputedStyle(document.documentElement).getPropertyValue('--color-surface').trim();
+    };
+    const had = document.documentElement.getAttribute('data-theme');
+    const values = { dark: read('dark'), light: read('light') };
+    if (had === null) document.documentElement.removeAttribute('data-theme');
+    else document.documentElement.setAttribute('data-theme', had);
+    return values;
+  });
+  const asRgb = (hex) => {
+    const v = hex.replace('#', '');
+    const full = v.length === 3 ? v.split('').map((c) => c + c).join('') : v;
+    return `rgb(${[0, 2, 4].map((i) => parseInt(full.slice(i, i + 2), 16)).join(', ')})`;
+  };
   await page.reload();
   const afterReload = await page.evaluate(() => ({
     attribute: document.documentElement.getAttribute('data-theme'),
     background: getComputedStyle(document.body).backgroundColor,
   }));
-  record('dark theme follows the system preference', dark === 'rgb(15, 17, 21)', dark);
-  record('the toggle switches to light', light === 'rgb(253, 252, 251)', light);
+  record('dark theme follows the system preference', dark === asRgb(tokens.dark), `${dark} vs ${tokens.dark}`);
+  record('the toggle switches to light', light === asRgb(tokens.light), `${light} vs ${tokens.light}`);
+  record('and the two themes are not the same', tokens.dark !== tokens.light);
   record('the choice persists across a reload',
     stored === 'light' && afterReload.attribute === 'light' && afterReload.background === light,
     `${stored}, ${afterReload.attribute}`);

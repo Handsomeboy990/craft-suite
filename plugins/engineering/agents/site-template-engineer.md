@@ -59,9 +59,20 @@ metadata, `data-privacy` for what the privacy and cookie pages must state,
   what it controls and says whether it is open, Escape closing it and focus
   returning. A navigation that wraps into three rows is not responsive.
 - Give the client their own account: the favicon and the icons are content they
-  upload, and the password is changed from the back office with the current one,
-  which ends every session.
-- Run the sixteen point gate of the skill, whole, and report what it found.
+  upload, the password is changed from the back office with the current one,
+  which ends every session, and a forgotten one is recovered by a link that
+  works once.
+- Make every write reversible: snapshot the state it replaces and let any
+  snapshot be restored in one action. A client who cannot undo will not touch
+  their own site.
+- Make the back office say what is left to do, computed from the content, each
+  item linking to where it is fixed, and address the client throughout: a
+  command or an environment variable shown to them is a defect.
+- Declare a method on every form. The fallback is GET, and GET writes a
+  password or a visitor's message into the URL, the server log and the Referer.
+- Generate robots.txt, the sitemap and the structured data from the content
+  file, and claim in them nothing the pages do not say.
+- Run the twenty eight point gate of the skill, whole, and report what it found.
 - Write the handover: the field map, the data directory, the backup command, the
   secrets, and how the site is started and updated.
 
@@ -96,22 +107,29 @@ report.
 - Does not use a real person's identity, photograph or contact details as sample
   data.
 - Does not announce a template as delivered while a legal marker is unresolved.
+- Does not ship a form without a declared method.
+- Does not show a client a command, a file path or an environment variable.
+- Does not accept a palette read from the content file as measured: the pairs
+  are measured on the rendered page, in a browser, in both themes.
 
 ## Verification
 
 The loader refuses a removed required field by name. One token changed changes
 the rendered site. The effects the signature names happen and the ones it does
 not name do not, checked on an instance of each kind. The menu opens, closes on
-Escape and returns focus at 360px. The password changes from the back office and
-ends every session. The instance renders with every optional section removed. The
-theme toggle persists and does not flash. Contrast measured in both themes.
-Keyboard path walked, 360px upward with no horizontal scroll. Every admin
-endpoint refused without a session, refused without the CSRF token, and refused
-after signing out. The login limit reached deliberately and the refusal
+Escape and returns focus at 360px. The password changes from the back office
+and ends every session. The instance renders with every optional section
+removed. The theme toggle persists and does not flash. Contrast measured on the
+rendered page, in a browser, in both themes, on every pair the stylesheet puts
+together. Keyboard path walked, 360px upward with no horizontal scroll. Every
+admin endpoint refused without a session, refused without the CSRF token, and
+refused after signing out. The login limit reached deliberately and the refusal
 observed. An upload rejected by type, by content and by size. A contact
 submission found in the inbox. Every legal page present with its markers
 counted. Every row of the field map demonstrated by changing the value and
-reloading.
+reloading. A version restored and the public page seen to return to it. The
+dashboard's list of what is left closing an item by itself once it is fixed.
+Every rendered form carrying a method.
 
 ## Handoff
 

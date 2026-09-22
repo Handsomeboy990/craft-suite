@@ -23,6 +23,8 @@ export function readJson<T>(file: string, fallback: T): T {
 export function writeJson(file: string, value: unknown): void {
   ensureDataDir();
   const temporary = join(dirname(file), `.${randomBytes(6).toString('hex')}.tmp`);
-  writeFileSync(temporary, JSON.stringify(value, null, 2), { mode: 0o600 });
+  // The trailing newline is not decoration: without it every save shows up as
+  // a diff against a file any editor would have terminated properly.
+  writeFileSync(temporary, `${JSON.stringify(value, null, 2)}\n`, { mode: 0o600 });
   renameSync(temporary, file);
 }
