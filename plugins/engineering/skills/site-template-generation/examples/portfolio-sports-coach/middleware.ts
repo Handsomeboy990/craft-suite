@@ -14,6 +14,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
   const https = (request.headers.get('x-forwarded-proto') ?? '').split(',')[0]?.trim() === 'https';
+  const dev = process.env.NODE_ENV !== 'production';
 
   const policy = [
     "default-src 'self'",
@@ -26,8 +27,12 @@ export function middleware(request: NextRequest) {
     "manifest-src 'self'",
     "worker-src 'self'",
     "connect-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
-    `style-src 'self' 'nonce-${nonce}'`,
+    // React's development build calls eval, and its refresh runtime injects
+    // stylesheets without a nonce. Neither happens in the build a client is
+    // served, so the relaxation is tied to the development server and cannot
+    // reach production: NODE_ENV is fixed to production by `next build`.
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${dev ? " 'unsafe-eval'" : ''}`,
+    `style-src 'self' 'nonce-${nonce}'${dev ? " 'unsafe-inline'" : ''}`,
     // The template writes custom properties into style attributes, which carry
     // values and cannot execute anything. Stylesheets stay locked.
     "style-src-attr 'unsafe-inline'",

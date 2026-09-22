@@ -235,7 +235,7 @@ for (const field of fields) {
     where = after.includes(String(probe.value)) || !after.includes(restored) ? '/' : null;
   }
 
-  await api('PUT', '/api/admin/content', { patch: { [field.path]: current } });
+  await api('PUT', '/api/admin/content', { patch: { [field.path]: current ?? null } });
 
   if (where) wired.push({ ...field, where });
   else unobserved.push({ ...field, why: 'changed, not visible in any fetched page' });

@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // This example lives inside a repository whose agent entry point is its own
+  // AGENTS.md. A generated one per template would contradict it, and rule 6
+  // forbids tracking local agent configuration at all.
+  agentRules: false,
   // Not a static export. The back office writes the content file, stores the
   // uploads and holds the messages, so the site needs a server process:
   // `npm run build` then `npm start`.

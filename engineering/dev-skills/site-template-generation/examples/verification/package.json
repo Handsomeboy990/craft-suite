@@ -8,12 +8,16 @@
     "gate": "node gate.mjs",
     "mobile": "node mobile.mjs",
     "hardcoded": "node hardcoded.mjs",
+    "prose": "node prose.mjs",
+    "contrast": "node contrast.mjs",
+    "guidance": "node guidance.mjs",
     "portfolio": "node portfolio.mjs",
     "showcase": "node showcase.mjs",
     "motion": "node motion.mjs",
     "signature": "node signature.mjs",
     "account": "node nav-and-account.mjs",
-    "policy": "node xss.mjs"
+    "policy": "node xss.mjs",
+    "unlock": "node -e \"const f=process.env.INSTANCE+'/data/rate-limits.json';require('fs').writeFileSync(f,'{}');console.log('cleared '+f)\""
   },
   "dependencies": {
     "playwright": "1.63.0"
