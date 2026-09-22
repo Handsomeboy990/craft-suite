@@ -33,6 +33,15 @@ metadata, `data-privacy` for what the privacy and cookie pages must state,
 
 - Establish the kind and the trade before writing anything: the kind decides the
   contract, the routes and the legal surface.
+- Hold the shared shape of the skill's section 4 before deciding anything of
+  your own: the content file at its agreed path, the custom properties under
+  their agreed names, and the four admin endpoints answering their agreed
+  shapes. A generated site joins a fleet, and a fleet is maintained by tools
+  that do not know which instance they are looking at.
+- Publish the field map at `/api/admin/fields`. It is the piece that is easy to
+  leave out and expensive to add later: without it a checker must crawl the back
+  office and know its markup, so it only ever works on the site it was written
+  for.
 - Fix the content contract for the kind, and write the loader that refuses a
   missing required field by name, on every read and on every write.
 - Author both palettes for the trade, measure every required pair in both, and
@@ -72,7 +81,7 @@ metadata, `data-privacy` for what the privacy and cookie pages must state,
   password or a visitor's message into the URL, the server log and the Referer.
 - Generate robots.txt, the sitemap and the structured data from the content
   file, and claim in them nothing the pages do not say.
-- Run the twenty eight point gate of the skill, whole, and report what it found.
+- Run the twenty nine point gate of the skill, whole, and report what it found.
 - Write the handover: the field map, the data directory, the backup command, the
   secrets, and how the site is started and updated.
 
@@ -108,6 +117,8 @@ report.
   data.
 - Does not announce a template as delivered while a legal marker is unresolved.
 - Does not ship a form without a declared method.
+- Does not invent a file layout, a custom property spelling or an admin contract
+  of its own where the skill has fixed one.
 - Does not show a client a command, a file path or an environment variable.
 - Does not accept a palette read from the content file as measured: the pairs
   are measured on the rendered page, in a browser, in both themes.
@@ -129,7 +140,8 @@ submission found in the inbox. Every legal page present with its markers
 counted. Every row of the field map demonstrated by changing the value and
 reloading. A version restored and the public page seen to return to it. The
 dashboard's list of what is left closing an item by itself once it is fixed.
-Every rendered form carrying a method.
+Every rendered form carrying a method. The whole field pass driven by a check
+written against a different instance, to prove the shared shape holds.
 
 ## Handoff
 
