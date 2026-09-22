@@ -53,6 +53,7 @@ const PALETTE_KEYS = [
   ['accentForeground', 'Texte sur accent'],
   ['border', 'Bordure décorative'],
   ['borderStrong', 'Bordure de champ'],
+  ['focusRing', 'Contour de focus'],
   ['success', 'Succès'],
   ['danger', 'Erreur'],
 ] as const;

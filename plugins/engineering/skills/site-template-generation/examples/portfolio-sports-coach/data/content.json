@@ -23,6 +23,7 @@
         "accentForeground": "#ffffff",
         "border": "#ece0d6",
         "borderStrong": "#8a7466",
+        "focusRing": "#b8410b",
         "success": "#1c7c4a",
         "danger": "#b3261e"
       },
@@ -36,6 +37,7 @@
         "accentForeground": "#14161a",
         "border": "#2a2f3a",
         "borderStrong": "#626b7c",
+        "focusRing": "#ff6a2b",
         "success": "#3ddc97",
         "danger": "#ff6b6b"
       }

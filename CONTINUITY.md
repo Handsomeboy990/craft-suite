@@ -697,6 +697,37 @@ Session 32, the autonomy of a client who knows nothing, version 3.25.0:
   have verified a policy no client is ever served.
 - The gate is at twenty eight points.
 
+Session 33, the conventions the skill never wrote down, version 3.26.0:
+
+- Generated a third template from the skill alone, by an agent that never
+  opened the two examples, to find out whether the skill generates a site or
+  merely describes two. It generates: a showcase for an osteopathy practice
+  that builds, type-checks and holds 43 legal markers with nothing invented.
+- It also made about thirty five decisions the skill does not make, three of
+  them structural: the file layout, the spelling of the custom properties, and
+  the way the back office saves. Two sites built from the same skill by
+  different hands were therefore not interchangeable, and the field gate could
+  not be pointed at the generated one at all.
+- Section 4 now fixes the smallest set that lets one tool serve a fleet: where
+  the content file lives, what the custom properties are called, and four admin
+  endpoints. The fourth, `/api/admin/fields`, is the one that was easy to omit:
+  the gate used to crawl two named admin routes for a data attribute, so it only
+  ever worked on the two sites it was written against. Both examples now publish
+  it and the gate reads it.
+- Three contradictions inside `trade-profiles.md`, all found by the agent:
+  `theme.spacing` specified twice with different keys three lines apart, a
+  contrast list requiring a focus ring the palette never had, and no requirement
+  on the colour of every link. The palette gains `focusRing`, the pair list goes
+  from eleven to sixteen and covers both surfaces.
+- The harness itself carried three defects, each reporting a failure the product
+  did not have or, worse, a pass it had not earned. `contrast.mjs` announced
+  "2/2 passed, lowest NaN:1" against the generated template: the token names
+  differed, the parse gave NaN, and NaN is never below a threshold. A check that
+  cannot fail is worse than no check, and only an instance it had never seen
+  exposed it.
+- The gate is at twenty nine points, and 98 of 98 and 113 of 113 fields pass
+  through the published field map with the content file restored byte for byte.
+
 ## Current state
 
 Working today:

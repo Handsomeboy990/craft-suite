@@ -61,7 +61,10 @@ gate.mjs           the first point of the gate, exhaustively: every field the
                    office uses, the public pages are read to see the change
                    arrive, and the original value is put back. It ends by
                    comparing the content file with what it was, byte for byte.
-                   96 fields on the portfolio, 111 on the showcase. A first run
+                   The fields come from `/api/admin/fields`, which every
+                   instance publishes, so this no longer needs to know the
+                   admin's routes or its markup. 98 on the portfolio, 113 on
+                   the showcase. A first run
                    after a file was edited by hand reports the restore as
                    failed: the writer normalises the formatting. Run it twice
 mobile.mjs         360px, both themes, every route: no sideways scroll, no
@@ -93,11 +96,11 @@ signature.mjs      the opposite proof, on a technical trade: no entrance, no
 prose.mjs          the content file read as language: no truncated sentence, no
                    mangled accent, no word broken in the middle. Content
                    corruption does not raise an error anywhere else
-contrast.mjs       every pair the stylesheet actually puts together, measured on
-                   the rendered page in both themes, reading the resolved custom
-                   properties rather than the JSON. It exists because a palette
-                   shipped whose light theme painted white on a near white
-                   button, and reading the file never showed it
+contrast.mjs       the sixteen pairs section 5 of the skill requires, measured
+                   on the rendered page in both themes, reading the resolved
+                   custom properties rather than the JSON. It exists because a
+                   palette shipped whose light theme painted white on a near
+                   white button, and reading the file never showed it
 guidance.mjs       the two surfaces a client with no knowledge depends on: a
                    dashboard listing what is left to do, computed rather than
                    remembered, every item linking to where it is fixed and
@@ -132,9 +135,11 @@ nothing generated afterwards. They now ask the instance: `routes.mjs` reads
 the offline page and a path nobody serves so the site's own 404 answers.
 
 So a newly generated template is verified by starting it and pointing
-`BASE_URL` at it. `KIND` now only names the screenshot directory. An instance
-without a sitemap stops the run with a message rather than falling back to a
-guess, because such an instance already fails gate point 13.
+`BASE_URL` at it: the pages come from its sitemap and the fields from
+`/api/admin/fields`, both fixed by section 4 of the skill. `KIND` now only
+names the screenshot directory. An instance without a sitemap stops the run
+with a message rather than falling back to a guess, because such an instance
+already fails gate point 13.
 
 It found something on the way in: the old table left the showcase's privacy
 page out, so that page had never been looked at at 360px.

@@ -16,6 +16,7 @@ function paletteVariables(palette: Palette): string {
     `--color-accent-foreground:${css(palette.accentForeground)}`,
     `--color-border:${css(palette.border)}`,
     `--color-border-strong:${css(palette.borderStrong)}`,
+    `--color-focus-ring:${css(palette.focusRing)}`,
     `--color-success:${css(palette.success)}`,
     `--color-danger:${css(palette.danger)}`,
   ].join(';');

@@ -33,29 +33,28 @@ await page.fill('#password', PASSWORD);
 await page.getByRole('button', { name: 'Entrer' }).click();
 await page.waitForURL((url) => !url.pathname.includes('/login'), { timeout: 15000 });
 
-// Every field the client is offered, read from the surface they use.
-const fields = [];
-for (const route of ['/admin/content', '/admin/theme']) {
-  await page.goto(`${BASE}${route}`);
-  const found = await page.evaluate(() =>
-    [...document.querySelectorAll('[data-field]')].map((node) => ({
-      path: node.getAttribute('data-field'),
-      kind: node.getAttribute('data-kind'),
-      pattern: node.getAttribute('data-pattern'),
-      options: [...node.querySelectorAll('select option')].map((option) => option.value),
-      item: (node.getAttribute('data-item') ?? '')
-        .split(',')
-        .filter(Boolean)
-        .map((pair) => {
-          const [key, kind] = pair.split(':');
-          return { key, kind };
-        }),
-    })));
-  for (const field of found) if (!fields.some((f) => f.path === field.path)) fields.push(field);
-}
-console.log(`${fields.length} fields offered by the back office.\n`);
-
+// Every field the client is offered, asked of the instance rather than scraped
+// out of its back office. Crawling two named admin routes for a data attribute
+// meant this could only check a site laid out exactly like the two written
+// here; the contract says an instance publishes its own field map.
+await page.goto(`${BASE}/admin`);
 const csrf = await page.getAttribute('meta[name="csrf-token"]', 'content');
+
+const listing = await page.evaluate(async () => {
+  const response = await fetch('/api/admin/fields');
+  return { status: response.status, body: await response.text() };
+});
+if (listing.status !== 200) {
+  throw new Error(
+    `GET /api/admin/fields answered ${listing.status}. An instance that does not publish its ` +
+      'field map cannot be checked field by field, and fails gate point 9 before this run.',
+  );
+}
+const fields = JSON.parse(listing.body).fields.map((field) => ({
+  ...field,
+  item: field.item ?? [],
+}));
+console.log(`${fields.length} fields offered by the back office.\n`);
 
 async function api(method, path, body) {
   // Two writes per field against a limit of 120 a minute: the limiter is right
@@ -189,7 +188,8 @@ for (const field of fields) {
     let probeKey = key;
     if (!probeKey) {
       const select = (field.item ?? []).find((definition) => definition.kind === 'select');
-      const other = (field.options ?? []).find((option) => option !== current[0][select?.key]);
+      const choices = select?.options ?? field.options ?? [];
+      const other = choices.find((option) => option !== current[0][select?.key]);
       if (!select || !other) {
         unobserved.push({ ...field, why: 'no text and no second choice to change' });
         continue;
