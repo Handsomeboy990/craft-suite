@@ -16,6 +16,10 @@ export type AuditAction =
   | 'message-status'
   | 'message-delete'
   | 'password-change'
+  | 'password-reset-requested'
+  | 'password-reset-refused'
+  | 'password-reset'
+  | 'content-revert'
   | 'push-subscribe'
   | 'push-unsubscribe';
 

@@ -1,6 +1,7 @@
 import { readFileSync, statSync } from 'node:fs';
 import { SIGNATURES } from './motion';
 import { FILES } from './paths';
+import { snapshot } from './history';
 import { writeJson } from './store';
 import type { Palette, ShowcaseContent } from './types';
 
@@ -199,8 +200,9 @@ export function getContent(): ShowcaseContent {
   return value;
 }
 
-export function saveContent(next: Record<string, unknown>): ShowcaseContent {
+export function saveContent(next: Record<string, unknown>, label = 'edit'): ShowcaseContent {
   const value = validate(next);
+  snapshot(label);
   writeJson(FILES.content, next);
   cached = null;
   return value;

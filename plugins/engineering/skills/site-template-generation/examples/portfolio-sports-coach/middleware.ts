@@ -40,7 +40,8 @@ export function middleware(request: NextRequest) {
   headers.set('x-nonce', nonce);
 
   const { pathname } = request.nextUrl;
-  if (pathname.startsWith('/admin') && pathname !== '/admin/login' && !request.cookies.get('session')) {
+  const openToAnyone = pathname === '/admin/login' || pathname === '/admin/reset';
+  if (pathname.startsWith('/admin') && !openToAnyone && !request.cookies.get('session')) {
     const url = request.nextUrl.clone();
     url.pathname = '/admin/login';
     url.search = `?next=${encodeURIComponent(pathname)}`;

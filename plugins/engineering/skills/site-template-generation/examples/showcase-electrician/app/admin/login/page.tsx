@@ -25,6 +25,9 @@ export default async function LoginPage({
           </p>
         )}
         <LoginForm next={target} />
+        <p className="admin-field__hint">
+          <a href="/admin/reset">Mot de passe oublié</a>
+        </p>
       </div>
     </div>
   );
