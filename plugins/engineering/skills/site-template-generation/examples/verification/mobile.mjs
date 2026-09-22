@@ -40,11 +40,28 @@ for (const theme of ['light', 'dark']) {
     const report = await page.evaluate(() => {
       const width = document.documentElement.clientWidth;
       const overflow = document.documentElement.scrollWidth - width;
+
+      // A control can have a box of its own and still be invisible, because an
+      // ancestor clips it: that is how a skip link, an accessible name or a
+      // honeypot field is hidden. Its own rectangle says nothing, so the
+      // ancestors are asked. Nobody's finger has to reach what nobody sees.
+      const outOfSight = (node) => {
+        for (let el = node; el && el !== document.documentElement; el = el.parentElement) {
+          const style = getComputedStyle(el);
+          if (style.display === 'none' || style.visibility === 'hidden') return true;
+          if (style.clipPath !== 'none' && style.clipPath !== '') return true;
+          const rect = el.getBoundingClientRect();
+          if (/hidden|clip/.test(style.overflow) && (rect.height <= 2 || rect.width <= 2)) return true;
+        }
+        return false;
+      };
+
       const small = [...document.querySelectorAll('a, button, input, select, textarea')]
         .filter((node) => {
           const rect = node.getBoundingClientRect();
           if (rect.width === 0 || rect.height === 0) return false;
           if (rect.height >= 44) return false;
+          if (outOfSight(node)) return false;
           // A checkbox is small on purpose; what the finger aims at is its
           // label, and the rule is met when that is big enough.
           if (node.type === 'checkbox') {
@@ -59,9 +76,11 @@ for (const theme of ['light', 'dark']) {
           return `${node.tagName.toLowerCase()}${name ? '.' + name : `[${(node.textContent ?? '').trim().slice(0, 18)}]`}`;
         });
       const clipped = [...document.querySelectorAll('h1, h2, h3, p, li, dd, dt')]
-        // A visually hidden heading is clipped by design: that is what the
-        // class does, and it is how a section keeps its accessible name.
-        .filter((node) => !node.classList.contains('visually-hidden'))
+        // Text hidden on purpose is clipped on purpose: that is how a section
+        // keeps its accessible name. Asked of the ancestors rather than of a
+        // class name, so it holds on a template that named the class
+        // something else.
+        .filter((node) => !outOfSight(node))
         .filter((node) => node.scrollWidth > node.clientWidth + 1)
         .map((node) => node.tagName.toLowerCase());
       return { overflow, small: [...new Set(small)], clipped: [...new Set(clipped)] };
