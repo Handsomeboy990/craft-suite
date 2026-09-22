@@ -616,6 +616,87 @@ Session 28, the back office behind the site template, version 3.21.0:
   added to the contract appears in the back office without new admin code, and
   why an unknown path is refused without a second list to maintain.
 
+Session 30, the gate run against the two templates, version 3.23.0:
+
+- Ran the gate of the skill against both references before building anything on
+  them, which is the cheap moment: two instances rather than fifty.
+- Five defects. The two that matter for anyone reusing this: a field could not
+  be emptied, so every entry in the back office was one way and a legal fact
+  entered by mistake was permanent; and two fields held the company's name with
+  one of them read by nothing, which would have drifted the first time a client
+  renamed themselves.
+- The one no measurement caught: the business name was squeezed out of the
+  header at 360px. Overflow was zero, targets were fine, nothing was clipped,
+  and the name was gone. It took looking at a screenshot. `mobile.mjs` now
+  writes one per route and per theme for that reason.
+- `gate.mjs` is the piece to keep: it reads the editable surface from the DOM,
+  changes every field through the endpoint the back office uses, looks for the
+  change in the public pages, restores, and then compares the content file byte
+  for byte. That last comparison is what found the field that could not be
+  emptied.
+- The lesson: a field map is a set of promises, and the only honest way to check
+  a promise is to keep it once. Ninety two of them on one instance, a hundred
+  and seven on the other.
+
+Session 31, the security and operations audit, version 3.24.0:
+
+- Audited both templates for security, caching and what an operator needs,
+  before anything is built on them.
+- The finding that matters: a stored cross-site scripting hole through the back
+  office. A value typed into a width field closed the style element and opened a
+  script one, on every visitor's page. Everything else about the admin surface
+  was already right, which is exactly why it survived four passes: the session,
+  the token, the rate limit and the allow list were all correct, and the content
+  of a validated field went straight into a style tag.
+- The shape of the lesson: a field can be validated as a value and still be
+  dangerous as a destination. The question to ask of every field is not only
+  what may be written, but where it lands.
+- Also found: the privacy page promised a retention period nothing enforced, and
+  the pinned Next.js carried a critical advisory plus one on CSP nonces, which
+  is what this template had just started using. Pinned to 16.3.5, zero
+  vulnerabilities.
+- Added a policy with a per request nonce, the usual headers, an audit log, a
+  body size limit, and the restore rehearsal performed rather than described.
+  The gate is at twenty four points.
+- The trade to remember: a per request nonce means the HTML cannot be cached
+  whole. At this scale that is right, and the README says so rather than leaving
+  the next reader to wonder why the pages are dynamic.
+
+Session 32, the autonomy of a client who knows nothing, version 3.25.0:
+
+- Built what a non technical owner needs to run their own site: local search
+  presence, images processed on upload, e-mail for both notification and
+  password recovery, a version history with a real undo, and a back office that
+  says what is still missing.
+- The dashboard's list is computed from the content, never remembered. It names
+  the legal facts still absent, the images still from the model, the address
+  still unset, and each item links to where it is fixed and closes by itself.
+  A help page answers, without jargon, how a change goes live, what each
+  section does, how to undo, why a legal fact is never invented, and what to do
+  about a forgotten password.
+- The defect worth remembering came out of a server log during a failed test
+  run: `GET /admin/login?password=...`. Every form in both templates declared
+  no method, and a form with no method falls back to GET. Whenever JavaScript
+  had not hydrated, the login put the password in the URL, and the public
+  contact form put the visitor's message there. Five forms, both templates, the
+  fix is one attribute; the lesson is that the fallback path of a form is part
+  of its security, and nothing but a log showed it.
+- The second: the portfolio's light palette shipped white text on a near white
+  accent, 1.13:1 on the primary button of the public site. Gate point 5 already
+  required both palettes measured. The rule existed; nothing measured it.
+  `contrast.mjs` now measures every pair the stylesheet actually resolves, on
+  the rendered page, in both themes. Reading a palette is not measuring it.
+- Three harness defects surfaced the same way, and each had been reporting a
+  product failure that did not exist: a check that hardcoded a palette value
+  and broke when the palette was corrected, a script that changed the password
+  and never put it back so every later login failed, and one script whose
+  default password differed from the other five.
+- Also: the strict policy forbids `eval`, which React's development build
+  needs, so the middleware relaxes it for the development server only and the
+  verification runs against `npm start`. Verifying against `next dev` would
+  have verified a policy no client is ever served.
+- The gate is at twenty eight points.
+
 ## Current state
 
 Working today:

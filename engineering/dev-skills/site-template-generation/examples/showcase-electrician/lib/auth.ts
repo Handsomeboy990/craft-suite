@@ -144,6 +144,19 @@ export async function requireSession(request: Request): Promise<SessionRecord> {
   return session;
 }
 
+// A request body is read whole before anything validates it, so its size is
+// checked before it is read at all. The content file of a site is tens of
+// kilobytes; a megabyte is already generous.
+export const MAX_BODY_BYTES = 1024 * 1024;
+
+export function refuseOversizedBody(request: Request): Response | null {
+  const declared = Number(request.headers.get('content-length') ?? '0');
+  if (declared > MAX_BODY_BYTES) {
+    return Response.json({ ok: false, error: 'requête trop volumineuse' }, { status: 413 });
+  }
+  return null;
+}
+
 export class HttpError extends Error {
   constructor(
     readonly status: number,

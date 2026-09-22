@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 
 const BASE = process.env.BASE_URL ?? 'http://localhost:3112';
-const PASSWORD = process.env.ADMIN_PASSWORD ?? 'mot-de-passe-vitrine-verif-1234';
+const PASSWORD = process.env.ADMIN_PASSWORD ?? 'mot-de-passe-de-verification-1234';
 const results = [];
 const record = (name, ok, detail) => {
   results.push({ name, ok, detail });

@@ -1,6 +1,7 @@
 import { randomBytes } from 'node:crypto';
 import { readdirSync, statSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import sharp from 'sharp';
 import { UPLOAD_DIR, ensureDataDir } from './paths';
 
 // An allow list, checked twice: by the declared type and by the file's own
@@ -10,11 +11,26 @@ const TYPES = [
   { mime: 'image/png', extension: 'png', magic: [0x89, 0x50, 0x4e, 0x47] },
   { mime: 'image/webp', extension: 'webp', magic: [0x52, 0x49, 0x46, 0x46] },
   { mime: 'image/avif', extension: 'avif', magic: null },
+  { mime: 'image/heic', extension: 'heic', magic: null },
+  { mime: 'image/heif', extension: 'heif', magic: null },
 ] as const;
 
-export const MAX_BYTES = 4 * 1024 * 1024;
+// What a client can send, and what the site will serve. The gap between the two
+// is the point: a photograph taken on a telephone is eight megapixels and four
+// megabytes, and nobody who is not a developer is going to resize it first.
+export const MAX_BYTES = 12 * 1024 * 1024;
+const MAX_EDGE = 2000;
+const QUALITY = 82;
 
-export type UploadResult = { src: string; name: string; bytes: number };
+export type UploadResult = {
+  src: string;
+  name: string;
+  bytes: number;
+  /** What arrived, so the back office can show what it saved. */
+  originalBytes: number;
+  width: number;
+  height: number;
+};
 
 export class UploadError extends Error {}
 
@@ -38,10 +54,34 @@ export async function storeUpload(file: File): Promise<UploadResult> {
   if (!magicMatches(type, bytes)) throw new UploadError('file content does not match its type');
 
   ensureDataDir();
-  // The name is generated. Nothing from the upload reaches the filesystem.
-  const name = `${Date.now().toString(36)}-${randomBytes(6).toString('hex')}.${type.extension}`;
-  writeFileSync(join(UPLOAD_DIR, name), bytes, { mode: 0o600 });
-  return { src: `/media/${name}`, name, bytes: bytes.byteLength };
+
+  // Resized, re-encoded and stripped of its metadata. Stripping is not a
+  // nicety: a photograph carries the place and the time it was taken, and a
+  // client uploading a picture of a job does not mean to publish a customer's
+  // address.
+  const image = sharp(bytes, { failOn: 'error' }).rotate();
+  const meta = await image.metadata();
+  const longEdge = Math.max(meta.width ?? 0, meta.height ?? 0);
+  const icon = (meta.width ?? 0) <= 512 && (meta.height ?? 0) <= 512;
+
+  const pipeline = longEdge > MAX_EDGE ? image.resize({ width: MAX_EDGE, height: MAX_EDGE, fit: 'inside' }) : image;
+  // An icon keeps its transparency and its format; a photograph becomes webp,
+  // which is a third of the bytes for the same picture.
+  const output = icon ? await pipeline.png().toBuffer({ resolveWithObject: true })
+                      : await pipeline.webp({ quality: QUALITY }).toBuffer({ resolveWithObject: true });
+
+  const extension = icon ? 'png' : 'webp';
+  const name = `${Date.now().toString(36)}-${randomBytes(6).toString('hex')}.${extension}`;
+  writeFileSync(join(UPLOAD_DIR, name), output.data, { mode: 0o600 });
+
+  return {
+    src: `/media/${name}`,
+    name,
+    bytes: output.data.byteLength,
+    originalBytes: bytes.byteLength,
+    width: output.info.width,
+    height: output.info.height,
+  };
 }
 
 export function listUploads(): { src: string; name: string; bytes: number; modifiedAt: string }[] {

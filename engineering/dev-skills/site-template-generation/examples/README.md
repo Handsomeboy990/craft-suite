@@ -163,6 +163,52 @@ push said nothing a subscription that fails left the client clicking a button
                  reason shown, with the inbox still working
 ```
 
+## The gate, run field by field
+
+Before anything is built on these templates, the gate of `SKILL.md` was run
+against both. `verification/gate.mjs` changes every field the back office
+offers, through the endpoint the back office uses, reads the public pages to see
+the change arrive, puts the value back, and ends by comparing the content file
+with what it was.
+
+```
+portfolio   92 fields, 92 wired and observed, 0 refused, file restored byte for byte
+showcase   107 fields, 107 wired and observed, 0 refused, file restored byte for byte
+mobile      30/30 and 48/48 at 360px, both themes, every route, with screenshots
+hardcoded   69 and 70 files read: no client fact, no address, no visual literal
+```
+
+Six defects came out of it, and the three in the middle are the same defect
+wearing different clothes: a field offered in the back office and rendered
+nowhere is a promise that lies.
+
+```
+a field could      setting an optional text back to nothing was refused, so a
+not be emptied     legal fact entered by mistake could not be taken back from
+                   the back office. Every entry was one way. Empty and absent
+                   are the same value now, and a required field emptied that way
+                   is refused by name
+two fields, one    company.legalName and company.tradeName were required,
+fact               editable, labelled as changing the legal pages, and read by
+                   nothing: the legal pages state legal.identity.legalName. The
+                   duplicate is gone. It would have drifted the first time a
+                   client renamed themselves
+the country        editable, rendered nowhere. Now rendered
+the social links   editable on the showcase, rendered nowhere. Now rendered
+the business name  gone from the header at 360px, squeezed out by the telephone
+                   and the menu, then truncated to an ellipsis when given room.
+                   Overflow was zero, targets were fine, nothing was clipped,
+                   and the name was absent: only a screenshot showed it. The
+                   header now gives the name its own row and turns the number
+                   into a call button
+eleven targets     under 44px: the skip link, the header telephone, the brand,
+                   the footer email and telephone, the contact links
+```
+
+Two smaller ones: the VAPID subject defaulted to an invented address, and a save
+wrote the content file without its final newline, so every edit showed up as a
+diff.
+
 ## What a browser could not prove here
 
 ```
@@ -178,9 +224,10 @@ screen reader   no assistive technology is available here. Labels, landmarks, a
                 different claim from having been heard
 ```
 
-## Five things running them changed
+## What running them changed, in the end
 
-The three defects above, and these two:
+Eleven defects across the browser pass and the gate, none of which a reading
+caught. The ones already listed, and these two decisions:
 
 - **The contact rate limit answers visibly.** It first returned a success shaped
   response so that a crawler would learn nothing. Running it showed the cost: a

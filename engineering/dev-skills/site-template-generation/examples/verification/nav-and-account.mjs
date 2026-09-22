@@ -100,6 +100,22 @@ const record = (n, ok, d) => { results.push({ n, ok }); console.log(`${ok ? 'PAS
   await page.getByRole('button', { name: 'Entrer' }).click();
   await page.waitForURL((url) => !url.pathname.includes('/login'), { timeout: 15000 });
   record('the new password works', !page.url().includes('login'), page.url().replace(BASE, ''));
+
+  await page.goto(`${BASE}/admin/security`);
+  await page.fill('#current', 'un-nouveau-mot-de-passe-solide');
+  await page.fill('#next', PASSWORD);
+  await page.fill('#confirm', PASSWORD);
+  await page.getByRole('button', { name: /Changer/ }).click();
+  await page.waitForTimeout(1500);
+  const restored = await page.evaluate(async (password) => {
+    const response = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+    return response.status;
+  }, PASSWORD);
+  record('and the instance is left on the password it started with', restored === 200, `HTTP ${restored}`);
   await context.close();
 }
 

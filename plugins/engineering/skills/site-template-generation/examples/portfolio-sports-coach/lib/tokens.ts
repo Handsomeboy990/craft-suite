@@ -7,18 +7,25 @@ import type { Palette, Theme } from './types';
 
 function paletteVariables(palette: Palette): string {
   return [
-    `--color-surface:${palette.surface}`,
-    `--color-surface-alt:${palette.surfaceAlt}`,
-    `--color-foreground:${palette.foreground}`,
-    `--color-muted:${palette.muted}`,
-    `--color-accent:${palette.accent}`,
-    `--color-accent-hover:${palette.accentHover}`,
-    `--color-accent-foreground:${palette.accentForeground}`,
-    `--color-border:${palette.border}`,
-    `--color-border-strong:${palette.borderStrong}`,
-    `--color-success:${palette.success}`,
-    `--color-danger:${palette.danger}`,
+    `--color-surface:${css(palette.surface)}`,
+    `--color-surface-alt:${css(palette.surfaceAlt)}`,
+    `--color-foreground:${css(palette.foreground)}`,
+    `--color-muted:${css(palette.muted)}`,
+    `--color-accent:${css(palette.accent)}`,
+    `--color-accent-hover:${css(palette.accentHover)}`,
+    `--color-accent-foreground:${css(palette.accentForeground)}`,
+    `--color-border:${css(palette.border)}`,
+    `--color-border-strong:${css(palette.borderStrong)}`,
+    `--color-success:${css(palette.success)}`,
+    `--color-danger:${css(palette.danger)}`,
   ].join(';');
+}
+
+// Nothing interpolated into a style element may carry a character that could
+// end a declaration or the element. The writer validates these values already;
+// this is the second lock, for a file edited by hand or restored from a backup.
+function css(value: string | number): string {
+  return String(value).replace(/[<>{};]/g, '');
 }
 
 export function cssVariables(theme: Theme): string {
@@ -29,8 +36,8 @@ export function cssVariables(theme: Theme): string {
   const gutter = theme.density === 'compact' ? 3 : theme.density === 'airy' ? 5 : 4;
 
   const shared = [
-    `--font-display:${type.displayFamily}`,
-    `--font-text:${type.textFamily}`,
+    `--font-display:${css(type.displayFamily)}`,
+    `--font-text:${css(type.textFamily)}`,
     `--weight-display:${type.displayWeight}`,
     `--weight-text:${type.textWeight}`,
     `--size-xs:${step(-1)}`,
@@ -40,20 +47,20 @@ export function cssVariables(theme: Theme): string {
     `--size-2xl:${step(3)}`,
     `--size-3xl:${step(4)}`,
     `--size-4xl:${step(5)}`,
-    `--radius-sm:${radius.sm}`,
-    `--radius-md:${radius.md}`,
-    `--radius-lg:${radius.lg}`,
-    `--radius-pill:${radius.pill}`,
-    `--space-unit:${spacing.unit}`,
-    `--space-gutter:calc(${spacing.unit} * ${gutter})`,
-    `--space-section:${spacing.section}`,
-    `--page-width:${spacing.pageWidth}`,
-    `--prose-width:${spacing.proseWidth}`,
+    `--radius-sm:${css(radius.sm)}`,
+    `--radius-md:${css(radius.md)}`,
+    `--radius-lg:${css(radius.lg)}`,
+    `--radius-pill:${css(radius.pill)}`,
+    `--space-unit:${css(spacing.unit)}`,
+    `--space-gutter:calc(${css(spacing.unit)} * ${gutter})`,
+    `--space-section:${css(spacing.section)}`,
+    `--page-width:${css(spacing.pageWidth)}`,
+    `--prose-width:${css(spacing.proseWidth)}`,
     `--motion-duration:${duration}ms`,
     `--motion-travel:${Math.round(32 * intensity)}px`,
     `--motion-stagger:${Math.round(70 * intensity)}ms`,
     `--motion-lift:${(has(theme.motion.signature, 'lift') ? intensity * 4 : 0).toFixed(2)}px`,
-    `--motion-easing:${motion.easing}`,
+    `--motion-easing:${css(motion.easing)}`,
   ].join(';');
 
   // Light is the base. Dark applies under the system preference unless the

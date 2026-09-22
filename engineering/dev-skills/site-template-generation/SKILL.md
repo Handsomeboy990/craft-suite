@@ -35,7 +35,7 @@ back office the authenticated surface that writes the content file, stores the
 ```
 
 The separation is testable: a value found in a component and not in the content
-file fails the gate in section 15, whatever it is. The reverse is equally firm:
+file fails the gate in section 16, whatever it is. The reverse is equally firm:
 logic never enters the content file, because the back office writes that file
 and a client editing text must not be able to break the build.
 
@@ -185,6 +185,8 @@ without a rebuild. This surface is part of the deliverable.
 | Notifications | the browser subscription that receives a new message | the subscription store |
 | Identity | the favicon, the installed icons, the social preview | the uploads and the content file |
 | Security | the password of this account | the credential store, and every session |
+| History | the previous versions, and a return to any of them | the content file, after snapshotting the present one |
+| Help | what each section does, in the client's words | nothing |
 
 Rules the surface obeys:
 
@@ -199,6 +201,14 @@ never logic     the client edits values, never expressions, never markup beyond
                 a declared inline subset
 visible effect  every field in the back office changes something the client can
                 see, which is verified by changing it, not by intending it
+reversible      every write snapshots the state it replaces, and any snapshot
+                can be restored in one action. A client who cannot undo will
+                not touch their own site
+guiding         the surface says what is still missing, computed from the
+                content, and links to where each one is fixed
+their words     nothing here addresses a developer. A command, a file path or
+                an environment variable shown to a client is a defect: name the
+                installer instead, and put the command in the handover
 ```
 
 ## 8. Getting in: authentication and rate limiting
@@ -229,7 +239,34 @@ uploads         type checked by extension and by content, size capped, name
                 generated, stored outside any executable path, and no SVG
 public limits   the contact endpoint is rate limited too, or the inbox becomes
                 a spam folder on the first crawl
+body size       refused before it is parsed, because a request body is read
+                whole before anything validates it
+record          every privileged action appended to an audit log: who signed
+                in, what was written, what was uploaded, what was deleted, what
+                was refused. No password, no token, no message body in it
 ```
+
+The browser is the second half of this. A site that hands the visitor no policy
+relies entirely on the server being perfect:
+
+```
+policy          a Content-Security-Policy with a nonce issued per request, so
+                that a script which reaches the page, however it got there, does
+                not run. `style-src` keeps stylesheets locked; style attributes
+                carry values and are allowed
+headers         nosniff, a referrer policy, frame protection, a permissions
+                policy naming what the site does not use, and HSTS
+no cache        the back office and every endpoint are `no-store`, in the
+                browser and in anything between
+```
+
+Anything a signed in client types that ends up inside a style or a script is
+validated where it is written and escaped where it is used. A colour is a
+colour, a length is a length, and a font family is a list of names. Without
+that, the back office is a stored cross-site scripting hole aimed at every
+visitor, and the client is one phishing away from it. Both reference
+implementations shipped that hole once; `resources/admin-security.md` carries
+the patterns.
 
 ## 9. The contact form has a destination
 
@@ -279,6 +316,13 @@ Applied while building, not audited afterwards.
 ```
 mobile first  designed at 360px, then widened; no horizontal scroll at any
               supported width
+targets       44px minimum for anything tapped, which includes a telephone
+              number in a header, an email address in a footer and the brand
+              link. A link is not exempt because it looks like text
+identity      the business name is why anyone reads a header. When the row is
+              too tight for the name, the number and the menu, the name takes a
+              row of its own and the number becomes a call button. Truncating
+              the name to an ellipsis is not a compromise, it is a loss
 navigation    a navigation that does not fit becomes a menu, never a wrapping
               row. The button says what it controls and whether it is open, the
               panel is reachable and dismissible by keyboard, Escape closes it
@@ -318,7 +362,33 @@ degrade     every one of these is optional at runtime. A browser without
             whole site minus the extra
 ```
 
-## 13. What the runtime must provide
+## 13. Being found
+
+A site nobody finds is not delivered. Three files, all generated from the
+content file so that an instance changing its address does not keep announcing
+the old one:
+
+```
+robots.txt      generated; the back office and the endpoints disallowed; the
+                sitemap named at the instance's own address
+sitemap.xml     the routes this instance actually serves, including the legal
+                slugs, and no route it does not
+structured data one block naming the business, its type, its address, the area
+                it says it covers and the services it lists. Every value comes
+                from the content file, and a value that is absent is left out
+```
+
+The address of the site is a field the client owns, validated as an absolute
+origin. It decides the sitemap, the canonical links and every share preview, so
+an instance still announcing an example domain is an unfinished instance, and
+the back office says so.
+
+Nothing here may state what the site does not. An opening hour that cannot be
+mapped, an award nobody entered, a rating nobody gave: left out. Structured
+data claiming what the pages do not is the same false claim as an invented
+legal fact, with a penalty attached.
+
+## 14. What the runtime must provide
 
 The back office, the uploads, the inbox, the rate limits and the push
 subscriptions all need a server. That is a consequence of the deliverable, not a
@@ -333,12 +403,19 @@ storage      the content file, the uploads, the messages, the sessions, the
 secrets      the password hash, the push keys and the session secret are server
              configuration, never in the repository and never in the bundle
 backup       the data directory is what a restore needs, and the handover says
-             so with the command
+             so with the command. A backup is untested until a restore has been
+             performed: take one, remove the directory, restore it, and load the
+             site
+retention    what the privacy page promises about how long a message is kept is
+             enforced by the software, not by an intention. A period stated and
+             not applied is a false statement in a published document
+audit        the log lives in the data directory with everything else, and is
+             part of what a backup carries
 deployment   the handover states how the site is started, restarted and
              updated, and what happens to the data directory in each case
 ```
 
-## 14. Prohibitions
+## 15. Prohibitions
 
 - No demonstration content inside a component: no name, no photograph, no
   telephone number, no address, no price.
@@ -352,48 +429,92 @@ deployment   the handover states how the site is started, restarted and
 - No login endpoint without a rate limit, and no public form endpoint without
   one either.
 - No contact form that posts into nothing.
+- No form without a declared method: the fallback is GET, and GET puts a
+  password or a visitor's message into the URL, the log and the Referer.
+- No command, file path or environment variable shown to the client inside
+  the back office.
+- No structured data, sitemap entry or preview that claims something the
+  site does not say on a page a visitor can read.
 - No framework default 404.
 - No optional section that renders an empty frame when its block is absent.
-- No template declared finished before the gate in section 15 passes whole.
+- No template declared finished before the gate in section 16 passes whole.
 
-## 15. The completion gate
+## 16. The completion gate
 
-Twenty checks. All twenty pass, or the template is not finished.
+Twenty eight checks. All twenty eight pass, or the template is not finished.
 
 ```
 1   every visitor facing string, image, colour, hour and contact detail
     resolves from the content file, verified by searching the components for
-    literals and finding none
+    literals and for the instance's own facts, and finding none
 2   every required field is refused at load with a message naming the field
 3   every optional block absent removes its section cleanly, verified on a
     content file with all of them removed
 4   changing one token changes the rendered site, verified by changing one
-5   both palettes measured, every required pair passing, on both themes
+5   both palettes measured on the rendered page, in the browser, reading the
+    custom properties the stylesheet actually resolves, not the colours
+    written in the content file; every required pair passing, both themes.
+    A palette that is only read and not measured is how white on white ships
 6   the theme toggle works, persists, respects the system preference and does
     not flash the wrong theme on load
-7   motion intensity is honoured at 0, in the middle and at 1, and
-    prefers-reduced-motion removes motion
+7   the motion signature of the trade is visible: the effects it names happen,
+    the ones it does not name do not, a staggered list arrives in sequence
+    rather than as a block, and prefers-reduced-motion removes all of it
 8   the layout uses the page width: no section centred in a narrow column
     except prose, and no horizontal scroll from 360px upward
-9   every back office section writes what it claims, verified by editing a
-    field, reloading the public page and seeing the change
-10  an upload is accepted, rejected by type, rejected by size, and its alt text
+9   every field the back office offers is changed, the public pages are read to
+    see the change arrive, and the original value is put back; the content file
+    then matches what it was, byte for byte. Not a sample: every field. The
+    pages read are the ones the instance's sitemap declares, so the check
+    cannot quietly skip a page nobody remembered to add to a list
+10  every field can be emptied and set again, and no two fields hold the same
+    fact
+11  an upload is accepted, rejected by type, rejected by size, and its alt text
     is required
-11  the login is rate limited, verified by exceeding it and seeing the refusal;
+12  the login is rate limited, verified by exceeding it and seeing the refusal;
     the session is server side; signing out invalidates it; an admin endpoint
     called without a session is refused
-12  a contact submission arrives in the inbox, is counted unread, and the
+13  the password can be changed from the back office with the current one, and
+    doing so ends every session
+14  a contact submission arrives in the inbox, is counted unread, and the
     visitor sees the success state
-13  every legal page the kind requires exists, is generated from the facts, and
+15  every legal page the kind requires exists, is generated from the facts, and
     marks visibly every fact not provided
-14  the 404 and the offline pages are the site's own, in both themes
-15  the manifest is served, the service worker registers, the site works with
+16  the 404 and the offline pages are the site's own, in both themes
+17  the navigation is operable at 360px as a menu, with its button naming what
+    it controls, Escape closing it and focus returning; the business name is
+    readable at that width, and nothing tapped is under 44px
+18  the favicon and the installed icons come from the content file, and
+    changing them in the back office changes what the browser shows
+19  the manifest is served, the service worker registers, the site works with
     the service worker unregistered and with notifications refused
-16  the handover lists every back office field, the data directory, the backup
+20  every route is looked at, at 360px, in both themes, with no clipped text
+21  the security headers are served, the policy carries a nonce, a value typed
+    into a style field cannot close the tag, and a request body over the limit
+    is refused before it is parsed
+22  a backup is taken, the data directory removed, the backup restored and the
+    site loaded; the retention the privacy page states is applied; every
+    privileged action appears in the audit log
+23  the dependencies carry no known vulnerability at the version pinned, and
+    the handover names the day that was checked
+24  the handover lists every back office field, the data directory, the backup
     command, and the secrets the instance needs
+25  no form can submit by GET: every form declares its method, verified by
+    reading the rendered markup, because a form without one falls back to GET
+    and writes a password or a visitor's message into the URL, the server log
+    and the Referer header
+26  a page loaded without JavaScript says so where a form would have been, and
+    points at a way to make contact that still works
+27  the back office says what is left to do, computed from the content and not
+    remembered: a fact still missing, an image still from the model, an address
+    still unset. Every item a client can act on carries the link to where it is
+    done, and fixing one closes it without anyone marking it done
+28  nothing inside the back office asks the client to run a command, edit a
+    file or set a variable. What only the installer can do names the installer
+    and says to ask them. The commands belong in the handover
 ```
 
-## 16. Protocol
+## 17. Protocol
 
 1. Establish the kind, portfolio or showcase, the trade, and the legal identity
    of the owner. The kind decides the contract, the routes and the legal
@@ -420,12 +541,12 @@ Twenty checks. All twenty pass, or the template is not finished.
     degrading to nothing when refused.
 11. Produce the example content file with clearly fictional data, and run the
     site from it.
-12. Run the twenty point gate in section 15, whole. Fix and re-run what a fix
+12. Run the twenty eight point gate in section 16, whole. Fix and re-run what a fix
     touched.
 13. Write the handover: the field map, the data directory, the backup command,
     the secrets, and how the site is started and updated.
 
-## 17. Auto-critique
+## 18. Auto-critique
 
 Score from 0 to 5: the content contract holds everything a human would want to
 change, both palettes are authored and measured, the motion system is driven by
@@ -442,7 +563,7 @@ statement scores 0 overall: the first three are the ways this kind of site is
 actually broken into or silently loses business, and the last two make the
 delivery false.
 
-## 18. Interfaces
+## 19. Interfaces
 
 - Upstream: `engineering-core`, `template-selection` when the work starts from
   an existing template rather than a blank page.

@@ -1,3 +1,4 @@
+import { headers } from 'next/headers';
 import type { ReactNode } from 'react';
 import { readSession } from '@/lib/auth';
 import { getContent } from '@/lib/content';
@@ -17,19 +18,23 @@ const LINKS = [
   ['/admin/media', 'Images'],
   ['/admin/theme', 'Couleurs'],
   ['/admin/messages', 'Messages'],
+  ['/admin/history', 'Historique'],
   ['/admin/security', 'Sécurité'],
+  ['/admin/aide', 'Aide'],
 ];
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const content = getContent();
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
   const session = await readSession();
   const unread = session ? unreadCount() : 0;
 
   return (
     <html lang={content.site.locale} suppressHydrationWarning>
       <head>
-        <style dangerouslySetInnerHTML={{ __html: cssVariables(content.theme) }} />
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <style nonce={nonce} dangerouslySetInnerHTML={{ __html: cssVariables(content.theme) }} />
+        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {session ? <meta name="csrf-token" content={session.csrf} /> : null}
       </head>
       <body>
         {session ? (

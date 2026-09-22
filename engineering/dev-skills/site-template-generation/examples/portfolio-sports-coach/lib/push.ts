@@ -13,16 +13,21 @@ type Subscription = {
 };
 
 export function pushPublicKey(): string | null {
-  return process.env.VAPID_PUBLIC_KEY ?? null;
+  return configured() ? (process.env.VAPID_PUBLIC_KEY ?? null) : null;
 }
 
+// All three are required. A subject is the address a push service writes to
+// when something is wrong with the sender, so defaulting it to an invented one
+// would point a real service at a mailbox nobody reads.
 function configured(): boolean {
-  return Boolean(process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY);
+  return Boolean(
+    process.env.VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY && process.env.VAPID_SUBJECT,
+  );
 }
 
 function configure(): void {
   webpush.setVapidDetails(
-    process.env.VAPID_SUBJECT ?? 'mailto:admin@example.com',
+    process.env.VAPID_SUBJECT!,
     process.env.VAPID_PUBLIC_KEY!,
     process.env.VAPID_PRIVATE_KEY!,
   );

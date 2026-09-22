@@ -19,6 +19,9 @@ export type Limit = {
 
 export const LIMITS = {
   login: { max: 5, windowMs: 15 * 60_000, lockoutMs: 15 * 60_000 },
+  // Its own budget: asking for a link must not spend the attempts the client
+  // needs to sign in with the password they just set.
+  reset: { max: 3, windowMs: 60 * 60_000, lockoutMs: 60 * 60_000 },
   contact: { max: 5, windowMs: 60 * 60_000, lockoutMs: 60 * 60_000 },
   upload: { max: 20, windowMs: 60_000, lockoutMs: 60_000 },
   write: { max: 120, windowMs: 60_000, lockoutMs: 60_000 },

@@ -1,6 +1,5 @@
 import type { PortfolioContent } from '@/lib/types';
 import SiteNav from './SiteNav';
-import ThemeToggle from './ThemeToggle';
 
 export default function SiteHeader({ content }: { content: PortfolioContent }) {
   const { site, nav, ui } = content;
@@ -15,7 +14,6 @@ export default function SiteHeader({ content }: { content: PortfolioContent }) {
             <span className="site-header__name">{site.name}</span>
             {site.tagline ? <span className="site-header__tagline">{site.tagline}</span> : null}
           </a>
-          <ThemeToggle ui={ui} />
           <SiteNav nav={nav} ui={ui} />
         </div>
       </header>

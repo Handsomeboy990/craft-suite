@@ -8,6 +8,11 @@ export default function LoginForm({ next }: { next: string }) {
 
   return (
     <form
+      // Submission is handled in JavaScript. The method is still declared, because
+      // a form with no method falls back to GET, and a GET puts everything typed
+      // here into the URL: the server log, the browser history, the Referer sent
+      // to the next site. A password or a visitor message must never travel there.
+      method="post"
       className="form"
       onSubmit={async (event) => {
         event.preventDefault();
@@ -27,6 +32,12 @@ export default function LoginForm({ next }: { next: string }) {
         setMessage(body.error ?? 'Refusé.');
       }}
     >
+      <noscript>
+        <p className="form__status form__status--error">
+          Cet espace a besoin de JavaScript. Activez-le dans votre navigateur, puis rechargez
+          cette page.
+        </p>
+      </noscript>
       <p className="field">
         <label className="field__label" htmlFor="password">
           Mot de passe

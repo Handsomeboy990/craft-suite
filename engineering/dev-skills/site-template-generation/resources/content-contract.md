@@ -97,8 +97,6 @@ their own block.
 
 | Key | | Type | Holds |
 |---|---|---|---|
-| `company.legalName` | R | string | the registered name |
-| `company.tradeName` | O | string | the name used commercially |
 | `company.activity` | R | string | one sentence naming the trade |
 | `company.serviceArea` | O | array | the areas served, plain strings |
 | `pages` | R | array | the routes, `{ href, label, inNav }` |
@@ -116,6 +114,11 @@ their own block.
 | `quote.heading` | R | string | the heading of the quotation page |
 | `quote.body` | O | string | one paragraph above the form |
 | `quote.fields` | R | array | the quotation form, see the form section |
+
+One fact, one field: the name a visitor reads is `site.name` and the registered
+entity the legal pages state is `legal.identity.legalName`. A third copy under
+`company` was offered in the back office, promised to change the legal pages and
+changed nothing, which is the shape of defect this contract exists to prevent.
 
 `about.credentials` holds only what the company provided. A certification, an
 insurance policy or a registration number that was not given is absent from the

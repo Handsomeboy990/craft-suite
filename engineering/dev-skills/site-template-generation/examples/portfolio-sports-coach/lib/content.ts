@@ -1,6 +1,7 @@
 import { readFileSync, statSync } from 'node:fs';
 import { SIGNATURES } from './motion';
 import { FILES } from './paths';
+import { snapshot } from './history';
 import { writeJson } from './store';
 import type { Palette, PortfolioContent } from './types';
 
@@ -70,6 +71,7 @@ const REQUIRED = [
   'forms.errorMessage',
   'seo.title',
   'seo.description',
+  'seo.businessType',
   'pwa.enabled',
   'legal.identity.legalName',
   'legal.identity.legalForm',
@@ -179,8 +181,9 @@ export function getContent(): PortfolioContent {
   return value;
 }
 
-export function saveContent(next: Record<string, unknown>): PortfolioContent {
+export function saveContent(next: Record<string, unknown>, label = 'edit'): PortfolioContent {
   const value = validate(next);
+  snapshot(label);
   writeJson(FILES.content, next);
   cached = null;
   return value;
