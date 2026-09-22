@@ -59,7 +59,6 @@ const REQUIRED = [
   'ui.offline.body',
   'ui.offline.action',
   'ui.legalPendingNotice',
-  'company.legalName',
   'company.activity',
   'pages',
   'home.hero.title',

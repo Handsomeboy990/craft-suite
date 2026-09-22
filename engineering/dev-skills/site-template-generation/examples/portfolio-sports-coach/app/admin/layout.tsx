@@ -30,6 +30,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
       <head>
         <style dangerouslySetInnerHTML={{ __html: cssVariables(content.theme) }} />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {session ? <meta name="csrf-token" content={session.csrf} /> : null}
       </head>
       <body>
         {session ? (

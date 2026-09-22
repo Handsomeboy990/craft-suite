@@ -279,6 +279,13 @@ Applied while building, not audited afterwards.
 ```
 mobile first  designed at 360px, then widened; no horizontal scroll at any
               supported width
+targets       44px minimum for anything tapped, which includes a telephone
+              number in a header, an email address in a footer and the brand
+              link. A link is not exempt because it looks like text
+identity      the business name is why anyone reads a header. When the row is
+              too tight for the name, the number and the menu, the name takes a
+              row of its own and the number becomes a call button. Truncating
+              the name to an ellipsis is not a compromise, it is a loss
 navigation    a navigation that does not fit becomes a menu, never a wrapping
               row. The button says what it controls and whether it is open, the
               panel is reachable and dismissible by keyboard, Escape closes it
@@ -358,12 +365,12 @@ deployment   the handover states how the site is started, restarted and
 
 ## 15. The completion gate
 
-Twenty checks. All twenty pass, or the template is not finished.
+Twenty one checks. All twenty one pass, or the template is not finished.
 
 ```
 1   every visitor facing string, image, colour, hour and contact detail
     resolves from the content file, verified by searching the components for
-    literals and finding none
+    literals and for the instance's own facts, and finding none
 2   every required field is refused at load with a message naming the field
 3   every optional block absent removes its section cleanly, verified on a
     content file with all of them removed
@@ -371,25 +378,37 @@ Twenty checks. All twenty pass, or the template is not finished.
 5   both palettes measured, every required pair passing, on both themes
 6   the theme toggle works, persists, respects the system preference and does
     not flash the wrong theme on load
-7   motion intensity is honoured at 0, in the middle and at 1, and
-    prefers-reduced-motion removes motion
+7   the motion signature of the trade is visible: the effects it names happen,
+    the ones it does not name do not, a staggered list arrives in sequence
+    rather than as a block, and prefers-reduced-motion removes all of it
 8   the layout uses the page width: no section centred in a narrow column
     except prose, and no horizontal scroll from 360px upward
-9   every back office section writes what it claims, verified by editing a
-    field, reloading the public page and seeing the change
-10  an upload is accepted, rejected by type, rejected by size, and its alt text
+9   every field the back office offers is changed, the public pages are read to
+    see the change arrive, and the original value is put back; the content file
+    then matches what it was, byte for byte. Not a sample: every field
+10  every field can be emptied and set again, and no two fields hold the same
+    fact
+11  an upload is accepted, rejected by type, rejected by size, and its alt text
     is required
-11  the login is rate limited, verified by exceeding it and seeing the refusal;
+12  the login is rate limited, verified by exceeding it and seeing the refusal;
     the session is server side; signing out invalidates it; an admin endpoint
     called without a session is refused
-12  a contact submission arrives in the inbox, is counted unread, and the
+13  the password can be changed from the back office with the current one, and
+    doing so ends every session
+14  a contact submission arrives in the inbox, is counted unread, and the
     visitor sees the success state
-13  every legal page the kind requires exists, is generated from the facts, and
+15  every legal page the kind requires exists, is generated from the facts, and
     marks visibly every fact not provided
-14  the 404 and the offline pages are the site's own, in both themes
-15  the manifest is served, the service worker registers, the site works with
+16  the 404 and the offline pages are the site's own, in both themes
+17  the navigation is operable at 360px as a menu, with its button naming what
+    it controls, Escape closing it and focus returning; the business name is
+    readable at that width, and nothing tapped is under 44px
+18  the favicon and the installed icons come from the content file, and
+    changing them in the back office changes what the browser shows
+19  the manifest is served, the service worker registers, the site works with
     the service worker unregistered and with notifications refused
-16  the handover lists every back office field, the data directory, the backup
+20  every route is looked at, at 360px, in both themes, with no clipped text
+21  the handover lists every back office field, the data directory, the backup
     command, and the secrets the instance needs
 ```
 
@@ -420,7 +439,7 @@ Twenty checks. All twenty pass, or the template is not finished.
     degrading to nothing when refused.
 11. Produce the example content file with clearly fictional data, and run the
     site from it.
-12. Run the twenty point gate in section 15, whole. Fix and re-run what a fix
+12. Run the twenty one point gate in section 15, whole. Fix and re-run what a fix
     touched.
 13. Write the handover: the field map, the data directory, the backup command,
     the secrets, and how the site is started and updated.

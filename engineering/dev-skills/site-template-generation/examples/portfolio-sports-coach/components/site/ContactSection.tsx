@@ -27,6 +27,12 @@ export default function ContactSection({ content }: { content: PortfolioContent 
                   {contact.address.street}
                   <br />
                   {contact.address.postalCode} {contact.address.city}
+                  {contact.address.country ? (
+                    <>
+                      <br />
+                      {contact.address.country}
+                    </>
+                  ) : null}
                 </address>
               </li>
             ) : null}

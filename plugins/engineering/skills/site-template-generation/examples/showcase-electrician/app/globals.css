@@ -138,6 +138,9 @@ img {
 }
 
 .skip-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   position: absolute;
   left: var(--space-gutter);
   top: calc(var(--space-unit) * -8);
@@ -252,18 +255,58 @@ img {
 
 .site-header__brand {
   display: grid;
+  align-content: center;
+  min-height: 44px;
   text-decoration: none;
   margin-right: auto;
-  min-width: 0;
+  /* The business name is why anyone looks at a header. It takes the room it
+     needs and the rest of the row gives way, rather than the other way round,
+     which is how it disappeared at 360px. */
+  min-width: 8ch;
+  flex: 1 1 auto;
+}
+
+/* The tagline is the first thing to go when the row is tight. */
+.site-header__tagline {
+  display: none;
+}
+
+/* A header carrying a telephone number has three things competing for 360px,
+   and truncating the business name to "Rouss..." is not a compromise, it is a
+   loss. The name takes the first row, and the number becomes what it is on a
+   trade site: a call button. `:has` decides this; a browser without it keeps
+   the single row, which still works. */
+@media (max-width: 559px) {
+  .site-header__inner:has(.site-header__phone) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    row-gap: var(--space-unit);
+  }
+
+  .site-header__inner:has(.site-header__phone) .site-header__brand {
+    grid-column: 1 / -1;
+  }
+
+  .site-header__inner:has(.site-header__phone) .site-header__phone {
+    justify-content: center;
+    padding-inline: calc(var(--space-unit) * 2);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+  }
+}
+
+@media (min-width: 560px) {
+  .site-header__tagline {
+    display: block;
+  }
 }
 
 .site-header__name {
   font-family: var(--font-display);
   font-weight: var(--weight-display);
   font-size: var(--size-lg);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  /* Wrapping a long name over two lines beats truncating it to nothing. */
+  overflow-wrap: break-word;
 }
 
 .site-header__tagline {
@@ -320,7 +363,9 @@ img {
 }
 
 .site-nav[data-open='true'] {
-  display: block;
+  display: grid;
+  gap: var(--space-unit);
+  justify-items: start;
   position: absolute;
   inset-inline: 0;
   top: 100%;
@@ -363,7 +408,9 @@ img {
   .site-nav[data-open='false'],
   .site-nav[data-open='true'] {
     position: static;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: calc(var(--space-unit) * 2);
     padding: 0;
     background: none;
     border: 0;
@@ -801,6 +848,15 @@ img {
   align-items: start;
 }
 
+/* The same rule as the footer, for the same reason: on the contact and quote
+   pages these are the two things a visitor taps. */
+.contact__details a,
+.quote__areas a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
 .contact__details,
 .contact__hours {
   list-style: none;
@@ -892,6 +948,14 @@ textarea:focus {
 
 /* Footer ------------------------------------------------------------------ */
 
+/* A telephone number and an address in a footer are tapped, not read: they get
+   the same target size as any other control. */
+.site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
 .site-footer {
   border-top: 1px solid var(--color-border);
   padding-block: calc(var(--space-unit) * 6);
@@ -931,6 +995,9 @@ textarea:focus {
 }
 
 .site-header__phone {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-weight: 600;
   white-space: nowrap;
   text-decoration: none;

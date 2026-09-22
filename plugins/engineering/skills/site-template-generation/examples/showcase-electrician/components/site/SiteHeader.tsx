@@ -1,6 +1,5 @@
 import type { ShowcaseContent } from '@/lib/types';
 import SiteNav from './SiteNav';
-import ThemeToggle from './ThemeToggle';
 
 export default function SiteHeader({ content }: { content: ShowcaseContent }) {
   const { site, pages, ui, contact } = content;
@@ -23,7 +22,6 @@ export default function SiteHeader({ content }: { content: ShowcaseContent }) {
               {contact.phone}
             </a>
           ) : null}
-          <ThemeToggle ui={ui} />
           <SiteNav pages={pages} ui={ui} />
         </div>
       </header>

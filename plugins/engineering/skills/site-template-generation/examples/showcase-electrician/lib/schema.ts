@@ -71,8 +71,6 @@ export const GROUPS: Group[] = [
       { path: 'site.shortName', label: 'Nom court (application installée)', kind: 'text', changes: "le nom sous l'icône une fois le site installé" },
       { path: 'site.tagline', label: 'Accroche', kind: 'text', changes: "la ligne sous le nom dans l'en-tête" },
       { path: 'site.favicon', label: "Icône de l'onglet (favicon)", kind: 'image', changes: "l'icône affichée par le navigateur dans son onglet" },
-      { path: 'company.legalName', label: 'Raison sociale', kind: 'text', changes: 'les pages légales' },
-      { path: 'company.tradeName', label: 'Nom commercial', kind: 'text', changes: 'les pages légales' },
       { path: 'company.activity', label: "Phrase d'activité", kind: 'textarea', changes: 'les en-têtes de page et la description' },
       { path: 'company.serviceArea', label: "Zone d'intervention (une par ligne)", kind: 'lines', changes: 'le pied de page et la page devis' },
       { path: 'seo.title', label: 'Titre pour les moteurs de recherche', kind: 'text', changes: "le titre de l'onglet et des résultats" },
@@ -369,8 +367,15 @@ function coerceScalar(kind: ItemField['kind'], value: unknown, field: { label: s
     case 'text':
     case 'textarea':
     case 'imageSrc': {
+      // Emptying a field is how a client says "not provided": a legal fact they
+      // entered by mistake, an insurance they no longer hold, a tagline they
+      // dropped. Refusing it made every entry irreversible from the back
+      // office. Empty and absent are the same thing and are stored as absent;
+      // a required field emptied this way is then refused by name by the
+      // contract, which is the message the client should see.
+      if (value === null || value === '') return null;
       if (typeof value !== 'string') throw new PatchError(`${field.label}: texte attendu`);
-      if (kind === 'imageSrc' && value !== '' && !value.startsWith('/')) {
+      if (kind === 'imageSrc' && !value.startsWith('/')) {
         throw new PatchError(`${field.label}: chemin d'image invalide`);
       }
       return value;
@@ -383,7 +388,9 @@ function coerceScalar(kind: ItemField['kind'], value: unknown, field: { label: s
       return value;
     }
     case 'image': {
-      if (value === null || typeof value !== 'object') throw new PatchError(`${field.label}: image attendue`);
+      // An optional image can be removed the same way.
+      if (value === null) return null;
+      if (typeof value !== 'object') throw new PatchError(`${field.label}: image attendue`);
       const image = value as Record<string, unknown>;
       if (typeof image.src !== 'string' || !image.src.startsWith('/')) {
         throw new PatchError(`${field.label}: chemin d'image invalide`);

@@ -16,11 +16,28 @@ export default function SiteFooter({ content }: { content: ShowcaseContent }) {
               </>
             ) : null}
           </p>
+          {contact.social && contact.social.length > 0 ? (
+            <ul className="site-footer__social">
+              {contact.social.map((entry) => (
+                <li key={entry.url}>
+                  <a href={entry.url} rel="noopener noreferrer" target="_blank">
+                    {entry.platform}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : null}
           {contact.address ? (
             <address style={{ fontStyle: 'normal' }}>
               {contact.address.street}
               <br />
               {contact.address.postalCode} {contact.address.city}
+              {contact.address.country ? (
+                <>
+                  <br />
+                  {contact.address.country}
+                </>
+              ) : null}
             </address>
           ) : null}
         </div>

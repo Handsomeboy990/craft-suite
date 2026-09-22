@@ -616,6 +616,28 @@ Session 28, the back office behind the site template, version 3.21.0:
   added to the contract appears in the back office without new admin code, and
   why an unknown path is refused without a second list to maintain.
 
+Session 30, the gate run against the two templates, version 3.23.0:
+
+- Ran the gate of the skill against both references before building anything on
+  them, which is the cheap moment: two instances rather than fifty.
+- Five defects. The two that matter for anyone reusing this: a field could not
+  be emptied, so every entry in the back office was one way and a legal fact
+  entered by mistake was permanent; and two fields held the company's name with
+  one of them read by nothing, which would have drifted the first time a client
+  renamed themselves.
+- The one no measurement caught: the business name was squeezed out of the
+  header at 360px. Overflow was zero, targets were fine, nothing was clipped,
+  and the name was gone. It took looking at a screenshot. `mobile.mjs` now
+  writes one per route and per theme for that reason.
+- `gate.mjs` is the piece to keep: it reads the editable surface from the DOM,
+  changes every field through the endpoint the back office uses, looks for the
+  change in the public pages, restores, and then compares the content file byte
+  for byte. That last comparison is what found the field that could not be
+  emptied.
+- The lesson: a field map is a set of promises, and the only honest way to check
+  a promise is to keep it once. Ninety two of them on one instance, a hundred
+  and seven on the other.
+
 ## Current state
 
 Working today:

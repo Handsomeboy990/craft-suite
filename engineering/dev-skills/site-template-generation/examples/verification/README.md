@@ -21,6 +21,9 @@ npm run set-password -- 'mot-de-passe-de-verification-1234'
 npm run build && PORT=3111 npx next start -p 3111
 
 # In another:
+npm run gate                    # every field, one by one, on :3111
+npm run mobile                  # 360px in both themes, with screenshots
+npm run hardcoded ../portfolio-sports-coach
 npm run portfolio               # the whole surface, on :3111
 npm run motion                  # what moves, on :3111
 npm run account                 # the menu, the favicon, the password, on :3111
@@ -37,19 +40,31 @@ instance you are willing to have written to, never against a client's.
 ## What each script proves
 
 ```
+gate.mjs           the first point of the gate, exhaustively: every field the
+                   back office offers is changed through the endpoint the back
+                   office uses, the public pages are read to see the change
+                   arrive, and the original value is put back. It ends by
+                   comparing the content file with what it was, byte for byte.
+                   92 fields on the portfolio, 109 on the showcase
+mobile.mjs         360px, both themes, every route: no sideways scroll, no
+                   target under 44px, no clipped text, and a screenshot of each
+                   page in shots/ so the result can be looked at
+hardcoded.mjs      the source rather than the page: no client fact, no email,
+                   no telephone number and no colour or font literal inside a
+                   component. It reads the instance's own content file to know
+                   what a client fact looks like
 portfolio.mjs      theme from the system preference, the toggle, persistence and
                    no flash; sections armed and revealed on scroll; nothing
                    hidden under reduced motion; the skip link first in the tab
-                   order and focus visible; no horizontal scroll at 360 and
-                   1920; the service worker registering, the offline fallback
-                   and the back office never served from cache; signing in,
-                   editing a field, seeing it on the public page, putting it
-                   back; the public form showing success and clearing; the
-                   site's own 404 with its status
-showcase.mjs       both themes on a technical palette; no horizontal scroll on
-                   any route; the reveal at low intensity; the service worker
-                   and the offline page; the quotation form filled as a visitor
-                   would, then found unread in the back office with its count
+                   order and focus visible; the service worker registering, the
+                   offline fallback and the back office never served from cache;
+                   signing in, editing a field, seeing it on the public page,
+                   putting it back; the public form showing success and
+                   clearing; the site's own 404 with its status
+showcase.mjs       both themes on a technical palette; the reveal at low
+                   intensity; the service worker and the offline page; the
+                   quotation form filled as a visitor would, then found unread
+                   in the back office with its count
 motion.mjs         the hero entrance running once; each staggered item carrying
                    its own delay; items hidden before they enter and visible
                    after; a counter reaching its value; parallax writing its
@@ -65,9 +80,11 @@ nav-and-account.mjs the menu at 360px with its button, its state, 48px targets,
                    session ended and the new one working
 ```
 
-`nav-and-account.mjs` changes the password of the instance it runs against, to
-`un-nouveau-mot-de-passe-solide`. Run `npm run set-password` afterwards to put
-back the one you use.
+`gate.mjs` and `nav-and-account.mjs` write to the instance they run against.
+The gate puts every value back and says whether the file matched; the account
+script leaves the password as `un-nouveau-mot-de-passe-solide`, and
+`npm run set-password` puts back the one you use. Run both against an instance
+you are willing to have written to, never against a client's.
 
 ## What they do not prove
 

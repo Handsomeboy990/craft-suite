@@ -5,6 +5,9 @@
   "type": "module",
   "description": "Drives a real browser through the gate items only a browser can prove.",
   "scripts": {
+    "gate": "node gate.mjs",
+    "mobile": "node mobile.mjs",
+    "hardcoded": "node hardcoded.mjs",
     "portfolio": "node portfolio.mjs",
     "showcase": "node showcase.mjs",
     "motion": "node motion.mjs",

@@ -341,6 +341,13 @@ export default function ContentEditor({
           {group.fields.map((field) => (
             <label
               key={field.path}
+              // The path is in the DOM so that the field map in the handover,
+              // and the check that every field is actually wired, can both be
+              // read from the surface the client uses rather than from a second
+              // list kept by hand.
+              data-field={field.path}
+              data-kind={field.kind}
+              data-item={field.item ? field.item.map((i) => `${i.key}:${i.kind}`).join(',') : undefined}
               className={field.kind === 'color' ? 'admin-field admin-field--color' : 'admin-field'}
               style={{ '--i': 0 } as CSSProperties}
             >

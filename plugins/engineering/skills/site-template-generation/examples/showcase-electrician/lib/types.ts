@@ -151,9 +151,11 @@ export type ShowcaseContent = {
     favicon?: ImageRef;
   };
   theme: Theme;
+  // One fact, one field. The name a visitor reads is `site.name`; the
+  // registered entity the legal pages state is `legal.identity.legalName`.
+  // A third copy here was editable, promised to change the legal pages, and
+  // changed nothing.
   company: {
-    legalName: string;
-    tradeName?: string;
     activity: string;
     serviceArea?: string[];
   };

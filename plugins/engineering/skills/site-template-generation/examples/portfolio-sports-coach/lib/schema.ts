@@ -116,9 +116,9 @@ export const GROUPS: Group[] = [
   },
   {
     id: 'offers',
-    label: 'Accompagnements',
+    label: 'Offres et tarifs',
     fields: [
-      { path: 'offers.heading', label: 'Titre de la section', kind: 'text', changes: 'le titre des accompagnements' },
+      { path: 'offers.heading', label: 'Titre de la section', kind: 'text', changes: 'le titre de la section des offres' },
       {
         path: 'offers.items',
         label: 'Offres',
@@ -353,8 +353,15 @@ function coerceScalar(kind: ItemField['kind'], value: unknown, field: { label: s
     case 'text':
     case 'textarea':
     case 'imageSrc': {
+      // Emptying a field is how a client says "not provided": a legal fact they
+      // entered by mistake, an insurance they no longer hold, a tagline they
+      // dropped. Refusing it made every entry irreversible from the back
+      // office. Empty and absent are the same thing and are stored as absent;
+      // a required field emptied this way is then refused by name by the
+      // contract, which is the message the client should see.
+      if (value === null || value === '') return null;
       if (typeof value !== 'string') throw new PatchError(`${field.label}: texte attendu`);
-      if (kind === 'imageSrc' && value !== '' && !value.startsWith('/')) {
+      if (kind === 'imageSrc' && !value.startsWith('/')) {
         throw new PatchError(`${field.label}: chemin d'image invalide`);
       }
       return value;
@@ -367,7 +374,9 @@ function coerceScalar(kind: ItemField['kind'], value: unknown, field: { label: s
       return value;
     }
     case 'image': {
-      if (value === null || typeof value !== 'object') throw new PatchError(`${field.label}: image attendue`);
+      // An optional image can be removed the same way.
+      if (value === null) return null;
+      if (typeof value !== 'object') throw new PatchError(`${field.label}: image attendue`);
       const image = value as Record<string, unknown>;
       if (typeof image.src !== 'string' || !image.src.startsWith('/')) {
         throw new PatchError(`${field.label}: chemin d'image invalide`);
