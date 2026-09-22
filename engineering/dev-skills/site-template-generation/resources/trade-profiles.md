@@ -15,13 +15,13 @@ theme.palettes.light   the palette below
 theme.palettes.dark    the same keys, authored separately
 
 palette           surface, surfaceAlt, foreground, muted, accent, accentHover,
-                  accentForeground, border, borderStrong, success, danger
+                  accentForeground, border, borderStrong, focusRing, success,
+                  danger
 theme.type        displayFamily, textFamily, scaleRatio, displayWeight,
                   textWeight
 theme.radius      sm, md, lg, pill
-theme.spacing     unit, sectionY
-theme.motion      intensity, baseDuration, easing
 theme.spacing     unit, section, pageWidth, proseWidth
+theme.motion      intensity, baseDuration, easing
 theme.density     compact | regular | airy
 ```
 
@@ -66,13 +66,15 @@ theme and in the dark theme.
 
 ```
 foreground on surface          4.5:1 minimum
+accent on surface and surfaceAlt 4.5:1, because it is the colour of every link
 accentForeground on accent      4.5:1 minimum
+accentForeground on accentHover 4.5:1, since a hovered button still carries text
 muted on surface and surfaceAlt 4.5:1 for body text, 3:1 only for non text
 borderStrong on both surfaces   3:1, because it draws the boundary of a control
 border on both surfaces         no minimum: it is decorative, and a decorative
                                 separator raised to 3:1 turns a quiet layout
                                 loud for no accessibility gain
-focus ring on every surface     3:1 against the adjacent colour
+focusRing on every surface      3:1 against the adjacent colour
 danger and success on surfaces  4.5:1, since they carry text
 ```
 

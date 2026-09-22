@@ -15,6 +15,9 @@ export type Palette = {
   /** The boundary of an interactive control. Measured at 3:1 against the
    *  surface behind it; the decorative border is not, and does not need to be. */
   borderStrong: string;
+  /** The focus outline. Its own token, so a client can make focus louder
+   *  without repainting every accent on the site. */
+  focusRing: string;
   success: string;
   danger: string;
 };

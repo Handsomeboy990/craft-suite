@@ -35,7 +35,7 @@ back office the authenticated surface that writes the content file, stores the
 ```
 
 The separation is testable: a value found in a component and not in the content
-file fails the gate in section 16, whatever it is. The reverse is equally firm:
+file fails the gate in section 17, whatever it is. The reverse is equally firm:
 logic never enters the content file, because the back office writes that file
 and a client editing text must not be able to break the build.
 
@@ -78,7 +78,77 @@ The content file is read at runtime from a writable data directory, not
 imported into the bundle, because the back office writes it while the site runs.
 It is parsed once and re-read when its modification time changes.
 
-## 4. Tokens, by trade, in both themes
+## 4. The shape every instance shares
+
+A generated site is not a one-off. It joins a fleet, and a fleet is maintained
+by tools that do not know which instance they are looking at: a verification
+that has to change every field, a backup that has to find the data, an operator
+opening an unfamiliar project at two in the morning.
+
+So three things are fixed. They are the smallest set that lets one tool serve
+every instance, and everything outside them stays the trade's decision.
+
+### Where things live
+
+```
+data/content.json     the instance's content, the only file the back office
+                      writes, the only file a backup must carry
+data/                 everything else a running instance writes, and nothing a
+                      developer edits: uploads, sessions, messages, history
+lib/                  the loader, the contract, the tokens, the security
+app/                  routes, following the framework's own convention
+public/               what is served unchanged
+```
+
+No `src/` wrapper: it adds a level that carries no meaning here, and two
+instances that disagree about it cannot share a script. The framework's config
+keeps the framework's own extension.
+
+### What the custom properties are called
+
+```
+--color-<token>       every palette key, kebab-cased: --color-accent,
+                      --color-border-strong, --color-focus-ring
+--font-display        --font-text
+--size-<step>         the type scale
+--space-<name>        --radius-<name>
+--motion-duration     --motion-easing, --motion-intensity, --motion-lift
+```
+
+An abbreviation saves six characters once and costs a rename everywhere. A tool
+that measures contrast reads these names; a template that spells them otherwise
+is not measurable by it, and an unmeasurable palette is how white on white
+ships.
+
+### How the back office talks to the server
+
+Four endpoints, JSON, session in an http-only cookie, the CSRF token in
+`<meta name="csrf-token">` on every admin page and sent back as
+`x-csrf-token`. Every one refuses without a session before it does anything
+else.
+
+```
+GET  /api/admin/fields    -> { ok, fields: [ { path, label, kind, changes,
+                              hint?, pattern?, options?, min?, max?, step?,
+                              item?: [ { key, kind, options? } ] } ] }
+GET  /api/admin/content   -> { ok, content }
+PUT  /api/admin/content      { patch: { "dotted.path": value } }
+                          -> { ok } or { ok: false, error } naming the field
+POST /api/admin/login        { password } -> { ok } or { ok: false, error }
+```
+
+`/api/admin/fields` is the piece that is easy to leave out and expensive to
+add later. It is the field map as data, and it has two readers: the handover
+document that lists what the client can change, and any verification that has
+to change every field and watch the change arrive. Without it, a checker has to
+crawl the back office and know its routes and its markup, so it only ever works
+against the instance it was written for. With it, one script checks every site
+in the fleet, including the ones that do not exist yet.
+
+The rest of the admin surface is the template's own: more endpoints, other
+routes, a different arrangement of the forms. Only these four are promised.
+
+## 5. Tokens, by trade, in both themes
 
 The trade decides the values; the component only reads them. A palette is
 always a pair: light and dark are both delivered, both measured, and the visitor
@@ -104,7 +174,7 @@ The theme resolves in this order: the visitor's stored choice, then the system
 preference, then light. The stored choice is applied before first paint, so the
 page never flashes the wrong theme.
 
-## 5. Motion is chosen by trade, not only scaled
+## 6. Motion is chosen by trade, not only scaled
 
 Two values in the content file decide every movement on the site.
 
@@ -149,7 +219,7 @@ implementations shipped that defect once; the gate now checks it.
 The technique ladder, the components and what must never move:
 `resources/motion-system.md`.
 
-## 6. The page uses its width
+## 7. The page uses its width
 
 A site that centres one column of text inside sixty percent of a wide screen
 looks like a document, not like a business. The layout is decided per section,
@@ -169,7 +239,7 @@ asymmetric    a two column section is rarely 50/50; the weight follows the
 Centring a narrow column is a decision made for text, never a default applied to
 everything.
 
-## 7. The back office
+## 8. The back office
 
 The client changes their site from a browser, signed in, without a developer and
 without a rebuild. This surface is part of the deliverable.
@@ -211,7 +281,7 @@ their words     nothing here addresses a developer. A command, a file path or
                 installer instead, and put the command in the handover
 ```
 
-## 8. Getting in: authentication and rate limiting
+## 9. Getting in: authentication and rate limiting
 
 The back office is the highest value target on the site and is built as one.
 `admin-console`, `authentication-security`, `session-security` and
@@ -268,7 +338,7 @@ visitor, and the client is one phishing away from it. Both reference
 implementations shipped that hole once; `resources/admin-security.md` carries
 the patterns.
 
-## 9. The contact form has a destination
+## 10. The contact form has a destination
 
 A form that posts into nothing is the most common broken thing on a client site.
 The message is stored on the server, shown in the back office, and announced.
@@ -286,7 +356,7 @@ answered    the visitor sees a success state that says when to expect a reply,
             or a failure state that gives the direct address
 ```
 
-## 10. Legal pages are built from facts, and never invented
+## 11. Legal pages are built from facts, and never invented
 
 A legal page is a statement about a real company. The template assembles it from
 the facts that company provided.
@@ -309,7 +379,7 @@ published under the client's name. A site with unresolved markers may be
 reviewed and staged; it may not be announced as delivered. Page by page:
 `resources/legal-fact-sheet.md`.
 
-## 11. Accessibility, responsive, and the pages nobody designs
+## 12. Accessibility, responsive, and the pages nobody designs
 
 Applied while building, not audited afterwards.
 
@@ -343,7 +413,7 @@ targets       44px minimum for anything tapped
 offline       the offline page is designed the same way, for the same reason
 ```
 
-## 12. Installable, offline, and able to notify
+## 13. Installable, offline, and able to notify
 
 ```
 manifest    generated from the content file: name, short name, description,
@@ -362,7 +432,7 @@ degrade     every one of these is optional at runtime. A browser without
             whole site minus the extra
 ```
 
-## 13. Being found
+## 14. Being found
 
 A site nobody finds is not delivered. Three files, all generated from the
 content file so that an instance changing its address does not keep announcing
@@ -388,7 +458,7 @@ mapped, an award nobody entered, a rating nobody gave: left out. Structured
 data claiming what the pages do not is the same false claim as an invented
 legal fact, with a penalty attached.
 
-## 14. What the runtime must provide
+## 15. What the runtime must provide
 
 The back office, the uploads, the inbox, the rate limits and the push
 subscriptions all need a server. That is a consequence of the deliverable, not a
@@ -415,7 +485,7 @@ deployment   the handover states how the site is started, restarted and
              updated, and what happens to the data directory in each case
 ```
 
-## 15. Prohibitions
+## 16. Prohibitions
 
 - No demonstration content inside a component: no name, no photograph, no
   telephone number, no address, no price.
@@ -429,6 +499,9 @@ deployment   the handover states how the site is started, restarted and
 - No login endpoint without a rate limit, and no public form endpoint without
   one either.
 - No contact form that posts into nothing.
+- No instance that departs from the shared shape of section 4: a private file
+  layout, private custom property names, or a private admin contract. Each one
+  is a tool that stops working on the next site.
 - No form without a declared method: the fallback is GET, and GET puts a
   password or a visitor's message into the URL, the log and the Referer.
 - No command, file path or environment variable shown to the client inside
@@ -437,11 +510,11 @@ deployment   the handover states how the site is started, restarted and
   site does not say on a page a visitor can read.
 - No framework default 404.
 - No optional section that renders an empty frame when its block is absent.
-- No template declared finished before the gate in section 16 passes whole.
+- No template declared finished before the gate in section 17 passes whole.
 
-## 16. The completion gate
+## 17. The completion gate
 
-Twenty eight checks. All twenty eight pass, or the template is not finished.
+Twenty nine checks. All twenty nine pass, or the template is not finished.
 
 ```
 1   every visitor facing string, image, colour, hour and contact detail
@@ -465,8 +538,10 @@ Twenty eight checks. All twenty eight pass, or the template is not finished.
 9   every field the back office offers is changed, the public pages are read to
     see the change arrive, and the original value is put back; the content file
     then matches what it was, byte for byte. Not a sample: every field. The
-    pages read are the ones the instance's sitemap declares, so the check
-    cannot quietly skip a page nobody remembered to add to a list
+    pages read are the ones the instance's sitemap declares and the fields are
+    the ones `/api/admin/fields` publishes, so the check cannot quietly skip a
+    page nobody remembered to add to a list, nor a field nobody rendered with
+    the attribute a scraper was looking for
 10  every field can be emptied and set again, and no two fields hold the same
     fact
 11  an upload is accepted, rejected by type, rejected by size, and its alt text
@@ -512,9 +587,15 @@ Twenty eight checks. All twenty eight pass, or the template is not finished.
 28  nothing inside the back office asks the client to run a command, edit a
     file or set a variable. What only the installer can do names the installer
     and says to ask them. The commands belong in the handover
+29  the shared shape of section 4 holds: the content file at its agreed path,
+    the custom properties under their agreed names, and the four endpoints
+    answering their agreed shapes, `/api/admin/fields` included. Verified by
+    running a check written against another instance, not against this one. An
+    instance nothing but its own scripts can check is a maintenance cost that
+    grows with the fleet
 ```
 
-## 17. Protocol
+## 18. Protocol
 
 1. Establish the kind, portfolio or showcase, the trade, and the legal identity
    of the owner. The kind decides the contract, the routes and the legal
@@ -528,7 +609,7 @@ Twenty eight checks. All twenty eight pass, or the template is not finished.
    motion intensity. Express every visual value as a token.
 5. Build the public template against the contract: full width where the content
    is not prose, both themes, the motion system, the 404 and the offline page.
-6. Build the back office: the sections of section 7, generated from the
+6. Build the back office: the sections of section 8, generated from the
    contract, with server side validation and atomic writes.
 7. Secure the way in: password hash, server side sessions, rate limits on login
    and on the public form, a CSRF token, upload validation. Then try to get in
@@ -541,12 +622,12 @@ Twenty eight checks. All twenty eight pass, or the template is not finished.
     degrading to nothing when refused.
 11. Produce the example content file with clearly fictional data, and run the
     site from it.
-12. Run the twenty eight point gate in section 16, whole. Fix and re-run what a fix
+12. Run the twenty nine point gate in section 17, whole. Fix and re-run what a fix
     touched.
 13. Write the handover: the field map, the data directory, the backup command,
     the secrets, and how the site is started and updated.
 
-## 18. Auto-critique
+## 19. Auto-critique
 
 Score from 0 to 5: the content contract holds everything a human would want to
 change, both palettes are authored and measured, the motion system is driven by
@@ -563,7 +644,7 @@ statement scores 0 overall: the first three are the ways this kind of site is
 actually broken into or silently loses business, and the last two make the
 delivery false.
 
-## 19. Interfaces
+## 20. Interfaces
 
 - Upstream: `engineering-core`, `template-selection` when the work starts from
   an existing template rather than a blank page.

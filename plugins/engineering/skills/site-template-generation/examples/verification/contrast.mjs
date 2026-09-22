@@ -64,11 +64,16 @@ const measure = async (page) => page.evaluate(() => {
     ['secondary text on the alternate band', 'muted', 'surface-alt', 4.5],
     ['the label of the primary button', 'accent-foreground', 'accent', 4.5],
     ['the label of the primary button, hovered', 'accent-foreground', 'accent-hover', 4.5],
-    ['an accent coloured number on the page', 'accent', 'surface', 4.5],
+    ['a link on the page', 'accent', 'surface', 4.5],
+    ['a link on the alternate band', 'accent', 'surface-alt', 4.5],
     ['a success message', 'success', 'surface', 4.5],
+    ['a success message on the alternate band', 'success', 'surface-alt', 4.5],
     ['an error message', 'danger', 'surface', 4.5],
+    ['an error message on the alternate band', 'danger', 'surface-alt', 4.5],
     ['a strong border against the page', 'border-strong', 'surface', 3],
+    ['a strong border against the alternate band', 'border-strong', 'surface-alt', 3],
     ['the focus ring against the page', 'focus-ring', 'surface', 3],
+    ['the focus ring against the alternate band', 'focus-ring', 'surface-alt', 3],
   ];
 
   return pairs.map(([what, fg, bg, need]) => {
