@@ -215,3 +215,102 @@
     grid-row: span 2;
   }
 }
+
+/* What is left to do. The mark carries no meaning on its own: the state is
+   also spelled out for a screen reader in the title of each item. */
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.checklist__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.checklist__item--urgent {
+  border-color: var(--color-border-strong);
+  border-left-width: 4px;
+}
+
+.checklist__item--done .checklist__title {
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+.checklist__mark {
+  flex: none;
+  width: 1.6rem;
+  height: 1.6rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-strong);
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.checklist__item--done .checklist__mark {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+
+.checklist__body {
+  flex: 1 1 14rem;
+  min-width: 0;
+}
+
+.checklist__title {
+  margin: 0 0 0.15rem;
+  font-weight: 600;
+}
+
+.checklist__body .detail {
+  margin: 0;
+}
+
+.checklist__action {
+  flex: none;
+  align-self: center;
+}
+
+@media (max-width: 30rem) {
+  .checklist__action {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Help page: a term and its plain explanation, readable as two columns when
+   there is room and as a list when there is not. */
+.help-list {
+  margin: 0;
+  display: grid;
+  gap: 0.6rem 1.25rem;
+}
+
+.help-list dt {
+  font-weight: 600;
+}
+
+.help-list dd {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+@media (min-width: 40rem) {
+  .help-list {
+    grid-template-columns: minmax(8rem, 12rem) 1fr;
+    align-items: baseline;
+  }
+}

@@ -31,9 +31,9 @@ export default function PushToggle({ publicKey, csrf }: { publicKey: string | nu
   if (!publicKey) {
     return (
       <p className="admin-field__hint">
-        Les notifications ne sont pas configurées sur ce serveur. Générez une paire de clés avec
-        <code> npm run push-keys </code> et ajoutez-la à l’environnement. Les messages continuent
-        d’arriver dans la boîte sans elles.
+        Les notifications ne sont pas activées sur ce serveur. Demandez-les à la personne qui a
+        installé votre site. En attendant, vos messages arrivent normalement dans la boîte : c’est
+        seulement l’alerte qui manque.
       </p>
     );
   }
