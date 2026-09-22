@@ -40,6 +40,7 @@ for (const route of ['/admin/content', '/admin/theme']) {
     [...document.querySelectorAll('[data-field]')].map((node) => ({
       path: node.getAttribute('data-field'),
       kind: node.getAttribute('data-kind'),
+      pattern: node.getAttribute('data-pattern'),
       options: [...node.querySelectorAll('select option')].map((option) => option.value),
       item: (node.getAttribute('data-item') ?? '')
         .split(',')
@@ -96,8 +97,19 @@ async function pagesContain(value) {
 }
 
 // What a sentinel looks like for each kind of field.
-function probeFor(kind, current, options) {
+function probeFor(kind, current, options, pattern) {
   const mark = sentinel();
+  // A field constrained to a shape is probed with a value of that shape. The
+  // refusal of anything else is the point of the constraint, and is checked by
+  // the policy script rather than here.
+  if (pattern) {
+    const valid = {
+      length: `${1200 + (index % 90)}px`,
+      fontFamily: `Probe ${index}, sans-serif`,
+      easing: 'ease-in-out',
+    }[pattern];
+    return { value: valid, needle: valid };
+  }
   switch (kind) {
     case 'text':
     case 'textarea':
@@ -201,7 +213,7 @@ for (const field of fields) {
     continue;
   }
 
-  const probe = probeFor(field.kind, current, field.options);
+  const probe = probeFor(field.kind, current, field.options, field.pattern);
   if (probe.value === null && field.kind !== 'boolean') {
     unobserved.push({ ...field, why: `no probe for kind ${field.kind}` });
     continue;

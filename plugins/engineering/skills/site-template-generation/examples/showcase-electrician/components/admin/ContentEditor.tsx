@@ -347,6 +347,7 @@ export default function ContentEditor({
               // list kept by hand.
               data-field={field.path}
               data-kind={field.kind}
+              data-pattern={field.pattern}
               data-item={field.item ? field.item.map((i) => `${i.key}:${i.kind}`).join(',') : undefined}
               className={field.kind === 'color' ? 'admin-field admin-field--color' : 'admin-field'}
               style={{ '--i': 0 } as CSSProperties}

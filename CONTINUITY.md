@@ -638,6 +638,30 @@ Session 30, the gate run against the two templates, version 3.23.0:
   a promise is to keep it once. Ninety two of them on one instance, a hundred
   and seven on the other.
 
+Session 31, the security and operations audit, version 3.24.0:
+
+- Audited both templates for security, caching and what an operator needs,
+  before anything is built on them.
+- The finding that matters: a stored cross-site scripting hole through the back
+  office. A value typed into a width field closed the style element and opened a
+  script one, on every visitor's page. Everything else about the admin surface
+  was already right, which is exactly why it survived four passes: the session,
+  the token, the rate limit and the allow list were all correct, and the content
+  of a validated field went straight into a style tag.
+- The shape of the lesson: a field can be validated as a value and still be
+  dangerous as a destination. The question to ask of every field is not only
+  what may be written, but where it lands.
+- Also found: the privacy page promised a retention period nothing enforced, and
+  the pinned Next.js carried a critical advisory plus one on CSP nonces, which
+  is what this template had just started using. Pinned to 16.3.5, zero
+  vulnerabilities.
+- Added a policy with a per request nonce, the usual headers, an audit log, a
+  body size limit, and the restore rehearsal performed rather than described.
+  The gate is at twenty four points.
+- The trade to remember: a per request nonce means the HTML cannot be cached
+  whole. At this scale that is right, and the README says so rather than leaving
+  the next reader to wonder why the pages are dynamic.
+
 ## Current state
 
 Working today:

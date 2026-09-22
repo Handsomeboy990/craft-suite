@@ -31,6 +31,8 @@ package-lock.json
 **/data/rate-limits.json
 **/data/uploads/*
 !**/data/uploads/.gitkeep
+**/data/audit.log
+backup-*.tar.gz
 
 __pycache__/
 *.pyc

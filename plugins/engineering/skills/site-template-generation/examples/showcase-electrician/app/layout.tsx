@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import type { ReactNode } from 'react';
 import { getContent } from '@/lib/content';
 import { cssVariables, themeScript } from '@/lib/tokens';
@@ -34,14 +35,15 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
   const content = getContent();
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
   return (
     <html lang={content.site.locale} suppressHydrationWarning>
       <head>
-        <style dangerouslySetInnerHTML={{ __html: cssVariables(content.theme) }} />
+        <style nonce={nonce} dangerouslySetInnerHTML={{ __html: cssVariables(content.theme) }} />
         {/* Applied before first paint: the page never flashes the wrong theme. */}
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
         <SiteHeader content={content} />

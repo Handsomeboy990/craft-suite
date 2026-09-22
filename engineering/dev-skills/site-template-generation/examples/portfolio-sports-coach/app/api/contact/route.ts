@@ -1,3 +1,4 @@
+import { refuseOversizedBody } from '@/lib/auth';
 import { getContent } from '@/lib/content';
 import { addMessage } from '@/lib/messages';
 import { notify } from '@/lib/push';
@@ -15,6 +16,9 @@ export const dynamic = 'force-dynamic';
 // site that trade is the wrong way round, so the visitor is told, and given the
 // direct address that the failure message carries.
 export async function POST(request: Request) {
+  const oversized = refuseOversizedBody(request);
+  if (oversized) return oversized;
+
   const content = getContent();
   const address = callerAddress(request.headers);
   const limit = consume('contact', address);

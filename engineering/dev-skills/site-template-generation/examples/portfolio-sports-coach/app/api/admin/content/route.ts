@@ -1,9 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { revalidatePath } from 'next/cache';
-import { HttpError, requireSession } from '@/lib/auth';
+import { HttpError, requireSession , refuseOversizedBody } from '@/lib/auth';
 import { ContentError, saveContent } from '@/lib/content';
 import { FILES } from '@/lib/paths';
 import { callerAddress, consume } from '@/lib/rate-limit';
+import { record } from '@/lib/audit';
 import { PatchError, applyPatch } from '@/lib/schema';
 
 export const runtime = 'nodejs';
@@ -32,6 +33,9 @@ export async function GET(request: Request) {
 // the file is replaced atomically. A rejected write names the field and changes
 // nothing.
 export async function PUT(request: Request) {
+  const oversized = refuseOversizedBody(request);
+  if (oversized) return oversized;
+
   try {
     await requireSession(request);
   } catch (error) {
@@ -65,6 +69,7 @@ export async function PUT(request: Request) {
     throw error;
   }
 
+  record('content-write', callerAddress(request.headers), Object.keys(patch).join(', '));
   revalidatePath('/', 'layout');
   return Response.json({ ok: true });
 }

@@ -12,7 +12,8 @@
     "showcase": "node showcase.mjs",
     "motion": "node motion.mjs",
     "signature": "node signature.mjs",
-    "account": "node nav-and-account.mjs"
+    "account": "node nav-and-account.mjs",
+    "policy": "node xss.mjs"
   },
   "dependencies": {
     "playwright": "1.63.0"

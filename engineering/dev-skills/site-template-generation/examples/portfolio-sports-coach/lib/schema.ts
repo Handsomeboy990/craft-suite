@@ -29,6 +29,10 @@ export type FieldDef = {
   kind: FieldKind;
   hint?: string;
   options?: string[];
+  /** A value that ends up inside a style declaration is checked against this
+   *  before it is written. Without it, a signed in client could close the style
+   *  tag and put script on every visitor's page. */
+  pattern?: 'length' | 'fontFamily' | 'easing';
   min?: number;
   max?: number;
   step?: number;
@@ -297,8 +301,22 @@ export const GROUPS: Group[] = [
         options: ['compact', 'regular', 'airy'],
         changes: 'les espacements de toutes les sections',
       },
-      { path: 'theme.spacing.pageWidth', label: 'Largeur de page', kind: 'text', changes: 'la largeur des sections larges' },
-      { path: 'theme.spacing.proseWidth', label: 'Largeur du texte long', kind: 'text', changes: 'la largeur des paragraphes et des pages légales' },
+      {
+        path: 'theme.spacing.pageWidth',
+        label: 'Largeur de page',
+        kind: 'text',
+        pattern: 'length',
+        hint: 'Une longueur CSS, par exemple 1600px ou 90rem.',
+        changes: 'la largeur des sections larges',
+      },
+      {
+        path: 'theme.spacing.proseWidth',
+        label: 'Largeur du texte long',
+        kind: 'text',
+        pattern: 'length',
+        hint: 'Une longueur CSS, par exemple 68ch.',
+        changes: 'la largeur des paragraphes et des pages légales',
+      },
     ],
   },
   {
@@ -348,7 +366,20 @@ export class PatchError extends Error {}
 
 const COLOR = /^#[0-9a-fA-F]{3,8}$/;
 
-function coerceScalar(kind: ItemField['kind'], value: unknown, field: { label: string; options?: string[]; min?: number; max?: number }): unknown {
+// What a value is allowed to look like when it will be interpolated into CSS.
+// Anything that could close a declaration, a block or the style element itself
+// is outside every one of them.
+const PATTERNS = {
+  length: /^-?[0-9]*\.?[0-9]+(px|rem|em|ch|ex|vw|vh|svh|dvh|vmin|vmax|%)$/,
+  fontFamily: /^[A-Za-z0-9 ,'"_-]+$/,
+  easing: /^(linear|ease|ease-in|ease-out|ease-in-out|step-start|step-end|cubic-bezier\([0-9.,\s-]+\)|steps\([0-9,\sa-z-]+\))$/,
+} as const;
+
+function coerceScalar(
+  kind: ItemField['kind'],
+  value: unknown,
+  field: { label: string; options?: string[]; min?: number; max?: number; pattern?: keyof typeof PATTERNS },
+): unknown {
   switch (kind) {
     case 'text':
     case 'textarea':
@@ -361,6 +392,9 @@ function coerceScalar(kind: ItemField['kind'], value: unknown, field: { label: s
       // contract, which is the message the client should see.
       if (value === null || value === '') return null;
       if (typeof value !== 'string') throw new PatchError(`${field.label}: texte attendu`);
+      if (field.pattern && !PATTERNS[field.pattern].test(value)) {
+        throw new PatchError(`${field.label}: valeur invalide pour ce champ`);
+      }
       if (kind === 'imageSrc' && !value.startsWith('/')) {
         throw new PatchError(`${field.label}: chemin d'image invalide`);
       }

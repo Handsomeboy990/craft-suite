@@ -24,6 +24,7 @@ npm run build && PORT=3111 npx next start -p 3111
 npm run gate                    # every field, one by one, on :3111
 npm run mobile                  # 360px in both themes, with screenshots
 npm run hardcoded ../portfolio-sports-coach
+npm run policy                  # the content security policy, in a browser
 npm run portfolio               # the whole surface, on :3111
 npm run motion                  # what moves, on :3111
 npm run account                 # the menu, the favicon, the password, on :3111
@@ -72,6 +73,9 @@ motion.mjs         the hero entrance running once; each staggered item carrying
 signature.mjs      the opposite proof, on a technical trade: no entrance, no
                    stagger, no parallax, no counter, with the reveal and the
                    lift still there. A signature that changes nothing is a label
+xss.mjs            the policy, checked in the browser that has to enforce it:
+                   an injected script does not run, the theme still works, and
+                   nothing legitimate is refused
 nav-and-account.mjs the menu at 360px with its button, its state, 48px targets,
                    Escape closing it and focus returning; the menu button absent
                    above the breakpoint; the favicon coming from the content and

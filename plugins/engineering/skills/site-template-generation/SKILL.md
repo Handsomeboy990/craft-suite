@@ -229,7 +229,34 @@ uploads         type checked by extension and by content, size capped, name
                 generated, stored outside any executable path, and no SVG
 public limits   the contact endpoint is rate limited too, or the inbox becomes
                 a spam folder on the first crawl
+body size       refused before it is parsed, because a request body is read
+                whole before anything validates it
+record          every privileged action appended to an audit log: who signed
+                in, what was written, what was uploaded, what was deleted, what
+                was refused. No password, no token, no message body in it
 ```
+
+The browser is the second half of this. A site that hands the visitor no policy
+relies entirely on the server being perfect:
+
+```
+policy          a Content-Security-Policy with a nonce issued per request, so
+                that a script which reaches the page, however it got there, does
+                not run. `style-src` keeps stylesheets locked; style attributes
+                carry values and are allowed
+headers         nosniff, a referrer policy, frame protection, a permissions
+                policy naming what the site does not use, and HSTS
+no cache        the back office and every endpoint are `no-store`, in the
+                browser and in anything between
+```
+
+Anything a signed in client types that ends up inside a style or a script is
+validated where it is written and escaped where it is used. A colour is a
+colour, a length is a length, and a font family is a list of names. Without
+that, the back office is a stored cross-site scripting hole aimed at every
+visitor, and the client is one phishing away from it. Both reference
+implementations shipped that hole once; `resources/admin-security.md` carries
+the patterns.
 
 ## 9. The contact form has a destination
 
@@ -340,7 +367,14 @@ storage      the content file, the uploads, the messages, the sessions, the
 secrets      the password hash, the push keys and the session secret are server
              configuration, never in the repository and never in the bundle
 backup       the data directory is what a restore needs, and the handover says
-             so with the command
+             so with the command. A backup is untested until a restore has been
+             performed: take one, remove the directory, restore it, and load the
+             site
+retention    what the privacy page promises about how long a message is kept is
+             enforced by the software, not by an intention. A period stated and
+             not applied is a false statement in a published document
+audit        the log lives in the data directory with everything else, and is
+             part of what a backup carries
 deployment   the handover states how the site is started, restarted and
              updated, and what happens to the data directory in each case
 ```
@@ -365,7 +399,7 @@ deployment   the handover states how the site is started, restarted and
 
 ## 15. The completion gate
 
-Twenty one checks. All twenty one pass, or the template is not finished.
+Twenty four checks. All twenty four pass, or the template is not finished.
 
 ```
 1   every visitor facing string, image, colour, hour and contact detail
@@ -408,7 +442,15 @@ Twenty one checks. All twenty one pass, or the template is not finished.
 19  the manifest is served, the service worker registers, the site works with
     the service worker unregistered and with notifications refused
 20  every route is looked at, at 360px, in both themes, with no clipped text
-21  the handover lists every back office field, the data directory, the backup
+21  the security headers are served, the policy carries a nonce, a value typed
+    into a style field cannot close the tag, and a request body over the limit
+    is refused before it is parsed
+22  a backup is taken, the data directory removed, the backup restored and the
+    site loaded; the retention the privacy page states is applied; every
+    privileged action appears in the audit log
+23  the dependencies carry no known vulnerability at the version pinned, and
+    the handover names the day that was checked
+24  the handover lists every back office field, the data directory, the backup
     command, and the secrets the instance needs
 ```
 
@@ -439,7 +481,7 @@ Twenty one checks. All twenty one pass, or the template is not finished.
     degrading to nothing when refused.
 11. Produce the example content file with clearly fictional data, and run the
     site from it.
-12. Run the twenty one point gate in section 15, whole. Fix and re-run what a fix
+12. Run the twenty four point gate in section 15, whole. Fix and re-run what a fix
     touched.
 13. Write the handover: the field map, the data directory, the backup command,
     the secrets, and how the site is started and updated.

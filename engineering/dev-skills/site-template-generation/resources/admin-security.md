@@ -84,6 +84,59 @@ alt text        required at upload time, because alt text is content and the
                 it shows
 ```
 
+## What the client types, and where it lands
+
+A value a signed in client enters is not trusted because they are signed in. The
+question is where it ends up.
+
+```
+into text       React escapes it. Nothing to do
+into a style    validated where it is written and escaped where it is used. A
+                colour matches a colour, a length matches a length, a font
+                family is a list of names, an easing is a curve. Nothing may
+                carry < > { } or ;
+into an href    a scheme allow list, never javascript:
+into the head   a manifest field is JSON encoded; a meta value is escaped
+```
+
+Without the first two, the back office is a stored cross-site scripting hole
+pointed at every visitor: a value typed into a width field closes the style
+element and opens a script one. Both reference implementations shipped exactly
+that until it was tested for.
+
+```
+length      ^-?[0-9]*\.?[0-9]+(px|rem|em|ch|ex|vw|vh|svh|dvh|vmin|vmax|%)$
+fontFamily  ^[A-Za-z0-9 ,'"_-]+$
+easing      linear | ease | ease-in | ease-out | ease-in-out | step-start |
+            step-end | cubic-bezier(...) | steps(...)
+colour      ^#[0-9a-fA-F]{3,8}$
+```
+
+## What the browser is told
+
+The server being perfect is not a plan. The policy is the second half.
+
+```
+script-src   'self' and a nonce issued per request, with strict-dynamic. A
+             script that reaches the page some other way does not run
+style-src    'self' and the same nonce. Stylesheets stay locked
+style-src-attr 'unsafe-inline', because the template writes custom properties
+             into style attributes, which carry values and execute nothing
+default-src  'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'
+connect-src  'self', plus the origin of a third party form endpoint if one is
+             configured, and nothing else
+headers      nosniff, strict-origin-when-cross-origin, frame protection, a
+             permissions policy naming what the site does not use, and HSTS
+cache        the back office and every endpoint are no-store
+```
+
+A nonce means the page cannot be cached whole, because every response differs.
+That is the trade, and it is the right way round for a site whose traffic is
+measured in hundreds a day: the uploaded media and the static assets carry long
+lived caching, and the HTML is rendered from an in-memory copy of the content
+file. An instance that outgrows this moves to hashed inline elements and a
+cacheable page, and the handover says which of the two it is on.
+
 ## What the server checks, always
 
 ```
@@ -109,3 +162,9 @@ logging      an authentication failure, a lockout, a rejected upload and a
 5. Post a write with a missing required field: refused by name, file unchanged.
 6. Post a state changing request without the CSRF token: refused.
 7. Sign out, then reuse the old cookie: refused.
+8. Type a value that closes a style tag into every free text field that reaches
+   the stylesheet: refused by name, and inert even when written straight into
+   the file.
+9. Send a body larger than the limit: refused before it is parsed.
+10. Read the audit log: the refusal, the sign in, the write and the upload are
+    all in it, and no password, token or message body is.

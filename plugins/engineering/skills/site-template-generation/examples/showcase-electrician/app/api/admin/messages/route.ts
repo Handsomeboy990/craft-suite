@@ -1,5 +1,7 @@
 import { HttpError, requireSession } from '@/lib/auth';
+import { record } from '@/lib/audit';
 import { removeMessage, setStatus } from '@/lib/messages';
+import { callerAddress } from '@/lib/rate-limit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -26,7 +28,9 @@ export async function PATCH(request: Request) {
   if (status !== 'unread' && status !== 'read' && status !== 'archived') {
     return Response.json({ ok: false, error: 'statut inconnu' }, { status: 422 });
   }
-  return Response.json({ ok: setStatus(id, status) });
+  const changed = setStatus(id, status);
+  if (changed) record('message-status', callerAddress(request.headers), `${id} -> ${status}`);
+  return Response.json({ ok: changed });
 }
 
 export async function DELETE(request: Request) {
@@ -34,5 +38,7 @@ export async function DELETE(request: Request) {
   if (refused) return refused;
 
   const id = new URL(request.url).searchParams.get('id') ?? '';
-  return Response.json({ ok: removeMessage(id) });
+  const removed = removeMessage(id);
+  if (removed) record('message-delete', callerAddress(request.headers), id);
+  return Response.json({ ok: removed });
 }
