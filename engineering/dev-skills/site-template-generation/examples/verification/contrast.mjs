@@ -23,17 +23,37 @@ const measure = async (page) => page.evaluate(() => {
     return 0.2126 * r + 0.7152 * g + 0.0722 * b;
   };
   const parse = (value) => (value.match(/\d+(\.\d+)?/g) ?? [0, 0, 0]).slice(0, 3).map(Number);
-  const hex = (value) => {
-    const v = value.trim().replace('#', '');
-    const full = v.length === 3 ? v.split('').map((c) => c + c).join('') : v;
-    return [0, 2, 4].map((i) => parseInt(full.slice(i, i + 2), 16));
+  // A token may be written as a hex value or already resolved to rgb(). A value
+  // that parses to nothing returns null, and null is reported rather than
+  // quietly compared: NaN is smaller than no threshold, so an unreadable token
+  // used to make this script pass by measuring nothing.
+  const colour = (value) => {
+    const v = (value ?? '').trim();
+    if (v === '') return null;
+    if (v.startsWith('#')) {
+      const digits = v.slice(1);
+      const full = digits.length === 3 ? digits.split('').map((c) => c + c).join('') : digits;
+      if (!/^[0-9a-f]{6}$/i.test(full)) return null;
+      return [0, 2, 4].map((i) => parseInt(full.slice(i, i + 2), 16));
+    }
+    const numbers = v.match(/\d+(\.\d+)?/g);
+    return numbers && numbers.length >= 3 ? numbers.slice(0, 3).map(Number) : null;
   };
   const ratio = (a, b) => {
     const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m);
     return Math.round(((x + 0.05) / (y + 0.05)) * 100) / 100;
   };
   const root = getComputedStyle(document.documentElement);
-  const token = (name) => hex(root.getPropertyValue(name));
+  // The skill does not name the custom properties, so two templates spell the
+  // same token differently. Ask for the meaning and try the spellings.
+  const prefixes = (window.__tokenPrefixes ?? ['--color-', '--c-', '--']).slice();
+  const token = (name) => {
+    for (const prefix of prefixes) {
+      const parsed = colour(root.getPropertyValue(prefix + name));
+      if (parsed) return { value: parsed, as: prefix + name };
+    }
+    return { value: null, as: prefixes.map((prefix) => prefix + name).join(' or ') };
+  };
 
   // The pairs the stylesheet puts together. Text needs 4.5:1; a border or a
   // focus ring is a user interface component and needs 3:1.
@@ -48,14 +68,20 @@ const measure = async (page) => page.evaluate(() => {
     ['a success message', 'success', 'surface', 4.5],
     ['an error message', 'danger', 'surface', 4.5],
     ['a strong border against the page', 'border-strong', 'surface', 3],
-    ['the focus ring against the page', 'accent', 'surface', 3],
+    ['the focus ring against the page', 'focus-ring', 'surface', 3],
   ];
 
-  return pairs.map(([what, fg, bg, need]) => ({
-    what,
-    value: ratio(token(`--color-${fg}`), token(`--color-${bg}`)),
-    need,
-  }));
+  return pairs.map(([what, fg, bg, need]) => {
+    const front = token(fg);
+    const back = token(bg);
+    // A template that has no separate focus colour focuses with its accent,
+    // which is a choice, not an omission.
+    const resolvedFront = front.value ?? (fg === 'focus-ring' ? token('accent').value : null);
+    if (!resolvedFront || !back.value) {
+      return { what, value: null, need, missing: !resolvedFront ? front.as : back.as };
+    }
+    return { what, value: ratio(resolvedFront, back.value), need };
+  });
 });
 
 for (const path of PATHS) {
@@ -65,10 +91,18 @@ for (const path of PATHS) {
     await page.goto(`${BASE}${path}`);
     await page.evaluate((value) => document.documentElement.setAttribute('data-theme', value), theme);
     const measured = await measure(page);
-    const weak = measured.filter((m) => m.value < m.need);
+    const unreadable = measured.filter((m) => m.value === null);
+    const weak = measured.filter((m) => m.value !== null && m.value < m.need);
+    for (const m of unreadable) {
+      record(`${theme}: ${m.what}`, false, `token not found: ${m.missing}`);
+    }
     for (const m of weak) record(`${theme}: ${m.what}`, false, `${m.value}:1, needs ${m.need}:1`);
-    record(`${theme} theme on ${path}: ${measured.length} pairs measured`, weak.length === 0,
-      `lowest ${Math.min(...measured.map((m) => m.value))}:1`);
+    const read = measured.filter((m) => m.value !== null).map((m) => m.value);
+    record(
+      `${theme} theme on ${path}: ${read.length} of ${measured.length} pairs measured`,
+      weak.length === 0 && unreadable.length === 0,
+      read.length > 0 ? `lowest ${Math.min(...read)}:1` : 'nothing could be read',
+    );
     await context.close();
   }
 }

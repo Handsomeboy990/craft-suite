@@ -23,6 +23,8 @@ npm run build && PORT=3111 npx next start -p 3111
 # In another:
 npm run gate                    # every field, one by one, on :3111
 npm run mobile                  # 360px in both themes, with screenshots
+                                # KIND only names the screenshot folder: both
+                                # read the pages from the instance's sitemap
 npm run hardcoded ../portfolio-sports-coach
 npm run prose ../portfolio-sports-coach
 npm run contrast                # every colour pair the stylesheet uses, on :3111
@@ -120,6 +122,25 @@ script changes the password and puts the original one back before it finishes,
 so the scripts that follow can still sign in; if it is interrupted in the
 middle, `npm run set-password` restores it. Run both against an instance you
 are willing to have written to, never against a client's.
+
+## Pointing them at an instance that did not exist yet
+
+`gate.mjs` and `mobile.mjs` used to carry a table of the two templates written
+here, which meant they could verify the two sites that already existed and
+nothing generated afterwards. They now ask the instance: `routes.mjs` reads
+`/sitemap.xml`, which lists exactly the pages that instance serves, and adds
+the offline page and a path nobody serves so the site's own 404 answers.
+
+So a newly generated template is verified by starting it and pointing
+`BASE_URL` at it. `KIND` now only names the screenshot directory. An instance
+without a sitemap stops the run with a message rather than falling back to a
+guess, because such an instance already fails gate point 13.
+
+It found something on the way in: the old table left the showcase's privacy
+page out, so that page had never been looked at at 360px.
+
+`portfolio.mjs`, `showcase.mjs` and `signature.mjs` stay specific to the two
+templates here, and say so: they assert what those particular sites contain.
 
 ## What they do not prove
 

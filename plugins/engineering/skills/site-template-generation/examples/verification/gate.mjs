@@ -1,21 +1,22 @@
 // The field map of SKILL.md, checked field by field against a live instance.
 //
-//   BASE_URL=http://localhost:3111 ADMIN_PASSWORD='...' KIND=portfolio node gate.mjs
+//   BASE_URL=http://localhost:3111 ADMIN_PASSWORD='...' node gate.mjs
 //
 // A field map is a set of promises. This changes every one of them through the
 // same endpoint the back office uses, reads the public pages to see whether the
 // change arrived, and puts the original value back. What it cannot observe it
 // says so about, rather than passing quietly.
 import { chromium } from 'playwright';
+import { routesOf, MISSING_ROUTE } from './routes.mjs';
 
 const BASE = process.env.BASE_URL ?? 'http://localhost:3111';
 const PASSWORD = process.env.ADMIN_PASSWORD ?? 'mot-de-passe-de-verification-1234';
-const KIND = process.env.KIND ?? 'portfolio';
+// KIND only names the screenshots and the report; the pages come from the
+// instance, so this runs against a template that did not exist when it was
+// written.
+const KIND = process.env.KIND ?? 'instance';
 
-const ROUTES = {
-  portfolio: ['/', '/offline', '/page-introuvable-pour-le-test'],
-  showcase: ['/', '/services', '/about', '/quote', '/offline', '/page-introuvable-pour-le-test'],
-}[KIND];
+const ROUTES = await routesOf(BASE, { extra: ['/offline', MISSING_ROUTE] });
 
 const token = `Z${Math.random().toString(36).slice(2, 8)}Z`;
 let index = 0;
