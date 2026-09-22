@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 type Upload = { src: string; name: string; bytes: number; modifiedAt: string };
+type Uploaded = Upload & { originalBytes?: number; width?: number; height?: number };
 
 export default function MediaManager({ initial, csrf }: { initial: Upload[]; csrf: string }) {
   const [uploads, setUploads] = useState(initial);
@@ -17,14 +18,20 @@ export default function MediaManager({ initial, csrf }: { initial: Upload[]; csr
       headers: { 'x-csrf-token': csrf },
       body,
     });
-    const result = (await response.json()) as { ok: boolean; error?: string } & Partial<Upload>;
+    const result = (await response.json()) as { ok: boolean; error?: string } & Partial<Uploaded>;
     if (!response.ok || !result.ok) {
       setError(true);
       setMessage(result.error ?? 'envoi refusé');
       return;
     }
     setError(false);
-    setMessage('Image envoyée. Son chemin peut maintenant être choisi dans Contenu.');
+    const saved = Math.round((result.bytes ?? 0) / 1024);
+    const sent = Math.round((result.originalBytes ?? 0) / 1024);
+    setMessage(
+      sent > saved
+        ? `Image envoyée et optimisée : ${sent} ko reçus, ${saved} ko servis (${result.width} par ${result.height} pixels). Son chemin peut maintenant être choisi dans Contenu.`
+        : `Image envoyée (${saved} ko). Son chemin peut maintenant être choisi dans Contenu.`,
+    );
     setUploads([
       { src: result.src!, name: result.name!, bytes: result.bytes!, modifiedAt: new Date().toISOString() },
       ...uploads,
@@ -48,7 +55,9 @@ export default function MediaManager({ initial, csrf }: { initial: Upload[]; csr
           }}
         />
         <span className="admin-field__hint">
-          JPEG, PNG, WebP ou AVIF, 4 Mo maximum. Le SVG est refusé : il peut contenir du script.
+          JPEG, PNG, WebP, AVIF ou HEIC, 12 Mo maximum. Envoyez la photo telle qu'elle sort de votre
+          téléphone : elle est redimensionnée, allégée et débarrassée de ses données de localisation
+          automatiquement. Le SVG est refusé : il peut contenir du script.
         </span>
       </p>
 
