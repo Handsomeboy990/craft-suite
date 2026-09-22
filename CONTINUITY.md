@@ -662,6 +662,41 @@ Session 31, the security and operations audit, version 3.24.0:
   whole. At this scale that is right, and the README says so rather than leaving
   the next reader to wonder why the pages are dynamic.
 
+Session 32, the autonomy of a client who knows nothing, version 3.25.0:
+
+- Built what a non technical owner needs to run their own site: local search
+  presence, images processed on upload, e-mail for both notification and
+  password recovery, a version history with a real undo, and a back office that
+  says what is still missing.
+- The dashboard's list is computed from the content, never remembered. It names
+  the legal facts still absent, the images still from the model, the address
+  still unset, and each item links to where it is fixed and closes by itself.
+  A help page answers, without jargon, how a change goes live, what each
+  section does, how to undo, why a legal fact is never invented, and what to do
+  about a forgotten password.
+- The defect worth remembering came out of a server log during a failed test
+  run: `GET /admin/login?password=...`. Every form in both templates declared
+  no method, and a form with no method falls back to GET. Whenever JavaScript
+  had not hydrated, the login put the password in the URL, and the public
+  contact form put the visitor's message there. Five forms, both templates, the
+  fix is one attribute; the lesson is that the fallback path of a form is part
+  of its security, and nothing but a log showed it.
+- The second: the portfolio's light palette shipped white text on a near white
+  accent, 1.13:1 on the primary button of the public site. Gate point 5 already
+  required both palettes measured. The rule existed; nothing measured it.
+  `contrast.mjs` now measures every pair the stylesheet actually resolves, on
+  the rendered page, in both themes. Reading a palette is not measuring it.
+- Three harness defects surfaced the same way, and each had been reporting a
+  product failure that did not exist: a check that hardcoded a palette value
+  and broke when the palette was corrected, a script that changed the password
+  and never put it back so every later login failed, and one script whose
+  default password differed from the other five.
+- Also: the strict policy forbids `eval`, which React's development build
+  needs, so the middleware relaxes it for the development server only and the
+  verification runs against `npm start`. Verifying against `next dev` would
+  have verified a policy no client is ever served.
+- The gate is at twenty eight points.
+
 ## Current state
 
 Working today:

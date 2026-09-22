@@ -35,7 +35,7 @@ back office the authenticated surface that writes the content file, stores the
 ```
 
 The separation is testable: a value found in a component and not in the content
-file fails the gate in section 15, whatever it is. The reverse is equally firm:
+file fails the gate in section 16, whatever it is. The reverse is equally firm:
 logic never enters the content file, because the back office writes that file
 and a client editing text must not be able to break the build.
 
@@ -185,6 +185,8 @@ without a rebuild. This surface is part of the deliverable.
 | Notifications | the browser subscription that receives a new message | the subscription store |
 | Identity | the favicon, the installed icons, the social preview | the uploads and the content file |
 | Security | the password of this account | the credential store, and every session |
+| History | the previous versions, and a return to any of them | the content file, after snapshotting the present one |
+| Help | what each section does, in the client's words | nothing |
 
 Rules the surface obeys:
 
@@ -199,6 +201,14 @@ never logic     the client edits values, never expressions, never markup beyond
                 a declared inline subset
 visible effect  every field in the back office changes something the client can
                 see, which is verified by changing it, not by intending it
+reversible      every write snapshots the state it replaces, and any snapshot
+                can be restored in one action. A client who cannot undo will
+                not touch their own site
+guiding         the surface says what is still missing, computed from the
+                content, and links to where each one is fixed
+their words     nothing here addresses a developer. A command, a file path or
+                an environment variable shown to a client is a defect: name the
+                installer instead, and put the command in the handover
 ```
 
 ## 8. Getting in: authentication and rate limiting
@@ -352,7 +362,33 @@ degrade     every one of these is optional at runtime. A browser without
             whole site minus the extra
 ```
 
-## 13. What the runtime must provide
+## 13. Being found
+
+A site nobody finds is not delivered. Three files, all generated from the
+content file so that an instance changing its address does not keep announcing
+the old one:
+
+```
+robots.txt      generated; the back office and the endpoints disallowed; the
+                sitemap named at the instance's own address
+sitemap.xml     the routes this instance actually serves, including the legal
+                slugs, and no route it does not
+structured data one block naming the business, its type, its address, the area
+                it says it covers and the services it lists. Every value comes
+                from the content file, and a value that is absent is left out
+```
+
+The address of the site is a field the client owns, validated as an absolute
+origin. It decides the sitemap, the canonical links and every share preview, so
+an instance still announcing an example domain is an unfinished instance, and
+the back office says so.
+
+Nothing here may state what the site does not. An opening hour that cannot be
+mapped, an award nobody entered, a rating nobody gave: left out. Structured
+data claiming what the pages do not is the same false claim as an invented
+legal fact, with a penalty attached.
+
+## 14. What the runtime must provide
 
 The back office, the uploads, the inbox, the rate limits and the push
 subscriptions all need a server. That is a consequence of the deliverable, not a
@@ -379,7 +415,7 @@ deployment   the handover states how the site is started, restarted and
              updated, and what happens to the data directory in each case
 ```
 
-## 14. Prohibitions
+## 15. Prohibitions
 
 - No demonstration content inside a component: no name, no photograph, no
   telephone number, no address, no price.
@@ -393,13 +429,19 @@ deployment   the handover states how the site is started, restarted and
 - No login endpoint without a rate limit, and no public form endpoint without
   one either.
 - No contact form that posts into nothing.
+- No form without a declared method: the fallback is GET, and GET puts a
+  password or a visitor's message into the URL, the log and the Referer.
+- No command, file path or environment variable shown to the client inside
+  the back office.
+- No structured data, sitemap entry or preview that claims something the
+  site does not say on a page a visitor can read.
 - No framework default 404.
 - No optional section that renders an empty frame when its block is absent.
-- No template declared finished before the gate in section 15 passes whole.
+- No template declared finished before the gate in section 16 passes whole.
 
-## 15. The completion gate
+## 16. The completion gate
 
-Twenty four checks. All twenty four pass, or the template is not finished.
+Twenty eight checks. All twenty eight pass, or the template is not finished.
 
 ```
 1   every visitor facing string, image, colour, hour and contact detail
@@ -409,7 +451,10 @@ Twenty four checks. All twenty four pass, or the template is not finished.
 3   every optional block absent removes its section cleanly, verified on a
     content file with all of them removed
 4   changing one token changes the rendered site, verified by changing one
-5   both palettes measured, every required pair passing, on both themes
+5   both palettes measured on the rendered page, in the browser, reading the
+    custom properties the stylesheet actually resolves, not the colours
+    written in the content file; every required pair passing, both themes.
+    A palette that is only read and not measured is how white on white ships
 6   the theme toggle works, persists, respects the system preference and does
     not flash the wrong theme on load
 7   the motion signature of the trade is visible: the effects it names happen,
@@ -452,9 +497,22 @@ Twenty four checks. All twenty four pass, or the template is not finished.
     the handover names the day that was checked
 24  the handover lists every back office field, the data directory, the backup
     command, and the secrets the instance needs
+25  no form can submit by GET: every form declares its method, verified by
+    reading the rendered markup, because a form without one falls back to GET
+    and writes a password or a visitor's message into the URL, the server log
+    and the Referer header
+26  a page loaded without JavaScript says so where a form would have been, and
+    points at a way to make contact that still works
+27  the back office says what is left to do, computed from the content and not
+    remembered: a fact still missing, an image still from the model, an address
+    still unset. Every item a client can act on carries the link to where it is
+    done, and fixing one closes it without anyone marking it done
+28  nothing inside the back office asks the client to run a command, edit a
+    file or set a variable. What only the installer can do names the installer
+    and says to ask them. The commands belong in the handover
 ```
 
-## 16. Protocol
+## 17. Protocol
 
 1. Establish the kind, portfolio or showcase, the trade, and the legal identity
    of the owner. The kind decides the contract, the routes and the legal
@@ -481,12 +539,12 @@ Twenty four checks. All twenty four pass, or the template is not finished.
     degrading to nothing when refused.
 11. Produce the example content file with clearly fictional data, and run the
     site from it.
-12. Run the twenty four point gate in section 15, whole. Fix and re-run what a fix
+12. Run the twenty eight point gate in section 16, whole. Fix and re-run what a fix
     touched.
 13. Write the handover: the field map, the data directory, the backup command,
     the secrets, and how the site is started and updated.
 
-## 17. Auto-critique
+## 18. Auto-critique
 
 Score from 0 to 5: the content contract holds everything a human would want to
 change, both palettes are authored and measured, the motion system is driven by
@@ -503,7 +561,7 @@ statement scores 0 overall: the first three are the ways this kind of site is
 actually broken into or silently loses business, and the last two make the
 delivery false.
 
-## 18. Interfaces
+## 19. Interfaces
 
 - Upstream: `engineering-core`, `template-selection` when the work starts from
   an existing template rather than a blank page.

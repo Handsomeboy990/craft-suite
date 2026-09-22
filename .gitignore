@@ -32,6 +32,9 @@ package-lock.json
 **/data/uploads/*
 !**/data/uploads/.gitkeep
 **/data/audit.log
+**/data/reset.json
+**/data/history/*
+!**/data/history/.gitkeep
 backup-*.tar.gz
 
 __pycache__/
