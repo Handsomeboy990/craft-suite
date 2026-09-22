@@ -107,7 +107,8 @@
       "optionalHint": "facultatif",
       "selectPlaceholder": "Choisissez une option",
       "requiredMessage": "ce champ est obligatoire",
-      "invalidMessage": "cette valeur n'est pas valide"
+      "invalidMessage": "cette valeur n'est pas valide",
+      "noScript": "Ce formulaire a besoin de JavaScript pour nous envoyer votre message. Activez-le, ou appelez-nous directement : les coordonnées sont sur cette page."
     },
     "notFound": {
       "title": "Cette page n'existe pas",
@@ -332,7 +333,8 @@
   },
   "forms": {
     "successMessage": "Message envoyé. Vous recevrez une réponse sous deux jours ouvrés.",
-    "errorMessage": "L'envoi a échoué. Écrivez directement à contact@example.com."
+    "errorMessage": "L'envoi a échoué. Écrivez directement à contact@example.com.",
+    "notifyEmail": null
   },
   "seo": {
     "title": "Camille Vasseur, coach sportif  à Ville-Exemple",

@@ -298,6 +298,7 @@ export const GROUPS: Group[] = [
       { path: 'ui.form.sendingLabel', label: 'Bouton pendant envoi', kind: 'text', changes: 'le formulaire' },
       { path: 'ui.form.requiredMessage', label: 'Message champ obligatoire', kind: 'text', changes: 'le refus affiché quand un champ obligatoire est vide' },
       { path: 'ui.form.invalidMessage', label: 'Message valeur invalide', kind: 'text', changes: 'le refus affiché quand une valeur est mal formée' },
+      { path: 'ui.form.noScript', label: 'Message si JavaScript est désactivé', kind: 'textarea', changes: 'ce que voit un visiteur dont le navigateur bloque JavaScript' },
       { path: 'ui.legalPendingNotice', label: 'Avertissement mentions incomplètes', kind: 'textarea', changes: 'les pages légales incomplètes' },
     ],
   },

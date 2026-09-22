@@ -117,7 +117,8 @@
       "optionalHint": "facultatif",
       "selectPlaceholder": "Choisissez une option",
       "requiredMessage": "ce champ est obligatoire",
-      "invalidMessage": "cette valeur n'est pas valide"
+      "invalidMessage": "cette valeur n'est pas valide",
+      "noScript": "Ce formulaire a besoin de JavaScript pour nous envoyer votre message. Activez-le, ou appelez-nous directement : les coordonnées sont sur cette page."
     },
     "notFound": {
       "title": "Cette page n'existe pas",
@@ -402,7 +403,8 @@
   },
   "forms": {
     "successMessage": "Demande envoyée. Nous rappelons sous deux jours ouvrés.",
-    "errorMessage": "L'envoi a échoué. Appelez le +33 5 00 00 00 00 ou écrivez à contact@example.com."
+    "errorMessage": "L'envoi a échoué. Appelez le +33 5 00 00 00 00 ou écrivez à contact@example.com.",
+    "notifyEmail": null
   },
   "seo": {
     "title": "Roussel Électricité, électricien à Ville-Exemple",

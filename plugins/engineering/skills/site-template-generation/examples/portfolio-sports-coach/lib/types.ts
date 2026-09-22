@@ -76,6 +76,8 @@ export type UiStrings = {
     selectPlaceholder: string;
     requiredMessage: string;
     invalidMessage: string;
+    /** Shown when the page loads without JavaScript, instead of a silent failure. */
+    noScript: string;
   };
   notFound: { title: string; body: string; action: string };
   offline: { title: string; body: string; action: string };
