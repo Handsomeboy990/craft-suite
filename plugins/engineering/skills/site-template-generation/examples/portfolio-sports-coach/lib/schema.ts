@@ -32,7 +32,7 @@ export type FieldDef = {
   /** A value that ends up inside a style declaration is checked against this
    *  before it is written. Without it, a signed in client could close the style
    *  tag and put script on every visitor's page. */
-  pattern?: 'length' | 'fontFamily' | 'easing';
+  pattern?: 'length' | 'fontFamily' | 'easing' | 'siteUrl';
   min?: number;
   max?: number;
   step?: number;
@@ -71,12 +71,36 @@ export const GROUPS: Group[] = [
     id: 'identity',
     label: 'Identité et référencement',
     fields: [
+      {
+        path: 'site.baseUrl',
+        label: 'Adresse de votre site',
+        kind: 'text',
+        pattern: 'siteUrl',
+        hint: "L'adresse que l'on tape pour venir chez vous, par exemple https://votre-entreprise.fr. Sans barre oblique à la fin.",
+        changes: 'les liens partagés, le référencement et le plan du site',
+      },
       { path: 'site.name', label: 'Nom affiché', kind: 'text', changes: 'en-tête, pied de page, titres' },
       { path: 'site.shortName', label: 'Nom court (application installée)', kind: 'text', changes: "le nom sous l'icône une fois le site installé" },
       { path: 'site.tagline', label: 'Accroche', kind: 'text', changes: "la ligne sous le nom dans l'en-tête" },
       { path: 'site.favicon', label: "Icône de l'onglet (favicon)", kind: 'image', changes: "l'icône affichée par le navigateur dans son onglet" },
       { path: 'seo.title', label: 'Titre pour les moteurs de recherche', kind: 'text', changes: "le titre de l'onglet et des résultats de recherche" },
       { path: 'seo.description', label: 'Description pour les moteurs de recherche', kind: 'textarea', changes: 'la description dans les résultats de recherche' },
+      {
+        path: 'seo.businessType',
+        label: 'Type d’activité (pour les moteurs)',
+        kind: 'select',
+        options: [
+          'LocalBusiness',
+          'SportsActivityLocation',
+          'HealthAndBeautyBusiness',
+          'Electrician',
+          'Plumber',
+          'HomeAndConstructionBusiness',
+          'ProfessionalService',
+        ],
+        hint: "Ce que Google comprend de votre métier. Choisissez le plus proche : il apparaît dans les résultats locaux.",
+        changes: 'la fiche que les moteurs de recherche affichent',
+      },
     ],
   },
   {
@@ -214,6 +238,13 @@ export const GROUPS: Group[] = [
       },
       { path: 'forms.successMessage', label: 'Message de succès', kind: 'textarea', changes: 'ce que voit le visiteur après envoi' },
       { path: 'forms.errorMessage', label: "Message d'échec", kind: 'textarea', changes: "ce que voit le visiteur si l'envoi échoue" },
+      {
+        path: 'forms.notifyEmail',
+        label: 'Recevoir une copie par e-mail',
+        kind: 'text',
+        hint: "Laissez vide pour ne rien recevoir : les messages restent consultables dans Messages.",
+        changes: "l'adresse qui reçoit une copie de chaque message",
+      },
     ],
   },
   {
@@ -373,6 +404,10 @@ const PATTERNS = {
   length: /^-?[0-9]*\.?[0-9]+(px|rem|em|ch|ex|vw|vh|svh|dvh|vmin|vmax|%)$/,
   fontFamily: /^[A-Za-z0-9 ,'"_-]+$/,
   easing: /^(linear|ease|ease-in|ease-out|ease-in-out|step-start|step-end|cubic-bezier\([0-9.,\s-]+\)|steps\([0-9,\sa-z-]+\))$/,
+  // An absolute address, no path, no trailing slash. It is written into
+  // robots.txt, the sitemap, the structured data and every share preview, so a
+  // value that is not a real origin breaks all four at once.
+  siteUrl: /^https?:\/\/[a-z0-9.-]+\.[a-z]{2,}(:[0-9]+)?$/i,
 } as const;
 
 function coerceScalar(

@@ -410,7 +410,8 @@
     "ogImage": {
       "src": "/media/placeholder-og.png",
       "alt": "Roussel Électricité, électricien à Ville-Exemple"
-    }
+    },
+    "businessType": "Electrician"
   },
   "pwa": {
     "enabled": true,

@@ -3,6 +3,7 @@ import { headers } from 'next/headers';
 import type { ReactNode } from 'react';
 import { getContent } from '@/lib/content';
 import { cssVariables, themeScript } from '@/lib/tokens';
+import StructuredData from '@/components/site/StructuredData';
 import './globals.css';
 
 // The content file is read at request time, so an edit in the back office is
@@ -40,6 +41,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <style nonce={nonce} dangerouslySetInnerHTML={{ __html: cssVariables(content.theme) }} />
         {/* Applied before first paint: the page never flashes the wrong theme. */}
         <script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <StructuredData content={content} nonce={nonce} />
       </head>
       <body>{children}</body>
     </html>

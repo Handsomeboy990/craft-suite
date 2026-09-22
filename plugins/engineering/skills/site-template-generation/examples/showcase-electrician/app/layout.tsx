@@ -7,6 +7,7 @@ import AppShell from '@/components/site/AppShell';
 import SiteHeader from '@/components/site/SiteHeader';
 import SiteFooter from '@/components/site/SiteFooter';
 import './globals.css';
+import StructuredData from '@/components/site/StructuredData';
 
 // The content file is read at request time, so an edit in the back office is
 // live on reload with no rebuild. The chrome lives here, so each page carries
@@ -44,6 +45,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <style nonce={nonce} dangerouslySetInnerHTML={{ __html: cssVariables(content.theme) }} />
         {/* Applied before first paint: the page never flashes the wrong theme. */}
         <script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <StructuredData content={content} nonce={nonce} />
       </head>
       <body>
         <SiteHeader content={content} />

@@ -190,7 +190,7 @@ export type ShowcaseContent = {
     social?: { platform: string; url: string }[];
   };
   forms: { successMessage: string; errorMessage: string; notifyEmail?: string };
-  seo: { title: string; description: string; ogImage?: ImageRef };
+  seo: { title: string; description: string; ogImage?: ImageRef; businessType: string };
   pwa: { enabled: boolean; icons?: { src: string; sizes: string; purpose?: string }[] };
   legal: LegalBlock;
 };
