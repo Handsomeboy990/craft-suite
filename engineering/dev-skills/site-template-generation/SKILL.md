@@ -464,7 +464,9 @@ Twenty eight checks. All twenty eight pass, or the template is not finished.
     except prose, and no horizontal scroll from 360px upward
 9   every field the back office offers is changed, the public pages are read to
     see the change arrive, and the original value is put back; the content file
-    then matches what it was, byte for byte. Not a sample: every field
+    then matches what it was, byte for byte. Not a sample: every field. The
+    pages read are the ones the instance's sitemap declares, so the check
+    cannot quietly skip a page nobody remembered to add to a list
 10  every field can be emptied and set again, and no two fields hold the same
     fact
 11  an upload is accepted, rejected by type, rejected by size, and its alt text

@@ -1,18 +1,17 @@
 // Point 8 of the gate, at the width most visitors actually use.
 //
-//   BASE_URL=http://localhost:3111 KIND=portfolio node mobile.mjs
+//   BASE_URL=http://localhost:3111 KIND=un-nom-pour-les-captures node mobile.mjs
 //
 // Writes a screenshot per route into shots/ so the result can be looked at, not
 // only counted.
 import { mkdirSync } from 'node:fs';
 import { chromium } from 'playwright';
+import { routesOf, MISSING_ROUTE } from './routes.mjs';
 
 const BASE = process.env.BASE_URL ?? 'http://localhost:3111';
-const KIND = process.env.KIND ?? 'portfolio';
-const ROUTES = {
-  portfolio: ['/', '/legal/mentions-legales', '/legal/politique-de-confidentialite', '/offline', '/introuvable'],
-  showcase: ['/', '/services', '/about', '/quote', '/legal/mentions-legales', '/legal/conditions-generales-de-vente', '/legal/cookies', '/introuvable'],
-}[KIND];
+// KIND only names the screenshot directory; the pages come from the instance.
+const KIND = process.env.KIND ?? 'instance';
+const ROUTES = await routesOf(BASE, { extra: ['/offline', MISSING_ROUTE] });
 
 const results = [];
 const record = (name, ok, detail) => {
