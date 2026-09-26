@@ -145,6 +145,6 @@ emoji, no em dash. Both are enforced by `tests/validate-rules.sh` in CI.
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+All rights reserved. See [LICENSE](LICENSE). No reuse, copy or redistribution without written permission.
 
 Copyright (c) 2026 Lauret Chacha (Handsomeboy990).
