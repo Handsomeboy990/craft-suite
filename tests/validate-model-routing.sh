@@ -29,9 +29,11 @@ with open(fixtures_path, encoding="utf-8") as f:
 
 routing = table["routing"]
 overrides = {o["id"]: o for o in table["override_conditions"]}
+quality_triggers = {q["id"]: q for q in table.get("quality_escalation_triggers", [])}
 complexity_tiers = set(table["complexity_tiers"])
 model_tiers = set(table["model_tiers"])
 effort_levels = set(table["effort_levels"])
+model_tier_order = ["fast", "balanced", "strongest"]
 
 print("Check 1: base tier fixtures match the routing table")
 for fx in fixtures["base_tier_fixtures"]:
@@ -75,12 +77,36 @@ for fx in fixtures["transition_fixtures"]:
         errors.append(f"{fx['id']}: transition has no stated reason")
     if fx.get("direction") not in ("escalation", "de-escalation"):
         errors.append(f"{fx['id']}: direction must be escalation or de-escalation")
-    order = ["TRIVIAL", "LOW", "MEDIUM", "HIGH", "CRITICAL"]
-    rank_prior, rank_new = order.index(prior["complexity"]), order.index(new["complexity"])
-    if fx.get("direction") == "escalation" and rank_new <= rank_prior:
-        errors.append(f"{fx['id']}: marked escalation but complexity did not increase")
-    if fx.get("direction") == "de-escalation" and rank_new >= rank_prior:
-        errors.append(f"{fx['id']}: marked de-escalation but complexity did not decrease")
+
+    trigger = fx.get("trigger", "reclassification")
+    if trigger not in ("reclassification", "output-quality-failure"):
+        errors.append(f"{fx['id']}: unknown trigger {trigger}")
+
+    if trigger == "reclassification":
+        order = ["TRIVIAL", "LOW", "MEDIUM", "HIGH", "CRITICAL"]
+        rank_prior, rank_new = order.index(prior["complexity"]), order.index(new["complexity"])
+        if fx.get("direction") == "escalation" and rank_new <= rank_prior:
+            errors.append(f"{fx['id']}: marked escalation but complexity did not increase")
+        if fx.get("direction") == "de-escalation" and rank_new >= rank_prior:
+            errors.append(f"{fx['id']}: marked de-escalation but complexity did not decrease")
+    elif trigger == "output-quality-failure":
+        # A weak result escalates the model exactly one tier stronger; it is
+        # never a trigger to de-escalate, and it never re-derives complexity.
+        if fx.get("direction") != "escalation":
+            errors.append(f"{fx['id']}: output-quality-failure must escalate, found {fx.get('direction')}")
+        if prior["model_tier"] in model_tier_order and new["model_tier"] in model_tier_order:
+            rank_prior_model = model_tier_order.index(prior["model_tier"])
+            rank_new_model = model_tier_order.index(new["model_tier"])
+            if rank_new_model - rank_prior_model != 1:
+                errors.append(
+                    f"{fx['id']}: output-quality-failure must escalate exactly one model "
+                    f"tier, found {prior['model_tier']} -> {new['model_tier']}"
+                )
+        if fx.get("failed_output_kept") is not True:
+            errors.append(f"{fx['id']}: failed_output_kept must be true, the failed output is kept for comparison")
+        quality_trigger = fx.get("quality_trigger")
+        if quality_trigger not in quality_triggers:
+            errors.append(f"{fx['id']}: unknown quality_trigger {quality_trigger}")
 
 if errors:
     for e in errors:

@@ -1,12 +1,12 @@
 ---
 name: model-routing
-description: Recommends which Claude model, and where meaningful which effort, an agent dispatch should use, from the task-complexity classification and risk signals such as security sensitivity, novelty and expected iteration. States plainly what the current agent runtime can and cannot switch, and never claims a capability the tooling does not have. Use before dispatching a subagent, and whenever complexity changes mid task.
+description: Recommends which Claude model, and where meaningful which effort, an agent dispatch should use, from the task-complexity classification and risk signals such as security sensitivity, novelty and expected iteration, and escalates when a dispatched output fails a quality check even without a complexity change. States plainly what the current agent runtime can and cannot switch, and never claims a capability the tooling does not have. Use before dispatching a subagent, whenever complexity changes mid task, and whenever a returned output is shallow, uncited, factually wrong or fails its gate.
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core, task-complexity]
-  outputs: [model-recommendation, routing-rationale, escalation-record]
+  outputs: [model-recommendation, routing-rationale, escalation-record, routing-log]
 ---
 
 # Model Routing
@@ -122,26 +122,70 @@ and record the override, when:
 
 ## 6. Escalation and de-escalation
 
-Triggered by the same reclassification event `task-complexity` section 7
-defines. This skill does not invent a second trigger; it reads the same one.
+Two triggers, both explicit, neither assumed by default partway through a
+task.
+
+**Trigger 1, reclassification.** The same event `task-complexity` section 7
+defines. This skill does not re-derive complexity; it reads the classification
+that changed.
+
+**Trigger 2, `output-quality-failure`.** A dispatch returned, the work looks
+finished, and it is not good enough. This is not a complexity change: the task
+is the same task, and the model that ran it produced a result that does not
+hold up. Concrete triggers, any one of which is sufficient:
+
+```
+shallow-against-acceptance      the output is shallow against the brief's
+                                own acceptance items
+factual-error-on-verification   a factual error is found when the output is
+                                verified
+uncited-claim                   a claim appears where a citation was
+                                required and none is given
+missed-required-section         a section the brief required is missing from
+                                the output
+failed-test-or-gate             a test fails, or the review gate fails
+contradiction-with-sources      the output contradicts a source it cites or
+                                should have checked
+```
+
+Machine checked in `resources/tier-table.json`'s `quality_escalation_triggers`
+list; this table is its human-readable rendering; the two are never allowed
+to disagree. On any one of these, escalate the model exactly one tier
+stronger than the tier that produced the weak output (fast to balanced,
+balanced to strongest; strongest has nowhere stronger to escalate to, and
+the response there is an independent verification pass, per the CRITICAL row
+of section 3). A reason is required, naming which trigger fired and the
+specific evidence. The failed output is kept, not discarded, so the retry can
+be compared against it rather than trusted on faith. This is a model
+escalation only: `task-complexity`'s classification of the task itself does
+not change because the first attempt was weak.
 
 ```
 Escalation record:
   Task: <one line>
+  Trigger: reclassification | output-quality-failure
   Prior:  complexity <tier>, model <tier>, effort <level>
   New:    complexity <tier>, model <tier>, effort <level>
-  Reason: <the specific evidence that changed>
+  Reason: <the specific evidence that changed, or the quality trigger that fired>
   Expected benefit: <what the stronger configuration is expected to catch>
+  Failed output: <kept at <path or reference>, for comparison>   (output-quality-failure only)
 ```
 
-De-escalation is symmetric and equally deliberate: recorded once decomposition
-or new evidence shows the remaining work no longer carries the signal that
-justified the stronger tier, never assumed by default partway through a task.
+De-escalation is symmetric and equally deliberate, and applies to trigger 1
+only: recorded once decomposition or new evidence shows the remaining work no
+longer carries the signal that justified the stronger tier. There is no
+de-escalation on trigger 2; a weak output is a reason to strengthen, never a
+reason to weaken.
 
-**Anti-thrash rule.** A switch without a stated reason does not happen. A task
-does not oscillate between tiers more than once without new evidence between
-the two switches; a second unexplained switch is treated as a planning defect
-in the surrounding orchestration, not as legitimate routing.
+**Anti-thrash rule, both triggers.** A switch without a stated reason does not
+happen. A task does not oscillate between tiers more than once without new
+evidence between the two switches; a second unexplained switch is treated as
+a planning defect in the surrounding orchestration, not as legitimate
+routing. A model already escalated once by `output-quality-failure` that
+fails again is not escalated a second time by the same trigger without new,
+different evidence; a repeated failure at the strongest tier is a defect in
+the task's framing, handed to the orchestrator rather than absorbed by a
+third dispatch.
 
 ## 7. Protocol
 
@@ -150,13 +194,19 @@ in the surrounding orchestration, not as legitimate routing.
 3. Apply section 5 overrides where their conditions hold, and state which one
    fired.
 4. Resolve the tier to a real identifier through `resources/routing-policy.md`
-   and the project configuration.
+   and the project configuration. When `model_routing` is absent or empty,
+   apply the documented default mapping rather than leaving the tier
+   unresolved, per `resources/routing-policy.md`'s section on what an absent
+   or empty configuration means.
 5. State the routing decision in the format of section 8.
-6. When the task is dispatched to a subagent, pass the resolved model through
-   the dispatch override, never relying on the agent's own frontmatter default
-   to happen to match.
-7. On reclassification, produce the escalation record of section 6 and repeat
-   from step 2.
+6. On every dispatch to a subagent, without exception, resolve a model per
+   steps 2 to 4 and pass it through the dispatch override. An agent's own
+   frontmatter default is never relied on to happen to match; the
+   orchestrator resolves and passes the model itself, every time.
+7. Record the dispatch in the routing log, `resources/routing-log.md`.
+8. On reclassification, or on an `output-quality-failure` per section 6,
+   produce the escalation record, record it in the routing log's escalation
+   table, and repeat from step 2.
 
 ## 8. Routing announcement format
 
@@ -167,7 +217,13 @@ Effort: medium -> escalated to high
 Resolved model: <identifier from routing-policy.md>
 ```
 
-One block, stated once per dispatch, not repeated per file touched.
+One block, stated once per dispatch, not repeated per file touched. When the
+default mapping documented in `resources/routing-policy.md` was applied because
+`model_routing` was absent or empty, the announcement says so:
+
+```
+Resolved model: haiku (default mapping applied, model_routing is not configured)
+```
 
 ## 9. What this skill refuses
 
@@ -176,8 +232,19 @@ One block, stated once per dispatch, not repeated per file touched.
 - Claiming the orchestrating session changed its own model mid task.
 - Hardcoding a specific model identifier instead of a tier and a
   configuration lookup.
+- Dispatching a subagent without resolving and passing an explicit model,
+  even when the agent's own frontmatter default happens to match what would
+  have been resolved.
+- Treating an absent or empty `model_routing` section as a runtime decision
+  to trust; on Claude Code an omitted `model` inherits the orchestrating
+  session's own model, so silence here is silent, unrouted dispatch, not a
+  sensible default.
 - Escalating without a stated reason, or switching more than once without new
   evidence between the switches.
+- Raising the model tier on an `output-quality-failure` by more than one
+  tier, or treating a repeated failure at the strongest tier as a reason to
+  keep re-dispatching rather than a defect handed to the orchestrator.
+- De-escalating in response to an `output-quality-failure`.
 - Lowering model tier or effort to save tokens when the driving signal is
   security, authentication, payments or an irreversible action.
 
@@ -185,13 +252,16 @@ One block, stated once per dispatch, not repeated per file touched.
 
 Score from 0 to 5: the classification was read, not re-derived, the tier
 lookup and any override are both stated, the resolved identifier came from
-configuration rather than being hardcoded, an escalation carries a reason and
-an expected benefit, no capability was claimed that section 1 marks as
-unverified.
+configuration or the documented default mapping rather than being hardcoded
+or silently inherited, an escalation carries a reason (naming the trigger)
+and an expected benefit, a quality escalation kept the failed output, the
+dispatch and any escalation were recorded in the routing log, no capability
+was claimed that section 1 marks as unverified.
 
 Threshold: no axis below 3, average at least 4. A routing decision that
 claims a capability section 1 does not verify scores 0 on that axis
-regardless of the rest.
+regardless of the rest. A dispatch with no explicit model passed, on a
+runtime where `model_routing` is absent or empty, scores 0 on the same axis.
 
 ## 11. Interfaces
 
@@ -201,5 +271,5 @@ regardless of the rest.
 - Downstream: `engineering-orchestrator`, `delivery-orchestrator`, and any
   agent dispatch that follows `agents/handoff-protocol.md`.
 - Reference data: `resources/routing-policy.md`, `resources/tier-table.json`,
-  `resources/fixtures.json`.
+  `resources/fixtures.json`, `resources/routing-log.md`.
 - Validated by: `tests/validate-model-routing.sh`.

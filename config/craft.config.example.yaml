@@ -70,10 +70,13 @@ engineering:
 # Read by model-routing before it resolves a tier to a real model. The three
 # tier names are fixed policy; what answers to each name on this account is
 # not, because availability differs by account and changes over time.
-# Empty means: use whichever model this runtime resolves for that tier by
-# default. A value must be a short model name this runtime accepts, never a
-# full versioned identifier, which is exactly the kind of value that goes
-# stale.
+# Empty does not mean "the runtime will pick something sensible": on Claude
+# Code an omitted model inherits the orchestrating session's own model, so an
+# empty value here would silently defeat routing. model-routing applies its
+# own documented default (fast: haiku, balanced: sonnet, strongest: opus)
+# instead, and announces and records that the default was used. A filled
+# value is a short model name this runtime accepts, never a full versioned
+# identifier, which is exactly the kind of value that goes stale.
 model_routing:
   fast: ""
   balanced: ""
