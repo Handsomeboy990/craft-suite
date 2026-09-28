@@ -728,6 +728,72 @@ Session 33, the conventions the skill never wrote down, version 3.26.0:
 - The gate is at twenty nine points, and 98 of 98 and 113 of 113 fields pass
   through the published field map with the content file restored byte for byte.
 
+Session 34, the research agent, output-quality escalation and an authorized
+reproduction exception, version 3.27.0:
+
+- `researcher` agent (`agents/research/`): owns the five `research/` skills
+  and the source verification of a claim two sources disagree on, the gap a
+  prior delivery ran into with no craft agent holding `WebSearch` or
+  `WebFetch`. Boundaries: public sources only, `robots.txt` respected, every
+  fetch rate limited, no account creation, no authenticated scraping, no
+  decompiling or reverse engineering, no bypass of a bot challenge, a
+  paywall or a login, and no third-party fetch proxy or reader service used
+  to defeat one; every claim carries a source URL, an access date and a
+  status of observed, inferred or unknown, and an uncited claim is not
+  written down.
+- Wired everywhere the roster is counted: `AGENT_NAMES` in
+  `tests/validate-orchestration.sh`, a row in `agents/README.md`, the agent
+  totals in `AGENTS.md`, `README.md` and `README.fr.md`, `install.sh`
+  (`agent_domains`, `domain_wanted`, `resolve_agents`, the menu text, the
+  stale comment removed), `docs/agents/README.md` (removed from "what is not
+  yet built"), the `research` plugin's manifest and agent bundle rebuilt with
+  `plugins/build.sh`, `documentation/agents.md`, `documentation/architecture.md`
+  and every other structured count location `tests/validate-counts.sh`
+  checks. Counts 26 to 27 agents.
+- `model-routing` gained the second escalation trigger an orchestrator needs
+  besides reclassification: `output-quality-failure`, six concrete
+  conditions (shallow against the brief's acceptance items, a factual error
+  on verification, an uncited claim, a missed required section, a failed
+  test or review gate, a contradiction with a source), one model tier
+  stronger, a reason naming which trigger fired, the failed output kept for
+  comparison rather than discarded, the same anti-thrash rule, and never a
+  reason to de-escalate. `resources/tier-table.json` carries the six
+  triggers by id, `resources/fixtures.json` a new transition fixture, and
+  `tests/validate-model-routing.sh` a new branch of check 3, each half of it
+  mutation-tested (a false `failed_output_kept` and an unknown
+  `quality_trigger` id both caught, then restored). Per-dispatch model
+  resolution is now a stated refusal, not only a protocol step, in
+  `engineering-orchestrator` and in both `delivery-orchestrator` and
+  `principal-engineer`'s agent definitions. An absent or empty
+  `model_routing` section is no longer documented as "the runtime decides
+  sensibly": on Claude Code an omitted model inherits the orchestrating
+  session's own model, so the skill now applies its own documented default
+  (`fast: haiku, balanced: sonnet, strongest: opus`), announces that the
+  default was used, and records it, corrected in `resources/routing-policy.md`,
+  `config/README.md` and `config/craft.config.example.yaml` alike.
+  `resources/routing-log.md` is the new durable per-project log format, a
+  dispatch table and an escalation table, referenced from `SKILL.md`.
+  `model-routing` 1.0.0 to 1.1.0, `engineering-orchestrator` 1.0.0 to 1.1.0.
+- `design-research` gained a narrowly scoped exception to its default refusal
+  of exact colours, logos, brands and trademarked material, modelled on how
+  `authorized-pentesting` gates offensive technique rather than loosening the
+  refusal itself: a faithful reproduction is allowed only when the project
+  owner has authorized it in writing for this specific brand, the
+  authorization is recorded in the project's decisions file, the repository
+  is private and never deployed publicly, a permanent non-affiliation
+  disclaimer appears on every surface the material touches, and every
+  asset's public source is recorded against it. No record, no reproduction:
+  the default rule applies without exception the moment any one condition is
+  missing. The exception never covers bypassing an access protection or
+  copying proprietary code, and it never relaxes `design-authenticity`'s
+  judgment of the rest of the interface.
+- Version 3.27.0, minor: additive, no breaking change to an installed suite.
+  `marketplace.json` and all seven `plugin.json` manifests bumped together,
+  the established lockstep convention.
+- All six scripts pass: 167 skills, 27 agents, 0 errors on structure, rules
+  (1 pre-existing warning), orchestration, plugins and counts; 12
+  `model-routing` fixtures, 0 errors.
+
 ## Current state
 
 Working today:
@@ -745,7 +811,7 @@ Working today:
 - no skill contains a hardcoded personal identity, verified by check 4;
 - every declared dependency and every `Interfaces` cross reference resolves
   across all eight trees;
-- the eleven `model-routing` fixtures match its own tier table, verified by
+- the twelve `model-routing` fixtures match its own tier table, verified by
   `validate-model-routing.sh`, no live model call.
 
 Looks finished and is not:
