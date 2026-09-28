@@ -56,16 +56,17 @@ page once recorded as unfilled, `source-of-truth`, `checkup` and
 remains unfilled is recorded in `multi-agent-assessment.md` section 3 and in
 `docs/agents/README.md`, rather than filled with a thin, unreviewed stand-in.
 
-## The twenty-six agents, by group
+## The twenty-seven agents, by group
 
 Agents live in `agents/<group>/`, a repository-wide tree independent of any
 single skill domain, so each domain's plugin carries its own agents rather than
 bundling them all in one: the security plugin ships `security-engineer` and
-`web-auditor`, the engineering plugin the 24-agent delivery team (which keeps
-`security-engineer`, since its delivery flow dispatches it). The mapping lives
-in `install.sh` (`agent_domains`); `web-auditor` is security-only, every other
-agent belongs to engineering. Catalog and public contracts: `agents/README.md`
-and `documentation/agents.md`.
+`web-auditor`, the research plugin ships `researcher`, the engineering plugin
+the 25-agent delivery team (which keeps `security-engineer`, since its
+delivery flow dispatches it). The mapping lives in `install.sh`
+(`agent_domains`); `web-auditor` and `researcher` are each specific to their
+own domain, every other agent belongs to engineering. Catalog and public
+contracts: `agents/README.md` and `documentation/agents.md`.
 
 | Group | Agents | Owns |
 |---|---|---|
@@ -76,7 +77,7 @@ and `documentation/agents.md`.
 | `testing` | `qa-engineer`, `playwright-engineer` | test strategy, browser verification |
 | `documentation` | `documentation-engineer` | documentation matching the implementation |
 | `devops` | `devops-engineer`, `release-engineer`, `incident-responder` | environments and pipeline, release verification, incident response |
-| `research` | reserved, empty | a future research agent; nothing installs from here yet |
+| `research` | `researcher` | a research question answered from real, cited sources, and verification of a contested claim |
 
 ## The agent contract
 

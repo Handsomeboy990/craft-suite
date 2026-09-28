@@ -4,7 +4,7 @@ description: Central routing layer for engineering work: classifies the request,
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core, project-exploration]
   outputs: [task-classification, execution-plan, verification-gates, completion-verdict]
 ---
@@ -34,12 +34,27 @@ smallest plan that still contains every mandatory gate.
 7. **Execute step by step.** Before each step, classify its complexity with
    `task-complexity` and route it with `model-routing`; the two run per step,
    not once for the whole request, because a plan's steps rarely carry the
-   same risk. After each step, check its exit condition before moving on.
+   same risk. On every dispatch to a subagent, resolve a model per
+   `model-routing` section 7 and pass it through the dispatch override,
+   without exception; an agent's own frontmatter default is never relied on
+   to happen to match. Record the dispatch in `model-routing`'s routing log.
+   After each step, check its exit condition before moving on.
 8. **Re-plan when a step invalidates an assumption.** A discovery that changes
    the category restarts planning from step 2, and the change is stated. The
    same discovery is a reclassification for `task-complexity` and an
    escalation or de-escalation for `model-routing`: one event, read by all
    three, never three separate judgment calls reaching different answers.
+   **Escalate without re-planning when a step's returned output fails a
+   quality check** instead: shallow against the brief's acceptance items, a
+   factual error found on verification, an uncited claim where one was
+   required, a missed required section, a failed test or review gate, or a
+   contradiction with a source. This is `model-routing`'s
+   `output-quality-failure` trigger, section 6: the category and the plan do
+   not change, the step is redispatched one model tier stronger with the
+   failed output kept for comparison, and the escalation is recorded in the
+   routing log. A second failure of the same step at the strongest tier is
+   not redispatched a third time; it is anti-loop rule 5, a blocker reported
+   to whoever owns the task, not absorbed by another dispatch.
 9. **Close** with the completion verdict of section 7.
 
 ## 2. Classification

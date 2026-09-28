@@ -1,7 +1,7 @@
 # engineering
 
 Software engineering and project delivery. 83 skills in three categories, plus
-26 specialised agents defined at the repository root in `agents/`.
+27 specialised agents defined at the repository root in `agents/`.
 
 ## Categories
 

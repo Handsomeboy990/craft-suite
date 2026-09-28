@@ -1,6 +1,6 @@
 # agents
 
-Twenty-six specialised agent definitions for an agent runtime that supports
+Twenty-seven specialised agent definitions for an agent runtime that supports
 subagents, such as Claude Code.
 
 An agent here is a role with a narrow responsibility. It is thin by design:
@@ -19,7 +19,7 @@ Agent   who owns this piece of work, what they may touch, what they hand on
 Duplicating a skill's content into an agent produces two documents that drift.
 Every agent below references the skills it uses and never restates them.
 
-## The twenty-six
+## The twenty-seven
 
 | Agent | Owns | Primary skills |
 |---|---|---|
@@ -49,6 +49,7 @@ Every agent below references the skills it uses and never restates them.
 | `documentation-engineer` | documentation matching the code | technical-documentation |
 | `release-engineer` | release verification and rollout | release-readiness, release-engineering |
 | `incident-responder` | a degraded production system, then the postmortem | incident-response, observability |
+| `researcher` | a research question answered from real, cited sources, and the verification of a contested claim | research-core, source-research, source-verification |
 
 ## Structure
 

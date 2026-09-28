@@ -258,7 +258,7 @@ mandatory gates appear where they are required, that plan ordering is
 coherent, that no engineering skill is orphaned, that `depends_on` and cross
 references resolve, and that the five reference routing scenarios hold.
 
-It also covers the fourteen delivery phases, the twenty-six agent definitions,
+It also covers the fourteen delivery phases, the twenty-seven agent definitions,
 the document pipeline and the independence of `shared/`. The thirteen checks
 are listed in `tests/README.md`.
 

@@ -20,7 +20,7 @@ craft-suite/
 ├── writing/         42 skills d'écriture créative
 ├── documents/        7 skills de document professionnel
 ├── engineering/     83 skills d'ingénierie
-├── agents/          26 définitions de rôle, transversales au dépôt
+├── agents/          27 définitions de rôle, transversales au dépôt
 ├── security/        12 skills de sécurité défensive
 ├── research/         5 skills de recherche générale
 ├── career/           7 skills de recherche d'emploi et de candidature
@@ -222,7 +222,7 @@ reçoit jamais l'arbre d'ingénierie.
    5) Research                 5 skills   sources, vérification, synthèse
    6) Career                   7 skills   recherche d'emploi, CV, entretiens
    7) Opportunity              9 skills   idéation, hackathons, prospection
-   8) Everything             167 skills   plus 26 agents
+   8) Everything             167 skills   plus 27 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -249,7 +249,7 @@ bash install.sh --career        les 7 skills de recherche d'emploi
 bash install.sh --opportunity   les 9 skills d'idéation, hackathon et prospection
 bash install.sh --all          tout
 bash install.sh --shared        les 2 skills transversaux seulement
-bash install.sh --agents        les 25 agents seulement
+bash install.sh --agents        les 27 agents seulement
 bash install.sh --no-agents     les skills sans les agents
 bash install.sh --all --zip     construit aussi une archive par skill dans dist/
 bash install.sh --remove        désinstalle la portée choisie
