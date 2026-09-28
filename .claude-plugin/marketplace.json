@@ -44,7 +44,7 @@
     {
       "name": "craft-research",
       "source": "./plugins/research",
-      "description": "General-purpose research for a decision: framing, source gathering, verification, competitive analysis, and conclusion-first synthesis.",
+      "description": "General-purpose research for a decision: framing, source gathering, verification, competitive analysis, and conclusion-first synthesis, plus the researcher role agent.",
       "version": "3.26.0",
       "license": "MIT",
       "keywords": ["research", "sources", "verification", "analysis", "synthesis"]

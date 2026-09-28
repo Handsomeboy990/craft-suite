@@ -19,7 +19,7 @@ craft-suite/
 ├── writing/         42 creative writing skills
 ├── documents/        7 professional document skills
 ├── engineering/     83 software skills
-├── agents/          26 role definitions, repository wide
+├── agents/          27 role definitions, repository wide
 ├── security/        12 defensive security skills
 ├── research/         5 general research skills
 ├── career/           7 job search and application skills
@@ -118,7 +118,7 @@ verified in production.
 | [devops-skills](../engineering/devops-skills/) | 16 | how the system runs, deploys and restores |
 
 Stack and platform agnostic: the system reads the project it is given rather
-than assuming its shape. The twenty-six agents are not a category of this tree:
+than assuming its shape. The twenty-seven agents are not a category of this tree:
 they are a repository-wide layer, at [agents](../agents/), who owns what and
 what is handed on.
 
@@ -218,7 +218,7 @@ novelist's toolkit, and a novelist is never given the engineering tree.
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
-   8) Everything             167 skills   plus 26 agents
+   8) Everything             167 skills   plus 27 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -245,7 +245,7 @@ bash install.sh --career        7 job search and application skills
 bash install.sh --opportunity   9 ideation, hackathon and business skills
 bash install.sh --all          everything
 bash install.sh --shared        the 2 cross domain skills only
-bash install.sh --agents        the 25 agents only
+bash install.sh --agents        the 27 agents only
 bash install.sh --no-agents     skills without agents
 bash install.sh --all --zip     also build one archive per skill in dist/
 bash install.sh --remove        uninstall the selected scope

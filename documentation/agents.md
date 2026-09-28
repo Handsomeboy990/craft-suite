@@ -1,6 +1,6 @@
 # Agents
 
-Twenty-six agent definitions, for a runtime that supports subagents.
+Twenty-seven agent definitions, for a runtime that supports subagents.
 
 This document explains the difference between a skill, an agent and
 orchestration, and gives the public contract of each agent. The definitions
@@ -72,6 +72,7 @@ sequence. `tests/validate-counts.sh` fails when the two disagree on the count.
 | `documentation-engineer` | documentation matching the code | behaviour change | `release-engineer` |
 | `release-engineer` | whether it ships, and how | every gate passed | production verification |
 | `incident-responder` | a degraded production system | an alert or a report | `debugging`, `qa-engineer`, the action items |
+| `researcher` | a research question, and verification of a contested claim | a question, in or out of a delivery | the requester or the orchestrator, `report-writing` for a delivered document |
 
 ## The contract of every agent
 

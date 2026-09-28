@@ -50,7 +50,7 @@ security-engineer qa-engineer playwright-engineer ui-ux-engineer
 devops-engineer performance-engineer documentation-engineer release-engineer
 site-template-engineer
 incident-responder compliance-verifier design-verification web-auditor pr-author pr-reviewer design-research
-source-of-truth checkup final-verifier"
+source-of-truth checkup final-verifier researcher"
 
 fail() {
   printf 'ERROR   %s\n' "$1"
