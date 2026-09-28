@@ -9,7 +9,7 @@ where each piece of the system actually lives.
 | Question | Answer, and where |
 |---|---|
 | What is an agent, and how does it differ from a skill | `documentation/agents.md` |
-| What are the twenty-six agents, and what does each own | `agents/README.md`, the catalog |
+| What are the twenty-seven agents, and what does each own | `agents/README.md`, the catalog |
 | What is the full contract of one specific agent | the agent's own file, `agents/<group>/<name>.md` |
 | How does an agent hand off to the next one | `agents/handoff-protocol.md` |
 | How does the suite decide which agents a request needs | `docs/architecture/AGENT_ARCHITECTURE.md`, `docs/architecture/ORCHESTRATION.md` |
@@ -34,30 +34,35 @@ page points to, and referenced everywhere else.
 ## What is not yet built
 
 Named honestly rather than implied to exist: a `model-router` agent distinct
-from the `model-routing` skill, a `pentester`, a `reproduction` agent and a
-`research` agent. Full reasoning for the boundary in
+from the `model-routing` skill, a `pentester`, and a `reproduction` agent.
+Full reasoning for the boundary in
 `docs/architecture/multi-agent-assessment.md` section 3, whose own figures are
 those of the moment it was written.
 
 The rest of the list that used to stand here has since been built and shipped:
 `source-of-truth`, `checkup` and `final-verifier` in Phase 4,
-`design-research`, `design-verification` and `compliance-verifier` before them.
-`agents/README.md` is the roster of what exists, and
-`tests/validate-counts.sh` fails if a name in the paragraph above turns up as a
-file under `agents/`, so this page cannot go stale again in that direction.
+`design-research`, `design-verification` and `compliance-verifier` before them,
+and `researcher` (`agents/research/`) since: it owns the five `research/`
+skills, including cross-checking a claim two sources disagree on, and is the
+only agent with `WebSearch` and `WebFetch`. `agents/README.md` is the roster
+of what exists, and `tests/validate-counts.sh` fails if a name in the
+paragraph above turns up as a file under `agents/`, so this page cannot go
+stale again in that direction.
 
 ## Installing only what is needed
 
 Agents install independently of any single domain's skills:
 
 ```bash
-bash install.sh --agents      the twenty-six agents, no skills
+bash install.sh --agents      the twenty-seven agents, no skills
 bash install.sh --no-agents   skills without agents, for single-context work
 bash install.sh --dev         the engineering skills and the agents together
 ```
 
-A writer, a researcher or a job seeker installing `--writing`, `--research`
-or `--career` never receives an agent; the agent layer is specific to
-software delivery today, per `agents/README.md`'s own note that the writing
-and documents trees are sequential, single-context work where an agent
-boundary would add a handoff and remove nothing.
+A writer or a job seeker installing `--writing` or `--career` never receives
+an agent, per `documentation/agents.md`'s own note that the writing and
+documents trees are sequential, single-context work where an agent boundary
+would add a handoff and remove nothing. `--research` is the one exception
+outside software delivery: it installs `researcher`, because a research
+question that needs a live search and a fetched page is exactly the boundary
+an agent earns, in a way a CV or a cover letter does not.

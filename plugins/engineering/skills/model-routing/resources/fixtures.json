@@ -89,6 +89,7 @@
     {
       "id": "escalation-idor-discovered",
       "description": "A FRONTEND task reclassified after exploration reveals the endpoint it calls has no ownership check.",
+      "trigger": "reclassification",
       "prior": { "complexity": "MEDIUM", "model_tier": "balanced", "effort": "medium" },
       "new": { "complexity": "CRITICAL", "model_tier": "strongest", "effort": "max" },
       "reason": "task-complexity signal 4 revised: the endpoint returns another user's data with a forged id",
@@ -97,10 +98,22 @@
     {
       "id": "de-escalation-after-decomposition",
       "description": "A HIGH-by-breadth rename decomposed into three per-service LOW tasks, none carrying a risk signal.",
+      "trigger": "reclassification",
       "prior": { "complexity": "HIGH", "model_tier": "strongest", "effort": "high" },
       "new": { "complexity": "LOW", "model_tier": "fast", "effort": "low" },
       "reason": "task-complexity section 6: breadth-driven HIGH decomposed, each part re-classified on its own with no risk signal",
       "direction": "de-escalation"
+    },
+    {
+      "id": "escalation-output-quality-missed-sections",
+      "description": "A synthesis-reporting dispatch on balanced tier came back without the sections the brief required, with no reclassification of the task itself.",
+      "trigger": "output-quality-failure",
+      "quality_trigger": "missed-required-section",
+      "prior": { "complexity": "MEDIUM", "model_tier": "balanced", "effort": "medium" },
+      "new": { "complexity": "MEDIUM", "model_tier": "strongest", "effort": "high" },
+      "reason": "the confidence statement and the open-questions section the brief required were both absent from the returned synthesis",
+      "direction": "escalation",
+      "failed_output_kept": true
     }
   ]
 }

@@ -31,5 +31,31 @@
       "when": "the expected output is large and mechanical with no judgment calls inside it",
       "effect": "route lighter and decompose, regardless of file count"
     }
+  ],
+  "quality_escalation_triggers": [
+    {
+      "id": "shallow-against-acceptance",
+      "when": "the output is shallow against the brief's own acceptance items"
+    },
+    {
+      "id": "factual-error-on-verification",
+      "when": "a factual error is found when the output is verified"
+    },
+    {
+      "id": "uncited-claim",
+      "when": "a claim appears where a citation was required and none is given"
+    },
+    {
+      "id": "missed-required-section",
+      "when": "a section the brief required is missing from the output"
+    },
+    {
+      "id": "failed-test-or-gate",
+      "when": "a test fails, or the review gate fails"
+    },
+    {
+      "id": "contradiction-with-sources",
+      "when": "the output contradicts a source it cites or should have checked"
+    }
   ]
 }

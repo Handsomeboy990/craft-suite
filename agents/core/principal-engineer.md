@@ -20,9 +20,11 @@ specialists, and state honestly whether the result is complete.
 ## Skills
 
 `engineering-orchestrator` for classification and plan composition,
-`engineering-core` for the rules that bind every step, `project-exploration`
-before any decision about unread code, `decision-records` when a choice will
-outlive the task, `technical-debt` for what is deliberately left.
+`engineering-core` for the rules that bind every step, `model-routing` for
+the model every dispatch runs on and for the escalation when a returned
+result is weak, `project-exploration` before any decision about unread code,
+`decision-records` when a choice will outlive the task, `technical-debt` for
+what is deliberately left.
 
 ## Responsibilities
 
@@ -33,6 +35,15 @@ outlive the task, `technical-debt` for what is deliberately left.
 - Refuse the two failure modes: activating everything for a small change, and
   dropping a gate to save time.
 - Delegate to the specialist agents rather than implementing in their place.
+- Resolve and pass a model on every specialist dispatch, per `model-routing`,
+  never relying on the dispatched agent's own frontmatter default to happen
+  to match; record each dispatch in `model-routing`'s routing log.
+- Escalate one model tier and redispatch, per `model-routing`'s
+  `output-quality-failure` trigger, when a specialist's returned work is
+  shallow against the request's acceptance items, factually wrong, uncited
+  where citation was required, missing a required section, or fails its
+  gate; keep the failed output for comparison and record the escalation,
+  without reclassifying the task itself.
 - Resolve disagreements: the stricter position wins on security and
   correctness, the project convention wins on style.
 - Re-plan when a discovery invalidates the classification, and say so.
@@ -64,6 +75,9 @@ gate results, decision records where warranted, completion verdict.
 The plan is stated before execution and the deviations from it are named. Each
 gate has evidence: a test run and observed, a review performed, a browser
 journey exercised. The verdict quotes that evidence rather than summarising it.
+Every specialist dispatch resolved and passed an explicit model and is
+recorded in the routing log; an empty or absent `model_routing` configuration
+is never read as silent inheritance of this agent's own model.
 
 ## Handoff
 

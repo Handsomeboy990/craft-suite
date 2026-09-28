@@ -138,9 +138,15 @@ it when the project already decided.
 The three field names are fixed policy, not a preference: they are the tier
 names `model-routing` section 2 routes to. What each resolves to is not fixed,
 because model availability differs by account and changes over time. Empty
-means this runtime's own default resolution for that tier is used. A filled
+does not mean this runtime picks a sensible default for that tier: on Claude
+Code, an omitted model inherits the orchestrating session's own model, so an
+empty value here would mean every dispatch silently runs on whichever model
+happens to be orchestrating, with no relation to the tier this skill computed.
+`model-routing` instead applies its own documented default mapping, `fast:
+haiku, balanced: sonnet, strongest: opus`, per `resources/routing-policy.md`
+in that skill, and announces and records that the default was used. A filled
 value is a short model name this runtime accepts, never a full versioned
-identifier.
+identifier, and overrides the default for that tier.
 
 ### documents
 
