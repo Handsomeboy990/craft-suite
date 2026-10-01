@@ -12,4 +12,5 @@ export {
   type TooltipProviderProps,
 } from "./components/tooltip/tooltip";
 export { Reveal, type RevealProps } from "./components/reveal/reveal";
+export { Marquee, type MarqueeProps } from "./components/marquee/marquee";
 export { useReducedMotion } from "./hooks/use-reduced-motion";

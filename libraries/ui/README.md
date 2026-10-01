@@ -23,9 +23,10 @@ reference analysis are in `docs/architecture/RESOURCE_LIBRARY.md` and
 | `Dialog` | `@radix-ui/react-dialog` | a required accessible name, token styling, a closed API over the base |
 | `Tooltip`, `TooltipProvider` | `@radix-ui/react-tooltip` | a required `content`, token styling, a closed API, self-providing or grouped |
 | `Reveal` | the platform (IntersectionObserver), motion tokens | a scroll-in reveal that never hides content, reduced-motion safe |
+| `Marquee` | the platform (Web Animations API), space tokens | a seamless loop with a named group, an `aria-hidden` inert duplicate, pause on hover, focus and a toggle; static and wrapped under reduced motion |
 | `useReducedMotion` | `matchMedia` | the reduced-motion signal the motion layer treats as a hard floor |
 
-This is the foundation plus the start of the motion layer. Further primitives
+This is the foundation plus the first pieces of the motion layer. Further primitives
 arrive in the phase-8.1 PRs that follow, and the duplicated site-example code
 is consolidated into this library.
 
