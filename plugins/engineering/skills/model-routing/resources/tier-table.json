@@ -30,6 +30,11 @@
       "id": "large-mechanical-output",
       "when": "the expected output is large and mechanical with no judgment calls inside it",
       "effect": "route lighter and decompose, regardless of file count"
+    },
+    {
+      "id": "independent-verifier-floor",
+      "when": "the dispatch is an independent gate verifying another dispatch's work: final-verifier, pr-reviewer or compliance-verifier",
+      "effect": "route no lighter, in model tier and effort, than the dispatch whose work it verifies"
     }
   ],
   "quality_escalation_triggers": [

@@ -22,15 +22,19 @@ are written down where the next reader can see them.
 One row per dispatch, appended, never edited after the fact. A correction is
 a new row, not a rewrite of an old one.
 
-| # | Agent | Task | Complexity | Model tier | Resolved model | Override fired | Reason | Outcome |
-|---|---|---|---|---|---|---|---|---|
-| 1 | `researcher` | Verify the vendor's uptime claim | MEDIUM | balanced | sonnet | none | table default | confirmed, one source, no contradiction |
-| 2 | `backend-engineer` | Reset-token comparison | HIGH | strongest | opus | security-driving-signal | authentication surface | passed review |
-| 3 | `frontend-engineer` | Rename a shared prop across three components | LOW | fast | haiku | large-mechanical-output | mechanical, no judgment calls | passed review |
+| # | Dispatch | Agent | Task | Complexity | Model tier | Resolved model | Override fired | Reason | Outcome |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | D0.1 | `researcher` | Verify the vendor's uptime claim | MEDIUM | balanced | sonnet | none | table default | confirmed, one source, no contradiction |
+| 2 | D2.1 | `backend-engineer` | Reset-token comparison | HIGH | strongest | opus | security-driving-signal | authentication surface | passed review |
+| 3 | D2.2 | `frontend-engineer` | Rename a shared prop across three components | LOW | fast | haiku | large-mechanical-output | mechanical, no judgment calls | passed review |
+| 4 | D4.1 | `final-verifier` | Reproduce the reset-token evidence | LOW | strongest | opus | independent-verifier-floor | verifies dispatch 2, routed strongest | reproduced, done |
 
 Columns:
 
 - **#**: sequential, one per dispatch, never reused.
+- **Dispatch**: the dispatch id of the chief's dispatch record,
+  `D<wave>.<n>`, so each worker of a parallel wave has its own row. Rows 2
+  and 3 above are two workers of one wave, routed separately.
 - **Agent**: the subagent type dispatched.
 - **Task**: one line, enough to identify it later.
 - **Complexity**: the `task-complexity` tier at dispatch time.

@@ -83,6 +83,15 @@
       "override": "large-mechanical-output",
       "expected_model_tier": "balanced",
       "expected_effort": "high"
+    },
+    {
+      "id": "override-verifier-floor-on-low",
+      "description": "final-verifier reproducing the evidence of a CRITICAL payment fix, its own reproduction steps rating LOW.",
+      "complexity": "LOW",
+      "driving_signal": "independent gate over a dispatch routed strongest at max effort",
+      "override": "independent-verifier-floor",
+      "expected_model_tier": "strongest",
+      "expected_effort": "max"
     }
   ],
   "transition_fixtures": [
