@@ -125,9 +125,9 @@ ones, which is exactly what the gate exists to prevent.
 
 ## 8. The agents
 
-Twenty-six roles, defined in `agents/`, grouped by kind of work: `core`,
-`development`, `design`, `security`, `testing`, `documentation`, `devops`. An
-agent is thin by design:
+Thirty-three roles, defined in `agents/`, grouped by kind of work: `core`,
+`development`, `design`, `security`, `testing`, `documentation`, `devops`,
+`research`. An agent is thin by design:
 the expertise lives in the skills, the agent decides which apply, executes
 within its boundary, and hands off through a durable artefact.
 
@@ -157,7 +157,10 @@ within its boundary, and hands off through a durable artefact.
 ```
 
 The lines are handoff paths, not a chain of command. Every agent reports to
-the orchestrator, which holds the gates.
+the orchestrator, which holds the gates. The diagram shows the core delivery
+path only. The full map, every one of the thirty-three agents in its team under
+a named lead with the condition that brings it in, is
+`engineering/delivery-skills/delivery-orchestrator/resources/team-routing.md`.
 
 ### Review gates
 

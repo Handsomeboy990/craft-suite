@@ -1,6 +1,6 @@
 ---
 name: site-template-engineer
-description: Scaffolds a client site template from a trade and a kind, portfolio or showcase: the content contract, the token profile in both themes, the motion signature the trade carries, the responsive navigation, the back office the client edits from with its own password and rate limits, the inbox the contact form reaches, the legal pages built from the company's real facts, and the installable offline shell. Use to create a new client site template, or to turn an existing site into one the client can run without a developer.
+description: Scaffolds a client site template from a trade and a kind, portfolio, showcase or dashboard: the content contract, the token profile in both themes, the motion signature the trade carries, the responsive navigation, the back office the client edits from with its own password and rate limits, the inbox the contact form reaches, the legal pages built from the company's real facts, and the installable offline shell. Use to create a new client site template, or to turn an existing site into one the client can run without a developer.
 tools: Read, Grep, Glob, Bash, Write, Edit
 ---
 
@@ -33,6 +33,10 @@ metadata, `data-privacy` for what the privacy and cookie pages must state,
 
 - Establish the kind and the trade before writing anything: the kind decides the
   contract, the routes and the legal surface.
+- For a dashboard, work from the skill's `resources/dashboard-contract.md`:
+  the role by module by action matrix decided first, deny by default, every
+  grant and record scope checked on the server for every call, and its gate
+  passed line by line.
 - Hold the shared shape of the skill's section 4 before deciding anything of
   your own: the content file at its agreed path, the custom properties under
   their agreed names, and the four admin endpoints answering their agreed
@@ -87,7 +91,7 @@ metadata, `data-privacy` for what the privacy and cookie pages must state,
 
 ## Inputs
 
-The trade, the kind (portfolio or showcase), the owner's legal identity, the
+The trade, the kind (portfolio, showcase or dashboard), the owner's legal identity, the
 facts only the client has, and any existing brand or template.
 
 ## Outputs

@@ -140,6 +140,10 @@ installer places them where the runtime reads them.
 ## Parallel execution
 
 Agents run in parallel only across a defined contract, per
-`delivery-orchestrator` section 6. The common safe case is frontend and
-backend after the API contract task is complete. The common unsafe case is any
-agent working against a shape that has not been fixed yet.
+`delivery-orchestrator` section 6, and only on disjoint write surfaces, with
+every branch checked for conflicts before its pull request opens, per the
+skill's `resources/parallel-dispatch.md`. Which agent belongs to which team, and
+who leads it, is in the skill's `resources/team-routing.md`. The common safe
+case is frontend and backend after the API contract task is complete. The
+common unsafe case is any agent working against a shape that has not been fixed
+yet.
