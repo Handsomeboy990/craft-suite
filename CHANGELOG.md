@@ -35,6 +35,10 @@ library of resources. Not yet version-bumped.
 - The start of the motion layer: `useReducedMotion` and a `Reveal` component,
   CSS-driven and reduced-motion safe, the original of the Reveal the two site
   examples each copy.
+- A drift guard on the site-template examples: `examples/shared-files.txt` names
+  the twenty-nine files the two examples share, and a CI step fails if any
+  drifts between them. The full single-source refactor is deferred because the
+  shared files import the per-app content model.
 
 ## 3.29.0 the codebase map
 
