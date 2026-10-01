@@ -725,6 +725,30 @@ The multi-role expansion, version 3.28.0:
   synchronised everywhere, hand-written prose included. Manifests bumped to
   3.28.0 in lockstep. All six scripts pass: 167 skills, 32 agents, 0 errors.
 
+The codebase map, version 3.29.0:
+
+- `codebase-mapping` (`engineering/dev-skills/`), skills 167 to 168: a
+  durable, versioned structural map of a codebase that agents consult instead
+  of re-reading the repository. Three layers, an index, one node per
+  subsystem and a symbol-level wiring graph with file and line on every edge;
+  a deterministic structural pass first and an optional summary pass marked as
+  such; a stamp naming the commit it describes; a freshness check before every
+  use, so a stale node is answered from the source and never trusted; and
+  incremental regeneration of only the subsystems that changed. Answers map,
+  skeleton, callers and trace queries. The approach follows the idea behind
+  open-source context layers for coding agents such as Graft (MIT); the skill
+  states it in the suite's own terms and reuses no code or text. Placed after
+  `project-exploration` in the EXPLORATION and LEGACY plans.
+- `codebase-cartographer` (`agents/core/`), agents 32 to 33: owns that map,
+  builds it, keeps it true, answers structural questions for other agents, and
+  never changes application code. Engineering bundle 28 to 29 agents, 85 to 86
+  skills.
+- Counts synchronised everywhere, and a pre-existing drift corrected on the
+  way: several prose totals still said 166 skills when the tree held 167; they
+  now say 168, the real figure.
+- Manifests bumped to 3.29.0 in lockstep. All six scripts pass: 168 skills,
+  33 agents, 0 errors.
+
 ## Current state
 
 Working today:

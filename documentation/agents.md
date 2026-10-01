@@ -1,6 +1,6 @@
 # Agents
 
-Thirty-two agent definitions, for a runtime that supports subagents.
+Thirty-three agent definitions, for a runtime that supports subagents.
 
 This document explains the difference between a skill, an agent and
 orchestration, and gives the public contract of each agent. The definitions
@@ -78,6 +78,7 @@ sequence. `tests/validate-counts.sh` fails when the two disagree on the count.
 | `ci-cd-engineer` | the integration and delivery pipeline and its gates | a repository and its target environments | `qa-engineer`, `release-engineer` |
 | `design-director` | direction and sign-off over the whole design | a product that must read as designed, not generic | `design-research`, `ui-ux-engineer`, `design-verification` |
 | `delivery-manager` | the schedule and the deadline, without trading a gate | a project with a deadline to hold | `delivery-orchestrator` |
+| `codebase-cartographer` | the structural map of the codebase, kept true | a large repository, or repeated exploration | `checkup`, `source-of-truth`, the implementing agent |
 
 ## The contract of every agent
 

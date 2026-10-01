@@ -17,7 +17,7 @@ dispatching the plan, and they are never listed as a plan step, the same way
 ## EXPLORATION
 
 category: EXPLORATION
-plan: project-exploration -> technical-documentation -> project-continuity
+plan: project-exploration -> codebase-mapping -> technical-documentation -> project-continuity
 
 Answer a question about the codebase. No code changes, so no test or review
 gate. Documentation only when the answer is worth keeping.
@@ -201,7 +201,7 @@ does not move data.
 ## LEGACY
 
 category: LEGACY
-plan: project-exploration -> legacy-code -> debugging -> testing-quality -> refactoring -> technical-debt -> regression-testing -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> codebase-mapping -> legacy-code -> debugging -> testing-quality -> refactoring -> technical-debt -> regression-testing -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
 Characterization tests come before any structural change, which is why
 `testing-quality` precedes `refactoring` here.

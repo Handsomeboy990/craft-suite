@@ -56,13 +56,13 @@ page once recorded as unfilled, `source-of-truth`, `checkup` and
 remains unfilled is recorded in `multi-agent-assessment.md` section 3 and in
 `docs/agents/README.md`, rather than filled with a thin, unreviewed stand-in.
 
-## The thirty-two agents, by group
+## The thirty-three agents, by group
 
 Agents live in `agents/<group>/`, a repository-wide tree independent of any
 single skill domain, so each domain's plugin carries its own agents rather than
 bundling them all in one: the security plugin ships `security-engineer`,
 `web-auditor` and `penetration-tester`, the research plugin ships `researcher`
-and `data-collection-engineer`, the engineering plugin the 28-agent delivery
+and `data-collection-engineer`, the engineering plugin the 29-agent delivery
 team (which keeps `security-engineer`, since its delivery flow dispatches it).
 The mapping lives in `install.sh` (`agent_domains`); `web-auditor`,
 `penetration-tester`, `researcher` and `data-collection-engineer` are each
@@ -71,7 +71,7 @@ and public contracts: `agents/README.md` and `documentation/agents.md`.
 
 | Group | Agents | Owns |
 |---|---|---|
-| `core` | `delivery-orchestrator`, `principal-engineer`, `requirements-analyst`, `compliance-verifier`, `pr-author`, `pr-reviewer`, `source-of-truth`, `checkup`, `final-verifier`, `delivery-manager` | the project lifecycle, a multi-surface request, requirements, the launch gate, opening and reviewing pull requests, canonical project truth, the pre-intervention inspection, the independent final gate, the schedule and deadline |
+| `core` | `delivery-orchestrator`, `principal-engineer`, `requirements-analyst`, `compliance-verifier`, `pr-author`, `pr-reviewer`, `source-of-truth`, `checkup`, `final-verifier`, `delivery-manager`, `codebase-cartographer` | the project lifecycle, a multi-surface request, requirements, the launch gate, opening and reviewing pull requests, canonical project truth, the pre-intervention inspection, the independent final gate, the schedule and deadline, the codebase map |
 | `development` | `software-architect`, `frontend-engineer`, `backend-engineer`, `database-engineer`, `performance-engineer`, `site-template-engineer` | architecture, client and server implementation, schema, measured performance, client site templates with their back office |
 | `design` | `ui-ux-engineer`, `design-verification`, `design-research`, `design-director` | the rendered experience and accessibility, generic-design detection, reference research, direction and sign-off over the whole design |
 | `security` | `security-engineer`, `web-auditor`, `penetration-tester` | audits and fixes, URL-driven site audit, authorized offensive testing |

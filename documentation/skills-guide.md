@@ -66,6 +66,7 @@ contracts.
 | The client wants a PDF | `pdf-production` |
 | I have a coding task | `engineering-orchestrator` |
 | I have never seen this codebase | `project-exploration` |
+| The codebase is too large to re-read every session | `codebase-mapping` |
 | I have a bug | `debugging` |
 | It is slow | `performance-engineering` |
 | Is it safe to ship | `release-readiness` |
@@ -175,6 +176,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `model-routing` | model tier, and effort where a lever exists, from that classification |
 | `token-optimization` | context and output proportional to the task, during the work |
 | `project-exploration` | maps an unfamiliar codebase before any change |
+| `codebase-mapping` | a durable, commit-stamped map of a large codebase, never trusted stale |
 | `architecture-design` | the smallest architecture that serves the product |
 | `ui-ux-engineering` | the rendered experience, states, accessibility |
 | `design-authenticity` | detects generic AI-default design, tests for intent |
@@ -263,7 +265,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `tls-certificates` | the TLS certificate over its whole life, key never leaked |
 | `email-deliverability` | mail into the inbox: SPF, DKIM, DMARC aligned, reputation, bounces |
 
-### agents, 32
+### agents, 33
 
 Core, nine: `delivery-orchestrator`, `principal-engineer`,
 `requirements-analyst`, `compliance-verifier`, `source-of-truth`, `checkup`,

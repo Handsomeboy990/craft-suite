@@ -1,6 +1,6 @@
 # dev-skills
 
-Senior full-stack engineering skill system. Fifty six skills that let an agent
+Senior full-stack engineering skill system. Fifty seven skills that let an agent
 work on a production codebase the way an experienced engineer does: read
 before writing, verify before claiming, and finish the whole vertical slice
 rather than the part that demonstrates well.
@@ -28,6 +28,7 @@ no em dash.
 |---|---|
 | `engineering-core` | the eight laws, evidence rule, certainty vocabulary, definition of done |
 | `project-exploration` | turns an unfamiliar repository into verified facts |
+| `codebase-mapping` | keeps those facts as a stamped map, regenerated as the code moves |
 | `engineering-orchestrator` | classifies the task, composes the plan, enforces the gates |
 | `task-complexity` | one complexity classification, read by every routing decision |
 | `model-routing` | model tier, and where a lever exists effort, from the classification |
