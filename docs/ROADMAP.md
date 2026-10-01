@@ -180,6 +180,97 @@ a real reference.
   `usage.fr.md` and `overview.fr.md` are the only French documents, and
   `usage.fr.md` says so rather than leaving the reader to discover it.
 
+## Phase 8: resources by domain, studied from real projects
+
+The suite becomes a library of resources, not only of knowledge: code a project
+installs and runs, built per domain, each domain led by an agent under the one
+chief orchestrator. Every resource is an original implementation drawn from the
+patterns of real projects, never a copy, and passes the gates before it ships.
+The direction, the target shape and the reference projects are in
+`docs/architecture/RESOURCE_LIBRARY.md`. Sequenced by leverage: structure
+first, then the UI library, then the agent and operations layers.
+
+### 8.0 Structure and hygiene, do first
+
+- [ ] **The resource-library decision record** (S). An immutable
+  `decision-records` entry capturing the target shape, why the skill trees stay
+  at root, and the originality-from-reference rule. This file is the proposal;
+  the record is its ratification once approved.
+- [ ] **Changelog versus continuity** (S). `CHANGELOG.md` is a stale second
+  copy of `CONTINUITY.md`, same title, diverged session numbering. Make it a
+  real changelog, one entry per released version rebuilt from history;
+  `CONTINUITY.md` stays the running state. Removes a standing source of
+  contradiction.
+- [ ] **The `libraries/` home** (S). Create `libraries/` with its README and
+  the contract a library obeys: own licence, own tests, a documentation page
+  per component, a build or validation step wired into CI. No code yet, just
+  the shape and the gate.
+
+### 8.1 The UI library
+
+- [ ] **Analyse the UI references** (M). First-hand read of `shark-ui`,
+  `neonblade-ui`, `start-theme-demo`, and React Bits for patterns only, each
+  with its licence confirmed and recorded. Output: the pattern and principle
+  notes `design-research` produces, not code.
+- [ ] **`libraries/ui` foundation** (M). Design tokens as CSS variables
+  (colour, type scale, spacing, radius, elevation, motion), then the accessible
+  primitives, on the shadcn ownership model: code a project owns, not a
+  dependency. Governed by `design-system`, built to pass `accessibility-testing`
+  and `frontend-engineering`. `dependency-selection` decides Radix or Base UI
+  for the hard primitives before any is added.
+- [ ] **Consolidate the duplicated site code** (M). Move the twenty-nine
+  identical files out of the two `site-template-generation` examples into
+  `libraries/ui`, have both examples consume it, and prove both still build and
+  export. Closes the duplication that proved the library was missing.
+- [ ] **The motion layer** (M). A small set of signature effects chosen for a
+  project's identity, not a catalogue: scroll reveal, staggered entrance,
+  magnetic and tilt hover, logo marquee, scroll-stacked cards, one background.
+  Each ships a reduced-motion variant, a performance budget, and the lightest
+  technique that suffices per the `animation` ladder. `design-director` signs
+  off that the set reads as intended, not as generic defaults.
+
+### 8.2 Fonts and front-end performance
+
+- [ ] **Analyse `google-webfonts-helper`** (S), licence confirmed, then a font
+  self-hosting resource: subsetting, `font-display`, preload, no layout shift.
+  Feeds `seo-engineering` and the performance concerns, not a dependency.
+
+### 8.3 The agent and orchestration layer
+
+- [ ] **Analyse Graft and `opencode`** (M), first-hand, for the context-map and
+  the subagent-orchestration patterns. `codebase-mapping` already carries the
+  Graft idea; this pass finds what the chief and the orchestration skills still
+  lack.
+- [ ] **Sharpen the chief** (M). Strengthen the skills `delivery-orchestrator`
+  and `engineering-orchestrator` load, and `model-routing` and `task-complexity`
+  under them, so the one orchestrator over all agents dispatches, gates and
+  escalates better. No second chief is added.
+
+### 8.4 Security and accessibility, measured
+
+- [ ] **Analyse OpenSec and `curb`** (M), first-hand. OpenSec's probe, validate
+  by attack-path, ledger pattern feeds `security-audit` and the authorized
+  testing agents. `curb`'s measured-outcome and verify-loop discipline feeds
+  `accessibility-testing`.
+- [ ] **Accessibility remediation capability** (L, decide first). Whether the
+  suite gains a remediation skill and agent that fix a surface and verify the
+  fix helped assistive-technology users, not merely silenced a scanner.
+  `technology-selection` decides scope before any build.
+
+### 8.5 PHP and templating, if warranted
+
+- [ ] **Decide the PHP question** (M). `dependency-selection` and
+  `technology-selection` judge, from `Twig`, `twig-stack-extension`,
+  `webmozarts/assert` and `theseer/tokenizer`, whether a PHP or templating
+  domain earns its place against what the suite builds. The recommendation is
+  recorded before any PHP code lands; a no is a valid, recorded outcome.
+
+### 8.6 Applications as worked references
+
+- [ ] **Analyse `confhub` and `yc_directory`** (M) as full applications, not
+  libraries: what they teach the delivery and full-stack skills, captured as
+  reference notes, with nothing copied.
+
 ## Parked and external
 
 Not waiting on work in this repository.
