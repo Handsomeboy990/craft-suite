@@ -1,6 +1,6 @@
 # Agents
 
-Twenty-seven agent definitions, for a runtime that supports subagents.
+Thirty-two agent definitions, for a runtime that supports subagents.
 
 This document explains the difference between a skill, an agent and
 orchestration, and gives the public contract of each agent. The definitions
@@ -73,6 +73,11 @@ sequence. `tests/validate-counts.sh` fails when the two disagree on the count.
 | `release-engineer` | whether it ships, and how | every gate passed | production verification |
 | `incident-responder` | a degraded production system | an alert or a report | `debugging`, `qa-engineer`, the action items |
 | `researcher` | a research question, and verification of a contested claim | a question, in or out of a delivery | the requester or the orchestrator, `report-writing` for a delivered document |
+| `data-collection-engineer` | lawful, provenanced data collection from external sources | data is needed from the web | `researcher`, then the build agents |
+| `penetration-tester` | authorized offensive testing driven to bounded proofs | a target and written, in-scope authorization | `security-engineer` per finding, then re-test |
+| `ci-cd-engineer` | the integration and delivery pipeline and its gates | a repository and its target environments | `qa-engineer`, `release-engineer` |
+| `design-director` | direction and sign-off over the whole design | a product that must read as designed, not generic | `design-research`, `ui-ux-engineer`, `design-verification` |
+| `delivery-manager` | the schedule and the deadline, without trading a gate | a project with a deadline to hold | `delivery-orchestrator` |
 
 ## The contract of every agent
 

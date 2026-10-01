@@ -794,6 +794,46 @@ reproduction exception, version 3.27.0:
   (1 pre-existing warning), orchestration, plugins and counts; 12
   `model-routing` fixtures, 0 errors.
 
+Session 31, the multi-role expansion, version 3.28.0:
+
+- Five agents added, 27 to 32, all composing skills that already existed, no
+  new skill written. `penetration-tester` (`agents/security/`): the authorized
+  offensive tester the old `pentester` placeholder in `docs/agents/README.md`
+  stood for, gated on a written, in-scope authorization exactly as
+  `web-auditor`'s active battery is, driving each finding to a bounded proof
+  and handing it to `security-engineer` to fix, then re-testing. It never
+  concludes a target is secure and never runs without the authorization on
+  record. `ci-cd-engineer` (`agents/devops/`): the pipeline and the gates
+  wired into it, never a green build bought by disabling a check.
+  `design-director` (`agents/design/`): direction and sign-off over the whole
+  design, holding it to `design-authenticity`'s intentionality standard so the
+  result does not read as generic defaults, dispatching `design-research`,
+  `ui-ux-engineer` and `design-verification` without signing off its own work.
+  `delivery-manager` (`agents/core/`): the schedule and the deadline, pace kept
+  without ever proposing to trade a mandatory gate for time.
+  `data-collection-engineer` (`agents/research/`): lawful, provenanced data
+  collection that honours robots rules and terms of service, prefers an API to
+  scraping, rate-limits itself and never bypasses an access control.
+- Domain mapping in `install.sh` (`agent_domains`): `penetration-tester` is
+  security-only, `data-collection-engineer` research-only, the other three
+  belong to engineering. Bundles rebuilt: engineering 25 to 28 agents,
+  security 2 to 3, research 1 to 2.
+- Counts synchronised everywhere `validate-counts.sh` reads them, plus the
+  prose it does not: `agents/README.md` (table, structure, review gates),
+  `AGENT_ARCHITECTURE.md` (by-group table), `docs/agents/README.md`
+  (`pentester` removed from "not yet built", the five added to what shipped),
+  and the two READMEs, `AGENTS.md`, `overview`, `installation`, `usage`,
+  `plugins.md`, `skills-guide`, `engineering-system`, `delivery-system`,
+  `SKILL_AGENT_MATRIX`, `CONTRIBUTING` and the installer menus.
+- Version 3.28.0, minor: additive, no breaking change to an installed suite.
+  `marketplace.json` and all seven `plugin.json` manifests bumped together,
+  the established lockstep convention; the engineering and research plugin
+  descriptions updated to the new agent counts.
+- `AGENT_NAMES` in `tests/validate-orchestration.sh` extended by the five, so
+  check 10 (eight mandatory sections, name match, listed in `agents/README.md`)
+  and check 11 (every cited skill is real) cover them. All six scripts pass:
+  167 skills, 32 agents, 0 errors; 12 `model-routing` fixtures, 0 errors.
+
 ## Current state
 
 Working today:

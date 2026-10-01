@@ -1,6 +1,6 @@
 # agents
 
-Twenty-seven specialised agent definitions for an agent runtime that supports
+Thirty-two specialised agent definitions for an agent runtime that supports
 subagents, such as Claude Code.
 
 An agent here is a role with a narrow responsibility. It is thin by design:
@@ -19,7 +19,7 @@ Agent   who owns this piece of work, what they may touch, what they hand on
 Duplicating a skill's content into an agent produces two documents that drift.
 Every agent below references the skills it uses and never restates them.
 
-## The twenty-seven
+## The thirty-two
 
 | Agent | Owns | Primary skills |
 |---|---|---|
@@ -50,6 +50,11 @@ Every agent below references the skills it uses and never restates them.
 | `release-engineer` | release verification and rollout | release-readiness, release-engineering |
 | `incident-responder` | a degraded production system, then the postmortem | incident-response, observability |
 | `researcher` | a research question answered from real, cited sources, and the verification of a contested claim | research-core, source-research, source-verification |
+| `data-collection-engineer` | data gathered from external sources lawfully and correctly, with provenance | source-research, source-verification, input-validation |
+| `penetration-tester` | authorized offensive testing driven to bounded proofs, then re-tested after fixes | authorized-pentesting, vulnerability-assessment, security-testing |
+| `ci-cd-engineer` | the integration and delivery pipeline and the gates wired into it | ci-cd-pipelines, workflow-automation, deployment-engineering |
+| `design-director` | the whole design result held to one intentional, authentic identity | design-authenticity, design-system, ui-ux-engineering |
+| `delivery-manager` | the schedule and the deadline, pace kept without cutting a gate | delivery-planning, scope-and-change-control, task-complexity |
 
 ## Structure
 
@@ -100,6 +105,16 @@ devops-engineer        -> security-engineer, release-engineer
 security-engineer      -> qa-engineer, for the tests that encode each fix
 incident-responder     -> qa-engineer for the regression, release-engineer for
                           the hotfix path
+penetration-tester     -> security-engineer for every finding, then re-tests
+                          each fix until no exploitable path remains
+ci-cd-engineer         -> qa-engineer for the suites it runs, release-engineer
+                          for the rollout gate
+design-director        -> design-research, ui-ux-engineer and design-verification,
+                          none of which signs off its own work
+delivery-manager       -> delivery-orchestrator, which holds the gates the
+                          schedule may never trade away
+data-collection-engineer -> researcher for the cited synthesis of what it
+                          gathered
 ```
 
 ## Handoff

@@ -56,28 +56,29 @@ page once recorded as unfilled, `source-of-truth`, `checkup` and
 remains unfilled is recorded in `multi-agent-assessment.md` section 3 and in
 `docs/agents/README.md`, rather than filled with a thin, unreviewed stand-in.
 
-## The twenty-seven agents, by group
+## The thirty-two agents, by group
 
 Agents live in `agents/<group>/`, a repository-wide tree independent of any
 single skill domain, so each domain's plugin carries its own agents rather than
-bundling them all in one: the security plugin ships `security-engineer` and
-`web-auditor`, the research plugin ships `researcher`, the engineering plugin
-the 25-agent delivery team (which keeps `security-engineer`, since its
-delivery flow dispatches it). The mapping lives in `install.sh`
-(`agent_domains`); `web-auditor` and `researcher` are each specific to their
-own domain, every other agent belongs to engineering. Catalog and public
-contracts: `agents/README.md` and `documentation/agents.md`.
+bundling them all in one: the security plugin ships `security-engineer`,
+`web-auditor` and `penetration-tester`, the research plugin ships `researcher`
+and `data-collection-engineer`, the engineering plugin the 28-agent delivery
+team (which keeps `security-engineer`, since its delivery flow dispatches it).
+The mapping lives in `install.sh` (`agent_domains`); `web-auditor`,
+`penetration-tester`, `researcher` and `data-collection-engineer` are each
+specific to their own domain, every other agent belongs to engineering. Catalog
+and public contracts: `agents/README.md` and `documentation/agents.md`.
 
 | Group | Agents | Owns |
 |---|---|---|
-| `core` | `delivery-orchestrator`, `principal-engineer`, `requirements-analyst`, `compliance-verifier`, `pr-author`, `pr-reviewer`, `source-of-truth`, `checkup`, `final-verifier` | the project lifecycle, a multi-surface request, requirements, the launch gate, opening and reviewing pull requests, canonical project truth, the pre-intervention inspection, the independent final gate |
+| `core` | `delivery-orchestrator`, `principal-engineer`, `requirements-analyst`, `compliance-verifier`, `pr-author`, `pr-reviewer`, `source-of-truth`, `checkup`, `final-verifier`, `delivery-manager` | the project lifecycle, a multi-surface request, requirements, the launch gate, opening and reviewing pull requests, canonical project truth, the pre-intervention inspection, the independent final gate, the schedule and deadline |
 | `development` | `software-architect`, `frontend-engineer`, `backend-engineer`, `database-engineer`, `performance-engineer`, `site-template-engineer` | architecture, client and server implementation, schema, measured performance, client site templates with their back office |
-| `design` | `ui-ux-engineer`, `design-verification`, `design-research` | the rendered experience and accessibility, generic-design detection, reference research |
-| `security` | `security-engineer`, `web-auditor` | audits and fixes, URL-driven site audit |
+| `design` | `ui-ux-engineer`, `design-verification`, `design-research`, `design-director` | the rendered experience and accessibility, generic-design detection, reference research, direction and sign-off over the whole design |
+| `security` | `security-engineer`, `web-auditor`, `penetration-tester` | audits and fixes, URL-driven site audit, authorized offensive testing |
 | `testing` | `qa-engineer`, `playwright-engineer` | test strategy, browser verification |
 | `documentation` | `documentation-engineer` | documentation matching the implementation |
-| `devops` | `devops-engineer`, `release-engineer`, `incident-responder` | environments and pipeline, release verification, incident response |
-| `research` | `researcher` | a research question answered from real, cited sources, and verification of a contested claim |
+| `devops` | `devops-engineer`, `release-engineer`, `incident-responder`, `ci-cd-engineer` | environments and pipeline, release verification, incident response, the CI/CD pipeline and its gates |
+| `research` | `researcher`, `data-collection-engineer` | a research question answered from real, cited sources and verification of a contested claim, lawful data collection with provenance |
 
 ## The agent contract
 

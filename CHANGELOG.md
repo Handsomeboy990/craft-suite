@@ -704,6 +704,27 @@ reproduction exception, version 3.27.0:
   (1 pre-existing warning), orchestration, plugins and counts; 12
   `model-routing` fixtures, 0 errors.
 
+The multi-role expansion, version 3.28.0:
+
+- Five agents added, 27 to 32, all composing skills that already existed, no
+  new skill written: `penetration-tester` (`agents/security/`), authorized
+  offensive testing gated exactly as `web-auditor`'s active battery, driving
+  each finding to a bounded proof and handing it to `security-engineer`, then
+  re-testing; `ci-cd-engineer` (`agents/devops/`), the pipeline and its gates,
+  never green by disabling a check; `design-director` (`agents/design/`),
+  direction and sign-off over the whole design against the
+  `design-authenticity` standard, signing off no work of its own;
+  `delivery-manager` (`agents/core/`), the schedule and the deadline with the
+  mandatory gates never traded for time; `data-collection-engineer`
+  (`agents/research/`), lawful, provenanced collection that honours robots
+  rules and terms of service and never bypasses an access control.
+- `agent_domains` in `install.sh`: `penetration-tester` security-only,
+  `data-collection-engineer` research-only, the rest engineering. Bundles
+  rebuilt: engineering 25 to 28 agents, security 2 to 3, research 1 to 2.
+- `AGENT_NAMES` in `validate-orchestration.sh` extended by the five; counts
+  synchronised everywhere, hand-written prose included. Manifests bumped to
+  3.28.0 in lockstep. All six scripts pass: 167 skills, 32 agents, 0 errors.
+
 ## Current state
 
 Working today:
