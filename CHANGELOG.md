@@ -39,6 +39,19 @@ library of resources. Not yet version-bumped.
   the twenty-nine files the two examples share, and a CI step fails if any
   drifts between them. The full single-source refactor is deferred because the
   shared files import the per-app content model.
+- The motion layer continued in `libraries/ui`: `Tooltip`, `Marquee` and
+  `Counter`, accessible and reduced-motion safe.
+- A third kind for `site-template-generation`: `dashboard`, an operations
+  application for an organisation's staff, with its contract, a twenty-six point
+  gate and a hotel operations specification, drawn from the principles of the
+  owner's back office.
+- The chief sharpened: `delivery-orchestrator` 1.1.0 leads all thirty-three
+  agents as teams under named leads, dispatches in parallel without merge
+  conflicts, accepts handoffs on evidence, escalates by a fixed ladder, and
+  never trades a gate for a date.
+- The documentation brought in line: the agent count in the delivery system,
+  the orchestrator agent's delegation pointing at the team map, and the
+  dashboard kind in the site-template agent and the skills index.
 
 ## 3.29.0 the codebase map
 

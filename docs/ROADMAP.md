@@ -192,27 +192,32 @@ first, then the UI library, then the agent and operations layers.
 
 ### 8.0 Structure and hygiene, do first
 
-- [ ] **The resource-library decision record** (S). An immutable
+- [x] **The resource-library decision record** (S). Done:
+  `docs/decisions/0001-resource-library-structure.md`, accepted. An immutable
   `decision-records` entry capturing the target shape, why the skill trees stay
   at root, and the originality-from-reference rule. This file is the proposal;
   the record is its ratification once approved.
-- [ ] **Changelog versus continuity** (S). `CHANGELOG.md` is a stale second
+- [x] **Changelog versus continuity** (S). Done: `CHANGELOG.md` rebuilt as
+  the version history, newest first, with an Unreleased section. `CHANGELOG.md` is a stale second
   copy of `CONTINUITY.md`, same title, diverged session numbering. Make it a
   real changelog, one entry per released version rebuilt from history;
   `CONTINUITY.md` stays the running state. Removes a standing source of
   contradiction.
-- [ ] **The `libraries/` home** (S). Create `libraries/` with its README and
+- [x] **The `libraries/` home** (S). Done: `libraries/README.md` and the CI
+  guard. Create `libraries/` with its README and
   the contract a library obeys: own licence, own tests, a documentation page
   per component, a build or validation step wired into CI. No code yet, just
   the shape and the gate.
 
 ### 8.1 The UI library
 
-- [ ] **Analyse the UI references** (M). First-hand read of `shark-ui`,
+- [x] **Analyse the UI references** (M). Done:
+  `docs/architecture/UI_REFERENCES.md`. First-hand read of `shark-ui`,
   `neonblade-ui`, `start-theme-demo`, and React Bits for patterns only, each
   with its licence confirmed and recorded. Output: the pattern and principle
   notes `design-research` produces, not code.
-- [ ] **`libraries/ui` foundation** (M). Design tokens as CSS variables
+- [x] **`libraries/ui` foundation** (M). Done: tokens, `Dialog`, Radix chosen
+  in `docs/decisions/0002-ui-primitive-base.md`, typecheck and tests in CI. Design tokens as CSS variables
   (colour, type scale, spacing, radius, elevation, motion), then the accessible
   primitives, on the shadcn ownership model: code a project owns, not a
   dependency. Governed by `design-system`, built to pass `accessibility-testing`
@@ -233,7 +238,12 @@ first, then the UI library, then the agent and operations layers.
   magnetic and tilt hover, logo marquee, scroll-stacked cards, one background.
   Each ships a reduced-motion variant, a performance budget, and the lightest
   technique that suffices per the `animation` ladder. `design-director` signs
-  off that the set reads as intended, not as generic defaults.
+  off that the set reads as intended, not as generic defaults. Done so far:
+  `useReducedMotion`, `Reveal`, `Marquee`, `Counter` and the `Tooltip`
+  primitive, each reduced-motion safe and tested in jsdom. Still to do:
+  staggered entrance, magnetic and tilt hover, scroll-stacked cards, one
+  background, a real-browser and screen-reader pass, and the
+  `design-director` sign-off.
 
 ### 8.2 Fonts and front-end performance
 
@@ -246,11 +256,19 @@ first, then the UI library, then the agent and operations layers.
 - [ ] **Analyse Graft and `opencode`** (M), first-hand, for the context-map and
   the subagent-orchestration patterns. `codebase-mapping` already carries the
   Graft idea; this pass finds what the chief and the orchestration skills still
-  lack.
+  lack. Done so far: Graft's README and opencode's GitHub README, patterns only,
+  feeding the chief's parallel-dispatch resource. Still to do: a first-hand read
+  of opencode beyond its README (its site was unreachable from the build
+  environment).
 - [ ] **Sharpen the chief** (M). Strengthen the skills `delivery-orchestrator`
   and `engineering-orchestrator` load, and `model-routing` and `task-complexity`
   under them, so the one orchestrator over all agents dispatches, gates and
-  escalates better. No second chief is added.
+  escalates better. No second chief is added. Done so far:
+  `delivery-orchestrator` 1.1.0, with every one of the thirty-three agents in a
+  team (`resources/team-routing.md`), conflict-free parallel dispatch, handoff
+  evidence and an escalation ladder, and the deadline held without trading a
+  gate. Still to do: `engineering-orchestrator`, `model-routing` and
+  `task-complexity`.
 
 ### 8.4 Security and accessibility, measured
 
@@ -276,6 +294,12 @@ first, then the UI library, then the agent and operations layers.
 - [ ] **Analyse `confhub` and `yc_directory`** (M) as full applications, not
   libraries: what they teach the delivery and full-stack skills, captured as
   reference notes, with nothing copied.
+- [ ] **The gest-hotel dashboard as a template kind** (M). Done so far:
+  `dashboard` is a third kind of `site-template-generation`, with
+  `resources/dashboard-contract.md` and its twenty-six point gate, and the
+  `dashboard-hotel-operations` specification, drawn from the principles of the
+  owner's back office and correcting its gaps. Still to do: build the example
+  as a runnable app with a verification script per gate line.
 
 ## Parked and external
 
