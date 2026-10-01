@@ -120,9 +120,9 @@ that added the row; everything else is marked to analyse.
 | `trailhq/Graft` | MIT | a structural context map of a codebase for coding agents; the idea behind `codebase-mapping` | read |
 | `Cecuro/open-security` (OpenSec) | Apache 2.0 | local AI security-review agents, independent probes, validation by attack-path tracing, a SQLite ledger | read |
 | `handsomeboy990/curb` | third-party components under their own licences | an accessibility remediation agent measured on real assistive-tech outcomes, six capability levels, a verify loop, an integrity boundary that hides the answer key | read |
-| `sharkui-inc/shark-ui` | to confirm | a UI component library | to analyse |
-| `vprix21/neonblade-ui` | to confirm | a UI component library | to analyse |
-| `Balastrong/start-theme-demo` | to confirm | a theming demo | to analyse |
+| `sharkui-inc/shark-ui` | MIT | accessible components on Ark UI and Tailwind, copy-into-codebase registry | read |
+| `vprix21/neonblade-ui` | MIT | React, Tailwind v4 and Framer Motion components, cyberpunk aesthetic, `npx neonblade add` | read |
+| `Balastrong/start-theme-demo` | not stated, confirm before reuse | a TanStack Start theming demo, tokens switched on one attribute | read |
 | `Balastrong/confhub` | to confirm | a conference hub application | to analyse |
 | `majodev/google-webfonts-helper` | to confirm | self-hosting helper for Google Fonts | to analyse |
 | `adrianhajdin/yc_directory` | to confirm | a directory application tutorial | to analyse |
@@ -145,7 +145,8 @@ Stated as direction, confirmed per phase in `docs/ROADMAP.md`.
 
 - UI libraries (`shark-ui`, `neonblade-ui`, `start-theme-demo`, React Bits for
   patterns, shadcn and Magic UI for the model) feed `libraries/ui/` and the
-  `design-system`, `animation`, `ui-ux-engineering` skills.
+  `design-system`, `animation`, `ui-ux-engineering` skills. The first-hand
+  read is recorded in `docs/architecture/UI_REFERENCES.md`.
 - `google-webfonts-helper` feeds a font self-hosting resource and the
   `seo-engineering` and performance concerns.
 - `confhub` and `yc_directory` are full applications: they feed the delivery
