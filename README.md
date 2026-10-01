@@ -1,6 +1,6 @@
 # Craft Suite
 
-**Craft, encoded.** 167 skills and 32 agents that hold an agent to a
+**Craft, encoded.** 168 skills and 33 agents that hold an agent to a
 professional standard: write, produce documents, build software, secure it,
 research, run a job search, evaluate opportunities, and review its own work.
 
@@ -34,7 +34,7 @@ the optional Control Center and the report also want `python3`.
 git clone https://github.com/Handsomeboy990/craft-suite.git
 cd craft-suite
 bash install.sh              # a menu, pick the trees you want
-bash install.sh --all        # or take all 166 and the 32 agents
+bash install.sh --all        # or take all 168 and the 33 agents
 bash install.sh --configure
 ```
 
@@ -58,7 +58,7 @@ tree dependency those skills declare.
 |---|---|---|---|
 | `craft-writing` | novelist, screenwriter, editor, critic, proofreader | 42 | 44 |
 | `craft-documents` | technical writer, report author, PDF producer | 7 | 9 |
-| `craft-engineering` | a delivery team, from specification to production | 83 | 85 and 28 agents |
+| `craft-engineering` | a delivery team, from specification to production | 84 | 86 and 29 agents |
 | `craft-security` | defensive engineer, and auditor under written authorization | 12 | 18 and 3 agents |
 | `craft-research` | researcher who cites only what was actually read | 5 | 7 and 2 agents |
 | `craft-career` | job search that never invents a listing | 7 | 9 |
@@ -68,7 +68,7 @@ Each plugin is self contained, which is why the second column is larger. The
 security bundle is the one that currently reaches into another tree: its
 `vulnerability-assessment` declares `security-audit`, which lives in the
 engineering tree, so the bundle carries that skill and the three it depends on
-in turn. The engineering plugin ships 28 of the 32 agents; `web-auditor` is a
+in turn. The engineering plugin ships 29 of the 33 agents; `web-auditor` is a
 security tool with no role in the delivery sequence and ships with
 `craft-security` instead, and `researcher` is a research tool with no role in
 the delivery sequence either, and ships with `craft-research` instead.
@@ -118,7 +118,7 @@ emoji, no em dash. Both are enforced by `tests/validate-rules.sh` in CI.
 | Installation options in detail | [documentation/installation.md](documentation/installation.md) |
 | Configuration reference | [documentation/configuration.md](documentation/configuration.md) |
 | Plugins, and how the bundles are built | [documentation/plugins.md](documentation/plugins.md) |
-| The 32 agents | [documentation/agents.md](documentation/agents.md) |
+| The 33 agents | [documentation/agents.md](documentation/agents.md) |
 | Architecture of the repository | [documentation/architecture.md](documentation/architecture.md) |
 | Local usage dashboard | [control-center/README.md](control-center/README.md) |
 | Contributing | [CONTRIBUTING.md](CONTRIBUTING.md) |

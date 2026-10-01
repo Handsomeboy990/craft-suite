@@ -36,12 +36,12 @@ bash install.sh
 ```
    1) Creative writing        42 skills   novels, poetry, screenplay, editing
    2) Professional documents   7 skills   guides, manuals, reports, letters, PDF
-   3) Software engineering    83 skills   plus 28 agents
+   3) Software engineering    84 skills   plus 29 agents
    4) Cybersecurity           12 skills   threat models, audits, hardening
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
-   8) Everything             167 skills   plus 32 agents
+   8) Everything             168 skills   plus 33 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -67,7 +67,7 @@ bash install.sh --career        7 job search and application skills
 bash install.sh --opportunity   9 ideation, hackathon and business skills
 bash install.sh --all          everything
 bash install.sh --shared        the 2 cross domain skills only
-bash install.sh --agents        the 32 agents only
+bash install.sh --agents        the 33 agents only
 bash install.sh --no-agents     skills without agents
 bash install.sh --remove        uninstall the scope instead of installing it
 ```
@@ -123,7 +123,7 @@ bash install.sh --group devops-skills     operations only
 | `documentation` | 4 | documents |
 | `administrative` | 1 | documents |
 | `publishing` | 2 | documents |
-| `dev-skills` | 56 | engineering |
+| `dev-skills` | 57 | engineering |
 | `delivery-skills` | 11 | engineering |
 | `devops-skills` | 16 | engineering |
 | `secure-development` | 9 | security |
@@ -339,14 +339,14 @@ counted in:
 |---|---|---|
 | `--writing` | 44 | 0 |
 | `--documents` | 9 | 0 |
-| `--dev` | 85 | 28 |
+| `--dev` | 86 | 29 |
 | `--security` | 18 | 3 |
 | `--research` | 7 | 1 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 167 | 32 |
-| `--agents` | 0 | 32 |
+| `--all` | 168 | 33 |
+| `--agents` | 0 | 33 |
 
 `~/.claude/skills` is shared. It holds every skill you have, not only this
 suite's: a skill installed from somewhere else sits beside them, and claude.ai

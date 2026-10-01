@@ -7,7 +7,7 @@ search**, **find and evaluate opportunities**, and **review your own work**.
 Called `claude-writer-suite` until 3.0.0, when the writing tree stopped being
 the whole of it.
 
-166 skills and 32 agents. Not prompts: numbered protocols, decision criteria,
+168 skills and 33 agents. Not prompts: numbered protocols, decision criteria,
 scoring grids and review procedures, each with a stated threshold for what
 counts as finished.
 
@@ -18,8 +18,8 @@ craft-suite/
 ├── shared/           2 cross domain skills, called by every tree
 ├── writing/         42 creative writing skills
 ├── documents/        7 professional document skills
-├── engineering/     83 software skills
-├── agents/          32 role definitions, repository wide
+├── engineering/     84 software skills
+├── agents/          33 role definitions, repository wide
 ├── security/        12 defensive security skills
 ├── research/         5 general research skills
 ├── career/           7 job search and application skills
@@ -47,7 +47,7 @@ The repository separates three languages that are routinely confused.
 
 | Layer | What it is | Value |
 |---|---|---|
-| Skill language | the instructions themselves | English, all 166 skills |
+| Skill language | the instructions themselves | English, all 168 skills |
 | System language | paths, identifiers, config keys, commits | English |
 | Output language | what the reader receives | theirs, set per project |
 
@@ -113,12 +113,12 @@ verified in production.
 
 | Category | Skills | Question it answers |
 |---|---|---|
-| [dev-skills](../engineering/dev-skills/) | 56 | how a change is made correctly |
+| [dev-skills](../engineering/dev-skills/) | 57 | how a change is made correctly |
 | [delivery-skills](../engineering/delivery-skills/) | 11 | what to build, in what order, with what approval |
 | [devops-skills](../engineering/devops-skills/) | 16 | how the system runs, deploys and restores |
 
 Stack and platform agnostic: the system reads the project it is given rather
-than assuming its shape. The thirty-two agents are not a category of this tree:
+than assuming its shape. The thirty-three agents are not a category of this tree:
 they are a repository-wide layer, at [agents](../agents/), who owns what and
 what is handed on.
 
@@ -213,12 +213,12 @@ novelist's toolkit, and a novelist is never given the engineering tree.
 ```
    1) Creative writing        42 skills   novels, poetry, screenplay, editing
    2) Professional documents   7 skills   guides, manuals, reports, letters, PDF
-   3) Software engineering    83 skills   plus 28 agents
+   3) Software engineering    84 skills   plus 29 agents
    4) Cybersecurity           12 skills   threat models, audits, hardening
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
-   8) Everything             167 skills   plus 32 agents
+   8) Everything             168 skills   plus 33 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -245,7 +245,7 @@ bash install.sh --career        7 job search and application skills
 bash install.sh --opportunity   9 ideation, hackathon and business skills
 bash install.sh --all          everything
 bash install.sh --shared        the 2 cross domain skills only
-bash install.sh --agents        the 32 agents only
+bash install.sh --agents        the 33 agents only
 bash install.sh --no-agents     skills without agents
 bash install.sh --all --zip     also build one archive per skill in dist/
 bash install.sh --remove        uninstall the selected scope
@@ -277,7 +277,7 @@ bash install.sh --group devops-skills     operations only
 | `documentation` | 4 | documents |
 | `administrative` | 1 | documents |
 | `publishing` | 2 | documents |
-| `dev-skills` | 56 | engineering |
+| `dev-skills` | 57 | engineering |
 | `delivery-skills` | 11 | engineering |
 | `devops-skills` | 16 | engineering |
 | `secure-development` | 9 | security |
@@ -558,7 +558,7 @@ never invented. Detail: [control-center/README.md](../control-center/README.md).
 ## Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of 166 skills
+bash tests/validate-structure.sh      structure and metadata of 168 skills
 bash tests/validate-rules.sh          emoji, em dash, secrets, hardcoded identity
 bash tests/validate-orchestration.sh  plans, phases, agents, cross references
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees
@@ -573,7 +573,7 @@ All six must pass before any commit. Detail in
 | File | Contents |
 |---|---|
 | [documentation/architecture.md](architecture.md) | organisation, skill isolation, metadata |
-| [documentation/skills-guide.md](skills-guide.md) | directory of the 166 skills |
+| [documentation/skills-guide.md](skills-guide.md) | directory of the 168 skills |
 | [documentation/installation.md](installation.md) | full and per-skill installation |
 | [documentation/configuration.md](configuration.md) | the configuration contract |
 | [documentation/agents.md](agents.md) | skill, agent, orchestration |

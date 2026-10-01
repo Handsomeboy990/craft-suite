@@ -214,7 +214,7 @@ Rule: parallelise across a contract, never across an unknown.
 ## 10. Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of the 166 skills
+bash tests/validate-structure.sh      structure and metadata of the 168 skills
 bash tests/validate-rules.sh          the repository-wide prohibitions
 bash tests/validate-orchestration.sh  thirteen coherence checks
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees
@@ -233,7 +233,7 @@ The third script covers:
 7. no orphan engineering skill, absent from every plan and phase;
 8. every `depends_on` naming an existing skill, in every tree;
 9. every `Interfaces` cross reference existing, in every procedural tree;
-10. the thirty-two agents, with their metadata and eight mandatory sections;
+10. the thirty-three agents, with their metadata and eight mandatory sections;
 11. every skill cited by an agent existing;
 12. the document pipeline: `document-core` declared as a dependency, design
     before production;
