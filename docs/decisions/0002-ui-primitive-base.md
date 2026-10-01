@@ -1,14 +1,13 @@
 # ADR 0002: the headless primitive base for libraries/ui
 
 Date: 2026-10-01
-Status: proposed
+Status: accepted
 Supersedes: none
 
-Ratified by merging this record. A different base is chosen by editing the
-Decision below before merge. This runs the `dependency-selection` gate for the
-one dependency `libraries/ui` is worth not reimplementing; the measured size
-and lockfile figures (points 6 and 7) are taken at install, in the PR that
-actually adds the package, per that skill's protocol.
+Ratified by the merge of the proposing pull request. This ran the
+`dependency-selection` gate for the one dependency `libraries/ui` is worth not
+reimplementing; the measured size and lockfile figures (points 6 and 7),
+deferred to the install, are now recorded under Cost below.
 
 ## Context
 
@@ -129,6 +128,21 @@ dependency is swappable at one adapter layer.
 Operational: the install PR runs `dependency-selection` protocol steps 6 to 8,
 the lockfile diff read and the audit and test run, and records the measured
 bundle delta and package count here as a short follow-up note.
+
+## Cost
+
+Measured at install, in `libraries/ui`, with the first primitive:
+
+- Production tree: `@radix-ui/react-dialog@1.1.23` adds 31 packages to the
+  production dependency tree (`npm ls --omit=dev`), all Radix's own scoped
+  packages and their small primitives. The count grows sublinearly as more
+  Radix primitives are added, because they share those internals.
+- Licence: MIT.
+- The dev toolchain (vitest, jsdom, testing-library, typescript, types) is a
+  separate devDependency set, not shipped to a consumer.
+- Bundle delta is not yet meaningful: the library ships source for a project
+  to copy, not a built artefact, so the footprint a project pays is only the
+  primitives it actually imports.
 
 ## Reversal cost
 
