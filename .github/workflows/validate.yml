@@ -102,6 +102,25 @@ jobs:
           done
           exit "$status"
 
+      - name: Site-template examples keep their shared files identical
+        run: |
+          # The two site-template examples share a common set of files, listed
+          # in examples/shared-files.txt. They are not yet a single source
+          # (each imports the per-app content model), so this guard fails if a
+          # shared file drifts between the two, keeping the duplication honest.
+          EX=engineering/dev-skills/site-template-generation/examples
+          A="$EX/portfolio-sports-coach"
+          B="$EX/showcase-electrician"
+          status=0
+          while IFS= read -r rel; do
+            case "$rel" in ''|\#*) continue ;; esac
+            if [ ! -f "$A/$rel" ]; then echo "shared file missing in portfolio-sports-coach: $rel"; status=1
+            elif [ ! -f "$B/$rel" ]; then echo "shared file missing in showcase-electrician: $rel"; status=1
+            elif ! cmp -s "$A/$rel" "$B/$rel"; then echo "shared file drifted between the two examples: $rel"; status=1
+            fi
+          done < "$EX/shared-files.txt"
+          exit "$status"
+
       - name: No forbidden attribution in the commits
         run: |
           base="${{ github.event.pull_request.base.sha }}"
