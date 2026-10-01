@@ -3,11 +3,13 @@
 Builds a client website as a template with its own back office, so the client
 can still run it a year later without calling anyone.
 
-- Inputs: the kind (portfolio or showcase), the trade, the legal identity of the
-  owner, and the facts only the client has.
+- Inputs: the kind (portfolio, showcase or dashboard), the trade, the legal
+  identity of the owner, and the facts only the client has; for a dashboard,
+  the roles, what each may do, and the questions each asks every day.
 - Outputs: the content contract, the token profile in both themes, the motion
   specification, the back office and its security report, the legal fact sheet,
-  the completion gate report.
+  the completion gate report; for a dashboard, its specification and the report
+  of its own gate.
 - Depends on: engineering-core.
 - Run by: the site-template-engineer agent, and the frontend-engineer when an
   instance is produced.
@@ -33,8 +35,23 @@ Legal pages are assembled from the company's real facts, with a visible marker
 for every fact not provided and no clause the template drafted itself. The page
 uses its width instead of centring one narrow column, both themes ship, the 404
 and the offline page are designed, the site is installable and works offline,
-and a sixteen point gate decides whether the template is finished.
+and a twenty nine point gate decides whether the template is finished.
+
+The third kind, `dashboard`, is the back office grown into the product: an
+operations application for an organisation's own staff, several accounts, each
+with a role. Modules follow the work rather than the tables, a role matrix held
+by the server is the one source of what each role may see and do, and every
+route, action and record is checked there, because a hidden menu entry is
+presentation. The overview carries a handful of KPIs, each a definition with a
+formula computed on the server and a drill down to exactly the records it
+counts. Tables page on the server, keep their filters in the URL, sort from a
+real button and name every row action; every chart has a text twin; every
+state, from first use to permission denied, is designed. Nothing decorative
+moves. Its contract and its twenty six point gate are in
+`resources/dashboard-contract.md`.
 
 Reference implementations in `examples/`: a one page portfolio for an independent
 sports coach and a four page showcase for a building trade company, both with
-fictional content, both run and verified end to end.
+fictional content, both run and verified end to end; and the specification of a
+hotel operations dashboard, with the acceptance checklist an implementation
+must pass.

@@ -8,7 +8,8 @@ in its own way.
 ## The two values
 
 ```
-theme.motion.signature     energetic | creative | crafted | technical | clinical
+theme.motion.signature     energetic | creative | crafted | technical | clinical |
+                           operational
 theme.motion.intensity     0 to 1
 theme.motion.baseDuration  milliseconds at intensity 1
 theme.motion.easing        a curve, not a keyword picked at random
@@ -28,14 +29,19 @@ the content file says. That is a hard requirement, not a courtesy.
 
 ## What each signature turns on
 
-| Effect | energetic | creative | crafted | technical | clinical |
-|---|---|---|---|---|---|
-| entrance | yes | yes | yes | no | no |
-| reveal | yes | yes | yes | yes | yes |
-| stagger | yes | yes | yes | no | no |
-| counters | yes | no | yes | no | no |
-| parallax | yes | yes | no | no | no |
-| lift | yes | yes | yes | yes | no |
+| Effect | energetic | creative | crafted | technical | clinical | operational |
+|---|---|---|---|---|---|---|
+| entrance | yes | yes | yes | no | no | no |
+| reveal | yes | yes | yes | yes | yes | no |
+| stagger | yes | yes | yes | no | no | no |
+| counters | yes | no | yes | no | no | no |
+| parallax | yes | yes | no | no | no | no |
+| lift | yes | yes | yes | yes | no | no |
+
+`operational` belongs to the dashboard kind alone. A screen opened forty times a
+day pays for every movement forty times, so nothing decorates: only feedback
+moves, a drawer, a dialog, a toast, at the intensity the configuration sets.
+`dashboard-contract.md` holds the detail.
 
 ```
 entrance   the first screen assembles once on load: title, then subtitle, then
@@ -100,5 +106,7 @@ reduced     the same as 0, with the content file untouched
 no JS       every section visible, nothing stuck hidden
 by trade    the effects the signature names happen, and the ones it does not
             name do not: a technical instance has no counter and no parallax
+operational nothing moves on load, on scroll or under the pointer; the drawer,
+            the dialogs and the toasts still give their feedback
 sequence    a staggered list arrives item by item, not as a block
 ```
