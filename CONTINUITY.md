@@ -1,7 +1,144 @@
-# Continuity, 2026-09-17
+# Continuity, 2026-10-01
 
 State of the repository for whoever takes it over, human or agent. Written to
 `engineering/dev-skills/project-continuity/resources/continuity-template.md`.
+
+## Handover, 2026-10-01: phase 8 in progress, continued locally
+
+Read this section first. The rest of the file is the record up to 3.29.0 and
+stays true; this section is what changed since and what to do next. The plan
+itself is phase 8 of `docs/ROADMAP.md`; the direction behind it is
+`docs/architecture/RESOURCE_LIBRARY.md`.
+
+### State
+
+On `dev`, merged (pull requests 55 to 66):
+
+- Six agents, 27 to 33: `penetration-tester`, `ci-cd-engineer`,
+  `design-director`, `delivery-manager`, `data-collection-engineer`,
+  `codebase-cartographer`, and the `codebase-mapping` skill. Manifests 3.29.0.
+- Phase 8.0 done: the resource-library direction, decision records 0001
+  (structure) and 0002 (Radix as the headless UI base), `libraries/` with its
+  contract and CI gate, `CHANGELOG.md` rebuilt as the version history.
+- `libraries/ui`: tokens, `Dialog`, `useReducedMotion`, `Reveal`, `Tooltip`,
+  `Marquee`, `Counter`. 31 tests, typecheck and tests run in CI. Licence
+  proprietary until the owner decides otherwise (MIT is the open option).
+- The site-template examples: `examples/shared-files.txt` and a CI step that
+  fails if any of the 29 shared files drifts between the two examples.
+- `site-template-generation` 2.1.0: the `dashboard` kind,
+  `resources/dashboard-contract.md` with a 26 point gate (D1 to D26), and the
+  `dashboard-hotel-operations` specification, from the principles of the
+  owner's `gest-hotel` back office, nothing copied.
+
+Open when this was written, both checked conflict-free against `dev`:
+
+- Pull request 67, `feat/delivery-orchestrator-chief`: `delivery-orchestrator`
+  1.1.0, every one of the 33 agents in a team under a named lead
+  (`resources/team-routing.md`), conflict-free parallel dispatch
+  (`resources/parallel-dispatch.md`), handoff evidence and the escalation
+  ladder (`resources/handoff-and-escalation.md`).
+- The documentation pull request, `docs/phase8-followups`: agent count and
+  team map in `documentation/delivery-system.md` and `agents/README.md`, the
+  orchestrator agent's delegation, the dashboard kind in
+  `site-template-engineer` and the skills index, the roadmap and changelog
+  entries, and this section. It cites files that pull request 67 adds, so merge
+  67 first.
+
+Not version-bumped: everything since 3.29.0 sits under `Unreleased` in
+`CHANGELOG.md`. Bump the eight manifests in lockstep at the next release.
+
+### How the work has been run
+
+- One branch per change from the latest `dev`, a draft pull request into
+  `dev`, the owner marks it ready and merges. Nothing is pushed to `dev` or
+  `main` directly.
+- Commits authored and committed as the owner, in English, atomic, with no
+  trailer and no mention of an AI, an assistant or a tool, anywhere: commit,
+  pull request title or body. The hosting platform may append its own footer
+  to a pull request body; read the body back after creating it and remove any
+  such line. The CI step "No forbidden attribution in the commits" and the
+  `pre-push` hook enforce the commit side.
+- Parallel work only on disjoint files. Adding a skill or an agent edits about
+  fifteen count locations (`tests/validate-counts.sh` lists them) plus
+  `tests/validate-orchestration.sh` `AGENT_NAMES` and `install.sh`
+  `agent_domains`, so count-changing work runs one pull request at a time.
+  `CHANGELOG.md`, `docs/ROADMAP.md` and this file are hot files: one
+  integrator edits them, after the parallel branches land. Before any pull
+  request: rebase on the latest `dev`, `git merge-tree --write-tree origin/dev
+  HEAD` clean, the six scripts pass. This is now written down in
+  `delivery-orchestrator` `resources/parallel-dispatch.md`.
+- Every reference project is read for patterns and principles only, its
+  licence recorded first, nothing copied. React Bits is under the Commons
+  Clause: ideas only. `elder-plinius/L1B3RT4S` was excluded (jailbreak prompts).
+
+### Next, by agent
+
+Each item names the agent and the governing skill. Count-changing items are
+marked; run those one at a time.
+
+1. **Merge 67, then the documentation pull request**, in that order.
+2. **`delivery-orchestrator` lead, finish sharpening the chief** (8.3):
+   `engineering-orchestrator`, `model-routing` and `task-complexity` against
+   the new team map, so routing, sizing and model choice agree with it. Count
+   neutral.
+3. **`researcher`, read `sst/opencode` first-hand** (8.3). Only its GitHub
+   README was read; its site was unreachable from the build environment. Update
+   its row in `docs/architecture/RESOURCE_LIBRARY.md` and feed anything new to
+   the chief's resources.
+4. **`frontend-engineer` with `design-director`, the motion layer** (8.1):
+   staggered entrance, magnetic and tilt hover, scroll-stacked cards, one
+   background, in `libraries/ui`, each reduced-motion safe and tested. Then a
+   real-browser and screen-reader pass (`playwright-engineer`,
+   `accessibility-testing`): the Marquee, the Counter's scroll trigger and the
+   Tooltip group's shared hover delay are only tested through jsdom mocks.
+   `design-director` signs off the set. Count neutral.
+5. **`site-template-engineer`, build `dashboard-hotel-operations`** as a
+   runnable app with one verification script per gate line D1 to D26, under the
+   shared shape. Count neutral.
+6. **`site-template-engineer` with `principal-engineer`, single-source the 29
+   shared example files** (8.1): inject `lib/types`, `lib/schema` and
+   `lib/legal` instead of importing them, move the set to one place, build both
+   Next apps to prove it. The drift guard stays until then. Count neutral, but
+   wide: do it alone.
+7. **`researcher` then `frontend-engineer`, fonts** (8.2): read
+   `majodev/google-webfonts-helper`, licence first, then a font self-hosting
+   resource (subsetting, `font-display`, preload, no layout shift). Likely a new
+   skill: count-changing.
+8. **`security-engineer`, OpenSec and `curb`** (8.4): `Cecuro/open-security`
+   (the repository the research resolved "opensec" to; confirm it with the
+   owner) for the probe, validate-by-attack-path and ledger patterns into
+   `security-audit` and the authorized testing agents; `handsomeboy990/curb`
+   for measured outcomes and the verify loop into `accessibility-testing`. Then
+   decide the accessibility remediation capability with `technology-selection`
+   before building it. Possibly count-changing.
+9. **`software-architect`, the PHP question** (8.5): `dependency-selection`
+   and `technology-selection` judge `twigphp/Twig`,
+   `futureplc/twig-stack-extension`, `webmozarts/assert` and
+   `theseer/tokenizer`. Record the answer as a decision record before any PHP
+   lands; no is a valid outcome.
+10. **`researcher`, applications as references** (8.6): `Balastrong/confhub`
+    and `adrianhajdin/yc_directory`, reference notes only.
+11. **`design-research`, `time-builders-webpage.vercel.app`**: the design study
+    the owner asked for, blocked by the build environment's network. Run it
+    locally.
+
+Owner decisions pending: the licence of `libraries/ui` (proprietary or MIT),
+and confirmation that `Cecuro/open-security` is the intended OpenSec.
+
+### Learned in this phase
+
+- Agent worktrees left under `.claude/worktrees/` hold full copies of the
+  trees. `tests/validate-counts.sh` then counts every copy (672 skills instead
+  of 168) and `plugins/build.sh` builds broken bundles. Remove finished
+  worktrees (`git worktree remove`) before running the scripts or the build.
+- `libraries/` follows the repository's no-lockfile convention, so CI runs
+  `npm install`, never `npm ci`.
+- In a `&&` chain, `grep -c` that counts zero exits 1 and silently skips every
+  later command, a commit included. Never put a counting grep before a commit
+  in one chain.
+- Commit `6372ed3`, already on `dev` from pull request 55, carries a tool name
+  as its author. Rewriting it would mean rewriting shared history; it was left
+  and reported.
 
 ## Completed
 
