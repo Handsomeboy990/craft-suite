@@ -32,6 +32,9 @@ library of resources. Not yet version-bumped.
 - The `libraries/ui` foundation: design tokens as CSS variables, and the first
   accessible primitive (`Dialog`) wrapping Radix behind the suite's own API,
   with its own toolchain, tests and a tightened CI gate.
+- The start of the motion layer: `useReducedMotion` and a `Reveal` component,
+  CSS-driven and reduced-motion safe, the original of the Reveal the two site
+  examples each copy.
 
 ## 3.29.0 the codebase map
 

@@ -21,10 +21,12 @@ reference analysis are in `docs/architecture/RESOURCE_LIBRARY.md` and
 | Primitive | Behaviour from | What the wrapper adds |
 |---|---|---|
 | `Dialog` | `@radix-ui/react-dialog` | a required accessible name, token styling, a closed API over the base |
+| `Reveal` | the platform (IntersectionObserver), motion tokens | a scroll-in reveal that never hides content, reduced-motion safe |
+| `useReducedMotion` | `matchMedia` | the reduced-motion signal the motion layer treats as a hard floor |
 
-This is the foundation. Further primitives and the motion layer arrive in the
-phase-8.1 PRs that follow, and the duplicated site-example code is consolidated
-into this library.
+This is the foundation plus the start of the motion layer. Further primitives
+arrive in the phase-8.1 PRs that follow, and the duplicated site-example code
+is consolidated into this library.
 
 ## Install, in this repository
 
