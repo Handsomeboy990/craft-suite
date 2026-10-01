@@ -1,12 +1,12 @@
 ---
 name: site-template-generation
-description: Builds a client website as a template with its own back office: the content contract, design tokens by trade in both light and dark, a motion system driven by one intensity scalar, an administration surface where the client edits text, images, colours, hours and legal facts without touching code, authenticated and rate limited, a message inbox fed by the contact form, legal pages generated from the company's real facts and never invented, an installable offline-capable shell with push notifications, and the gate a template passes before it counts as finished. Use when building a portfolio or a showcase site, a reusable site template, or any client site that must stay editable after delivery.
+description: Builds a client website as a template with its own back office: the content contract, design tokens by trade in both light and dark, a motion system driven by one intensity scalar, an administration surface where the client edits text, images, colours, hours and legal facts without touching code, authenticated and rate limited, a message inbox fed by the contact form, legal pages generated from the company's real facts and never invented, an installable offline-capable shell with push notifications, and the gate a template passes before it counts as finished. Also builds the third kind, an operations dashboard for signed in staff: modules grouped by domain, KPIs that drill down to the records they count, server side tables with filters held in the URL, every empty, loading, error and denied state designed, and authorization by role checked on the server for every route, action and record. Use when building a portfolio or a showcase site, a reusable site template, an internal dashboard or back-office application, or any client site that must stay editable after delivery.
 license: MIT
 metadata:
   category: dev-skills
-  version: 2.0.0
+  version: 2.1.0
   depends_on: [engineering-core]
-  outputs: [content-contract, token-profile, motion-spec, admin-surface, admin-security-report, legal-fact-sheet, completion-gate-report]
+  outputs: [content-contract, token-profile, motion-spec, admin-surface, admin-security-report, legal-fact-sheet, completion-gate-report, dashboard-spec, dashboard-gate-report]
 ---
 
 # Site Template Generation
@@ -39,21 +39,63 @@ file fails the gate in section 17, whatever it is. The reverse is equally firm:
 logic never enters the content file, because the back office writes that file
 and a client editing text must not be able to break the build.
 
-## 2. Two kinds, and what actually differs
+## 2. Three kinds, and what actually differs
 
-| | portfolio | showcase |
-|---|---|---|
-| Owner | one person trading under their own name | a company with a legal identity |
-| Shape | one page, anchored sections, one scroll | several pages, one per intent |
-| Voice | first person, personal | third person, institutional |
-| Proof | gallery, results, testimonials | services, references, credentials |
-| Action | a message | a quotation request |
-| Legal | the pages the person's activity requires | legal notice, terms, privacy, cookies, all of them |
-| Back office | the same one | the same one |
+| | portfolio | showcase | dashboard |
+|---|---|---|---|
+| Owner | one person trading under their own name | a company with a legal identity | an organisation, for its own staff |
+| Reader | a visitor | a visitor | a member of staff, signed in, with a role |
+| Shape | one page, anchored sections, one scroll | several pages, one per intent | a shell: modules grouped by domain, an overview, a detail per record |
+| Voice | first person, personal | third person, institutional | the vocabulary of the work, short and exact |
+| Proof | gallery, results, testimonials | services, references, credentials | figures that open onto the records they count |
+| Action | a message | a quotation request | the task in front of the user: check in, reorder, approve |
+| Legal | the pages the person's activity requires | legal notice, terms, privacy, cookies, all of them | a privacy notice for staff and for the people whose records it holds |
+| Back office | the same one | the same one | it is the back office, with several accounts and their roles |
+| Motion | the trade's signature | the trade's signature | `operational`: feedback only |
 
 The kind is decided before anything is written: it changes the content contract,
-the navigation, the number of routes and the legal surface. It does not change
-the back office, which is the same surface over a different contract.
+the navigation, the number of routes and the legal surface. Between the two site
+kinds it does not change the back office, which is the same surface over a
+different contract.
+
+### When the kind is a dashboard
+
+Choose it when the people who use the result are the client's own staff rather
+than their customers: the work is on records that change all day, several
+people sign in, and they are not allowed the same things. A front desk, a
+stockroom, the books of a small business. A public site with a members area is
+still a showcase; a dashboard has no public page beyond its sign in, its 404
+and its offline page.
+
+What it must contain, each one specified in `resources/dashboard-contract.md`:
+
+```
+architecture  modules grouped by the domain of the work, one route and one
+              permission key per module, an overview first, administration last
+roles         a matrix of role by module by action, held by the server, read by
+              the navigation, the buttons and the server check alike, deny by
+              default
+overview      six to eight KPIs, each a definition before it is a card: a
+              question, a formula computed on the server, a period, thresholds
+              from the configuration, and a drill down to exactly the records
+              it counts
+tables        one component configured by data: real headers, a sort that is a
+              button, paging on the server, row actions named with their
+              record, never a click handler on a row
+filters       every filter, the search, the sort and the page in the URL
+states        loading, first use empty, filtered empty, error, partial, denied,
+              not found, session expired, offline, stale: each one designed
+charts        token colours in both themes, and a text twin for every chart
+security      the session and the grant checked on the server for every route,
+              every action and every record; a hidden link is presentation
+```
+
+The four artefacts of section 1 keep their roles, with one addition: the
+organisation's records live in a database behind endpoints that authorize every
+call, and never in the content file. The content file becomes the dashboard's
+configuration: the brand, both palettes, every interface string, the module
+labels, the role names and the KPI thresholds, edited by an administrator from
+the settings module. Its gate is the dashboard gate of section 17.
 
 ## 3. The content contract
 
@@ -148,6 +190,11 @@ in the fleet, including the ones that do not exist yet.
 The rest of the admin surface is the template's own: more endpoints, other
 routes, a different arrangement of the forms. Only these four are promised.
 
+A dashboard keeps all three: the same directories, the same custom property
+names, and the fields and content endpoints over its configuration. Its sign in
+also takes an identifier, because it has more than one account, and its records
+are served by the module endpoints of `resources/dashboard-contract.md`.
+
 ## 5. Tokens, by trade, in both themes
 
 The trade decides the values; the component only reads them. A palette is
@@ -193,6 +240,7 @@ makes a coach's page and an electrician's page move differently in kind:
 | crafted | artisan food, ceramics, florists | entrance, reveal, stagger, counters, lift |
 | technical | building trades, industrial services | reveal, lift |
 | clinical | medical, legal, accounting | reveal |
+| operational | the dashboard kind, whatever the trade | none of them: only feedback moves, a drawer, a dialog, a toast |
 
 ```
 entrance   the first screen assembles once on load, title then subtitle then
@@ -510,6 +558,15 @@ deployment   the handover states how the site is started, restarted and
   site does not say on a page a visitor can read.
 - No framework default 404.
 - No optional section that renders an empty frame when its block is absent.
+- No dashboard route, action or record protected only in the browser: a route
+  guard on the client, a hidden button or a filtered menu is presentation, and
+  the server refuses on its own.
+- No dashboard session token readable by script, and no shared account.
+- No KPI computed in the browser over the page of rows it loaded, and no KPI
+  without a drill down to the records it counts.
+- No table paged in the browser over the whole collection, no sort header that
+  is not a button, and no record reachable only by clicking a row.
+- No chart without a text twin, and no state told by colour alone.
 - No template declared finished before the gate in section 17 passes whole.
 
 ## 17. The completion gate
@@ -595,11 +652,30 @@ Twenty nine checks. All twenty nine pass, or the template is not finished.
     grows with the fleet
 ```
 
+### The dashboard gate
+
+The dashboard kind is held to its own gate, twenty six checks numbered D1 to
+D26 in `resources/dashboard-contract.md`, because most of the checks above
+speak of visitors, legal pages and a contact form it does not have. What carries
+over is restated there rather than referenced: the configuration holding every
+string and colour, both palettes measured, the theme without a flash, the 360px
+drawer, keyboard and focus, the handover. What it adds is the part a site never
+had to prove: for every role, every module it does not hold called directly and
+refused by the server; every record outside its scope answering 404; every KPI
+equal to the count of its drill down; every state forced and looked at; paging,
+indexes and the overview measured on a seeded year of records rather than on
+twenty rows. All twenty six pass, or the dashboard is not finished.
+
 ## 18. Protocol
 
-1. Establish the kind, portfolio or showcase, the trade, and the legal identity
-   of the owner. The kind decides the contract, the routes and the legal
-   surface.
+1. Establish the kind, portfolio, showcase or dashboard, the trade, and the
+   legal identity of the owner. The kind decides the contract, the routes and
+   the legal surface. For a dashboard, steps 8 to 10 give way to its own work:
+   collect the roles and what each may do, the questions each role asks every
+   day, the records and their volume; fix the role matrix and the KPI
+   definitions of `resources/dashboard-contract.md` before a screen is drawn;
+   build the shell, the modules and their states; seed a year of fictional
+   records; and run the dashboard gate rather than the twenty nine checks.
 2. Collect the facts that only the client has: legal identity, contact details,
    hours, services, prices, images and their rights. Record what is missing
    rather than filling it.
@@ -637,7 +713,15 @@ rate limited way in, the contact form reaches an inbox, the legal pages are
 built from provided facts with the missing ones marked, and the accessibility
 rules were applied while building.
 
-Threshold: no axis below 4, average at least 4.5. An admin route protected only
+For a dashboard, score the same way on: the modules follow the work rather than
+the tables, the role matrix is the one source of permissions and the server
+enforces it on every route, action and record, every KPI opens onto what it
+counts, every state is designed, the tables and charts are readable without
+sight of the screen, and the gate ran on a seeded volume.
+
+Threshold: no axis below 4, average at least 4.5. A dashboard endpoint that
+answers a role it should refuse, or a record reachable outside its owner's
+scope, scores 0 overall, as do the following. An admin route protected only
 by a hidden link, a login endpoint without a rate limit, a contact form that
 posts into nothing, a back office field that is not wired, or one invented legal
 statement scores 0 overall: the first three are the ways this kind of site is
@@ -653,8 +737,10 @@ delivery false.
   `animation` for the motion the intensity scalar drives,
   `design-authenticity` so the result does not read as a generic default,
   `admin-console` for the back office, `authentication-security` and
-  `session-security` for the way in, `rate-limiting` for the login and the
-  public form, `input-validation` for every write, `file-handling` for the
+  `session-security` for the way in, `authorization-design` for the role
+  matrix of a dashboard, `rate-limiting` for the login and the public form,
+  `api-design` and `database-design` for a dashboard's module endpoints and
+  records, `performance-engineering` for its seeded volume, `input-validation` for every write, `file-handling` for the
   uploads, `backend-engineering` for the endpoints, `data-privacy` for what the
   privacy and cookie pages must state and for how long a message is kept,
   `accessibility-testing` for the verification, `seo-engineering` for the

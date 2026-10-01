@@ -1,6 +1,6 @@
 # Worked examples
 
-Two reference implementations, one per kind, built by running the protocol of
+Two reference implementations, one per site kind, built by running the protocol of
 `SKILL.md` from end to end. Both are Next.js applications with a server, a back
 office, an inbox and an installable shell, both are driven entirely by one
 content file that the back office writes, and both carry clearly fictional data.
@@ -15,6 +15,25 @@ content file that the back office writes, and both carry clearly fictional data.
 | Motion intensity | 0.9 | 0.25 |
 | Form | a message | a quotation request |
 | Back office | the same surface, generated from its own contract | the same |
+
+A third directory, `dashboard-hotel-operations`, carries the `dashboard` kind as
+a specification rather than an application: an invented thirty two room hotel,
+five roles and their matrix, the records and their constraints, eight KPIs with
+their formulas and drill downs, the endpoints, a fictional seed of a year of
+records, and the twenty six line acceptance checklist of
+`resources/dashboard-contract.md` made concrete for that instance. Everything
+below this point describes the two site examples, which were built and run; the
+dashboard specification has not been implemented yet, and it claims nothing
+observed.
+
+| | `dashboard-hotel-operations` |
+|---|---|
+| Kind | dashboard |
+| Owner | an invented hotel, for its own staff |
+| Routes | sign in, the overview, thirteen modules with their detail routes, 404, offline |
+| Accounts | several, five roles, a matrix of role by module by action |
+| Motion signature | operational |
+| Status | specification and acceptance checklist; not yet built |
 
 ## Why there is a server
 

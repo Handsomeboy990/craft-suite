@@ -1,0 +1,44 @@
+# Files that must stay byte-identical across the two example apps.
+#
+# The portfolio-sports-coach and showcase-electrician examples share the same
+# site shell, back office and library code; they differ only in their content
+# model (lib/types, lib/schema, lib/legal), their data and their trade tokens.
+# The files below are the shared set. A CI guard fails if any of them drifts
+# between the two examples, so the duplication cannot rot into two subtly
+# different copies.
+#
+# Why they are not yet a single source: each of these files imports the
+# per-app lib/types, lib/schema and lib/legal, so lifting them into one shared
+# package needs those three injected rather than imported. That refactor, and
+# building both Next apps to prove it, is a separate step; this guard makes the
+# duplication safe in the meantime. One path per line, relative to each
+# example's root.
+components/site/Counter.tsx
+components/site/Parallax.tsx
+components/site/ThemeToggle.tsx
+components/site/Reveal.tsx
+components/site/LegalDocument.tsx
+components/site/AppShell.tsx
+components/admin/PasswordForm.tsx
+components/admin/LoginForm.tsx
+components/admin/MediaManager.tsx
+components/admin/LogoutButton.tsx
+components/admin/PushToggle.tsx
+components/admin/HistoryList.tsx
+components/admin/ContentEditor.tsx
+components/admin/MessageList.tsx
+components/admin/ResetForm.tsx
+lib/history.ts
+lib/push.ts
+lib/motion.ts
+lib/tokens.ts
+lib/guard.ts
+lib/auth.ts
+lib/uploads.ts
+lib/store.ts
+lib/audit.ts
+lib/reset.ts
+lib/messages.ts
+lib/rate-limit.ts
+lib/mail.ts
+lib/paths.ts
