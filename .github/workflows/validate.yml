@@ -63,6 +63,21 @@ jobs:
             bash -n "$script"
           done
 
+      - name: Libraries follow their contract
+        run: |
+          # Every libraries/<name>/ ships with its own LICENSE and README.md,
+          # per libraries/README.md. Empty-safe: passes while none has landed.
+          status=0
+          if [ -d libraries ]; then
+            for dir in libraries/*/; do
+              [ -d "$dir" ] || continue
+              name="$(basename "$dir")"
+              [ -f "$dir/LICENSE" ]   || { echo "library $name: LICENSE missing"; status=1; }
+              [ -f "$dir/README.md" ] || { echo "library $name: README.md missing"; status=1; }
+            done
+          fi
+          exit "$status"
+
       - name: No forbidden attribution in the commits
         run: |
           base="${{ github.event.pull_request.base.sha }}"

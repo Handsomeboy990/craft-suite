@@ -18,6 +18,8 @@ A reader who only wants to use the suite never needs this directory. Start at
 | File | Contents |
 |---|---|
 | `ROADMAP.md` | internal planning: what is left to build, by phase, ticked when it lands on `dev` |
+| `decisions/` | architecture decision records: one numbered file per decision expensive to reverse, never edited after acceptance |
+| `architecture/RESOURCE_LIBRARY.md` | the resource-library direction: the `libraries/` home, the per-domain team, the originality-from-reference rule |
 | `agents/README.md` | entry point for the agent architecture: what exists, what is deferred, how to install only what is needed |
 | `architecture/AGENT_ARCHITECTURE.md` | the layered architecture, the agents by group, the agent contract, safety |
 | `architecture/ORCHESTRATION.md` | the three orchestrators, their gates, and safety against runaway orchestration |
