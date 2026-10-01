@@ -27,6 +27,11 @@ library of resources. Not yet version-bumped.
   guard; the first architecture decision record,
   `docs/decisions/0001-resource-library-structure.md`.
 - This changelog, rebuilt and separated from `CONTINUITY.md`.
+- The UI reference analysis (`docs/architecture/UI_REFERENCES.md`) and the
+  headless-base decision (`docs/decisions/0002-ui-primitive-base.md`, Radix).
+- The `libraries/ui` foundation: design tokens as CSS variables, and the first
+  accessible primitive (`Dialog`) wrapping Radix behind the suite's own API,
+  with its own toolchain, tests and a tightened CI gate.
 
 ## 3.29.0 the codebase map
 

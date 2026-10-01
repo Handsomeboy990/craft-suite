@@ -1,0 +1,93 @@
+/*
+ * Craft UI design tokens.
+ *
+ * One source of truth for colour, type, spacing, radius, elevation and motion,
+ * as CSS custom properties. A theme is a token set, never a forked component:
+ * light is the default, dark is the same tokens under a different set, applied
+ * by the system preference or an explicit data-theme on a root element.
+ *
+ * The three-layer dark pattern below follows the suite's own artifact design
+ * convention: default on :root, a system-preference override that an explicit
+ * light theme can opt out of, and an explicit dark override that always wins.
+ */
+
+:root {
+  /* Colour, light. Neutral, brand-free placeholders a project overrides. */
+  --cu-color-bg: #ffffff;
+  --cu-color-surface: #f6f7f9;
+  --cu-color-text: #15181c;
+  --cu-color-muted: #5a6472;
+  --cu-color-border: #d9dee5;
+  --cu-color-accent: #3056d3;
+  --cu-color-accent-text: #ffffff;
+  --cu-color-overlay: rgba(15, 18, 22, 0.5);
+
+  /* Type scale, a modular 1.2 ratio from a 1rem base. */
+  --cu-font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --cu-text-sm: 0.833rem;
+  --cu-text-base: 1rem;
+  --cu-text-lg: 1.2rem;
+  --cu-text-xl: 1.44rem;
+  --cu-text-2xl: 1.728rem;
+  --cu-leading: 1.5;
+  --cu-weight-normal: 400;
+  --cu-weight-medium: 550;
+  --cu-weight-bold: 700;
+
+  /* Spacing, a 4px step. */
+  --cu-space-1: 0.25rem;
+  --cu-space-2: 0.5rem;
+  --cu-space-3: 0.75rem;
+  --cu-space-4: 1rem;
+  --cu-space-6: 1.5rem;
+  --cu-space-8: 2rem;
+
+  /* Radius. */
+  --cu-radius-sm: 0.25rem;
+  --cu-radius-md: 0.5rem;
+  --cu-radius-lg: 0.75rem;
+
+  /* Elevation. */
+  --cu-shadow-1: 0 1px 2px rgba(15, 18, 22, 0.08);
+  --cu-shadow-2: 0 8px 24px rgba(15, 18, 22, 0.16);
+
+  /* Motion. A project that reduces motion zeroes these; see below. */
+  --cu-motion-fast: 120ms;
+  --cu-motion-base: 200ms;
+  --cu-motion-ease: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Dark, by system preference, unless the root opted into an explicit light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --cu-color-bg: #0e1116;
+    --cu-color-surface: #161b22;
+    --cu-color-text: #e8ebef;
+    --cu-color-muted: #9aa4b2;
+    --cu-color-border: #2b313b;
+    --cu-color-accent: #6b8cff;
+    --cu-color-accent-text: #0e1116;
+    --cu-color-overlay: rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* Dark, explicit, always wins over the system preference. */
+:root[data-theme="dark"] {
+  --cu-color-bg: #0e1116;
+  --cu-color-surface: #161b22;
+  --cu-color-text: #e8ebef;
+  --cu-color-muted: #9aa4b2;
+  --cu-color-border: #2b313b;
+  --cu-color-accent: #6b8cff;
+  --cu-color-accent-text: #0e1116;
+  --cu-color-overlay: rgba(0, 0, 0, 0.6);
+}
+
+/* Reduced motion is a hard floor, not a preference the components may ignore. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --cu-motion-fast: 0ms;
+    --cu-motion-base: 0ms;
+  }
+}

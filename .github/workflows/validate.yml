@@ -78,6 +78,30 @@ jobs:
           fi
           exit "$status"
 
+      - name: Node for the libraries that carry their own toolchain
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Libraries typecheck and test
+        run: |
+          # A library with a package.json carries its own typecheck and test.
+          # This is the contract's gate tightening now that the first library
+          # has landed. Empty-safe: the loop body runs only for such libraries.
+          status=0
+          for pkg in libraries/*/package.json; do
+            [ -f "$pkg" ] || continue
+            dir="$(dirname "$pkg")"
+            echo "::group::$dir"
+            # The repository gitignores lockfiles by convention, so install,
+            # not ci, which would demand a committed package-lock.json.
+            ( cd "$dir" && npm install --no-audit --no-fund \
+                && npm run typecheck \
+                && npm test ) || status=1
+            echo "::endgroup::"
+          done
+          exit "$status"
+
       - name: No forbidden attribution in the commits
         run: |
           base="${{ github.event.pull_request.base.sha }}"

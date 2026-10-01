@@ -1,0 +1,16 @@
+Copyright (c) 2026 Lauret Chacha (Handsomeboy990). All rights reserved.
+
+This library (@craft-suite/ui) and all of its contents are proprietary, under
+the same terms as the Craft Suite repository that contains it. It is made
+visible for reference only.
+
+No permission is granted to copy, clone for reuse, modify, merge, publish,
+distribute, sublicense, sell or create derivative works from any part of this
+library, in whole or in part, without the prior written permission of the
+copyright holder.
+
+This library depends on third-party packages (among them @radix-ui/react-*),
+each used under its own licence; those terms govern those packages, not this
+library's own code.
+
+For permission requests: lauretchacha@gmail.com
