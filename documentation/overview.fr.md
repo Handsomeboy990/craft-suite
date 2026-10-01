@@ -8,7 +8,7 @@ Des systèmes d'expertise pour un agent, dans un seul dépôt : **écrire**,
 Le dépôt s'appelait `claude-writer-suite` jusqu'à la version 3.0.0, quand
 l'arbre d'écriture a cessé d'en être la totalité.
 
-166 skills et 25 agents. Pas des prompts : des protocoles numérotés, des
+166 skills et 32 agents. Pas des prompts : des protocoles numérotés, des
 critères de décision, des grilles d'évaluation et des procédures de révision,
 chacun avec un seuil chiffré de ce qui compte comme terminé.
 
@@ -20,7 +20,7 @@ craft-suite/
 ├── writing/         42 skills d'écriture créative
 ├── documents/        7 skills de document professionnel
 ├── engineering/     83 skills d'ingénierie
-├── agents/          27 définitions de rôle, transversales au dépôt
+├── agents/          32 définitions de rôle, transversales au dépôt
 ├── security/        12 skills de sécurité défensive
 ├── research/         5 skills de recherche générale
 ├── career/           7 skills de recherche d'emploi et de candidature
@@ -217,12 +217,12 @@ reçoit jamais l'arbre d'ingénierie.
 ```
    1) Creative writing        42 skills   romans, poésie, scénario, édition
    2) Professional documents   7 skills   guides, manuels, rapports, lettres, PDF
-   3) Software engineering    83 skills   plus 25 agents
+   3) Software engineering    83 skills   plus 28 agents
    4) Cybersecurity           12 skills   modèles de menace, audits, durcissement
    5) Research                 5 skills   sources, vérification, synthèse
    6) Career                   7 skills   recherche d'emploi, CV, entretiens
    7) Opportunity              9 skills   idéation, hackathons, prospection
-   8) Everything             167 skills   plus 27 agents
+   8) Everything             167 skills   plus 32 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -249,7 +249,7 @@ bash install.sh --career        les 7 skills de recherche d'emploi
 bash install.sh --opportunity   les 9 skills d'idéation, hackathon et prospection
 bash install.sh --all          tout
 bash install.sh --shared        les 2 skills transversaux seulement
-bash install.sh --agents        les 27 agents seulement
+bash install.sh --agents        les 32 agents seulement
 bash install.sh --no-agents     les skills sans les agents
 bash install.sh --all --zip     construit aussi une archive par skill dans dist/
 bash install.sh --remove        désinstalle la portée choisie
