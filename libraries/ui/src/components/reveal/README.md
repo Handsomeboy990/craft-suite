@@ -35,6 +35,7 @@ import { Reveal } from "@craft-suite/ui";
 
 CSS opacity and transform transitions, the lightest rung of the `animation`
 skill's ladder that achieves the effect, driven by the `--cu-motion-*` tokens.
-No animation library, no WebGL. Verified by `reveal.test.tsx`: children always
+No animation library, no WebGL. The in-view logic is the shared
+`useInViewOnce` hook, which `Stagger` uses too. Verified by `reveal.test.tsx`: children always
 render, the no-IntersectionObserver fallback shows content, and the
 reduced-motion path applies no transition.

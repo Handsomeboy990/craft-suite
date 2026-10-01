@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useRef, type CSSProperties, type ReactNode } from "react";
+import { useInViewOnce } from "../../hooks/use-in-view-once";
 import { useReducedMotion } from "../../hooks/use-reduced-motion";
 
 /*
@@ -25,30 +26,7 @@ export interface RevealProps {
 export function Reveal({ children, delayMs = 0, className }: RevealProps) {
   const reduced = useReducedMotion();
   const ref = useRef<HTMLDivElement | null>(null);
-  const [shown, setShown] = useState(false);
-
-  useEffect(() => {
-    if (reduced || typeof IntersectionObserver === "undefined") {
-      setShown(true);
-      return;
-    }
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setShown(true);
-            observer.disconnect();
-            break;
-          }
-        }
-      },
-      { threshold: 0.15 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [reduced]);
+  const shown = useInViewOnce(ref, { threshold: 0.15, skip: reduced });
 
   const animated = !reduced;
   const style: CSSProperties = animated
