@@ -17,23 +17,25 @@ content file that the back office writes, and both carry clearly fictional data.
 | Back office | the same surface, generated from its own contract | the same |
 
 A third directory, `dashboard-hotel-operations`, carries the `dashboard` kind as
-a specification rather than an application: an invented thirty two room hotel,
-five roles and their matrix, the records and their constraints, eight KPIs with
-their formulas and drill downs, the endpoints, a fictional seed of a year of
-records, and the twenty six line acceptance checklist of
-`resources/dashboard-contract.md` made concrete for that instance. Everything
-below this point describes the two site examples, which were built and run; the
-dashboard specification has not been implemented yet, and it claims nothing
-observed.
+a running application built from its own specification: an invented thirty two
+room hotel, five roles and their matrix enforced on the server for every route
+and action, the records and their constraints in SQLite, eight KPIs with their
+formulas and drill downs, server side tables with every filter in the URL, the
+designed states, a deterministic fictional seed of a year of records, and a gate
+runner, `npm run gate`, that checks the twenty six lines of
+`resources/dashboard-contract.md` against a seeded instance, twelve of them in a
+real headless browser. On its last run all twenty six passed; its README states
+what was observed and what those results do not claim. Everything below this
+point describes the two site examples.
 
 | | `dashboard-hotel-operations` |
 |---|---|
 | Kind | dashboard |
 | Owner | an invented hotel, for its own staff |
-| Routes | sign in, the overview, thirteen modules with their detail routes, 404, offline |
+| Routes | sign in, the overview, thirteen modules with their detail routes, settings, 404, 403, offline |
 | Accounts | several, five roles, a matrix of role by module by action |
 | Motion signature | operational |
-| Status | specification and acceptance checklist; not yet built |
+| Status | built; gate D1 to D26 run by `npm run gate`, 26 of 26 passed on the last run |
 
 ## Why there is a server
 
