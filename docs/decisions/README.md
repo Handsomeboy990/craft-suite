@@ -13,3 +13,4 @@ Format and rules: the `decision-records` skill
 | Record | Status | Decision |
 |---|---|---|
 | `0001-resource-library-structure.md` | accepted | skill trees stay at root; a top-level `libraries/` holds shippable code |
+| `0002-ui-primitive-base.md` | proposed | Radix UI as the headless primitive base for `libraries/ui`, behind the suite's own component API |
