@@ -12,7 +12,7 @@ itself is phase 8 of `docs/ROADMAP.md`; the direction behind it is
 
 ### State
 
-On `dev`, merged (pull requests 55 to 66):
+On `dev`, merged (pull requests 55 to 67):
 
 - Six agents, 27 to 33: `penetration-tester`, `ci-cd-engineer`,
   `design-director`, `delivery-manager`, `data-collection-engineer`,
@@ -30,19 +30,16 @@ On `dev`, merged (pull requests 55 to 66):
   `dashboard-hotel-operations` specification, from the principles of the
   owner's `gest-hotel` back office, nothing copied.
 
-Open when this was written, both checked conflict-free against `dev`:
-
-- Pull request 67, `feat/delivery-orchestrator-chief`: `delivery-orchestrator`
-  1.1.0, every one of the 33 agents in a team under a named lead
-  (`resources/team-routing.md`), conflict-free parallel dispatch
+- `delivery-orchestrator` 1.1.0: every one of the 33 agents in a team under a
+  named lead (`resources/team-routing.md`), conflict-free parallel dispatch
   (`resources/parallel-dispatch.md`), handoff evidence and the escalation
   ladder (`resources/handoff-and-escalation.md`).
-- The documentation pull request, `docs/phase8-followups`: agent count and
-  team map in `documentation/delivery-system.md` and `agents/README.md`, the
-  orchestrator agent's delegation, the dashboard kind in
-  `site-template-engineer` and the skills index, the roadmap and changelog
-  entries, and this section. It cites files that pull request 67 adds, so merge
-  67 first.
+
+Open when this was written, checked conflict-free against `dev`: pull request
+68, `docs/phase8-followups`, the agent count and team map in
+`documentation/delivery-system.md` and `agents/README.md`, the orchestrator
+agent's delegation, the dashboard kind in `site-template-engineer` and the
+skills index, the roadmap and changelog entries, and this section.
 
 Not version-bumped: everything since 3.29.0 sits under `Unreleased` in
 `CHANGELOG.md`. Bump the eight manifests in lockstep at the next release.
@@ -76,7 +73,7 @@ Not version-bumped: everything since 3.29.0 sits under `Unreleased` in
 Each item names the agent and the governing skill. Count-changing items are
 marked; run those one at a time.
 
-1. **Merge 67, then the documentation pull request**, in that order.
+1. **Merge pull request 68**, the documentation and this handover.
 2. **`delivery-orchestrator` lead, finish sharpening the chief** (8.3):
    `engineering-orchestrator`, `model-routing` and `task-complexity` against
    the new team map, so routing, sizing and model choice agree with it. Count
