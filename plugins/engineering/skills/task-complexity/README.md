@@ -12,6 +12,11 @@ verification depth all read, instead of each re-deriving its own.
 - Downstream: engineering-orchestrator, delivery-orchestrator,
   model-routing, token-optimization.
 
+The request is sized once, before composition, and each dispatched slice
+once, when it is cut. `resources/sizing-to-composition.md` maps the size to
+the chief's phase depth, team shape and parallel waves, and orders how a
+re-size propagates when the scope changes.
+
 A one-line change to a password reset flow classifies CRITICAL because of its
 security signal alone, even though every other signal says TRIVIAL. A
 five-hundred-line mechanical rename classifies LOW because no signal reaches
