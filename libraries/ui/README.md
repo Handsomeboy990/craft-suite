@@ -21,6 +21,7 @@ reference analysis are in `docs/architecture/RESOURCE_LIBRARY.md` and
 | Primitive | Behaviour from | What the wrapper adds |
 |---|---|---|
 | `Dialog` | `@radix-ui/react-dialog` | a required accessible name, token styling, a closed API over the base |
+| `Tooltip`, `TooltipProvider` | `@radix-ui/react-tooltip` | a required `content`, token styling, a closed API, self-providing or grouped |
 | `Reveal` | the platform (IntersectionObserver), motion tokens | a scroll-in reveal that never hides content, reduced-motion safe |
 | `useReducedMotion` | `matchMedia` | the reduced-motion signal the motion layer treats as a hard floor |
 
