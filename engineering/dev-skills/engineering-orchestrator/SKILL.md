@@ -4,7 +4,7 @@ description: Central routing layer for engineering work: classifies the request,
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.2.0
+  version: 1.3.0
   depends_on: [engineering-core, project-exploration]
   outputs: [task-classification, execution-plan, team-plan, verification-gates, completion-verdict]
 ---
@@ -175,8 +175,15 @@ The orchestrator does not activate:
 4. Verification is not repeated when its inputs are unchanged.
 5. When a plan produces no progress twice in a row, the orchestrator stops and
    reports the exact blocker rather than cycling.
+6. The same tool with identical input three times in a row is a loop,
+   whatever the plan says. Before the third run the step stops and asks the
+   rung above, per the chief's `handoff-and-escalation.md` section 2, or the
+   user when no chief is in play, naming the call and what the two runs
+   returned. A repetition that is meant, a poll or a flakiness rerun, is
+   declared in the plan with its count before it starts.
 
-These five rules are enforced here, at the orchestrator. `token-optimization`
+Rule 5 watches the plan, rule 6 watches the single step. These six rules are
+enforced here, at the orchestrator. `token-optimization`
 is the discipline that keeps each individual step proportional; it does not
 duplicate this section and this section does not duplicate it.
 
@@ -254,8 +261,11 @@ restated.
    same way section 3 drops a step. Team size and wave count read the size
    from `task-complexity` section 9; they are not re-judged here.
 3. **Dispatch record.** Every dispatch carries the record of
-   `parallel-dispatch.md` section 1, with its mode, its write surface and its
-   model resolved by `model-routing`. No agent is dispatched on a sentence.
+   `parallel-dispatch.md` section 1, with its mode, its write surface, its
+   permits and its model resolved by `model-routing`. No agent is dispatched
+   on a sentence. A specialist does not dispatch further agents, and a
+   sub-dispatch inherits its parent's denies, never its allows, sections 1.1
+   and 1.2 of that file.
 4. **Read versus write.** Per `parallel-dispatch.md` section 2. Reads run in
    parallel against a stable base; a reviewer that may fix is a write.
 5. **Disjoint write surfaces.** Writes run in parallel only when their
