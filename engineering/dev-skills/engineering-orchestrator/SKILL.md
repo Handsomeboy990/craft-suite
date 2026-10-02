@@ -1,12 +1,12 @@
 ---
 name: engineering-orchestrator
-description: Central routing layer for engineering work: classifies the request, detects the affected surface and the real stack, selects the smallest complete set of dev skills, orders them, defines the verification gates and decides when the task is done. Load first on any coding, review, debugging or release request.
+description: Central routing layer for engineering work: classifies the request, detects the affected surface and the real stack, selects the smallest complete set of dev skills, orders them, assigns each step to the agent the chief's team map names, defines the verification gates and decides when the task is done. Load first on any coding, review, debugging or release request.
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.1.0
+  version: 1.2.0
   depends_on: [engineering-core, project-exploration]
-  outputs: [task-classification, execution-plan, verification-gates, completion-verdict]
+  outputs: [task-classification, execution-plan, team-plan, verification-gates, completion-verdict]
 ---
 
 # Engineering Orchestrator
@@ -29,12 +29,14 @@ smallest plan that still contains every mandatory gate.
 4. **Establish the stack** through `project-exploration`, at the depth from
    its section 2.
 5. **Compose the plan** from section 3, then apply the mandatory gates in
-   section 4 and the exclusion rules in section 5.
+   section 4 and the exclusion rules in section 5. When the plan runs on
+   agents, compose its team in the same pass, section 11.
 6. **Announce the plan in one block**, at most one line per step.
-7. **Execute step by step.** Before each step, classify its complexity with
-   `task-complexity` and route it with `model-routing`; the two run per step,
-   not once for the whole request, because a plan's steps rarely carry the
-   same risk. On every dispatch to a subagent, resolve a model per
+7. **Execute step by step.** The request is sized once with
+   `task-complexity`, before composition; each dispatched step is a slice
+   classified once when it is cut, per `task-complexity` section 8, and
+   routed with `model-routing` from that slice's classification, because a
+   plan's steps rarely carry the same risk. No consumer re-derives either. On every dispatch to a subagent, resolve a model per
    `model-routing` section 7 and pass it through the dispatch override,
    without exception; an agent's own frontmatter default is never relied on
    to happen to match. Record the dispatch in `model-routing`'s routing log.
@@ -142,6 +144,8 @@ not an optimisation.
 | Review before delivery | any code written by the agent | `code-review-protocol` |
 | Continuity before handoff | any session that changed the repository | `project-continuity` |
 | Author check before commit | every commit | `git-workflow` |
+| Conflict check before pull request | two or more write dispatches in one wave | `delivery-orchestrator`, `resources/parallel-dispatch.md` section 5 |
+| Independent reproduction before done | the plan ran on dispatched agents | the final-verifier agent, `delivery-orchestrator` section 12 |
 
 A gate can be satisfied by evidence rather than by a full skill run. Example:
 the test gate is satisfied when the change is covered by an existing test that
@@ -185,6 +189,9 @@ The task is complete when all of the following are true, each with evidence:
 3. The definition of done from `engineering-core` section 8 passes.
 4. The user visible outcome matches the literal request.
 5. What remains is named, or nothing remains.
+6. When agents were dispatched, every handoff was accepted on the evidence
+   its edge owes, and the final-verifier agent reproduced the gates; a gate
+   only a previous agent asserts keeps the verdict at `Partial`.
 
 The verdict is one of `Complete`, `Partial` with the named remainder, or
 `Blocked` with the exact external blocker. There is no fourth value, and
@@ -209,6 +216,10 @@ Plan:
 Dropped: ui-ux-engineering, no visual surface.
 ```
 
+When the plan runs on agents, the block also carries `Team`, `Left out`,
+`Waves` and `Integrator`, in the format of `resources/agent-dispatch.md`
+section 3.
+
 Nine lines of plan for a day of work is correct. Nine paragraphs is not.
 
 ## 9. Auto-critique
@@ -227,10 +238,51 @@ sequence. Symptom: the same twelve steps for tasks of very different size.
 Cause: classification collapsed into one category. Correction: re-read
 section 2 and re-derive the surface.
 
-## 11. Interfaces
+## 11. Agent dispatch
 
-- Upstream: `engineering-core`.
-- Downstream: every skill in `dev-skills`.
+The orchestrator assigns steps to agents by the chief's team map, never by a
+map of its own. Category to lead and plan step to agent are in
+`resources/agent-dispatch.md`; the rules below are the chief's, cited, not
+restated.
+
+1. **Lead.** One surface: the owning implementer leads itself. Several
+   implementer surfaces: the principal-engineer agent leads. A category whose
+   row in `team-routing.md` section 3 names a domain lead keeps that lead.
+2. **Smallest complete team.** Start from the row's minimum team, add an
+   agent only when its condition in `team-routing.md` section 2 is met and
+   write the condition down, name the agents left out with the reason, the
+   same way section 3 drops a step. Team size and wave count read the size
+   from `task-complexity` section 9; they are not re-judged here.
+3. **Dispatch record.** Every dispatch carries the record of
+   `parallel-dispatch.md` section 1, with its mode, its write surface and its
+   model resolved by `model-routing`. No agent is dispatched on a sentence.
+4. **Read versus write.** Per `parallel-dispatch.md` section 2. Reads run in
+   parallel against a stable base; a reviewer that may fix is a write.
+5. **Disjoint write surfaces.** Writes run in parallel only when their
+   declared surfaces do not intersect, `parallel-dispatch.md` section 3. Hot
+   files, the continuity note and generated plugin copies included, belong
+   to one named integrator per wave.
+6. **Conflict check before any pull request.** `parallel-dispatch.md`
+   section 5 on every branch of the wave: surface held, pairwise disjoint,
+   fresh base, verification re-run, hot files last. A conflict is resolved
+   per its section 6, never by a merge tool on a semantic disagreement.
+7. **Handoff and escalation.** A handoff is accepted on the evidence of
+   `handoff-and-escalation.md` section 1, or returned. Problems climb
+   specialist, domain lead, chief, human, its section 2. When the
+   orchestrator runs a single task with no chief in play, it holds the
+   chief's rung for that task and stops for the human in the cases of its
+   section 3 that the task reaches.
+
+## 12. Interfaces
+
+- Upstream: `engineering-core`; `delivery-orchestrator` when the task is one
+  step of a project.
+- Lateral: `task-complexity` sizes the request and each slice;
+  `model-routing` routes every dispatch.
+- Downstream: every skill in `dev-skills`, and the agents of the chief's team
+  map.
 - Reference data: `resources/execution-plans.md`,
-  `resources/routing-table.md`.
+  `resources/routing-table.md`, `resources/agent-dispatch.md`; the chief's
+  `resources/team-routing.md`, `resources/parallel-dispatch.md` and
+  `resources/handoff-and-escalation.md`; `agents/handoff-protocol.md`.
 - Validated by: `tests/validate-orchestration.sh`.

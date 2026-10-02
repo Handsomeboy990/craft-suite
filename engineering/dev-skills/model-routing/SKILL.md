@@ -1,10 +1,10 @@
 ---
 name: model-routing
-description: Recommends which Claude model, and where meaningful which effort, an agent dispatch should use, from the task-complexity classification and risk signals such as security sensitivity, novelty and expected iteration, and escalates when a dispatched output fails a quality check even without a complexity change. States plainly what the current agent runtime can and cannot switch, and never claims a capability the tooling does not have. Use before dispatching a subagent, whenever complexity changes mid task, and whenever a returned output is shallow, uncited, factually wrong or fails its gate.
+description: Recommends which Claude model, and where meaningful which effort, an agent dispatch should use, from the task-complexity classification and risk signals such as security sensitivity, novelty and expected iteration, and escalates when a dispatched output fails a quality check even without a complexity change. States plainly what the current agent runtime can and cannot switch, and never claims a capability the tooling does not have. Covers every agent of the chief's team map with a tier rule, and every parallel worker with its own explicit, recorded model. Use before dispatching a subagent, whenever complexity changes mid task, and whenever a returned output is shallow, uncited, factually wrong or fails its gate.
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.1.0
+  version: 1.2.0
   depends_on: [engineering-core, task-complexity]
   outputs: [model-recommendation, routing-rationale, escalation-record, routing-log]
 ---
@@ -118,7 +118,10 @@ and record the override, when:
   the reasoning was already done and only needs to be applied again;
 - the expected output is large and mechanical (a bulk rename, a generated
   file set) with no judgment calls inside it: route lighter and decompose,
-  regardless of file count.
+  regardless of file count;
+- the dispatch is an independent gate verifying another dispatch's work, the
+  final-verifier, pr-reviewer or compliance-verifier agent: route no lighter,
+  in model tier and effort, than the dispatch whose work it verifies.
 
 ## 6. Escalation and de-escalation
 
@@ -202,7 +205,8 @@ third dispatch.
 6. On every dispatch to a subagent, without exception, resolve a model per
    steps 2 to 4 and pass it through the dispatch override. An agent's own
    frontmatter default is never relied on to happen to match; the
-   orchestrator resolves and passes the model itself, every time.
+   orchestrator resolves and passes the model itself, every time, for each
+   worker of a parallel wave separately, section 9.
 7. Record the dispatch in the routing log, `resources/routing-log.md`.
 8. On reclassification, or on an `output-quality-failure` per section 6,
    produce the escalation record, record it in the routing log's escalation
@@ -225,7 +229,34 @@ default mapping documented in `resources/routing-policy.md` was applied because
 Resolved model: haiku (default mapping applied, model_routing is not configured)
 ```
 
-## 9. What this skill refuses
+## 9. Agents and parallel workers
+
+**Every agent has a tier rule.** The thirty-three agents of the chief's
+`resources/team-routing.md` each have one in `resources/agent-tiers.md`,
+team by team. The rule is the slice's classification through section 3,
+plus the override the agent's own condition always fires: the
+`security-driving-signal` for the security team, the
+`independent-verifier-floor` for the independent gates. A lead routes on the
+request classification, because it plans the whole request. An agent missing
+from that file is not dispatched until it has a rule.
+
+**Every parallel worker is routed on its own.** A wave of the chief's
+`resources/parallel-dispatch.md` section 4 is not a routing unit:
+
+1. Each dispatch of the wave is routed from its own slice classification,
+   never from a model chosen once for the wave.
+2. Each dispatch passes its resolved model explicitly through the dispatch
+   override, step 6 of section 7; two workers of one wave running the same
+   agent may resolve different tiers.
+3. The tier and resolved model are written in the dispatch record's `Model`
+   field before the worker starts, and one routing log row per dispatch
+   carries its dispatch id, `D<wave>.<n>`.
+4. A worker redispatched under `parallel-dispatch.md` section 7 is an
+   `output-quality-failure` of section 6: one tier stronger, the failed
+   output kept, a second failure at the strongest tier a blocker for the
+   chief, never a third dispatch.
+
+## 10. What this skill refuses
 
 - Claiming a subagent dispatch obeys an effort parameter the target skill
   does not define.
@@ -239,6 +270,9 @@ Resolved model: haiku (default mapping applied, model_routing is not configured)
   to trust; on Claude Code an omitted `model` inherits the orchestrating
   session's own model, so silence here is silent, unrouted dispatch, not a
   sensible default.
+- Routing a parallel wave on one shared model, or dispatching any worker of
+  it without its own explicit model and its own routing log row.
+- Dispatching an agent that has no tier rule in `resources/agent-tiers.md`.
 - Escalating without a stated reason, or switching more than once without new
   evidence between the switches.
 - Raising the model tier on an `output-quality-failure` by more than one
@@ -248,22 +282,23 @@ Resolved model: haiku (default mapping applied, model_routing is not configured)
 - Lowering model tier or effort to save tokens when the driving signal is
   security, authentication, payments or an irreversible action.
 
-## 10. Auto-critique
+## 11. Auto-critique
 
 Score from 0 to 5: the classification was read, not re-derived, the tier
 lookup and any override are both stated, the resolved identifier came from
 configuration or the documented default mapping rather than being hardcoded
 or silently inherited, an escalation carries a reason (naming the trigger)
 and an expected benefit, a quality escalation kept the failed output, the
-dispatch and any escalation were recorded in the routing log, no capability
-was claimed that section 1 marks as unverified.
+dispatch and any escalation were recorded in the routing log, every parallel
+worker carried its own explicit model, every dispatched agent had a tier rule,
+no capability was claimed that section 1 marks as unverified.
 
 Threshold: no axis below 3, average at least 4. A routing decision that
 claims a capability section 1 does not verify scores 0 on that axis
 regardless of the rest. A dispatch with no explicit model passed, on a
 runtime where `model_routing` is absent or empty, scores 0 on the same axis.
 
-## 11. Interfaces
+## 12. Interfaces
 
 - Upstream: `engineering-core`, `task-complexity`.
 - Lateral: `token-optimization`, which reads the same escalation events for
@@ -271,5 +306,7 @@ runtime where `model_routing` is absent or empty, scores 0 on the same axis.
 - Downstream: `engineering-orchestrator`, `delivery-orchestrator`, and any
   agent dispatch that follows `agents/handoff-protocol.md`.
 - Reference data: `resources/routing-policy.md`, `resources/tier-table.json`,
-  `resources/fixtures.json`, `resources/routing-log.md`.
+  `resources/fixtures.json`, `resources/routing-log.md`,
+  `resources/agent-tiers.md`; the chief's `resources/team-routing.md` and
+  `resources/parallel-dispatch.md`.
 - Validated by: `tests/validate-model-routing.sh`.

@@ -1,10 +1,10 @@
 ---
 name: task-complexity
-description: Classifies a task's complexity into one of five tiers, from eleven concrete signals, before agent selection, model routing or verification depth are decided. One classification, read by every downstream decision rather than re-derived by each. Use before composing a plan, selecting agents, routing a model, or sizing a verification pass.
+description: Classifies a task's complexity into one of five tiers, from eleven concrete signals, before agent selection, model routing or verification depth are decided. One classification, read by every downstream decision rather than re-derived by each, feeding the chief's team composition and parallel waves, and revised when scope changes. Use before composing a plan, selecting agents, routing a model, or sizing a verification pass.
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core]
   outputs: [complexity-classification, classification-rationale]
 ---
@@ -141,28 +141,67 @@ revised, never silently kept, when:
   example an assumed single-tenant table that is actually shared;
 - the task is decomposed, per section 6, into parts with their own tiers;
 - a fix reveals the defect is upstream, in a dependency or a different
-  service.
+  service;
+- the scope changes: a change approved through `scope-and-change-control`,
+  or a rescope or added requirement the human accepted.
+
+Slippage, schedule pressure and a weak returned output are not triggers. The
+last is `model-routing`'s `output-quality-failure`, which strengthens the
+model and leaves the classification alone.
 
 A reclassification is announced in one line: `Reclassified: MEDIUM to HIGH,
 signal 4 revised, the endpoint returns another user's data with a forged id.`
-This is the same trigger `engineering-orchestrator` section 8 calls a
-re-plan, and the same trigger `model-routing` section 5 calls an escalation:
-one event, read by two consumers.
+This is the same trigger `engineering-orchestrator` section 1 step 8 calls a
+re-plan, and the same trigger `model-routing` section 6 calls a
+reclassification: one event, read by every consumer. How a re-size
+propagates to the team, the waves and the routing, in order, is
+`resources/sizing-to-composition.md` section 4.
 
 ## 8. What reads this classification
+
+Two classifications exist, and each is produced once:
+
+```
+request   once, before composition, by whoever composes the work
+slice     once per dispatch, when the slice is cut; a slice carrying the
+          request's driving risk signal never classifies below it
+```
 
 | Consumer | Uses it to |
 |---|---|
 | `engineering-orchestrator` | decide plan breadth: a TRIVIAL task skips steps a HIGH task cannot |
-| `delivery-orchestrator` | size phases 1 through 6, per its own section 3 |
+| `delivery-orchestrator` | size phases 1 through 6, per its own section 3, and compose the team and its waves, its section 9 |
 | `model-routing` | select a model tier and an effort level |
 | `token-optimization` | set a proportional context budget |
 | verification depth, generally | a CRITICAL task requires an independent verification pass; a TRIVIAL one does not |
 
 None of these re-derive the tier from the eleven signals. They read the
-classification this skill produced and act on it.
+classification this skill produced and act on it. A consumer that disagrees
+asks for a reclassification with its evidence, section 7.
 
-## 9. Protocol
+## 9. Feeding the chief's composition
+
+The size is step 2 of the chief's composition, `delivery-orchestrator`
+section 9, and every later step reads it. What it contributes, in full in
+`resources/sizing-to-composition.md`:
+
+| Request tier | Team | Parallel waves |
+|---|---|---|
+| TRIVIAL, LOW | the row's minimum team | one write wave, read-mode verification in parallel |
+| MEDIUM | a lead when two or more implementer surfaces are touched | a contract wave, then implementation across it |
+| HIGH, CRITICAL by breadth | decomposed, one dispatch per slice | slices in parallel across disjoint write surfaces |
+| HIGH, CRITICAL by risk | one writer on the risky slice | sequential on that surface, verified in a later read wave |
+
+CRITICAL adds the independent verification pass whichever signal drove it.
+
+Phase depth reads the breadth signals (1, 2, 6) plus architectural impact
+(3), the signals the chief's small, medium and large describe; the other risk
+signals set gate strength, not page count. The tier shapes the team and the agent conditions
+of the chief's `resources/team-routing.md` section 2 decide its membership:
+a tier never adds an agent whose condition is unmet, and never removes one
+whose condition is met.
+
+## 10. Protocol
 
 1. Read the task as stated, plus whatever exploration has already
    established about the files, systems and data paths it touches.
@@ -175,24 +214,29 @@ classification this skill produced and act on it.
    signal (architecture, security, rollback, user or production impact)
    reaches above LOW, consider decomposition per section 6.
 6. Publish the classification in the format of section 5 so `model-routing`
-   and the orchestrators can read it without re-deriving it.
+   and the orchestrators can read it without re-deriving it. For a request,
+   publish it before composition; for a slice, when the slice is cut.
 7. Revise the classification per section 7 the moment new evidence
-   contradicts a rated signal; never carry a stale classification forward.
+   contradicts a rated signal or the scope changes, and propagate it per
+   `resources/sizing-to-composition.md` section 4; never carry a stale
+   classification forward.
 
-## 10. Auto-critique
+## 11. Auto-critique
 
 Score from 0 to 5: every applicable signal was actually rated rather than
 assumed, the combination rule was applied literally, the driving signal is
 named, decomposition was considered when breadth dominated, reclassification
-happened when new evidence appeared.
+happened when new evidence or a scope change appeared, the size was produced
+once and read by composition rather than re-derived.
 
 Threshold: no axis below 3, average at least 4. A CRITICAL task classified
 without naming the driving signal scores 0 on that axis regardless of the
 rest, because an unnamed driving signal cannot be checked by anyone else.
 
-## 11. Interfaces
+## 12. Interfaces
 
 - Upstream: `engineering-core`.
 - Downstream: `engineering-orchestrator`, `delivery-orchestrator`,
   `model-routing`, `token-optimization`.
-- Reference data: `resources/tier-examples.md`.
+- Reference data: `resources/tier-examples.md`,
+  `resources/sizing-to-composition.md`.
