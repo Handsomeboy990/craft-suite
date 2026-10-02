@@ -4,7 +4,7 @@ description: Builds server side features to production standard: handlers, servi
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core, project-exploration, architecture-design]
   outputs: [handlers, services, migrations, error-contract, observability-notes]
 ---
@@ -46,14 +46,29 @@ Every handler, in this order, without exception:
 Skipping step 3 because step 1 passed is the most common serious defect in
 backend code. Authentication says who; authorization says whether.
 
+The input schema and the authorization rule are declared together at the
+handler's definition, where a reviewer sees them without reading the body. A
+server function, a server action or a remote procedure is a public endpoint
+whatever the framework calls it, and follows the same order.
+
+Create is authorized like update. A create that attaches the new object to a
+parent (a team, a community, a project) checks the caller's right on that
+parent exactly as the update does. The create path is the one most often left
+open, because there is no existing row to check.
+
 ## 3. Never trust the client
 
 Read from the server, never from the request:
 
 prices and totals, currency, discounts, roles and permissions, ownership,
 resource identifiers used for access decisions, workflow state transitions,
-quotas and limits, timestamps that drive business rules, anything that grants
-an advantage.
+quotas and limits, timestamps that drive business rules, visibility (drafts,
+unpublished, private or deleted rows), anything that grants an advantage.
+
+Visibility is derived on the server from the caller's identity and role. A
+filter parameter may narrow what the caller is allowed to see; it never
+widens it. An unauthenticated read that accepts a `draft` or `includePrivate`
+flag from the caller publishes the drafts.
 
 The request may carry an identifier and a quantity. Everything else is looked
 up.
@@ -75,7 +90,18 @@ deliberately when the default does not prevent the anomaly at hand.
 
 **Concurrency.** A check followed by a write is a race unless the database
 enforces it. Prefer a unique constraint, a conditional update, or an atomic
-increment over a read then write.
+increment over a read then write. A counter (views, likes, stock) is
+incremented by the store, never read and set to the value plus one. A rate
+limit counter is checked and incremented in one conditional statement, several
+windows in one transaction, per `rate-limiting`.
+
+**Ownership in the query.** Where the store allows it, object level
+authorization is part of the statement: select, update or delete by identifier
+and owner together, and answer not found when no row matches. The check cannot
+then be lost between a read and a write, and the answer does not reveal that
+another caller's row exists. A dependent row that blocks the operation (a
+comment with replies) is refused with an explicit conflict, not left to fail
+on the foreign key.
 
 **Migrations.** Reversible, or explicitly marked irreversible with the reason.
 Additive first: add the column, backfill, switch the reads, then drop the old
@@ -127,6 +153,8 @@ rather than down, which is the more common failure and the harder one.
   to tolerate the overlap.
 - Job arguments are identifiers, not serialised entities that go stale in the
   queue.
+- A table of rows that expire (rate limit windows, one-time tokens, sessions)
+  has a cleanup job, or it grows without bound; see `background-jobs`.
 - Every job logs its start, its outcome and its counts.
 
 ## 8. Observability
@@ -138,8 +166,8 @@ Structured   fields, not interpolated prose
 Correlated   a request identifier that crosses the layers
 Levels       error for unexpected, warn for expected failures worth seeing,
              info for state changes, debug off in production
-Never        passwords, tokens, full bodies, personal data beyond what is
-             needed to reconstruct
+Never        passwords, tokens, session identifiers, full bodies, personal
+             data beyond what is needed to reconstruct
 Metrics      counts and durations for the paths that matter
 ```
 
@@ -174,17 +202,20 @@ does next? If not, remove it.
 ## 11. Auto-critique
 
 Score from 0 to 5: layering respected, handler order complete including
-authorization, nothing trusted from the client, query and index quality,
+authorization on create as on update, nothing trusted from the client
+including visibility, query and index quality,
 transaction correctness, error contract consistency, dependency failure
 handling, idempotency, log usefulness, test coverage of negative paths.
 
-Threshold: no axis below 3, average at least 4. A missing authorization check
-or an unparameterised query is an automatic failure.
+Threshold: no axis below 3, average at least 4. A missing authorization check,
+including on a create path, or an unparameterised query is an automatic
+failure.
 
 ## 12. Interfaces
 
 - Upstream: `architecture-design`, `project-exploration`.
-- Lateral: `input-validation`, `frontend-engineering` for the contract.
+- Lateral: `input-validation`, `frontend-engineering` for the contract,
+  `rate-limiting` for limit policy, `background-jobs` for cleanup work.
 - Downstream: `security-audit`, `testing-quality`,
   `performance-engineering`, `code-review-protocol`,
   `technical-documentation`.
