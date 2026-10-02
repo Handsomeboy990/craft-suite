@@ -1,0 +1,31 @@
+{
+  "name": "dashboard-hotel-operations",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "create-admin": "node scripts/create-admin.mjs",
+    "seed": "node scripts/seed.mjs",
+    "backup": "node scripts/backup.mjs",
+    "restore": "node scripts/restore.mjs",
+    "gate": "node scripts/gate.mjs"
+  },
+  "dependencies": {
+    "next": "16.3.5",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@sparticuz/chromium": "153.0.0",
+    "@types/node": "22.10.2",
+    "@types/react": "19.0.2",
+    "playwright-core": "1.63.0",
+    "typescript": "5.7.2"
+  }
+}

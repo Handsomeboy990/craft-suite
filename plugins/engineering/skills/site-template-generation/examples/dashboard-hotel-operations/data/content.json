@@ -1,0 +1,799 @@
+{
+  "site": {
+    "name": "Maison Lanterne, operations",
+    "shortName": "Lanterne",
+    "locale": "en-GB",
+    "timeZone": "Europe/Paris",
+    "currency": "EUR",
+    "baseUrl": "http://localhost:3000"
+  },
+  "theme": {
+    "palettes": {
+      "light": {
+        "surface": "#ffffff",
+        "surfaceAlt": "#f3f5f8",
+        "foreground": "#161a21",
+        "muted": "#525a66",
+        "accent": "#1d5b86",
+        "accentHover": "#174a6e",
+        "accentForeground": "#ffffff",
+        "border": "#dde1e7",
+        "borderStrong": "#7c8592",
+        "focusRing": "#1d5b86",
+        "success": "#1a6a3e",
+        "danger": "#ab2a1f",
+        "warning": "#87500a",
+        "info": "#1b5791",
+        "neutral": "#3c434e",
+        "successSurface": "#e2f2e8",
+        "warningSurface": "#fcf0db",
+        "dangerSurface": "#fbe6e3",
+        "infoSurface": "#e2edf9",
+        "neutralSurface": "#eceef2",
+        "chartSeries": ["#1d5b86", "#a6501a"]
+      },
+      "dark": {
+        "surface": "#12161c",
+        "surfaceAlt": "#1a2029",
+        "foreground": "#eef1f5",
+        "muted": "#a4aebb",
+        "accent": "#70b4e8",
+        "accentHover": "#93c7ef",
+        "accentForeground": "#0b1016",
+        "border": "#2a323e",
+        "borderStrong": "#6c7786",
+        "focusRing": "#70b4e8",
+        "success": "#63d491",
+        "danger": "#ff8c82",
+        "warning": "#f0b65c",
+        "info": "#82bbf1",
+        "neutral": "#c8cfd9",
+        "successSurface": "#123221",
+        "warningSurface": "#382912",
+        "dangerSurface": "#3c1815",
+        "infoSurface": "#132a40",
+        "neutralSurface": "#262d38",
+        "chartSeries": ["#70b4e8", "#efa063"]
+      }
+    },
+    "type": {
+      "displayFamily": "system-ui, 'Segoe UI', Roboto, sans-serif",
+      "textFamily": "system-ui, 'Segoe UI', Roboto, sans-serif",
+      "scaleRatio": 1.2,
+      "displayWeight": 650,
+      "textWeight": 400
+    },
+    "radius": {
+      "sm": "4px",
+      "md": "6px",
+      "lg": "10px",
+      "pill": "999px"
+    },
+    "spacing": {
+      "unit": "8px",
+      "pageWidth": "1600px",
+      "railWidth": "260px"
+    },
+    "density": "regular",
+    "motion": {
+      "signature": "operational",
+      "intensity": 0.6,
+      "baseDuration": 240,
+      "easing": "ease-out"
+    }
+  },
+  "roles": {
+    "manager": "Manager",
+    "frontDesk": "Front desk",
+    "housekeeping": "Housekeeping",
+    "storekeeper": "Storekeeper",
+    "bookkeeper": "Bookkeeper"
+  },
+  "nav": {
+    "label": "Modules",
+    "domains": [
+      { "key": "frontDesk", "label": "Front desk", "modules": ["rooms", "stays", "guests", "folios"] },
+      { "key": "housekeeping", "label": "Housekeeping", "modules": ["tasks"] },
+      { "key": "stores", "label": "Stores", "modules": ["items", "movements", "suppliers"] },
+      { "key": "books", "label": "Books", "modules": ["ledger", "reports"] },
+      { "key": "administration", "label": "Administration", "modules": ["staff", "audit", "settings"] }
+    ]
+  },
+  "modules": {
+    "overview": {
+      "label": "Overview",
+      "title": "Overview",
+      "intro": "What needs deciding today.",
+      "caption": "Overview",
+      "denied": "the overview",
+      "empty": "Nothing to show yet.",
+      "error": "The overview could not be loaded.",
+      "count": "{n} figures",
+      "columns": {}
+    },
+    "rooms": {
+      "label": "Rooms",
+      "title": "Rooms",
+      "intro": "Every room and its state right now.",
+      "caption": "Rooms, by number",
+      "denied": "the rooms",
+      "empty": "No rooms recorded yet. A room needs a number, a type and a rate.",
+      "error": "The rooms could not be loaded. Your other screens still work.",
+      "count": "{n} rooms",
+      "create": "New room",
+      "open": "Room {room}",
+      "columns": {
+        "number": "Room",
+        "type": "Type",
+        "floor": "Floor",
+        "nightly_rate": "Nightly rate",
+        "status": "Status",
+        "out_of_order_reason": "Reason out of order"
+      },
+      "filters": { "status": "Status", "type": "Type", "q": "Search by room number" },
+      "fields": { "number": "Room number", "type": "Type", "floor": "Floor", "nightlyRate": "Nightly rate", "reason": "Reason" },
+      "actions": {
+        "setOutOfOrder": {
+          "label": "Set out of order",
+          "named": "Set out of order, room {room}",
+          "done": "Room {room} is out of order."
+        },
+        "returnToService": {
+          "label": "Return to service",
+          "named": "Return to service, room {room}",
+          "done": "Room {room} is back in service and waits for cleaning."
+        },
+        "markClean": {
+          "label": "Mark clean",
+          "named": "Mark clean, room {room}",
+          "done": "Room {room} is clean and available."
+        }
+      }
+    },
+    "stays": {
+      "label": "Stays",
+      "title": "Stays",
+      "intro": "Arrivals, guests in house and departures.",
+      "caption": "Stays, by arrival",
+      "denied": "the stays",
+      "empty": "No stays recorded yet. A new stay starts with a guest and a room.",
+      "error": "The stays could not be loaded. Your other screens still work.",
+      "count": "{n} stays",
+      "create": "New stay",
+      "open": "Stay of {guest}, room {room}",
+      "columns": {
+        "guest": "Guest",
+        "room": "Room",
+        "arrival": "Arrival",
+        "departure": "Departure",
+        "nights": "Nights",
+        "total": "Total",
+        "status": "Status",
+        "adults": "Adults",
+        "children": "Children",
+        "rate": "Nightly rate",
+        "folio": "Folio",
+        "folio_status": "Folio status"
+      },
+      "filters": {
+        "status": "Status",
+        "arrivalFrom": "Arrival from",
+        "arrivalTo": "Arrival to",
+        "departureFrom": "Departure from",
+        "departureTo": "Departure to",
+        "roomType": "Room type",
+        "q": "Search by guest or room",
+        "night": "Staying the night of",
+        "arrival": "Arrival on",
+        "departure": "Departure on"
+      },
+      "fields": {
+        "guestId": "Existing guest number",
+        "guestName": "Guest name, for a new guest",
+        "roomId": "Room",
+        "arrival": "Arrival",
+        "departure": "Departure",
+        "adults": "Adults",
+        "children": "Children",
+        "provisional": "Provisional, not yet confirmed",
+        "override": "Check out with the folio unsettled"
+      },
+      "actions": {
+        "confirm": {
+          "label": "Confirm",
+          "named": "Confirm, stay of {guest}, room {room}",
+          "done": "Stay of {guest} confirmed."
+        },
+        "checkIn": {
+          "label": "Check in",
+          "named": "Check in, stay of {guest}, room {room}",
+          "done": "{guest} is checked in, room {room}."
+        },
+        "checkOut": {
+          "label": "Check out",
+          "named": "Check out, stay of {guest}, room {room}",
+          "done": "{guest} is checked out. Room {room} waits for cleaning."
+        },
+        "cancel": {
+          "label": "Cancel",
+          "named": "Cancel, stay of {guest}, room {room}",
+          "confirm": "Cancel the stay of {guest}, room {room}, from {arrival} to {departure}? The room is released for those nights.",
+          "keep": "Keep the stay",
+          "done": "The stay of {guest} is cancelled."
+        }
+      }
+    },
+    "guests": {
+      "label": "Guests",
+      "title": "Guests",
+      "intro": "The people who stay with us.",
+      "caption": "Guests, by name",
+      "denied": "the guests",
+      "empty": "No guests recorded yet. A guest is created with their first stay.",
+      "error": "The guests could not be loaded. Your other screens still work.",
+      "count": "{n} guests",
+      "create": "New guest",
+      "open": "Guest {guest}",
+      "columns": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Telephone",
+        "last_stay_at": "Last stay",
+        "notes": "Notes"
+      },
+      "filters": { "q": "Search by guest name" },
+      "fields": { "name": "Name", "email": "Email", "phone": "Telephone", "notes": "Notes, never exported" }
+    },
+    "folios": {
+      "label": "Folios",
+      "title": "Folios",
+      "intro": "What each stay owes, and what has been paid.",
+      "caption": "Folios, by due date",
+      "denied": "the folios",
+      "empty": "No folios yet. A folio opens when a guest checks in.",
+      "error": "The folios could not be loaded. Your other screens still work.",
+      "count": "{n} folios",
+      "counter": "{n} overdue folios",
+      "create": "New folio",
+      "open": "Folio {folio}, {guest}",
+      "columns": {
+        "number": "Folio",
+        "guest": "Guest",
+        "room": "Room",
+        "total": "Total",
+        "paid": "Paid",
+        "due": "Still due",
+        "due_date": "Due date",
+        "status": "Status"
+      },
+      "filters": { "status": "Status", "dueFrom": "Due from", "dueTo": "Due to", "q": "Search by folio number or guest" },
+      "fields": { "stayId": "Stay number", "dueDate": "Due date", "amount": "Amount", "method": "Method" },
+      "actions": {
+        "recordPayment": {
+          "label": "Record payment",
+          "named": "Record payment, folio {folio}, {guest}",
+          "done": "Payment recorded on folio {folio}."
+        },
+        "void": {
+          "label": "Void",
+          "named": "Void, folio {folio}, {guest}",
+          "confirm": "Void folio {folio} of {guest}? It will no longer be due. Nothing has been paid on it.",
+          "keep": "Keep the folio",
+          "done": "Folio {folio} is void."
+        }
+      }
+    },
+    "tasks": {
+      "label": "Tasks",
+      "title": "Housekeeping tasks",
+      "intro": "The rooms to prepare, and who prepares them.",
+      "caption": "Housekeeping tasks, by room",
+      "denied": "the housekeeping tasks",
+      "empty": "No tasks for this day. Tasks are planned by the manager.",
+      "error": "The tasks could not be loaded. Your other screens still work.",
+      "count": "{n} tasks",
+      "create": "New task",
+      "open": "Task, room {room}",
+      "columns": {
+        "room": "Room",
+        "date": "Date",
+        "kind": "Kind",
+        "assignee": "Assigned to",
+        "status": "Status"
+      },
+      "filters": { "status": "Status", "kind": "Kind", "date": "Date" },
+      "fields": { "roomId": "Room", "assigneeId": "Assigned to", "date": "Date", "kind": "Kind" },
+      "actions": {
+        "start": { "label": "Start", "named": "Start, task room {room}", "done": "Task started, room {room}." },
+        "finish": { "label": "Finish", "named": "Finish, task room {room}", "done": "Task finished, room {room} is available." }
+      }
+    },
+    "items": {
+      "label": "Items",
+      "title": "Stock items",
+      "intro": "What the bar, the kitchen and the linen room hold.",
+      "caption": "Stock items, by name",
+      "denied": "the stock",
+      "empty": "No items recorded yet. An item needs a store, a unit and a threshold.",
+      "error": "The stock could not be loaded. Your other screens still work.",
+      "count": "{n} items",
+      "counter": "{n} items below threshold",
+      "create": "New item",
+      "open": "Item {item}",
+      "columns": {
+        "name": "Item",
+        "store": "Store",
+        "quantity": "Quantity",
+        "threshold": "Threshold",
+        "unit": "Unit",
+        "unit_cost": "Unit cost",
+        "level": "Level",
+        "supplier": "Supplier"
+      },
+      "filters": { "store": "Store", "level": "Level", "q": "Search by item name" },
+      "fields": {
+        "name": "Name",
+        "store": "Store",
+        "unit": "Unit",
+        "threshold": "Reorder threshold",
+        "unitCost": "Unit cost",
+        "supplierId": "Supplier"
+      }
+    },
+    "movements": {
+      "label": "Movements",
+      "title": "Stock movements",
+      "intro": "Every unit in and out, never edited: a mistake is corrected by a movement the other way.",
+      "caption": "Stock movements, newest first",
+      "denied": "the stock movements",
+      "empty": "No movements recorded yet. A delivery is recorded as a movement in.",
+      "error": "The movements could not be loaded. Your other screens still work.",
+      "count": "{n} movements",
+      "create": "New movement",
+      "open": "Movement of {item}",
+      "columns": {
+        "at": "When",
+        "item": "Item",
+        "kind": "Kind",
+        "quantity": "Quantity",
+        "unit": "Unit",
+        "from_store": "From",
+        "to_store": "To",
+        "reason": "Reason",
+        "author": "Recorded by"
+      },
+      "filters": { "kind": "Kind", "from": "From date", "to": "To date", "itemId": "Item number" },
+      "fields": { "itemId": "Item", "kind": "Kind", "quantity": "Quantity", "toStore": "To store, for a transfer", "reason": "Reason" }
+    },
+    "suppliers": {
+      "label": "Suppliers",
+      "title": "Suppliers",
+      "intro": "Who delivers what.",
+      "caption": "Suppliers, by name",
+      "denied": "the suppliers",
+      "empty": "No suppliers recorded yet.",
+      "error": "The suppliers could not be loaded. Your other screens still work.",
+      "count": "{n} suppliers",
+      "create": "New supplier",
+      "open": "Supplier {supplier}",
+      "columns": { "name": "Name", "contact": "Contact", "items_supplied": "Supplies", "item_count": "Items" },
+      "filters": { "q": "Search by supplier name" },
+      "fields": { "name": "Name", "contact": "Contact", "itemsSupplied": "What they supply" }
+    },
+    "ledger": {
+      "label": "Ledger",
+      "title": "Ledger",
+      "intro": "Income and expense, append only: a correction is a reversing entry.",
+      "caption": "Ledger entries, newest first",
+      "denied": "the ledger",
+      "empty": "No entries recorded yet. Payments on folios appear here as income.",
+      "error": "The ledger could not be loaded. Your other screens still work.",
+      "count": "{n} entries",
+      "create": "New entry",
+      "open": "Entry of {date}, {category}",
+      "columns": {
+        "date": "Date",
+        "kind": "Kind",
+        "category": "Category",
+        "signed": "Amount",
+        "method": "Method",
+        "folio": "Folio",
+        "author": "Recorded by",
+        "state": "State"
+      },
+      "filters": { "kind": "Kind", "category": "Category", "period": "Period", "from": "From", "to": "To" },
+      "fields": { "kind": "Kind", "category": "Category", "amount": "Amount", "method": "Method", "date": "Date" },
+      "actions": {
+        "reverse": {
+          "label": "Reverse",
+          "named": "Reverse, entry of {date}, {category}",
+          "confirm": "Reverse the entry of {date} in {category}? A reversing entry is added today; the original stays in the ledger.",
+          "keep": "Keep the entry",
+          "done": "Entry reversed."
+        }
+      }
+    },
+    "reports": {
+      "label": "Reports",
+      "title": "Reports",
+      "intro": "Figures worked out from the ledger and the stays.",
+      "caption": "Average rate, night by night this month",
+      "denied": "the reports",
+      "empty": "No report data for this period.",
+      "error": "The report could not be loaded. Your other screens still work.",
+      "count": "{n} reports",
+      "columns": { "date": "Night", "nights": "Rooms sold", "revenue": "Room revenue" }
+    },
+    "staff": {
+      "label": "Staff",
+      "title": "Staff accounts",
+      "intro": "One account per person. Deactivated, never deleted, so the audit keeps its author.",
+      "caption": "Staff accounts, by name",
+      "denied": "the staff accounts",
+      "empty": "No accounts yet.",
+      "error": "The accounts could not be loaded. Your other screens still work.",
+      "count": "{n} accounts",
+      "create": "New account",
+      "open": "Account of {name}",
+      "columns": { "name": "Name", "email": "Email", "role": "Role", "activity": "State", "created_at": "Created" },
+      "filters": { "role": "Role", "activity": "State" },
+      "fields": { "name": "Name", "email": "Email", "role": "Role" },
+      "actions": {
+        "deactivate": {
+          "label": "Deactivate",
+          "named": "Deactivate, account of {name}",
+          "confirm": "Deactivate the account of {name}? They are signed out at once and can no longer sign in. Their history stays.",
+          "keep": "Keep the account active",
+          "done": "The account of {name} is deactivated."
+        },
+        "reactivate": { "label": "Reactivate", "named": "Reactivate, account of {name}", "done": "The account of {name} is active again." },
+        "changeRole": { "label": "Change role", "named": "Change role, account of {name}", "done": "The role of {name} is changed." }
+      }
+    },
+    "audit": {
+      "label": "Audit",
+      "title": "Audit log",
+      "intro": "Every privileged action and every refusal, appended and never rewritten.",
+      "caption": "Audit events, newest first",
+      "denied": "the audit log",
+      "empty": "No events recorded yet.",
+      "error": "The audit log could not be loaded. Your other screens still work.",
+      "count": "{n} events",
+      "open": "Event {action}",
+      "columns": {
+        "at": "When",
+        "account": "Account",
+        "role": "Role",
+        "action": "Action",
+        "module": "Module",
+        "record": "Record",
+        "outcome": "Outcome",
+        "status": "Answer",
+        "address": "From"
+      },
+      "filters": { "outcome": "Outcome", "from": "From", "to": "To" }
+    },
+    "settings": {
+      "label": "Settings",
+      "title": "Settings",
+      "intro": "The words, colours, role names and thresholds of this dashboard. Every save can be undone below.",
+      "caption": "Settings",
+      "denied": "the settings",
+      "empty": "No settings.",
+      "error": "The settings could not be loaded.",
+      "count": "{n} settings",
+      "columns": {}
+    }
+  },
+  "statuses": {
+    "rooms": { "available": "Available", "occupied": "Occupied", "dirty": "To clean", "cleaning": "Being cleaned", "outOfOrder": "Out of order" },
+    "stays": { "provisional": "Provisional", "confirmed": "Confirmed", "inHouse": "In house", "departed": "Departed", "cancelled": "Cancelled" },
+    "folios": { "settled": "Settled", "open": "Open", "overdue": "Overdue", "voided": "Void" },
+    "tasks": { "todo": "To do", "inProgress": "In progress", "done": "Done" },
+    "items": { "low": "Below threshold", "ok": "In stock" },
+    "staff": { "active": "Active", "inactive": "Deactivated" },
+    "ledger": { "posted": "Posted", "reversed": "Reversed", "reversal": "Reversal" },
+    "audit": { "allowed": "Allowed", "refused": "Refused" },
+    "kpi": { "ok": "Normal", "warning": "Needs attention", "danger": "Overdue" }
+  },
+  "options": {
+    "roomTypes": { "single": "Single", "double": "Double", "twin": "Twin", "family": "Family" },
+    "stores": { "bar": "Bar", "kitchen": "Kitchen", "linen": "Linen" },
+    "taskKinds": { "departureClean": "Departure clean", "stayOver": "Stay-over", "deepClean": "Deep clean" },
+    "movementKinds": { "in": "In", "out": "Out", "transfer": "Transfer" },
+    "ledgerKinds": { "income": "Income", "expense": "Expense" },
+    "categories": {
+      "rooms": "Rooms",
+      "bar": "Bar",
+      "kitchen": "Kitchen",
+      "supplies": "Supplies",
+      "wages": "Wages",
+      "utilities": "Utilities",
+      "maintenance": "Maintenance",
+      "other": "Other"
+    },
+    "methods": { "card": "Card", "cash": "Cash", "transfer": "Bank transfer" },
+    "periods": { "month": "This month", "week": "Last seven days", "today": "Today" }
+  },
+  "kpis": {
+    "occupancyTonight": {
+      "label": "Occupancy tonight",
+      "question": "How full are we tonight?",
+      "period": "Tonight",
+      "detail": "{occupied} of {rooms} rooms in service",
+      "thresholds": { "lowPercent": 55 },
+      "visible": true
+    },
+    "arrivalsPending": {
+      "label": "Arrivals still expected",
+      "question": "Who still has to arrive?",
+      "period": "Today",
+      "detail": "Confirmed stays arriving today, not yet checked in",
+      "thresholds": {},
+      "visible": true
+    },
+    "departuresPending": {
+      "label": "Departures still to check out",
+      "question": "Who still has to leave?",
+      "period": "Today",
+      "detail": "Guests in house whose stay ends today",
+      "thresholds": {},
+      "visible": true
+    },
+    "roomsToClean": {
+      "label": "Rooms to clean",
+      "question": "What is waiting for housekeeping?",
+      "period": "Now",
+      "detail": "Rooms marked to clean",
+      "thresholds": { "warnAbove": 7 },
+      "visible": true
+    },
+    "revenueMonth": {
+      "label": "Revenue",
+      "question": "What have we earned this month?",
+      "period": "This month to date",
+      "detail": "Same days last month: {previous}",
+      "thresholds": {},
+      "visible": true
+    },
+    "overdueFolios": {
+      "label": "Overdue folios",
+      "question": "Who owes us?",
+      "period": "Now",
+      "detail": "{amount} past its due date",
+      "thresholds": { "dangerAbove": 0 },
+      "visible": true
+    },
+    "itemsBelowThreshold": {
+      "label": "Items to reorder",
+      "question": "What must be reordered?",
+      "period": "Now",
+      "detail": "Items at or below their reorder threshold",
+      "thresholds": { "warnAbove": 0 },
+      "visible": true
+    },
+    "averageRate": {
+      "label": "Average rate",
+      "question": "What does a night sell for?",
+      "period": "This month to date",
+      "detail": "Room revenue over {nights} room nights sold",
+      "thresholds": {},
+      "visible": true
+    }
+  },
+  "charts": {
+    "trend": {
+      "title": "Income and expense, last twelve weeks",
+      "caption": "Income and expense per week",
+      "income": "Income",
+      "expense": "Expense",
+      "showData": "Show the data as a table",
+      "weekColumn": "Week",
+      "weekLabel": "W{n}",
+      "axis": "Weeks from oldest (W1) to the current week (W12). Amounts in euros, from zero.",
+      "summaryUp": "Income rose from {first} to {last} over twelve weeks; the lowest week was week {lowest}.",
+      "summaryDown": "Income fell from {first} to {last} over twelve weeks; the lowest week was week {lowest}."
+    },
+    "distribution": {
+      "title": "Rooms by status, now",
+      "caption": "Rooms by status",
+      "showData": "Show the counts as a table",
+      "statusColumn": "Status",
+      "countColumn": "Rooms",
+      "summary": "{total} rooms: {list}."
+    }
+  },
+  "ui": {
+    "shell": {
+      "skipLink": "Skip to the work area",
+      "navLabel": "Modules",
+      "menuOpen": "Open the menu",
+      "menuClose": "Close the menu",
+      "themeLabel": "Theme",
+      "themeLight": "Light theme",
+      "themeDark": "Dark theme",
+      "themeSystem": "System theme",
+      "account": "{name}, {role}",
+      "signOut": "Sign out",
+      "demo": "Demonstration data. Nothing here is real.",
+      "breadcrumbLabel": "You are here",
+      "backToList": "Back to {module}"
+    },
+    "states": {
+      "loading": "Loading the list.",
+      "loadedAt": "Loaded at {time}",
+      "filteredEmpty": "No {module} match these filters.",
+      "retry": "Try again",
+      "deniedTitle": "Access not granted",
+      "denied": "Your role does not include {module}. {grantor} can grant it.",
+      "deniedFallback": "this screen",
+      "grantor": "The manager",
+      "expired": "Your session ended. Sign in to continue where you were.",
+      "offline": "You are offline. Figures are from {time}. Changes are paused.",
+      "errorGeneric": "This screen could not be loaded. Your other screens still work.",
+      "widgetError": "This panel could not be loaded. The rest of the overview still works.",
+      "noData": "No data for this period."
+    },
+    "table": {
+      "actions": "Actions",
+      "sortBy": "Sort by {column}, {direction}",
+      "ascending": "ascending",
+      "descending": "descending",
+      "ascendingShort": "(ascending)",
+      "descendingShort": "(descending)",
+      "previous": "Previous page",
+      "next": "Next page",
+      "pageOf": "Page {page} of {pages}",
+      "pagination": "Pages of the list",
+      "export": "Export as CSV",
+      "empty": "None"
+    },
+    "filters": {
+      "legend": "Filters",
+      "apply": "Apply filters",
+      "all": "All",
+      "none": "None",
+      "today": "today",
+      "search": "Search",
+      "active": "Active filters",
+      "remove": "Remove filter {label}",
+      "removeMark": "x",
+      "clearAll": "Clear filters",
+      "dateHint": "Format: day, month, year"
+    },
+    "forms": {
+      "required": "required",
+      "submit": "Save",
+      "saving": "Saving",
+      "cancel": "Cancel",
+      "close": "Close",
+      "created": "Saved.",
+      "saved": "Changes saved.",
+      "errorSummary": "This could not be saved. The field named below needs a change.",
+      "setupLink": "The account is created. Give its owner this single use link to set their password. It is shown once and expires in 72 hours."
+    },
+    "errors": {
+      "required": "This field is required.",
+      "invalid": "This value is not accepted.",
+      "tooLong": "This value is too long.",
+      "tooSmall": "This value is too small.",
+      "tooLarge": "This value is too large.",
+      "past": "This date is in the past.",
+      "future": "This date is in the future.",
+      "beforeArrival": "The departure must be after the arrival.",
+      "overlap": "The room is already booked for some of these nights.",
+      "state": "The record has changed and this action no longer applies. The list shows its current state.",
+      "folioUnsettled": "The folio is not settled yet.",
+      "aboveDue": "The amount is more than what is still due.",
+      "taken": "This email address already has an account.",
+      "noTwin": "The other store does not hold this item.",
+      "roomUnavailable": "The room is not available.",
+      "folioExists": "This stay already has a folio.",
+      "check": "This would break a rule of the records, for example stock below zero.",
+      "unique": "This value is already used.",
+      "reference": "A linked record does not exist.",
+      "appendOnly": "Entries here are never changed.",
+      "forbidden": "Your role does not include this action.",
+      "notFound": "This record does not exist or is not in your scope.",
+      "csrf": "The page is out of date. Reload it and try again.",
+      "tooMany": "Too many requests. Wait a minute and try again.",
+      "idempotencyKey": "The form is out of date. Reload it and try again.",
+      "self": "You cannot change your own account this way.",
+      "badRequest": "The request could not be read.",
+      "server": "Something failed on our side. Nothing was changed.",
+      "offline": "You are offline. Nothing was sent.",
+      "session": "Your session ended."
+    },
+    "login": {
+      "title": "Sign in",
+      "intro": "Use the email address and the password of your own account.",
+      "identifier": "Email address",
+      "password": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in",
+      "refused": "The email address or the password is not right, or the account is not active.",
+      "limited": "Too many attempts. Sign in is paused for fifteen minutes."
+    },
+    "setup": {
+      "title": "Set your password",
+      "intro": "Choose the password of your account. At least twelve characters.",
+      "password": "New password",
+      "submit": "Set the password",
+      "done": "Your password is set. You can sign in.",
+      "short": "The password needs at least twelve characters.",
+      "invalid": "This link is not valid any more. Ask the manager for a new one."
+    },
+    "overview": {
+      "title": "Overview",
+      "intro": "The figures your role needs before deciding what to do next. Each one opens the records it counts.",
+      "figures": "Figures",
+      "asOf": "Computed at {time}",
+      "open": "{label}: {value}. Open the records it counts",
+      "attention": "Needs attention today",
+      "arrivals": "Arrivals to check in",
+      "departures": "Departures to check out",
+      "tasks": "Your tasks today",
+      "reorderTitle": "Items to reorder",
+      "reorder": "Reorder {item}",
+      "nothing": "Nothing waiting.",
+      "viewAll": "View all {n} in {module}"
+    },
+    "detail": {
+      "fields": "Details",
+      "actions": "What can be done now",
+      "noActions": "No action applies to this record in its current state.",
+      "history": "History",
+      "noHistory": "No recorded change yet.",
+      "edit": "Edit",
+      "openFolio": "Open folio {folio}"
+    },
+    "reports": {
+      "rateTitle": "Average rate this month",
+      "rateIntro": "Room revenue over room nights sold, from the first of the month to tonight.",
+      "rateResult": "Average rate {average}: {revenue} over {nights} room nights."
+    },
+    "settings": {
+      "save": "Save the settings",
+      "saved": "Settings saved.",
+      "history": "Previous versions",
+      "noHistory": "No previous version yet.",
+      "restore": "Restore",
+      "restored": "The previous version is restored.",
+      "changes_site": "Identity and locale",
+      "changes_theme": "Colours and type",
+      "changes_roles": "Role names",
+      "changes_nav": "Navigation headings",
+      "changes_modules": "Module words",
+      "changes_statuses": "Status words",
+      "changes_options": "Option words",
+      "changes_kpis": "Figures and thresholds",
+      "changes_charts": "Charts",
+      "changes_ui": "Interface words",
+      "changes_privacy": "Privacy notice and retention"
+    },
+    "notFound": {
+      "title": "Page not found",
+      "body": "This page or this record does not exist, or it is not in your scope.",
+      "action": "Back to the overview"
+    },
+    "offlinePage": {
+      "title": "You are offline",
+      "body": "The dashboard needs the network to show records. Nothing is kept on this device.",
+      "action": "Try again"
+    }
+  },
+  "privacy": {
+    "title": "Privacy notice for staff and guests",
+    "paragraphs": [
+      "This dashboard holds the records the hotel needs to run: stays, the guests who make them, what they owe and pay, the stock, the books, and one account per member of staff.",
+      "About guests it keeps a name, and optionally an email address, a telephone number and short notes for the desk. Notes are never exported and are not shown to the bookkeeper. A guest with no stay for {guestMonths} months is anonymised automatically.",
+      "About staff it keeps a name, an email address, a role and the record of what each account did, in an audit log kept for {auditMonths} months. A session ends after {sessionHours} hours without use.",
+      "Only the roles that need a record can open it, and the server checks this on every request. Ask the manager to see, correct or erase what is held about you."
+    ],
+    "retention": {
+      "guestMonths": 36,
+      "auditMonths": 24,
+      "sessionHours": 8
+    }
+  }
+}

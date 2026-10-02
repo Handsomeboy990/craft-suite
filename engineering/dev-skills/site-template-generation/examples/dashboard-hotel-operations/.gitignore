@@ -1,0 +1,12 @@
+# What a running instance writes is its own and is never tracked. Only the
+# configuration (data/content.json) is the worked example.
+data/*.db
+data/*.db-*
+data/history/*
+data/matrix.json
+data/faults.json
+data/query-plans.log
+backups/
+.gate/
+.env
+.env.local
