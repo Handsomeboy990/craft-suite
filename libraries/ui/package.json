@@ -2,7 +2,7 @@
   "name": "@craft-suite/ui",
   "version": "0.1.0",
   "description": "Accessible, token-driven React primitives a project owns, not a runtime dependency. Phase 8.1 foundation of Craft Suite.",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "private": true,
   "type": "module",
   "sideEffects": [

@@ -21,8 +21,8 @@ agents; `CHANGELOG.md` 3.30.0 lists everything since 3.29.0.
 - `libraries/ui`: tokens, `Dialog`, `Tooltip`, and the whole motion layer
   (`Reveal`, `Stagger`, `Magnetic`, `Tilt`, `Marquee`, `StackedCards`,
   `GradientBackdrop`, `Counter`, `useReducedMotion`, `useInViewOnce`). 60 tests,
-  jsdom only. Licence proprietary until the owner decides (MIT is the open
-  option).
+  jsdom only. MIT since ADR 0004; the rest of the repository stays
+  proprietary.
 - `font-loading`, skill 169, wired into the FRONTEND and UI_UX plans.
 - The chief and the skills under it: `delivery-orchestrator` 1.1.0 (team map,
   parallel dispatch, handoff and escalation), `engineering-orchestrator` 1.2.0
@@ -69,9 +69,8 @@ If it never arrives as a pull request, restart it from roadmap 8.1.
 Each item names the agent and the governing skill. Count-changing items are
 marked; run those one at a time.
 
-1. **The owner**: accept or reject ADR 0003 (status `proposed` in the record and
-   in `docs/decisions/README.md`); choose the licence of `libraries/ui`; confirm
-   that "opensec" means `Cecuro/open-security`.
+1. **Owner decisions taken on 2026-10-02**: ADR 0003 accepted (no PHP domain),
+   `libraries/ui` under MIT (ADR 0004), and "opensec" is `Cecuro/open-security`.
 2. **`principal-engineer`, the single-source refactor** of the 29 shared site
    example files (8.1), if the branch above did not land. Count neutral, wide.
 3. **`security-engineer`, OpenSec and `curb`** (8.4): `Cecuro/open-security`

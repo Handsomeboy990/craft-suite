@@ -68,7 +68,6 @@ import { Dialog, DialogTrigger, DialogContent, DialogClose } from "@craft-suite/
 
 ## Licence
 
-Proprietary, under the repository's terms. See `LICENSE`. Third-party packages
-it depends on keep their own licences. Whether this library is later released
-under an open licence so other projects may install it is the maintainer's
-decision, recorded in a decision record when made.
+MIT. See `LICENSE`. This library alone is open; the rest of the repository
+stays under its own terms. Third-party packages it depends on keep their own
+licences. The decision is `docs/decisions/0004-libraries-ui-mit-licence.md`.
