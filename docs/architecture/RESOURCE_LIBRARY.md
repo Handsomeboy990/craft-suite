@@ -126,10 +126,10 @@ that added the row; everything else is marked to analyse.
 | `Balastrong/confhub` | no licence file; `package.json` says ISC as metadata only; patterns only | a conference directory on TanStack Start, Drizzle and Better Auth; strong server-function boundary and atomic rate limiting, weak on drafts, migrations and tests; notes in `docs/architecture/APP_REFERENCES.md` | read |
 | `majodev/google-webfonts-helper` | to confirm | self-hosting helper for Google Fonts | to analyse |
 | `adrianhajdin/yc_directory` | none found, all rights reserved; patterns only | a Next.js and Sanity pitch directory tutorial; server-only write client and generated types worth taking, client-only validation and disabled build gates not; notes in `docs/architecture/APP_REFERENCES.md` | read |
-| `futureplc/twig-stack-extension` | to confirm | a Twig templating extension | to analyse |
-| `twigphp/Twig` | BSD, to confirm | the Twig template engine | to analyse |
-| `webmozarts/assert` | MIT, to confirm | a PHP assertion library | to analyse |
-| `theseer/tokenizer` | BSD, to confirm | a PHP tokenizer | to analyse |
+| `futureplc/twig-stack-extension` | MIT | Twig `push`, `pushonce` and `stack` tags: components contribute assets a layout emits once; patterns only, already covered by the Next.js stack (ADR 0003) | read |
+| `twigphp/Twig` | BSD-3-Clause | the PHP template engine: escape by default, allow-list sandbox policy; patterns only, no PHP domain (ADR 0003) | read |
+| `webmozarts/assert` | MIT | PHP assertions with one message contract and generated variants; patterns only, candidate note for `input-validation` (ADR 0003) | read |
+| `theseer/tokenizer` | BSD-3-Clause | turns PHP's token stream into XML; nothing the suite lacks, closed (ADR 0003) | read |
 | `dokku/dokku` | MIT, to confirm | a small self-hosted platform-as-a-service, git-push deploy | to analyse |
 | `sst/opencode` | MIT | an open-source terminal coding agent, client/server, subagents; permission rulesets, inherited denies, plan and build modes, loop detection and compaction feed the chief; notes in `docs/architecture/AGENT_REFERENCES.md` | read |
 
@@ -151,9 +151,9 @@ Stated as direction, confirmed per phase in `docs/ROADMAP.md`.
   `seo-engineering` and performance concerns.
 - `confhub` and `yc_directory` are full applications: they feed the delivery
   and full-stack skills as worked references, not libraries.
-- The PHP and Twig projects decide whether a PHP or templating domain is worth
-  opening; `dependency-selection` and `technology-selection` make that call
-  rather than habit. The recommendation is recorded before any PHP code lands.
+- The PHP and Twig projects were judged in ADR 0003
+  (`docs/decisions/0003-no-php-templating-domain.md`): no PHP or templating
+  domain and no PHP code; their patterns are recorded for existing skills.
 - Graft and `opencode` feed the agent and orchestration layer:
   `codebase-mapping`, `engineering-orchestrator`, `model-routing`, and the
   chief's own skills.

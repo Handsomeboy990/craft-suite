@@ -239,36 +239,39 @@ first, then the UI library, then the agent and operations layers.
   Each ships a reduced-motion variant, a performance budget, and the lightest
   technique that suffices per the `animation` ladder. `design-director` signs
   off that the set reads as intended, not as generic defaults. Done so far:
-  `useReducedMotion`, `Reveal`, `Marquee`, `Counter` and the `Tooltip`
-  primitive, each reduced-motion safe and tested in jsdom. Still to do:
-  staggered entrance, magnetic and tilt hover, scroll-stacked cards, one
-  background, a real-browser and screen-reader pass, and the
-  `design-director` sign-off.
+  every named effect, built and tested in jsdom: `Reveal`, `Stagger`,
+  `Magnetic`, `Tilt`, `Marquee`, `StackedCards`, `GradientBackdrop`, `Counter`,
+  with `useReducedMotion`, `useInViewOnce` and the `Tooltip` primitive. Still
+  to do: a real-browser and screen-reader pass (sticky stacking, pointer feel,
+  frame rate, focus not obscured, list announcements), the `design-director`
+  sign-off, a no-JavaScript-safe first render for `Reveal` and `Stagger`
+  together, and an optional pause control for `GradientBackdrop`.
 
 ### 8.2 Fonts and front-end performance
 
-- [ ] **Analyse `google-webfonts-helper`** (S), licence confirmed, then a font
+- [x] **Analyse `google-webfonts-helper`** (S). Done: MIT, read for patterns,
+  and the `font-loading` skill (3.30.0). Licence confirmed, then a font
   self-hosting resource: subsetting, `font-display`, preload, no layout shift.
   Feeds `seo-engineering` and the performance concerns, not a dependency.
 
 ### 8.3 The agent and orchestration layer
 
-- [ ] **Analyse Graft and `opencode`** (M), first-hand, for the context-map and
+- [x] **Analyse Graft and `opencode`** (M), first-hand, for the context-map and
   the subagent-orchestration patterns. `codebase-mapping` already carries the
   Graft idea; this pass finds what the chief and the orchestration skills still
-  lack. Done so far: Graft's README and opencode's GitHub README, patterns only,
-  feeding the chief's parallel-dispatch resource. Still to do: a first-hand read
-  of opencode beyond its README (its site was unreachable from the build
-  environment).
-- [ ] **Sharpen the chief** (M). Strengthen the skills `delivery-orchestrator`
+  lack. Done: Graft's README, and opencode read from its source (commit
+  `0112a92c`, MIT) in `docs/architecture/AGENT_REFERENCES.md`, with fifteen
+  recommended skill changes listed there. Those changes are the next work for
+  the chief, each its own skill change.
+- [x] **Sharpen the chief** (M). Strengthen the skills `delivery-orchestrator`
   and `engineering-orchestrator` load, and `model-routing` and `task-complexity`
   under them, so the one orchestrator over all agents dispatches, gates and
   escalates better. No second chief is added. Done so far:
   `delivery-orchestrator` 1.1.0, with every one of the thirty-three agents in a
   team (`resources/team-routing.md`), conflict-free parallel dispatch, handoff
   evidence and an escalation ladder, and the deadline held without trading a
-  gate. Still to do: `engineering-orchestrator`, `model-routing` and
-  `task-complexity`.
+  gate; then `engineering-orchestrator` 1.2.0, `task-complexity` 1.1.0 and
+  `model-routing` 1.2.0 aligned with that team map.
 
 ### 8.4 Security and accessibility, measured
 
@@ -283,7 +286,11 @@ first, then the UI library, then the agent and operations layers.
 
 ### 8.5 PHP and templating, if warranted
 
-- [ ] **Decide the PHP question** (M). `dependency-selection` and
+- [x] **Decide the PHP question** (M). Done: ADR 0003
+  (`docs/decisions/0003-no-php-templating-domain.md`), proposed for the owner:
+  no PHP or templating domain and no PHP code; patterns recorded as candidate
+  notes for `input-validation` and `security-audit`. Reopens on a PHP-stack
+  project or an owner decision. `dependency-selection` and
   `technology-selection` judge, from `Twig`, `twig-stack-extension`,
   `webmozarts/assert` and `theseer/tokenizer`, whether a PHP or templating
   domain earns its place against what the suite builds. The recommendation is
@@ -291,15 +298,18 @@ first, then the UI library, then the agent and operations layers.
 
 ### 8.6 Applications as worked references
 
-- [ ] **Analyse `confhub` and `yc_directory`** (M) as full applications, not
+- [x] **Analyse `confhub` and `yc_directory`** (M). Done:
+  `docs/architecture/APP_REFERENCES.md`; neither is licensed for reuse as full applications, not
   libraries: what they teach the delivery and full-stack skills, captured as
   reference notes, with nothing copied.
-- [ ] **The gest-hotel dashboard as a template kind** (M). Done so far:
+- [x] **The gest-hotel dashboard as a template kind** (M). Done so far:
   `dashboard` is a third kind of `site-template-generation`, with
   `resources/dashboard-contract.md` and its twenty-six point gate, and the
   `dashboard-hotel-operations` specification, drawn from the principles of the
-  owner's back office and correcting its gaps. Still to do: build the example
-  as a runnable app with a verification script per gate line.
+  owner's back office and correcting its gaps; then the example built as a
+  runnable app, `npm run gate` checking D1 to D26, 26 of 26 on the recorded run.
+  Still open: a screen-reader pass, a second browser engine, timing over a real
+  network, and `middleware.ts` to `proxy.ts` across all three examples.
 
 ## Parked and external
 

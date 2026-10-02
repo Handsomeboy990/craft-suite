@@ -1,9 +1,9 @@
-# Continuity, 2026-10-01
+# Continuity, 2026-10-02
 
 State of the repository for whoever takes it over, human or agent. Written to
 `engineering/dev-skills/project-continuity/resources/continuity-template.md`.
 
-## Handover, 2026-10-01: phase 8 in progress, continued locally
+## Handover, 2026-10-02: phase 8 in progress
 
 Read this section first. The rest of the file is the record up to 3.29.0 and
 stays true; this section is what changed since and what to do next. The plan
@@ -12,37 +12,33 @@ itself is phase 8 of `docs/ROADMAP.md`; the direction behind it is
 
 ### State
 
-On `dev`, merged (pull requests 55 to 67):
+On `dev`, merged (pull requests 55 to 74). Manifests 3.30.0, 169 skills, 33
+agents; `CHANGELOG.md` 3.30.0 lists everything since 3.29.0.
 
-- Six agents, 27 to 33: `penetration-tester`, `ci-cd-engineer`,
-  `design-director`, `delivery-manager`, `data-collection-engineer`,
-  `codebase-cartographer`, and the `codebase-mapping` skill. Manifests 3.29.0.
-- Phase 8.0 done: the resource-library direction, decision records 0001
-  (structure) and 0002 (Radix as the headless UI base), `libraries/` with its
-  contract and CI gate, `CHANGELOG.md` rebuilt as the version history.
-- `libraries/ui`: tokens, `Dialog`, `useReducedMotion`, `Reveal`, `Tooltip`,
-  `Marquee`, `Counter`. 31 tests, typecheck and tests run in CI. Licence
-  proprietary until the owner decides otherwise (MIT is the open option).
-- The site-template examples: `examples/shared-files.txt` and a CI step that
-  fails if any of the 29 shared files drifts between the two examples.
-- `site-template-generation` 2.1.0: the `dashboard` kind,
-  `resources/dashboard-contract.md` with a 26 point gate (D1 to D26), and the
-  `dashboard-hotel-operations` specification, from the principles of the
-  owner's `gest-hotel` back office, nothing copied.
+- Agents 27 to 33 and `codebase-mapping` (3.28.0, 3.29.0).
+- Phase 8.0: decision records 0001 and 0002, `libraries/` and its CI gate, the
+  changelog rebuilt.
+- `libraries/ui`: tokens, `Dialog`, `Tooltip`, and the whole motion layer
+  (`Reveal`, `Stagger`, `Magnetic`, `Tilt`, `Marquee`, `StackedCards`,
+  `GradientBackdrop`, `Counter`, `useReducedMotion`, `useInViewOnce`). 60 tests,
+  jsdom only. Licence proprietary until the owner decides (MIT is the open
+  option).
+- `font-loading`, skill 169, wired into the FRONTEND and UI_UX plans.
+- The chief and the skills under it: `delivery-orchestrator` 1.1.0 (team map,
+  parallel dispatch, handoff and escalation), `engineering-orchestrator` 1.2.0
+  (`resources/agent-dispatch.md`), `task-complexity` 1.1.0, `model-routing` 1.2.0
+  (`resources/agent-tiers.md`, the verifier floor).
+- `site-template-generation` 2.1.0: the `dashboard` kind, and
+  `dashboard-hotel-operations` as a runnable Next.js app whose `npm run gate`
+  checks D1 to D26 (26 of 26 on the recorded run, Chromium only).
+- The two site examples: the 29 shared files guarded identical in CI.
+- Decisions and reference notes: ADR 0003 (proposed, no PHP domain),
+  `docs/architecture/AGENT_REFERENCES.md` (opencode from source) and
+  `APP_REFERENCES.md` (confhub, yc_directory, neither licensed for reuse).
 
-- `delivery-orchestrator` 1.1.0: every one of the 33 agents in a team under a
-  named lead (`resources/team-routing.md`), conflict-free parallel dispatch
-  (`resources/parallel-dispatch.md`), handoff evidence and the escalation
-  ladder (`resources/handoff-and-escalation.md`).
-
-Open when this was written, checked conflict-free against `dev`: pull request
-68, `docs/phase8-followups`, the agent count and team map in
-`documentation/delivery-system.md` and `agents/README.md`, the orchestrator
-agent's delegation, the dashboard kind in `site-template-engineer` and the
-skills index, the roadmap and changelog entries, and this section.
-
-Not version-bumped: everything since 3.29.0 sits under `Unreleased` in
-`CHANGELOG.md`. Bump the eight manifests in lockstep at the next release.
+In progress when this was written: the single-source refactor of the 29 shared
+example files, branch `refactor/site-examples-single-source`, not yet pushed.
+If it never arrives as a pull request, restart it from roadmap 8.1.
 
 ### How the work has been run
 
@@ -73,54 +69,38 @@ Not version-bumped: everything since 3.29.0 sits under `Unreleased` in
 Each item names the agent and the governing skill. Count-changing items are
 marked; run those one at a time.
 
-1. **Merge pull request 68**, the documentation and this handover.
-2. **`delivery-orchestrator` lead, finish sharpening the chief** (8.3):
-   `engineering-orchestrator`, `model-routing` and `task-complexity` against
-   the new team map, so routing, sizing and model choice agree with it. Count
-   neutral.
-3. **`researcher`, read `sst/opencode` first-hand** (8.3). Only its GitHub
-   README was read; its site was unreachable from the build environment. Update
-   its row in `docs/architecture/RESOURCE_LIBRARY.md` and feed anything new to
-   the chief's resources.
-4. **`frontend-engineer` with `design-director`, the motion layer** (8.1):
-   staggered entrance, magnetic and tilt hover, scroll-stacked cards, one
-   background, in `libraries/ui`, each reduced-motion safe and tested. Then a
-   real-browser and screen-reader pass (`playwright-engineer`,
-   `accessibility-testing`): the Marquee, the Counter's scroll trigger and the
-   Tooltip group's shared hover delay are only tested through jsdom mocks.
-   `design-director` signs off the set. Count neutral.
-5. **`site-template-engineer`, build `dashboard-hotel-operations`** as a
-   runnable app with one verification script per gate line D1 to D26, under the
-   shared shape. Count neutral.
-6. **`site-template-engineer` with `principal-engineer`, single-source the 29
-   shared example files** (8.1): inject `lib/types`, `lib/schema` and
-   `lib/legal` instead of importing them, move the set to one place, build both
-   Next apps to prove it. The drift guard stays until then. Count neutral, but
-   wide: do it alone.
-7. **`researcher` then `frontend-engineer`, fonts** (8.2): read
-   `majodev/google-webfonts-helper`, licence first, then a font self-hosting
-   resource (subsetting, `font-display`, preload, no layout shift). Likely a new
-   skill: count-changing.
-8. **`security-engineer`, OpenSec and `curb`** (8.4): `Cecuro/open-security`
-   (the repository the research resolved "opensec" to; confirm it with the
-   owner) for the probe, validate-by-attack-path and ledger patterns into
+1. **The owner**: accept or reject ADR 0003 (status `proposed` in the record and
+   in `docs/decisions/README.md`); choose the licence of `libraries/ui`; confirm
+   that "opensec" means `Cecuro/open-security`.
+2. **`principal-engineer`, the single-source refactor** of the 29 shared site
+   example files (8.1), if the branch above did not land. Count neutral, wide.
+3. **`security-engineer`, OpenSec and `curb`** (8.4): `Cecuro/open-security`
+   for the probe, validate-by-attack-path and ledger patterns into
    `security-audit` and the authorized testing agents; `handsomeboy990/curb`
    for measured outcomes and the verify loop into `accessibility-testing`. Then
-   decide the accessibility remediation capability with `technology-selection`
-   before building it. Possibly count-changing.
-9. **`software-architect`, the PHP question** (8.5): `dependency-selection`
-   and `technology-selection` judge `twigphp/Twig`,
-   `futureplc/twig-stack-extension`, `webmozarts/assert` and
-   `theseer/tokenizer`. Record the answer as a decision record before any PHP
-   lands; no is a valid outcome.
-10. **`researcher`, applications as references** (8.6): `Balastrong/confhub`
-    and `adrianhajdin/yc_directory`, reference notes only.
-11. **`design-research`, `time-builders-webpage.vercel.app`**: the design study
-    the owner asked for, blocked by the build environment's network. Run it
-    locally.
-
-Owner decisions pending: the licence of `libraries/ui` (proprietary or MIT),
-and confirmation that `Cecuro/open-security` is the intended OpenSec.
+   decide the accessibility remediation capability with `technology-selection`.
+   Possibly count-changing: run it alone.
+4. **The chief's owner, the opencode lessons**: the fifteen skill changes listed
+   in `docs/architecture/AGENT_REFERENCES.md` and `APP_REFERENCES.md` (permission
+   rules as data, inherited denies, plan mode that writes only the plan, loop
+   detection, a fixed compaction template, oversized output to a file, and the
+   application lessons for `api-design`, `backend-engineering` and
+   `deployment-engineering`). Each its own skill change, count neutral, several
+   can run in parallel on disjoint skills.
+5. **`playwright-engineer` with `accessibility-testing`**: the real-browser and
+   screen-reader pass on the `libraries/ui` motion layer and on the dashboard
+   example; a second browser engine for the dashboard gate; then the
+   `design-director` sign-off of the motion set.
+6. **`frontend-engineer`**: a no-JavaScript-safe first render for `Reveal` and
+   `Stagger`; an optional pause control for `GradientBackdrop`; `middleware.ts`
+   to `proxy.ts` across the three examples.
+7. **`ci-cd-engineer`**: decide whether the dashboard gate runs in CI.
+8. **A check for the new tables**: a `validate-orchestration.sh` check that
+   every agent has a row in `model-routing/resources/agent-tiers.md` and appears
+   in `engineering-orchestrator/resources/agent-dispatch.md`, so they cannot
+   fall behind silently when an agent is added.
+9. **`design-research`, `time-builders-webpage.vercel.app`**: blocked by this
+   environment's network; run it locally.
 
 ### Learned in this phase
 

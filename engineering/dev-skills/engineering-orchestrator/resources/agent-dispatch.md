@@ -84,7 +84,7 @@ write dispatch, whatever this column says.
 | `api-design` | `backend-engineer`, one writer of the contract file | write |
 | `database-design`, `database-operations` | `database-engineer` | write |
 | `backend-engineering`, `input-validation`, `background-jobs`, `payment-engineering`, `file-handling`, `realtime-systems`, `llm-integration`, `data-privacy` | `backend-engineer` | write |
-| `frontend-engineering`, `animation`, `internationalization`, `seo-engineering` | `frontend-engineer` | write |
+| `frontend-engineering`, `font-loading`, `animation`, `internationalization`, `seo-engineering` | `frontend-engineer` | write |
 | `fullstack-engineering` | `principal-engineer`, which splits it into server and client dispatches across the contract | lead |
 | `ui-ux-engineering`, `template-selection`, `design-system` | `ui-ux-engineer` | write, specification or tokens |
 | `design-authenticity` | `design-research` before the build, `design-verification` after it | read |
