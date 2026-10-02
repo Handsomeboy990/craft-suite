@@ -4,6 +4,10 @@ const nextConfig = {
   // AGENTS.md. A generated one per template would contradict it, and rule 6
   // forbids tracking local agent configuration at all.
   agentRules: false,
+  // The site shell, the back office and the library code come from
+  // ../_shared, installed as the site-template-shared package. It ships
+  // TypeScript source, so Next compiles it with the app.
+  transpilePackages: ['site-template-shared'],
   // Not a static export. The back office writes the content file, stores the
   // uploads and holds the messages, so the site needs a server process:
   // `npm run build` then `npm start`.

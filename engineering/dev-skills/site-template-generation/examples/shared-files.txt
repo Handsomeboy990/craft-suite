@@ -1,18 +1,18 @@
-# Files that must stay byte-identical across the two example apps.
+# The code the two site examples share, held once in _shared/.
 #
 # The portfolio-sports-coach and showcase-electrician examples share the same
 # site shell, back office and library code; they differ only in their content
-# model (lib/types, lib/schema, lib/legal), their data and their trade tokens.
-# The files below are the shared set. A CI guard fails if any of them drifts
-# between the two examples, so the duplication cannot rot into two subtly
-# different copies.
+# model (lib/types, lib/schema, lib/legal, lib/content), their data and their
+# trade tokens. The files below live in _shared/ and nowhere else. Each example
+# installs _shared as the local package site-template-shared and imports these
+# modules from it; the shared code receives the per-app content model as props
+# and arguments, and never imports it. See _shared/README.md.
 #
-# Why they are not yet a single source: each of these files imports the
-# per-app lib/types, lib/schema and lib/legal, so lifting them into one shared
-# package needs those three injected rather than imported. That refactor, and
-# building both Next apps to prove it, is a separate step; this guard makes the
-# duplication safe in the meantime. One path per line, relative to each
-# example's root.
+# A CI guard holds the arrangement: every path below exists in _shared/, none
+# exists in either example (a copy would shadow the source and drift), every
+# file under _shared/components and _shared/lib is listed here, the shared code
+# imports nothing from an example, and both examples are wired to the package.
+# One path per line, relative to _shared/.
 components/site/Counter.tsx
 components/site/Parallax.tsx
 components/site/ThemeToggle.tsx
@@ -42,3 +42,4 @@ lib/messages.ts
 lib/rate-limit.ts
 lib/mail.ts
 lib/paths.ts
+lib/fields.ts

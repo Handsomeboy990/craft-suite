@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, type ReactNode } from 'react';
-import { motionEnabled } from '@/lib/motion';
+import { motionEnabled } from '../../lib/motion';
 
 // The reveal, and the stagger that goes with it. The hidden state is added by
 // this script and never by the stylesheet, so a browser without

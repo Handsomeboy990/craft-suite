@@ -1,7 +1,7 @@
-import { HttpError, requireSession , refuseOversizedBody } from '@/lib/auth';
-import { record } from '@/lib/audit';
-import { addSubscription, listSubscriptions, pushPublicKey, removeSubscription } from '@/lib/push';
-import { callerAddress } from '@/lib/rate-limit';
+import { HttpError, requireSession , refuseOversizedBody } from 'site-template-shared/lib/auth';
+import { record } from 'site-template-shared/lib/audit';
+import { addSubscription, listSubscriptions, pushPublicKey, removeSubscription } from 'site-template-shared/lib/push';
+import { callerAddress } from 'site-template-shared/lib/rate-limit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';

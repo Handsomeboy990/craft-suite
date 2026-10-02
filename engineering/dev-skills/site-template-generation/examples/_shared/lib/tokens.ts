@@ -1,11 +1,43 @@
 import { has } from './motion';
-import type { Palette, Theme } from './types';
+
+// The token contract this bridge reads. Each instance's content model declares
+// its own theme, which carries at least these keys; the theme is passed in, so
+// nothing here imports the content model of any one instance.
+export type TokenPalette = {
+  surface: string;
+  surfaceAlt: string;
+  foreground: string;
+  muted: string;
+  accent: string;
+  accentHover: string;
+  accentForeground: string;
+  border: string;
+  borderStrong: string;
+  focusRing: string;
+  success: string;
+  danger: string;
+};
+
+export type TokenTheme = {
+  palettes: { light: TokenPalette; dark: TokenPalette };
+  type: {
+    displayFamily: string;
+    textFamily: string;
+    scaleRatio: number;
+    displayWeight: number;
+    textWeight: number;
+  };
+  radius: { sm: string; md: string; lg: string; pill: string };
+  spacing: { unit: string; section: string; pageWidth: string; proseWidth: string };
+  motion: { signature: string; intensity: number; baseDuration: number; easing: string };
+  density: 'compact' | 'regular' | 'airy';
+};
 
 // The single place where the content file becomes CSS. Components read
 // var(--...) and never a literal, so changing one token in the back office
 // changes the rendered site.
 
-function paletteVariables(palette: Palette): string {
+function paletteVariables(palette: TokenPalette): string {
   return [
     `--color-surface:${css(palette.surface)}`,
     `--color-surface-alt:${css(palette.surfaceAlt)}`,
@@ -29,7 +61,7 @@ function css(value: string | number): string {
   return String(value).replace(/[<>{};]/g, '');
 }
 
-export function cssVariables(theme: Theme): string {
+export function cssVariables(theme: TokenTheme): string {
   const { type, radius, spacing, motion } = theme;
   const intensity = Math.min(Math.max(motion.intensity, 0), 1);
   const duration = Math.round(motion.baseDuration * intensity);

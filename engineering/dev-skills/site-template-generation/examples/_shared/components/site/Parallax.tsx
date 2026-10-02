@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, type ReactNode } from 'react';
-import { motionEnabled } from '@/lib/motion';
+import { motionEnabled } from '../../lib/motion';
 
 // One scroll listener for the page, writing one custom property. The element
 // that moves does so on transform, which the compositor handles without a

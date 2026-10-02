@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { contentTypeOf, resolveUpload } from '@/lib/uploads';
+import { contentTypeOf, resolveUpload } from 'site-template-shared/lib/uploads';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';

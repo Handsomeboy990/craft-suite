@@ -1,8 +1,8 @@
 import { readFileSync } from 'node:fs';
-import { FILES } from '@/lib/paths';
+import { FILES } from 'site-template-shared/lib/paths';
 import { GROUPS } from '@/lib/schema';
-import { requirePage } from '@/lib/guard';
-import ContentEditor from '@/components/admin/ContentEditor';
+import { requirePage } from 'site-template-shared/lib/guard';
+import ContentEditor from 'site-template-shared/components/admin/ContentEditor';
 
 export const dynamic = 'force-dynamic';
 

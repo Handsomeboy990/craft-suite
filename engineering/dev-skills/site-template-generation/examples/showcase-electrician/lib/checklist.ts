@@ -1,5 +1,5 @@
-import { mailConfigured } from './mail';
-import { pushPublicKey } from './push';
+import { mailConfigured } from 'site-template-shared/lib/mail';
+import { pushPublicKey } from 'site-template-shared/lib/push';
 import type { LegalPage } from './legal';
 import type { ShowcaseContent } from './types';
 

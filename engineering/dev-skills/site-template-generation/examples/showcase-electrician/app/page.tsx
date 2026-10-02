@@ -1,5 +1,5 @@
 import { getContent } from '@/lib/content';
-import { has } from '@/lib/motion';
+import { has } from 'site-template-shared/lib/motion';
 import Hero from '@/components/site/Hero';
 import Highlights from '@/components/site/Highlights';
 import Proof from '@/components/site/Proof';

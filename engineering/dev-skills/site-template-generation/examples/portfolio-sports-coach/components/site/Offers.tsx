@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { PortfolioContent } from '@/lib/types';
-import Reveal from './Reveal';
+import Reveal from 'site-template-shared/components/site/Reveal';
 
 type Offers = NonNullable<PortfolioContent['offers']>;
 

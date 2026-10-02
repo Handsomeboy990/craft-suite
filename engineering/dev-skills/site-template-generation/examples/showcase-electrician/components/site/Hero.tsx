@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import { useEffect, useState, type CSSProperties } from 'react';
 import type { ShowcaseContent } from '@/lib/types';
-import { motionEnabled } from '@/lib/motion';
-import Parallax from './Parallax';
+import { motionEnabled } from 'site-template-shared/lib/motion';
+import Parallax from 'site-template-shared/components/site/Parallax';
 
 // A full bleed band, split rather than stacked: a trade site states what it does
 // and shows the work at the same time. The entrance and the parallax only exist

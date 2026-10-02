@@ -1,8 +1,8 @@
 import { readFileSync, statSync } from 'node:fs';
-import { SIGNATURES } from './motion';
-import { FILES } from './paths';
-import { snapshot } from './history';
-import { writeJson } from './store';
+import { SIGNATURES } from 'site-template-shared/lib/motion';
+import { FILES } from 'site-template-shared/lib/paths';
+import { snapshot } from 'site-template-shared/lib/history';
+import { writeJson } from 'site-template-shared/lib/store';
 import type { Palette, ShowcaseContent } from './types';
 
 // The content file is read from the data directory at request time, never

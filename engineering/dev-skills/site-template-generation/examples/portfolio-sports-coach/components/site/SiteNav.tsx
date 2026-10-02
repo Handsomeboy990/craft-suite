@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import ThemeToggle from './ThemeToggle';
+import ThemeToggle from 'site-template-shared/components/site/ThemeToggle';
 import type { PortfolioContent } from '@/lib/types';
 
 // A navigation that does not fit becomes a menu, not a wrapping row. The button

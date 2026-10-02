@@ -1,14 +1,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { UiStrings } from '@/lib/types';
+// The strings this shell reads, passed in by the instance with the rest of its
+// ui strings. Absent, the install prompt is never offered.
+export type AppShellStrings = { install?: { label: string; dismiss: string } };
 
 type InstallEvent = Event & { prompt: () => Promise<void> };
 
 // Registers the service worker and offers the install prompt. Everything here
 // is optional at runtime: a browser without service workers, or one that never
 // fires the install event, gets the whole site minus the extra.
-export default function AppShell({ enabled, ui }: { enabled: boolean; ui: UiStrings }) {
+export default function AppShell({ enabled, ui }: { enabled: boolean; ui: AppShellStrings }) {
   const [install, setInstall] = useState<InstallEvent | null>(null);
   const [dismissed, setDismissed] = useState(false);
 
