@@ -1,6 +1,6 @@
 import { getContent } from '@/lib/content';
-import { has } from '@/lib/motion';
-import AppShell from '@/components/site/AppShell';
+import { has } from 'site-template-shared/lib/motion';
+import AppShell from 'site-template-shared/components/site/AppShell';
 import SiteHeader from '@/components/site/SiteHeader';
 import SiteFooter from '@/components/site/SiteFooter';
 import Hero from '@/components/site/Hero';

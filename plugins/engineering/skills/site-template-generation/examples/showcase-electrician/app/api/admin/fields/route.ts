@@ -1,4 +1,4 @@
-import { HttpError, requireSession } from '@/lib/auth';
+import { HttpError, requireSession } from 'site-template-shared/lib/auth';
 import { GROUPS } from '@/lib/schema';
 
 export const runtime = 'nodejs';

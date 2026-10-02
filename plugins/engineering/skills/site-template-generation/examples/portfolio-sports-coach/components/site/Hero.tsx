@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import type { PortfolioContent } from '@/lib/types';
-import { motionEnabled } from '@/lib/motion';
-import Parallax from './Parallax';
+import { motionEnabled } from 'site-template-shared/lib/motion';
+import Parallax from 'site-template-shared/components/site/Parallax';
 
 // Full bleed, and the only place the page is allowed to be loud. The entrance
 // runs once on load when the trade's signature carries it; the class is added

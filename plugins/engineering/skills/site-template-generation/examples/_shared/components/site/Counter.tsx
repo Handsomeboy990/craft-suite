@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motionEnabled } from '@/lib/motion';
+import { motionEnabled } from '../../lib/motion';
 
 // Counts to the value the content wrote, keeping whatever is not a number:
 // "8 sem." counts the 8 and keeps " sem.", and "a partir de 240" is left alone

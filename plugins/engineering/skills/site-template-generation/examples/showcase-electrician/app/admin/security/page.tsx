@@ -1,5 +1,5 @@
-import { requirePage } from '@/lib/guard';
-import PasswordForm from '@/components/admin/PasswordForm';
+import { requirePage } from 'site-template-shared/lib/guard';
+import PasswordForm from 'site-template-shared/components/admin/PasswordForm';
 
 export const dynamic = 'force-dynamic';
 

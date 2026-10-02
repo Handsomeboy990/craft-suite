@@ -1,10 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { revalidatePath } from 'next/cache';
-import { HttpError, requireSession , refuseOversizedBody } from '@/lib/auth';
+import { HttpError, requireSession , refuseOversizedBody } from 'site-template-shared/lib/auth';
 import { ContentError, saveContent } from '@/lib/content';
-import { FILES } from '@/lib/paths';
-import { callerAddress, consume } from '@/lib/rate-limit';
-import { record } from '@/lib/audit';
+import { FILES } from 'site-template-shared/lib/paths';
+import { callerAddress, consume } from 'site-template-shared/lib/rate-limit';
+import { record } from 'site-template-shared/lib/audit';
 import { PatchError, applyPatch } from '@/lib/schema';
 
 export const runtime = 'nodejs';

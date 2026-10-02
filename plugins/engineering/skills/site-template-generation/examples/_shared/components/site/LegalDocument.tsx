@@ -1,4 +1,15 @@
-import type { LegalPage } from '@/lib/legal';
+// The shape this document renders. Each instance builds its legal pages in its
+// own lib/legal.ts and passes one in; anything else a page carries is ignored.
+export type LegalDocumentPage = {
+  label: string;
+  markers: string[];
+  sections: {
+    heading: string;
+    intro?: string;
+    paragraphs?: string[];
+    lines?: { label: string; value: string; missing: boolean }[];
+  }[];
+};
 
 // Markers are rendered in the page, visibly. A legal fact that is missing and
 // hidden in a comment is a legal fact nobody ever completes.
@@ -6,7 +17,7 @@ export default function LegalDocument({
   page,
   pendingNotice,
 }: {
-  page: LegalPage;
+  page: LegalDocumentPage;
   pendingNotice: string;
 }) {
   return (

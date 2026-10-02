@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, type CSSProperties } from 'react';
-import { getPath, type FieldDef, type Group, type ItemField } from '@/lib/schema';
+import { getPath, type FieldDef, type Group, type ItemField } from '../../lib/fields';
 
 // One editor for every group of the contract. The form is generated from the
 // schema, so a field added to the contract appears here without new admin code,

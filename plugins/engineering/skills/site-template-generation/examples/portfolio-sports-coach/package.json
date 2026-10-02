@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "typecheck": "tsc --noEmit",
     "set-password": "node scripts/set-password.mjs",
     "push-keys": "node scripts/push-keys.mjs",
     "backup": "tar -czf backup-$(date +%Y%m%d-%H%M%S).tar.gz data",
@@ -17,6 +18,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "sharp": "0.35.4",
+    "site-template-shared": "file:../_shared",
     "web-push": "3.6.7"
   },
   "devDependencies": {
