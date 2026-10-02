@@ -40,6 +40,34 @@ In progress when this was written: the single-source refactor of the 29 shared
 example files, branch `refactor/site-examples-single-source`, not yet pushed.
 If it never arrives as a pull request, restart it from roadmap 8.1.
 
+Open on 2026-10-02, each checked conflict-free against `dev` and against the
+others, CI green unless noted:
+
+- 77, `docs/accept-adr-0003`: ADR 0003 accepted, `libraries/ui` under MIT (ADR
+  0004), and this handover.
+- 78, `feat/chief-opencode-lessons`: nine opencode lessons in seven skills
+  (`delivery-orchestrator` 1.2.0 permits and sub-dispatch inheritance,
+  `validation-gate` plan mode until an explicit yes, `engineering-orchestrator`
+  loop rule 6, `project-continuity` next move and merge rule,
+  `token-optimization` output to a file, `model-routing` text-only tier,
+  `codebase-mapping` convention files).
+- 79, `feat/app-reference-lessons`: the confhub and yc_directory lessons in seven
+  skills (`backend-engineering`, `api-design`, `llm-integration`,
+  `fullstack-engineering`, `database-operations`, `deployment-engineering`,
+  `environment-management`, each 1.1.0).
+- 80, `feat/security-opensec-curb`: `docs/architecture/SECURITY_REFERENCES.md`
+  (OpenSec and curb read first-hand), probe, validate and assess steps in
+  `security-audit`, attack-path tracing in `authorized-pentesting`, outcome
+  measured remediation in `accessibility-testing`, and ADR 0005 (proposed): an
+  accessibility remediation skill, no new agent. CI not yet reported when this
+  was written.
+
+After these merge, the integrator still owes: the 0005 row in
+`docs/decisions/README.md`, CHANGELOG entries for 78 to 80, roadmap 8.4 ticked,
+`docs/architecture/MODEL_ROUTING.md` (it says four override conditions; there
+are six), `docs/architecture/ORCHESTRATION.md` (the one-level nesting rule), and
+the follow-ups each pull request lists in its own description.
+
 ### How the work has been run
 
 - One branch per change from the latest `dev`, a draft pull request into
@@ -73,19 +101,16 @@ marked; run those one at a time.
    `libraries/ui` under MIT (ADR 0004), and "opensec" is `Cecuro/open-security`.
 2. **`principal-engineer`, the single-source refactor** of the 29 shared site
    example files (8.1), if the branch above did not land. Count neutral, wide.
-3. **`security-engineer`, OpenSec and `curb`** (8.4): `Cecuro/open-security`
-   for the probe, validate-by-attack-path and ledger patterns into
-   `security-audit` and the authorized testing agents; `handsomeboy990/curb`
-   for measured outcomes and the verify loop into `accessibility-testing`. Then
-   decide the accessibility remediation capability with `technology-selection`.
-   Possibly count-changing: run it alone.
-4. **The chief's owner, the opencode lessons**: the fifteen skill changes listed
-   in `docs/architecture/AGENT_REFERENCES.md` and `APP_REFERENCES.md` (permission
-   rules as data, inherited denies, plan mode that writes only the plan, loop
-   detection, a fixed compaction template, oversized output to a file, and the
-   application lessons for `api-design`, `backend-engineering` and
-   `deployment-engineering`). Each its own skill change, count neutral, several
-   can run in parallel on disjoint skills.
+3. **The owner, then a skill author: ADR 0005.** If accepted, build the
+   accessibility remediation skill as the record specifies (it depends on
+   `accessibility-testing`, never closes a finding itself, ships a measured
+   worked example, and is given to `frontend-engineer`). Count-changing: alone.
+4. **Remaining reference follow-ups** not covered by 78 and 79: the
+   `task-complexity` and `project-exploration` parts of the opencode lessons, a
+   delivery-checklist line in `delivery-orchestrator`, a worked example under
+   `fullstack-engineering/examples/`, the dependency direction in
+   `architecture-design`, and an atomic check-and-increment in `rate-limiting`.
+   Count neutral; parallel on disjoint skills.
 5. **`playwright-engineer` with `accessibility-testing`**: the real-browser and
    screen-reader pass on the `libraries/ui` motion layer and on the dashboard
    example; a second browser engine for the dashboard gate; then the
