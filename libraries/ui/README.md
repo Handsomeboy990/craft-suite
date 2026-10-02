@@ -25,11 +25,19 @@ reference analysis are in `docs/architecture/RESOURCE_LIBRARY.md` and
 | `Reveal` | the platform (IntersectionObserver), motion tokens | a scroll-in reveal that never hides content, reduced-motion safe |
 | `Marquee` | the platform (Web Animations API), space tokens | a seamless loop with a named group, an `aria-hidden` inert duplicate, pause on hover, focus and a toggle; static and wrapped under reduced motion |
 | `Counter` | the platform (IntersectionObserver, requestAnimationFrame) | a count-up in view whose accessible text is always the final value; final at once under reduced motion |
+| `Stagger` | the platform (IntersectionObserver), motion tokens | a staggered entrance of a group's items, sharing `Reveal`'s in-view logic, one observer per group, a capped delay; all shown at once under reduced motion |
+| `Magnetic` | the platform (Pointer Events, requestAnimationFrame) | a pointer-only pull of one element, transform only, one write per frame, reset on leave; nothing attached under reduced motion |
+| `Tilt` | the platform (Pointer Events, requestAnimationFrame) | a pointer-only tilt of one surface, same engine as `Magnetic`; flat under reduced motion |
+| `StackedCards` | CSS `position: sticky` | scroll-stacked cards with no scroll listener, a list in source order, a focused card raised above the stack; an ordinary list under reduced motion |
+| `GradientBackdrop` | the platform (Web Animations API), colour tokens | a decorative, `aria-hidden` drifting gradient with a static grain, transform only, contained, paused off screen; still under reduced motion |
 | `useReducedMotion` | `matchMedia` | the reduced-motion signal the motion layer treats as a hard floor |
+| `useInViewOnce` | `IntersectionObserver` | the seen-once signal `Reveal` and `Stagger` share; true at once when skipped or unsupported |
 
-This is the foundation plus the first pieces of the motion layer. Further primitives
-arrive in the phase-8.1 PRs that follow, and the duplicated site-example code
-is consolidated into this library.
+This is the foundation plus the motion layer the roadmap names: scroll reveal,
+staggered entrance, magnetic and tilt hover, logo marquee, scroll-stacked
+cards and one background. A real-browser and screen-reader pass and the
+`design-director` sign-off are still to come, and the duplicated site-example
+code is consolidated into this library in a later phase-8.1 PR.
 
 ## Install, in this repository
 
