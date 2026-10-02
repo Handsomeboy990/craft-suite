@@ -4,7 +4,7 @@ description: Gets a verified artefact running in a target environment on any pla
 license: MIT
 metadata:
   category: devops-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core, devops-core, environment-management, ci-cd-pipelines]
   outputs: [deployment-procedure, rollback-plan, deployment-record, platform-decision]
 ---
@@ -68,6 +68,10 @@ Rules:
   shape, and only once that version is confirmed stable.
 - Every migration is tested against a copy of realistic data, or the absence
   of that rehearsal is stated.
+- Migrations run as their own step, from the committed migration files. A
+  build command that pushes the schema by diff is refused, per
+  `database-operations` section 1: it applies an unreviewed migration on every
+  deploy and cannot be ordered against the code.
 
 ## 4. Health gating
 
@@ -132,7 +136,9 @@ A failed deployment is diagnosed, not retried blindly.
 ```
 
 Never: redeploy hoping for a different result, disable the health check to let
-a deployment through, or deploy directly to production to test a fix.
+a deployment through, switch off type or lint errors in the build
+configuration to get an artefact out, or deploy directly to production to test
+a fix. A check is fixed, never silenced, per `ci-cd-pipelines`.
 
 ## 8. Documentation
 
@@ -154,6 +160,8 @@ Troubleshooting      the failures seen before, and their fixes
 ## 9. Protocol
 
 1. Choose the target, section 1, and record the decision.
+   Confirm the build fails on type and lint errors and does not touch the
+   schema.
 2. Establish the deployment properties achievable, section 2.
 3. Plan the migration ordering, section 3.
 4. Confirm required variables exist in the target before starting.
@@ -166,7 +174,8 @@ Troubleshooting      the failures seen before, and their fixes
 ## 10. Auto-critique
 
 Score from 0 to 5: target chosen from constraints rather than habit,
-properties stated honestly, migration ordering safe across the window,
+properties stated honestly, migration ordering safe across the window and
+through committed migrations only, build gates intact,
 variables verified before starting, rollback written beforehand with its
 limits, health gating applied, record complete, documentation executable by
 someone else.
