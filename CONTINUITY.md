@@ -12,7 +12,7 @@ itself is phase 8 of `docs/ROADMAP.md`; the direction behind it is
 
 ### State
 
-On `dev`, merged (pull requests 55 to 74). Manifests 3.30.0, 169 skills, 33
+On `dev`, merged (pull requests 55 to 75). Manifests 3.30.0, 169 skills, 33
 agents; `CHANGELOG.md` 3.30.0 lists everything since 3.29.0.
 
 - Agents 27 to 33 and `codebase-mapping` (3.28.0, 3.29.0).
@@ -31,14 +31,12 @@ agents; `CHANGELOG.md` 3.30.0 lists everything since 3.29.0.
 - `site-template-generation` 2.1.0: the `dashboard` kind, and
   `dashboard-hotel-operations` as a runnable Next.js app whose `npm run gate`
   checks D1 to D26 (26 of 26 on the recorded run, Chromium only).
-- The two site examples: the 29 shared files guarded identical in CI.
+- The two site examples share one source, `examples/_shared/`, installed as
+  the local package `site-template-shared`; a user copying an example out takes
+  `_shared` with it (see `examples/README.md`).
 - Decisions and reference notes: ADR 0003 (proposed, no PHP domain),
   `docs/architecture/AGENT_REFERENCES.md` (opencode from source) and
   `APP_REFERENCES.md` (confhub, yc_directory, neither licensed for reuse).
-
-In progress when this was written: the single-source refactor of the 29 shared
-example files, branch `refactor/site-examples-single-source`, not yet pushed.
-If it never arrives as a pull request, restart it from roadmap 8.1.
 
 ### How the work has been run
 
@@ -72,8 +70,12 @@ marked; run those one at a time.
 1. **The owner**: accept or reject ADR 0003 (status `proposed` in the record and
    in `docs/decisions/README.md`); choose the licence of `libraries/ui`; confirm
    that "opensec" means `Cecuro/open-security`.
-2. **`principal-engineer`, the single-source refactor** of the 29 shared site
-   example files (8.1), if the branch above did not land. Count neutral, wide.
+2. **`site-template-engineer`, finish the shared example code**: the remaining
+   identical files (admin and API routes, `middleware.ts`, configs,
+   `admin.css`, `sw.js`, scripts) into `_shared`; SKILL.md section 4 updated for
+   the shared package; `verification/hardcoded.mjs` scanning `_shared`; and a
+   CI build of the examples, since a broken edit in `_shared` only shows in a
+   local build today. Count neutral, wide: run it alone.
 3. **`security-engineer`, OpenSec and `curb`** (8.4): `Cecuro/open-security`
    for the probe, validate-by-attack-path and ledger patterns into
    `security-audit` and the authorized testing agents; `handsomeboy990/curb`

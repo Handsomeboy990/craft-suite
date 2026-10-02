@@ -74,6 +74,10 @@ first skill added in this phase; the entries below are everything since 3.29.0.
 - `dashboard-hotel-operations` built as a runnable Next.js application, with
   `npm run gate` checking D1 to D26 by id; 26 of 26 passed on the recorded run,
   in Chromium only, with no screen reader.
+- The two site examples share one source: the common code lives once in
+  `examples/_shared/` as the local package `site-template-shared`, the content
+  model is passed in rather than imported, both apps build, and the CI guard
+  fails if a copy reappears.
 - ADR 0003 (proposed): no PHP or templating domain and no PHP code; the four PHP
   references read first-hand, licences confirmed, patterns recorded.
 - Reference notes: `docs/architecture/AGENT_REFERENCES.md` (opencode, read from

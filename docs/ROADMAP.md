@@ -223,16 +223,22 @@ first, then the UI library, then the agent and operations layers.
   dependency. Governed by `design-system`, built to pass `accessibility-testing`
   and `frontend-engineering`. `dependency-selection` decides Radix or Base UI
   for the hard primitives before any is added.
-- [ ] **Consolidate the duplicated site code** (M). The twenty-nine identical
+- [x] **Consolidate the duplicated site code** (M). The twenty-nine identical
   files across the two `site-template-generation` examples are not liftable as
   they stand: each imports the per-app content model (`lib/types`,
   `lib/schema`, `lib/legal`), so a single source needs those three injected
   rather than imported, plus a build of both Next apps to prove it. Done so
   far: a canonical `examples/shared-files.txt` and a CI guard that fails if any
   shared file drifts between the two examples, so the duplication can no longer
-  rot while the single-source refactor waits. Still to do: the injection
-  refactor into a shared source (`libraries/ui` or an examples-local package),
-  with both apps built to verify.
+  rot while the single-source refactor waits. Done: the shared files live once
+  in `examples/_shared/`, installed by each app as the local package
+  `site-template-shared` (`file:` dependency, `install-links`,
+  `transpilePackages`), with the content model passed in rather than imported;
+  both apps install, typecheck and build, and the CI guard now fails on any copy
+  reappearing. Still open: about thirty-five other identical files never on the
+  list (admin and API routes, `middleware.ts`, configs, `admin.css`, `sw.js`,
+  scripts), SKILL.md section 4 still placing the security code in `lib/`, and
+  `verification/hardcoded.mjs` not scanning `_shared` when run on an example.
 - [ ] **The motion layer** (M). A small set of signature effects chosen for a
   project's identity, not a catalogue: scroll reveal, staggered entrance,
   magnetic and tilt hover, logo marquee, scroll-stacked cards, one background.
