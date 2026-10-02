@@ -4,7 +4,7 @@ description: Runs database work safely in live environments: migration authoring
 license: MIT
 metadata:
   category: devops-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core, devops-core, backend-engineering]
   outputs: [migration-plan, lock-assessment, seed-strategy, operation-record]
 ---
@@ -26,6 +26,14 @@ Never containing a data change that belongs in a backfill script
 
 Ordering rules, per `deployment-engineering` section 3: additive before the
 code, destructive after the code that stopped using the old shape.
+
+A schema reaches a shared database only through committed, reviewed
+migrations. A push or sync command, one that diffs the model against the live
+database and applies the difference, is for a local disposable database. It
+never runs against staging or production, and never from a build step. A
+repository that commits migrations while its build pushes the schema has
+migrations nobody runs, and a production schema changed by an unreviewed diff
+on every deploy.
 
 ## 2. Lock awareness
 
@@ -89,6 +97,12 @@ Production    reference data only: roles, categories, plans; never demo users
 The seed command refuses to run when the environment is production, unless the
 project explicitly seeds reference data there, in which case that path is
 separate and named.
+
+A bulk import into production (content, a catalogue, reference data) is a live
+operation under section 7, not a script to run. It is performed only by
+someone the `delegation` configuration allows to operate the database; a
+script or an agent definition that runs it is a prepared command handed over,
+never a shortcut around the stop.
 
 Development seeds that contain twenty rows hide every performance defect the
 project will have. Seed enough to be honest.
@@ -156,7 +170,8 @@ immediately before.
 
 ## 9. Protocol
 
-1. Author the migration per section 1.
+1. Author the migration per section 1, and confirm no build or deploy step
+   pushes the schema directly.
 2. Assess the lock profile per section 2, against the real table size.
 3. Test the migration against a copy of realistic data, or state that no
    rehearsal was possible.
@@ -167,14 +182,16 @@ immediately before.
 
 ## 10. Auto-critique
 
-Score from 0 to 5: migration single purpose and correctly ordered, lock
+Score from 0 to 5: migration single purpose and correctly ordered, schema
+changed only through committed migrations, lock
 profile known before running, backfills batched and resumable, seeds honest in
 volume and free of real personal data, connection arithmetic done, count
 before every destructive statement, target verified, operation recorded.
 
 Threshold: no axis below 3, average at least 4. An unbounded update or delete
-against a live table, or a destructive statement run without a count first, is
-an automatic failure.
+against a live table, a destructive statement run without a count first, or a
+schema pushed to a shared database without a migration, is an automatic
+failure.
 
 ## 11. Interfaces
 

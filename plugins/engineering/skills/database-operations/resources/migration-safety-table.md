@@ -122,4 +122,5 @@ Rehearsal           run it against a copy of realistic data
 Duration            measured on the copy, so the window is known
 Rollback            what the reverse statement is, or that there is none
 Backup              taken, and its timestamp known
+Path                a committed migration, never a schema push or sync command
 ```
