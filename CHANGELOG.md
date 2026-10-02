@@ -18,8 +18,13 @@ versions it never had.
 
 ## Unreleased
 
+Nothing yet.
+
+## 3.30.0 the library of resources begins
+
 Phase 8 of `docs/ROADMAP.md`, the turn from a library of knowledge into a
-library of resources. Not yet version-bumped.
+library of resources. The manifests moved to 3.30.0 with `font-loading`, the
+first skill added in this phase; the entries below are everything since 3.29.0.
 
 - The resource-library direction and the phase 8 roadmap:
   `docs/architecture/RESOURCE_LIBRARY.md` and the phase 8 plan.
@@ -52,6 +57,28 @@ library of resources. Not yet version-bumped.
 - The documentation brought in line: the agent count in the delivery system,
   the orchestrator agent's delegation pointing at the team map, and the
   dashboard kind in the site-template agent and the skills index.
+- The motion layer completed in `libraries/ui`: `Stagger`, `Magnetic`, `Tilt`,
+  `StackedCards`, `GradientBackdrop` and the shared `useInViewOnce` hook;
+  `Reveal` now uses that hook, with no behaviour change. 60 tests, jsdom only.
+- `font-loading` (engineering/dev-skills), skill 169: self-hosted web fonts with
+  woff2 subsets by `unicode-range`, `font-display` per role, one critical
+  preload, a metric-matched fallback, variable fonts on byte counts, immutable
+  caching, font licence and privacy, and before and after CLS, LCP and bytes.
+  Wired into the FRONTEND and UI_UX plans. Manifests 3.30.0.
+- The orchestration skills under the chief aligned with its team map:
+  `engineering-orchestrator` 1.2.0 (agent dispatch per category and plan step,
+  a conflict check before any pull request), `task-complexity` 1.1.0 (size once,
+  feed team composition and waves, re-size on scope change), `model-routing`
+  1.2.0 (a tier rule for every agent, a verifier floor, one explicit model per
+  parallel worker).
+- `dashboard-hotel-operations` built as a runnable Next.js application, with
+  `npm run gate` checking D1 to D26 by id; 26 of 26 passed on the recorded run,
+  in Chromium only, with no screen reader.
+- ADR 0003 (proposed): no PHP or templating domain and no PHP code; the four PHP
+  references read first-hand, licences confirmed, patterns recorded.
+- Reference notes: `docs/architecture/AGENT_REFERENCES.md` (opencode, read from
+  source) and `docs/architecture/APP_REFERENCES.md` (confhub, yc_directory,
+  neither licensed for reuse).
 
 ## 3.29.0 the codebase map
 
