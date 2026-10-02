@@ -4,7 +4,7 @@ description: Reusable discipline for keeping context and token use proportional 
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core]
   outputs: [context-budget, decomposition-notes, reuse-notes]
 ---
@@ -70,7 +70,9 @@ Optimization here means proportion, not omission.
   not handed over whole and hoped to fit.
 - **Batch mechanical commands.** A search repeated with small variations is
   restated as one command covering all variations, not run once per
-  variation.
+  variation. The same command with identical input three times running is
+  not waste but a loop, stopped by `engineering-orchestrator` section 6
+  rule 6.
 - **One pass per finding.** A rejected finding is not re-litigated in the
   same form, per `engineering-orchestrator` section 6 rule 2. Re-raising it
   costs the same tokens twice for the same answer.
@@ -89,6 +91,13 @@ Optimization here means proportion, not omission.
 - **Stable context across a sequence.** Reordering steps so that adjacent
   steps share more of their context costs nothing and reduces how much must
   be re-established at each boundary.
+- **Governing rules are dropped last.** When context must shrink, a
+  compaction, a summary, a handoff, old tool output goes first and the
+  rules that govern the work go last: the loaded skill text, the tree's
+  constitution, the gates that apply, and the user's approved instructions
+  and corrections. A summary that replaces a longer record is written in the
+  sections of `project-continuity` and merged by its rules, section 5:
+  newest wins, nothing open is dropped silently.
 
 ## 5. Proportional output
 
@@ -99,6 +108,14 @@ Optimization here means proportion, not omission.
   what was asked for, not padded to demonstrate thoroughness.
 - A finding is stated once, with its evidence, not restated in a summary that
   repeats the same evidence a second time.
+- An output too large to be read whole, a long log, a full test report, a
+  large diff, a generated listing, goes to a file and travels by path. What
+  stays inline is its size and the excerpt that carries the result: the
+  failing lines, the counts, the verdict line. The reader pages through the
+  file for the rest. Evidence a handoff owes is still quoted inline, by that
+  excerpt; the path adds the full record, it does not replace the proof. The
+  file sits where the receiver can read it, outside the committed tree when
+  it is scratch, and holds no secret.
 
 ## 6. What this skill does not do
 
@@ -122,7 +139,8 @@ Optimization here means proportion, not omission.
    decompose a breadth-driven HIGH or CRITICAL task before dispatch.
 4. Write the handoff per `agents/handoff-protocol.md`, referencing canonical
    documents rather than repeating their content.
-5. Size the output to the question, per section 5.
+5. Size the output to the question, and send a large output by path with
+   its excerpt, per section 5.
 6. Never apply steps 1 through 5 in a way that skips a gate from
    `engineering-orchestrator` section 4 or a finding that needs verification.
 
@@ -131,8 +149,9 @@ Optimization here means proportion, not omission.
 Score from 0 to 5: no file was re-read that an existing note already covered,
 no oversized dispatch was sent where decomposition applied, the handoff
 referenced canonical documents instead of repeating them, the output was
-sized to the question, no gate or verification was skipped in the name of
-this skill.
+sized to the question, a large output went by path with its excerpt, the
+governing rules survived every compaction, no gate or verification was
+skipped in the name of this skill.
 
 Threshold: no axis below 3, average at least 4. Skipping a gate or a
 verification step to save tokens scores 0 on that axis regardless of the

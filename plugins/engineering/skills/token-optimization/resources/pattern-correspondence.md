@@ -61,6 +61,15 @@ wasteful   a one-line question answered with a restated plan, a summary of
 proportional   the one line the question asked for
 ```
 
+The same row covers a tool output too large to read whole:
+
+```
+wasteful   a two thousand line test log pasted into the conversation and
+           again into the handoff
+proportional   the log written to a file, the handoff carrying its path,
+           its size and the three lines that show the failure
+```
+
 ## Broad scope
 
 Rule: decompose a single session trying to cover many files, many tool types

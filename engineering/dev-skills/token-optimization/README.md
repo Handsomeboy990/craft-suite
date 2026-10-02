@@ -4,7 +4,8 @@ The discipline applied during a multi-step or multi-agent task to keep
 context and token use proportional to it: read once and reuse the note,
 decompose before dispatching, prefer canonical documents to re-exploration,
 hand off through the structured protocol instead of a context dump, size the
-output to the question. Never trades this for a skipped gate or an
+output to the question, send a large output by path with its excerpt, and
+drop the governing rules last when context shrinks. Never trades this for a skipped gate or an
 unverified finding.
 
 - Inputs: the task, the canonical documents already available
