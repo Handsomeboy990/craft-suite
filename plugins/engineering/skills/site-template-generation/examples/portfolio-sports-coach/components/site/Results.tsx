@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import type { PortfolioContent } from '@/lib/types';
-import Counter from './Counter';
-import Reveal from './Reveal';
+import Counter from 'site-template-shared/components/site/Counter';
+import Reveal from 'site-template-shared/components/site/Reveal';
 
 type Results = NonNullable<PortfolioContent['results']>;
 

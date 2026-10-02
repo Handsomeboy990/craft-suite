@@ -1,6 +1,6 @@
-import { record } from '@/lib/audit';
-import { HttpError, destroySession, requireSession } from '@/lib/auth';
-import { callerAddress } from '@/lib/rate-limit';
+import { record } from 'site-template-shared/lib/audit';
+import { HttpError, destroySession, requireSession } from 'site-template-shared/lib/auth';
+import { callerAddress } from 'site-template-shared/lib/rate-limit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';

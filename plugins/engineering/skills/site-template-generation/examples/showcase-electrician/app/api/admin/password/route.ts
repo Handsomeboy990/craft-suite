@@ -1,6 +1,6 @@
-import { HttpError, changePassword, requireSession , refuseOversizedBody } from '@/lib/auth';
-import { record } from '@/lib/audit';
-import { callerAddress, consume } from '@/lib/rate-limit';
+import { HttpError, changePassword, requireSession , refuseOversizedBody } from 'site-template-shared/lib/auth';
+import { record } from 'site-template-shared/lib/audit';
+import { callerAddress, consume } from 'site-template-shared/lib/rate-limit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';

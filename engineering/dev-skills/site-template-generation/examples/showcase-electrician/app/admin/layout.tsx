@@ -1,10 +1,10 @@
 import { headers } from 'next/headers';
 import type { ReactNode } from 'react';
-import { readSession } from '@/lib/auth';
+import { readSession } from 'site-template-shared/lib/auth';
 import { getContent } from '@/lib/content';
-import { unreadCount } from '@/lib/messages';
-import { cssVariables, themeScript } from '@/lib/tokens';
-import LogoutButton from '@/components/admin/LogoutButton';
+import { unreadCount } from 'site-template-shared/lib/messages';
+import { cssVariables, themeScript } from 'site-template-shared/lib/tokens';
+import LogoutButton from 'site-template-shared/components/admin/LogoutButton';
 import '../globals.css';
 import './admin.css';
 

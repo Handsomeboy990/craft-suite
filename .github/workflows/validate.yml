@@ -102,23 +102,42 @@ jobs:
           done
           exit "$status"
 
-      - name: Site-template examples keep their shared files identical
+      - name: Site-template examples keep one source for their shared code
         run: |
-          # The two site-template examples share a common set of files, listed
-          # in examples/shared-files.txt. They are not yet a single source
-          # (each imports the per-app content model), so this guard fails if a
-          # shared file drifts between the two, keeping the duplication honest.
+          # The code the two site-template examples share lives once, in
+          # examples/_shared, listed in examples/shared-files.txt. Each example
+          # installs it as the local package site-template-shared and passes
+          # its own content model in. This guard fails if a shared file is
+          # missing from the source, if a copy reappears in an example (it would
+          # shadow the source and drift), if the list and the source disagree,
+          # if the shared code imports anything from an example, or if an
+          # example is no longer wired to the package.
           EX=engineering/dev-skills/site-template-generation/examples
-          A="$EX/portfolio-sports-coach"
-          B="$EX/showcase-electrician"
+          SH="$EX/_shared"
+          LIST="$EX/shared-files.txt"
           status=0
           while IFS= read -r rel; do
             case "$rel" in ''|\#*) continue ;; esac
-            if [ ! -f "$A/$rel" ]; then echo "shared file missing in portfolio-sports-coach: $rel"; status=1
-            elif [ ! -f "$B/$rel" ]; then echo "shared file missing in showcase-electrician: $rel"; status=1
-            elif ! cmp -s "$A/$rel" "$B/$rel"; then echo "shared file drifted between the two examples: $rel"; status=1
-            fi
-          done < "$EX/shared-files.txt"
+            [ -f "$SH/$rel" ] || { echo "shared file missing from _shared: $rel"; status=1; }
+            for app in portfolio-sports-coach showcase-electrician; do
+              [ ! -e "$EX/$app/$rel" ] || { echo "copy of a shared file in $app: $rel"; status=1; }
+            done
+          done < "$LIST"
+          for f in $(cd "$SH" && find components lib -type f | sort); do
+            grep -qxF "$f" "$LIST" || { echo "file in _shared not listed in shared-files.txt: $f"; status=1; }
+          done
+          if grep -rnE "from '(@/|(\.\./)+(portfolio-sports-coach|showcase-electrician)/)" "$SH/components" "$SH/lib"; then
+            echo "the shared code imports from an example; pass the value in instead"; status=1
+          fi
+          for app in portfolio-sports-coach showcase-electrician; do
+            A="$EX/$app"
+            grep -qF '"site-template-shared": "file:../_shared"' "$A/package.json" \
+              || { echo "$app does not depend on file:../_shared"; status=1; }
+            grep -qxF 'install-links=true' "$A/.npmrc" 2>/dev/null \
+              || { echo "$app/.npmrc does not set install-links=true"; status=1; }
+            grep -qF "transpilePackages: ['site-template-shared']" "$A/next.config.mjs" \
+              || { echo "$app/next.config.mjs does not transpile site-template-shared"; status=1; }
+          done
           exit "$status"
 
       - name: No forbidden attribution in the commits

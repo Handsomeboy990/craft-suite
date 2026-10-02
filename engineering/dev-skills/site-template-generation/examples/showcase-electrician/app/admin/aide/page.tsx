@@ -1,6 +1,6 @@
 import { getContent } from '@/lib/content';
-import { mailConfigured } from '@/lib/mail';
-import { requirePage } from '@/lib/guard';
+import { mailConfigured } from 'site-template-shared/lib/mail';
+import { requirePage } from 'site-template-shared/lib/guard';
 
 export const dynamic = 'force-dynamic';
 

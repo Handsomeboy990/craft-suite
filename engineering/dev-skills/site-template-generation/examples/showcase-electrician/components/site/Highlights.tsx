@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { ShowcaseContent } from '@/lib/types';
-import Reveal from './Reveal';
+import Reveal from 'site-template-shared/components/site/Reveal';
 
 type Highlights = NonNullable<ShowcaseContent['home']['highlights']>;
 

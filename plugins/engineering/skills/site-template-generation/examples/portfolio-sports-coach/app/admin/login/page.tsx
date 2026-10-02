@@ -1,6 +1,6 @@
-import { isConfigured, readSession } from '@/lib/auth';
+import { isConfigured, readSession } from 'site-template-shared/lib/auth';
 import { redirect } from 'next/navigation';
-import LoginForm from '@/components/admin/LoginForm';
+import LoginForm from 'site-template-shared/components/admin/LoginForm';
 
 export const dynamic = 'force-dynamic';
 

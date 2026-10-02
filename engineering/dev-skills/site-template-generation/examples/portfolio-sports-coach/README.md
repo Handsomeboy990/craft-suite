@@ -32,24 +32,50 @@ Optional, for notifications:
 npm run push-keys        # prints a VAPID pair to put in the environment
 ```
 
+## The shared code, and copying this example out
+
+The site shell, the back office components and the library code this example
+has in common with the other site example live once, in `../_shared`. They are
+installed as the local package `site-template-shared` (`"file:../_shared"` in
+`package.json`), copied into `node_modules` rather than linked, because
+`.npmrc` sets `install-links=true`, and compiled with the app through
+`transpilePackages` in `next.config.mjs`. Imports read
+`site-template-shared/lib/auth`, `site-template-shared/components/site/Reveal`
+and so on. The content model stays here: `lib/types.ts`, `lib/schema.ts` and
+`lib/legal.ts` are this instance's own, and the shared code receives what it
+needs as props and arguments instead of importing them.
+
+To take this example out of the repository, copy two directories: this one and
+`../_shared`, nothing else. Either keep them side by side as they are here,
+or put `_shared` anywhere and change the one path in `package.json`. Keep the
+`.npmrc`: without it npm links the package instead of copying it, and the
+build fails on every shared import. To fold the shared code into the project
+for good, copy `_shared/components` and `_shared/lib` into this directory, replace
+`site-template-shared/` with `@/` in the imports, and drop the dependency, the
+`.npmrc` and the `transpilePackages` line.
+
+After a change in `../_shared`, refresh the installed copy, since npm does not
+notice it: `rm -rf node_modules/site-template-shared && npm install`.
+`npm run typecheck` checks the shared code together with this app.
+
 ## What it demonstrates
 
 | Rule of the skill | Where to look |
 |---|---|
-| Template, content and tokens kept apart | `components/`, `data/content.json`, `lib/tokens.ts` |
+| Template, content and tokens kept apart | `components/`, `data/content.json`, `../_shared/lib/tokens.ts` |
 | Content read at runtime, written by the back office | `lib/content.ts`, `app/api/admin/content/route.ts` |
 | Required fields refused by name, on read and on write | `lib/content.ts`, `validate` |
 | Alt text is content, and required | `lib/content.ts`, `lib/schema.ts` |
 | Both palettes authored, neither derived | `data/content.json`, `theme.palettes` |
-| Theme choice before first paint | `lib/tokens.ts`, `themeScript` |
-| Motion driven by one intensity scalar | `lib/tokens.ts`, `components/site/Reveal.tsx`, `app/globals.css` |
+| Theme choice before first paint | `../_shared/lib/tokens.ts`, `themeScript` |
+| Motion driven by one intensity scalar | `../_shared/lib/tokens.ts`, `../_shared/components/site/Reveal.tsx`, `app/globals.css` |
 | The page uses its width | `.page` at 1600px, `.prose` the only narrow measure |
-| The back office is generated from the contract | `lib/schema.ts`, `components/admin/ContentEditor.tsx` |
+| The back office is generated from the contract | `lib/schema.ts`, `../_shared/components/admin/ContentEditor.tsx` |
 | A path outside the schema cannot be written | `lib/schema.ts`, `applyPatch` |
-| Sessions server side, CSRF on every write | `lib/auth.ts` |
-| Login and public form rate limited | `lib/rate-limit.ts` |
-| Uploads checked by type and by content, no SVG | `lib/uploads.ts` |
-| Path traversal refused on media | `lib/uploads.ts`, `resolveUpload` |
+| Sessions server side, CSRF on every write | `../_shared/lib/auth.ts` |
+| Login and public form rate limited | `../_shared/lib/rate-limit.ts` |
+| Uploads checked by type and by content, no SVG | `../_shared/lib/uploads.ts` |
+| Path traversal refused on media | `../_shared/lib/uploads.ts`, `resolveUpload` |
 | The contact form reaches an inbox | `app/api/contact/route.ts`, `app/admin/messages` |
 | Legal pages from facts, gaps marked | `lib/legal.ts` |
 | The site's own 404 and offline pages | `app/not-found.tsx`, `app/offline/page.tsx` |
@@ -189,4 +215,4 @@ Two thresholds change it: more than one server process, because the rate limit
 counters and the sessions must then be visible to both, and a message volume
 where rewriting the file on each write becomes noticeable, in the thousands
 rather than the hundreds. At either point the store moves to a database and
-`lib/store.ts` is the only module that changes.
+`../_shared/lib/store.ts` is the only module that changes.

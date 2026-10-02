@@ -1,9 +1,9 @@
-import { refuseOversizedBody } from '@/lib/auth';
+import { refuseOversizedBody } from 'site-template-shared/lib/auth';
 import { getContent } from '@/lib/content';
-import { addMessage } from '@/lib/messages';
-import { send } from '@/lib/mail';
-import { notify } from '@/lib/push';
-import { callerAddress, consume } from '@/lib/rate-limit';
+import { addMessage } from 'site-template-shared/lib/messages';
+import { send } from 'site-template-shared/lib/mail';
+import { notify } from 'site-template-shared/lib/push';
+import { callerAddress, consume } from 'site-template-shared/lib/rate-limit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';

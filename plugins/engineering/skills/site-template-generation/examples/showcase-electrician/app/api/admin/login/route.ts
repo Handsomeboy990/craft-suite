@@ -1,6 +1,6 @@
-import { arrivedOverHttps, createSession, isConfigured, verifyPassword } from '@/lib/auth';
-import { record } from '@/lib/audit';
-import { callerAddress, consume, reset } from '@/lib/rate-limit';
+import { arrivedOverHttps, createSession, isConfigured, verifyPassword } from 'site-template-shared/lib/auth';
+import { record } from 'site-template-shared/lib/audit';
+import { callerAddress, consume, reset } from 'site-template-shared/lib/rate-limit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { getContent } from '@/lib/content';
 import PageHeader from '@/components/site/PageHeader';
 import QuoteForm from '@/components/site/QuoteForm';
-import Reveal from '@/components/site/Reveal';
+import Reveal from 'site-template-shared/components/site/Reveal';
 
 export const dynamic = 'force-dynamic';
 

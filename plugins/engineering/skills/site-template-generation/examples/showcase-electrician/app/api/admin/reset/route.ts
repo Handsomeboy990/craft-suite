@@ -1,11 +1,11 @@
-import { writeJson } from '@/lib/store';
-import { FILES } from '@/lib/paths';
-import { record } from '@/lib/audit';
+import { writeJson } from 'site-template-shared/lib/store';
+import { FILES } from 'site-template-shared/lib/paths';
+import { record } from 'site-template-shared/lib/audit';
 import { getContent } from '@/lib/content';
-import { mailConfigured, send } from '@/lib/mail';
-import { callerAddress, consume, reset as clearLimit } from '@/lib/rate-limit';
-import { MINIMUM_PASSWORD_LENGTH } from '@/lib/auth';
-import { clearToken, hashPassword, issueToken, tokenValid } from '@/lib/reset';
+import { mailConfigured, send } from 'site-template-shared/lib/mail';
+import { callerAddress, consume, reset as clearLimit } from 'site-template-shared/lib/rate-limit';
+import { MINIMUM_PASSWORD_LENGTH } from 'site-template-shared/lib/auth';
+import { clearToken, hashPassword, issueToken, tokenValid } from 'site-template-shared/lib/reset';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';

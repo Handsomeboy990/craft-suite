@@ -1,7 +1,7 @@
-import { HttpError, requireSession } from '@/lib/auth';
-import { record } from '@/lib/audit';
-import { removeMessage, setStatus } from '@/lib/messages';
-import { callerAddress } from '@/lib/rate-limit';
+import { HttpError, requireSession } from 'site-template-shared/lib/auth';
+import { record } from 'site-template-shared/lib/audit';
+import { removeMessage, setStatus } from 'site-template-shared/lib/messages';
+import { callerAddress } from 'site-template-shared/lib/rate-limit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';

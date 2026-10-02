@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import type { CSSProperties } from 'react';
 import type { Service } from '@/lib/types';
-import Reveal from './Reveal';
+import Reveal from 'site-template-shared/components/site/Reveal';
 
 export default function ServiceList({
   heading,

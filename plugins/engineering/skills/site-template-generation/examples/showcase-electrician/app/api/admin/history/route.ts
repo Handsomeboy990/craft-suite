@@ -1,9 +1,9 @@
 import { revalidatePath } from 'next/cache';
-import { record } from '@/lib/audit';
-import { HttpError, refuseOversizedBody, requireSession } from '@/lib/auth';
+import { record } from 'site-template-shared/lib/audit';
+import { HttpError, refuseOversizedBody, requireSession } from 'site-template-shared/lib/auth';
 import { ContentError, saveContent } from '@/lib/content';
-import { list, read } from '@/lib/history';
-import { callerAddress } from '@/lib/rate-limit';
+import { list, read } from 'site-template-shared/lib/history';
+import { callerAddress } from 'site-template-shared/lib/rate-limit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
