@@ -118,8 +118,8 @@ that added the row; everything else is marked to analyse.
 | `magicuidesign/magicui` | MIT | animated marketing components, shadcn registry, Framer Motion | read |
 | `DavidHDev/react-bits` | MIT + Commons Clause | ~180 animated effects, four JS/TS and CSS/Tailwind variants; patterns only, never reused | read |
 | `trailhq/Graft` | MIT | a structural context map of a codebase for coding agents; the idea behind `codebase-mapping` | read |
-| `Cecuro/open-security` (OpenSec) | Apache 2.0 | local AI security-review agents, independent probes, validation by attack-path tracing, a SQLite ledger | read |
-| `handsomeboy990/curb` | third-party components under their own licences | an accessibility remediation agent measured on real assistive-tech outcomes, six capability levels, a verify loop, an integrity boundary that hides the answer key | read |
+| `Cecuro/open-security` (OpenSec) | Apache 2.0; patterns only | local AI security-review agents, independent probes, validation by attack-path tracing, a SQLite ledger; probe, validate and assess as separate steps, root-control identity, suppression on code evidence and measured coverage taken into `security-audit` and `authorized-pentesting`; notes in `docs/architecture/SECURITY_REFERENCES.md` | read |
+| `handsomeboy990/curb` | no licence file, all rights reserved; patterns only; third-party components under their own licences | an accessibility remediation agent measured on real assistive-tech outcomes, six capability levels, a verify loop, an integrity boundary that hides the answer key; the verify loop and outcome classes taken into `accessibility-testing`, the remediation question decided in ADR 0005; notes in `docs/architecture/SECURITY_REFERENCES.md` | read |
 | `sharkui-inc/shark-ui` | MIT | accessible components on Ark UI and Tailwind, copy-into-codebase registry | read |
 | `vprix21/neonblade-ui` | MIT | React, Tailwind v4 and Framer Motion components, cyberpunk aesthetic, `npx neonblade add` | read |
 | `Balastrong/start-theme-demo` | not stated, confirm before reuse | a TanStack Start theming demo, tokens switched on one attribute | read |
