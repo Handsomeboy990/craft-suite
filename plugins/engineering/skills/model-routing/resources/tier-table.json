@@ -35,6 +35,11 @@
       "id": "independent-verifier-floor",
       "when": "the dispatch is an independent gate verifying another dispatch's work: final-verifier, pr-reviewer or compliance-verifier",
       "effect": "route no lighter, in model tier and effort, than the dispatch whose work it verifies"
+    },
+    {
+      "id": "text-only-transform",
+      "when": "the step only transforms text already in hand (a title, a summary, a compaction, a reformat) and needs no tool; never a verdict, a gate decision, a security finding or a judgement on another dispatch's work",
+      "effect": "dispatch with no tools and no write surface, and route to fast"
     }
   ],
   "quality_escalation_triggers": [

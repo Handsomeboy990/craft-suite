@@ -4,7 +4,7 @@ description: Recommends which Claude model, and where meaningful which effort, a
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.2.0
+  version: 1.3.0
   depends_on: [engineering-core, task-complexity]
   outputs: [model-recommendation, routing-rationale, escalation-record, routing-log]
 ---
@@ -122,6 +122,12 @@ and record the override, when:
 - the dispatch is an independent gate verifying another dispatch's work, the
   final-verifier, pr-reviewer or compliance-verifier agent: route no lighter,
   in model tier and effort, than the dispatch whose work it verifies.
+- the step only transforms text already in hand, a title, a summary, a
+  compaction into `project-continuity`'s sections, a reformat, and needs no
+  tool: dispatch it with no tools and no write surface, its result written by
+  whoever dispatched it, and route it to fast. It never applies to a step
+  whose text is a verdict, a gate decision, a security finding or a judgement
+  on another dispatch's work; those keep the tier the rows above give them.
 
 ## 6. Escalation and de-escalation
 
