@@ -4,7 +4,7 @@ description: Builds and maintains a durable, versioned structural map of a codeb
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core, project-exploration]
   outputs: [codebase-map, subsystem-nodes, wiring-graph, staleness-report]
 ---
@@ -92,9 +92,21 @@ owns           data, tables, files, state that only this subsystem writes
 depends on     other nodes it calls, with the edge count
 used by        nodes that call it
 tests          where they live and how to run them
+conventions    the tracked instruction files that govern it: an AGENTS.md,
+               a CONTRIBUTING file or a README of boundary rules, in its
+               directory or between it and the root, by path; "none" when
+               none exists
 key files      at most a handful, each with one line on why it matters
 evidence       file and line for every claim above
 ```
+
+`conventions` is how a local rule reaches the agent that needs it. A dispatch
+whose write surface falls inside a node loads that node's convention files
+before it writes, and the chief's dispatch record lists them in `Inputs`. The
+node names the file and says nothing of its content: the file is the
+authority, and a node that paraphrases it goes stale silently. A file named
+after one agent runtime is local configuration, not tracked, and is never a
+convention source.
 
 ### Step 4, optional summary pass
 
@@ -164,6 +176,7 @@ that rivals the code in length has failed its purpose.
 ## 5. Prohibitions
 
 - No answer from a stale node. The source wins, every time.
+- No paraphrase of a convention file in a node; the node points at it.
 - No map delivered without the commit it describes.
 - No fact in a summary that the structural pass did not find.
 - No source bodies pasted into nodes; point at file and line instead.
@@ -179,6 +192,7 @@ that rivals the code in length has failed its purpose.
 
 Score from 0 to 5: every claim carries evidence, the stamp is complete,
 staleness was checked before use, nodes follow the code's real boundaries,
+every node names its convention files or says it has none,
 nodes stay within their size target, heuristic edges are marked, no secret
 appears in any layer, regeneration touched only what changed.
 

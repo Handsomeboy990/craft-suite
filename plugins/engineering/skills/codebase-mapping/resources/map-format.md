@@ -39,6 +39,7 @@ Owns           <tables, files, state>                <file:line each>
 Depends on     <node (edges)>, ...
 Used by        <node (edges)>, ...
 Tests          <path>, run with <command>
+Conventions    <path of each governing instruction file> | none
 Key files      <path>: <why it matters>
 Freshness      fresh at <commit> | stale since <commit>: <files>
 ```
@@ -83,6 +84,10 @@ exactly how a new subsystem first appears. Run both. Map each path to its node
 through INDEX.md, mark those nodes stale, and answer from the source for them
 until they are regenerated. A path no node claims is a sign the boundaries
 moved: rebuild rather than patch.
+
+A changed or new convention file, an `AGENTS.md` added under a package for
+example, marks every node it governs stale, since their `Conventions` field
+no longer lists what applies.
 
 ## What never goes in any layer
 
