@@ -2,11 +2,12 @@
 
 ## Content
 
-- [ ] All seven sections present, none silently omitted.
+- [ ] All eight sections present, none silently omitted.
 - [ ] Completed items name files, not activities.
 - [ ] Current state distinguishes what works from what merely renders.
 - [ ] Every decision carries its reason and its rejected alternative.
 - [ ] Every remaining item names a location and a first step.
+- [ ] Next move names one to three actions, in order, each with its path.
 - [ ] Every risk names a condition and a symptom.
 - [ ] Verification quotes commands and results, not intentions.
 - [ ] Context contains facts that cannot be deduced from the repository.
@@ -32,6 +33,11 @@ Rewrite anything matching these patterns:
 - [ ] No internal credential of any third party.
 
 ## Hygiene
+
+- [ ] Every open item of the previous note is carried forward or its drop is
+      stated with a reason.
+- [ ] Where the previous note and this session disagree, this session's
+      verified state is the one kept.
 
 - [ ] Entries resolved by this session were deleted, not marked done.
 - [ ] The note fits on one screen, two for a large session.

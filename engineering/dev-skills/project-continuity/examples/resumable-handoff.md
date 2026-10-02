@@ -67,6 +67,12 @@ demo of the full loop will fail at that point.
   disabled with a TODO.
 - Decide the cross team flooding limit for one address. No implementation yet.
 
+## Next move
+
+1. app/invite/[token]/page.tsx:34, call addMember inside the existing branch.
+2. Run npx playwright test invitations; extend the accept case to assert the
+   membership exists.
+
 ## Risks
 
 - Mail failure leaves an invitation nobody sees. Delivery state is shown in
@@ -104,6 +110,10 @@ choice, and the note explains in one sentence why it was rejected.
 The March context line saves a security regression. Nothing in the current
 code says the raw token was once stored and why that was wrong; the git
 history holds it, but only for someone who thinks to look.
+
+The `Next move` lines remove the first half hour of the next session: it
+starts on a named line of a named file, not on choosing among the remaining
+items.
 
 The `Not verified` line is the one that keeps the rest credible. A note that
 claims everything works is trusted less than one that names its own gap.
