@@ -113,6 +113,8 @@ Content-Type and Accept honoured, not assumed
 Idempotency-Key on retryable writes
 ETag and If-Match where concurrent edits are possible
 Retry-After on 429 and 503
+the limit, the remaining count and the reset time on every rate limited
+  response, under one naming convention for the whole surface
 Cache-Control explicit on every authenticated response
 correlation identifier accepted and echoed
 ```
@@ -140,4 +142,6 @@ no internal field leaked in any response
 pagination and limits enforced server side
 idempotency stated for every unsafe operation
 the specification matches the implementation, checked automatically
+clients are generated from the specification, and none is edited by hand
+no list operation takes a visibility flag from the caller
 ```

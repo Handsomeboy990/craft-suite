@@ -4,7 +4,7 @@ description: Designs an HTTP or GraphQL contract before it is implemented: resou
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core, architecture-design]
   outputs: [api-contract, endpoint-specification, error-format, versioning-policy]
 ---
@@ -117,7 +117,12 @@ one authentication mechanism per audience, documented, with expiry and
 authorization stated per operation, at object level, not only at route level
 a caller who may not see a resource gets the same answer as for one that does
   not exist
-rate limits declared with their window, their scope and their response
+visibility (drafts, unpublished, private) decided by the server from the
+  caller's identity; a filter parameter may narrow it, never widen it
+rate limits declared with their window, their scope and their response: 429
+  with Retry-After and the limit and remaining count, the counter checked and
+  incremented atomically, per `rate-limiting`
+every operation that creates a resource without authentication is rate limited
 payload size limits declared
 ```
 
@@ -142,6 +147,23 @@ supports one, generated from the code or checked against it, never maintained
 by hand as a second source of truth. Where it cannot be generated, a drift
 check belongs in the pipeline.
 
+When more than one client consumes the server (a web app, a terminal, a mobile
+app, an SDK), the server's published specification is the contract and every
+client is generated from it. Generated clients are never edited by hand: a
+change goes into the server, and the clients are regenerated.
+
+The package dependency direction is written down and checked:
+
+```
+schema       shapes and validators, depends on nothing in the product
+core         business rules, depends on schema
+server       transport, depends on core and schema
+clients      depend on schema and the generated client, never on core or server
+```
+
+The names follow the project; the rule is that the arrows point one way, and
+an import rule or a lint in the pipeline fails the build when one points back.
+
 ## 11. Prohibitions
 
 - Never expose an internal model directly as a response shape.
@@ -151,6 +173,9 @@ check belongs in the pipeline.
 - Never add a mode flag that changes the meaning of a response.
 - Never break a published contract without a version and a deprecation path.
 - Never document an endpoint that does not exist, or omit one that does.
+- Never edit a generated client by hand, or let a client import server
+  internals.
+- Never take visibility from a caller supplied flag.
 
 ## 12. Protocol
 
@@ -170,8 +195,8 @@ check belongs in the pipeline.
 
 Score from 0 to 5: fit to consumer needs, consistency with the existing
 surface, shape discipline, status and error coherence, collection rules,
-idempotency, authorization stated per operation, versioning policy, quality of
-the specification.
+idempotency, authorization and visibility stated per operation, versioning
+policy, quality of the specification and of the generated clients.
 
 Threshold: no axis below 3, average at least 4. A surface with two error
 formats, or an operation whose authorization is undefined, is redesigned
@@ -182,7 +207,8 @@ before it is built.
 - Upstream: `requirements-analysis`, `architecture-design`,
   `technology-selection`.
 - Lateral: `input-validation` for the validation rules the contract implies,
-  `backend-engineering` for implementation, `security-audit` for exposure.
+  `backend-engineering` for implementation, `rate-limiting` for limit policy,
+  `security-audit` for exposure, `fullstack-engineering` for the clients.
 - Downstream: `api-testing` to verify the contract holds,
   `technical-documentation` to publish it, `release-engineering` for
   deprecation and version rollout.
