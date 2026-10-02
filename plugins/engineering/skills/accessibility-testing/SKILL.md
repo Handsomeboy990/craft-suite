@@ -4,7 +4,7 @@ description: Verifies that a product can actually be operated by keyboard, by as
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core, quality-engineering]
   outputs: [accessibility-findings, keyboard-report, criteria-coverage, remediation-list]
 ---
@@ -155,7 +155,42 @@ Severity    High: the flow is completable but hostile
 Severity is about the barrier, not about the effort to fix. Blocking means the
 task cannot be completed by that user at all.
 
-## 10. Prohibitions
+## 10. Verifying a remediation
+
+A finding is closed by a measured outcome, not by a quieter scanner. When a fix
+comes back, the verify loop in `resources/verify-loop.md` runs on the rendered
+interface, re-mounting before each check:
+
+```
+1  barrier check    the barrier the finding named is gone, checked as the
+                    person meets it
+2  universal layer  focus visible, target size, reflow at 320 pixels, reduced
+                    motion, on every remediated surface whatever the finding was
+3  preservation     nothing that worked before was lost
+4  scanner          last, reconciled with the three above
+```
+
+Each remediated finding ends as fixed, scanner gamed, regression, not fixed, or
+escalated. A clean scan with a failing barrier check after a change is scanner
+gaming: `alt=""` on an informative image, a generic name, a role with no
+keyboard behaviour, ARIA roles over a div instead of the native element. The
+report gives the scanner-clean rate and the fixed rate side by side; the gap
+between them is the progress that would ship without helping anyone.
+
+The checks that grade a fix are written before it, are proven able to fail (on
+the unremediated surface and on a known gaming fix) and able to pass (on a
+correct fix), and are not edited by whoever makes the fix. A check that cannot
+fail measures nothing.
+
+Where the right fix depends on intent (does this image inform or decorate,
+should this widget become a native element) and the source does not settle it,
+the finding is escalated to a person with the question, not resolved by a
+guess that satisfies the scanner.
+
+Every report states its limits: the engines used, whether a real screen reader
+was used and on what, what was not measured, and the sample covered.
+
+## 11. Prohibitions
 
 - Never report an automated scan as an accessibility test.
 - Never claim a screen reader pass that was not performed.
@@ -167,8 +202,14 @@ task cannot be completed by that user at all.
   rendered pair.
 - Never reduce a finding to `add aria-label` when the underlying element is
   the wrong element.
+- Never close a finding because the scanner stopped reporting it; close it on
+  the barrier check.
+- Never grade a fix with a check that was not first seen failing.
+- Never edit a check to make a remediation pass; a wrong check is corrected as
+  its own change and every result it graded is re-run.
+- Never report an accessibility tree read from the DOM as a screen reader pass.
 
-## 11. Protocol
+## 12. Protocol
 
 1. Establish the target and the pages in scope from the contract.
 2. Run the keyboard pass on each critical flow, recording every step.
@@ -181,24 +222,31 @@ task cannot be completed by that user at all.
 8. Run the automated scan last and reconcile it with what was found manually.
 9. Map every finding to a criterion, a barrier and a person.
 10. Hand the reproducible ones to `playwright-automation` so they become
-    permanent keyboard and focus tests.
+    permanent keyboard and focus tests, committed and seen failing before the
+    fix they guard.
+11. When remediations return, run the verify loop of section 10 on each, and
+    report every finding's outcome class, the scanner-clean and fixed rates
+    side by side, the escalations, and the limits.
 
-## 12. Auto-critique
+## 13. Auto-critique
 
 Score from 0 to 5: keyboard pass actually performed on the whole flow, focus
 management verified on dynamic components, forms and error announcement
 covered, contrast measured on rendered pairs, reflow and zoom checked,
 assistive technology used or its absence stated, findings mapped to criteria
-and to a human consequence.
+and to a human consequence, remediations verified by barrier check rather than
+by scan, checks proven able to fail, limits stated.
 
 Threshold: no axis below 3, average at least 4. A campaign whose accessibility
-evidence is a scanner report scores 0 and is rerun.
+evidence is a scanner report scores 0 and is rerun, and so does a remediation
+closed on a clean scan alone.
 
-## 13. Interfaces
+## 14. Interfaces
 
 - Upstream: `quality-engineering` for the target and the scope,
   `ui-ux-engineering` for what the interface was specified to be.
 - Lateral: `playwright-automation` to automate keyboard and focus checks,
   `exploratory-testing` for the flows worth checking first.
-- Downstream: `frontend-engineering` for remediation, `test-reporting` for the
-  findings, `technical-documentation` for the accessibility statement.
+- Downstream: `frontend-engineering` for remediation, whose result comes back
+  through the verify loop of section 10, `test-reporting` for the findings,
+  `technical-documentation` for the accessibility statement.
