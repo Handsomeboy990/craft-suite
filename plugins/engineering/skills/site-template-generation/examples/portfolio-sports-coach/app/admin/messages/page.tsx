@@ -1,6 +1,6 @@
-import { listMessages } from '@/lib/messages';
-import { requirePage } from '@/lib/guard';
-import MessageList from '@/components/admin/MessageList';
+import { listMessages } from 'site-template-shared/lib/messages';
+import { requirePage } from 'site-template-shared/lib/guard';
+import MessageList from 'site-template-shared/components/admin/MessageList';
 
 export const dynamic = 'force-dynamic';
 

@@ -3,45 +3,7 @@
 // is not here cannot be written, whatever a request contains. Adding a field to
 // the contract adds it to the back office without new admin code.
 
-export type FieldKind =
-  | 'text'
-  | 'textarea'
-  | 'paragraphs'
-  | 'lines'
-  | 'image'
-  | 'imageSrc'
-  | 'color'
-  | 'range'
-  | 'select'
-  | 'boolean'
-  | 'collection';
-
-export type ItemField = {
-  key: string;
-  label: string;
-  kind: Exclude<FieldKind, 'collection'>;
-  options?: string[];
-};
-
-export type FieldDef = {
-  path: string;
-  label: string;
-  kind: FieldKind;
-  hint?: string;
-  options?: string[];
-  /** A value that ends up inside a style declaration is checked against this
-   *  before it is written. Without it, a signed in client could close the style
-   *  tag and put script on every visitor's page. */
-  pattern?: 'length' | 'fontFamily' | 'easing' | 'siteUrl';
-  min?: number;
-  max?: number;
-  step?: number;
-  item?: ItemField[];
-  /** What the visitor sees change. Printed in the handover field map. */
-  changes: string;
-};
-
-export type Group = { id: string; label: string; fields: FieldDef[] };
+import type { FieldDef, Group, ItemField } from 'site-template-shared/lib/fields';
 
 const PALETTE_KEYS = [
   ['surface', 'Fond'],
@@ -545,11 +507,4 @@ export function applyPatch(
     setPath(next, path, coerce(field, value));
   }
   return next;
-}
-
-export function getPath(source: unknown, path: string): unknown {
-  return path.split('.').reduce<unknown>((node, key) => {
-    if (node === null || typeof node !== 'object') return undefined;
-    return (node as Record<string, unknown>)[key];
-  }, source);
 }

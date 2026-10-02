@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { getContent } from '@/lib/content';
 import { buildLegalPages } from '@/lib/legal';
-import LegalDocument from '@/components/site/LegalDocument';
+import LegalDocument from 'site-template-shared/components/site/LegalDocument';
 
 export const dynamic = 'force-dynamic';
 

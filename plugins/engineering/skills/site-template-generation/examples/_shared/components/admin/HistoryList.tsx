@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { Version } from '@/lib/history';
+import type { Version } from '../../lib/history';
 
 // Undo, in the only form a client needs: a date, and a button.
 export default function HistoryList({ versions, csrf }: { versions: Version[]; csrf: string }) {

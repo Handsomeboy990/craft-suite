@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import type { PortfolioContent } from '@/lib/types';
-import Reveal from './Reveal';
+import Reveal from 'site-template-shared/components/site/Reveal';
 
 export default function About({ about }: { about: PortfolioContent['about'] }) {
   return (

@@ -1,14 +1,22 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { UiStrings } from '@/lib/types';
+// The strings this control reads. Each instance passes its own ui strings,
+// which carry these keys among others; the control never imports the content
+// model of any one of them.
+export type ThemeToggleStrings = {
+  themeToggleLabel: string;
+  themeLight: string;
+  themeDark: string;
+  themeSystem: string;
+};
 
 type Choice = 'system' | 'light' | 'dark';
 
 // Three states, because a visitor who has chosen nothing should keep following
 // their system. The stored choice is applied before first paint by the inline
 // script in the layout, so the page never flashes the wrong theme.
-export default function ThemeToggle({ ui }: { ui: UiStrings }) {
+export default function ThemeToggle({ ui }: { ui: ThemeToggleStrings }) {
   const [choice, setChoice] = useState<Choice>('system');
 
   useEffect(() => {

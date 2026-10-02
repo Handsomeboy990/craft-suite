@@ -3,7 +3,7 @@ import { getContent } from '@/lib/content';
 import { buildLegalPages } from '@/lib/legal';
 import SiteHeader from '@/components/site/SiteHeader';
 import SiteFooter from '@/components/site/SiteFooter';
-import LegalDocument from '@/components/site/LegalDocument';
+import LegalDocument from 'site-template-shared/components/site/LegalDocument';
 
 export const dynamic = 'force-dynamic';
 

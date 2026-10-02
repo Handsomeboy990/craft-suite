@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 import type { ShowcaseContent } from '@/lib/types';
-import Counter from './Counter';
-import Reveal from './Reveal';
+import Counter from 'site-template-shared/components/site/Counter';
+import Reveal from 'site-template-shared/components/site/Reveal';
 
 type Proof = NonNullable<ShowcaseContent['home']['proof']>;
 
