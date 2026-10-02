@@ -123,15 +123,15 @@ that added the row; everything else is marked to analyse.
 | `sharkui-inc/shark-ui` | MIT | accessible components on Ark UI and Tailwind, copy-into-codebase registry | read |
 | `vprix21/neonblade-ui` | MIT | React, Tailwind v4 and Framer Motion components, cyberpunk aesthetic, `npx neonblade add` | read |
 | `Balastrong/start-theme-demo` | not stated, confirm before reuse | a TanStack Start theming demo, tokens switched on one attribute | read |
-| `Balastrong/confhub` | to confirm | a conference hub application | to analyse |
+| `Balastrong/confhub` | no licence file; `package.json` says ISC as metadata only; patterns only | a conference directory on TanStack Start, Drizzle and Better Auth; strong server-function boundary and atomic rate limiting, weak on drafts, migrations and tests; notes in `docs/architecture/APP_REFERENCES.md` | read |
 | `majodev/google-webfonts-helper` | to confirm | self-hosting helper for Google Fonts | to analyse |
-| `adrianhajdin/yc_directory` | to confirm | a directory application tutorial | to analyse |
+| `adrianhajdin/yc_directory` | none found, all rights reserved; patterns only | a Next.js and Sanity pitch directory tutorial; server-only write client and generated types worth taking, client-only validation and disabled build gates not; notes in `docs/architecture/APP_REFERENCES.md` | read |
 | `futureplc/twig-stack-extension` | to confirm | a Twig templating extension | to analyse |
 | `twigphp/Twig` | BSD, to confirm | the Twig template engine | to analyse |
 | `webmozarts/assert` | MIT, to confirm | a PHP assertion library | to analyse |
 | `theseer/tokenizer` | BSD, to confirm | a PHP tokenizer | to analyse |
 | `dokku/dokku` | MIT, to confirm | a small self-hosted platform-as-a-service, git-push deploy | to analyse |
-| `sst/opencode` | to confirm | an open-source terminal coding agent, client/server, subagents | to analyse |
+| `sst/opencode` | MIT | an open-source terminal coding agent, client/server, subagents; permission rulesets, inherited denies, plan and build modes, loop detection and compaction feed the chief; notes in `docs/architecture/AGENT_REFERENCES.md` | read |
 
 `L1B3RT4S` was named among the references and is deliberately excluded: it is a
 collection of prompts for defeating model safety measures, which this suite
