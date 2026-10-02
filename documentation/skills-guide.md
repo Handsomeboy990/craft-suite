@@ -40,6 +40,7 @@ contracts.
 | We are launching in a second language | `internationalization` |
 | The public pages must be found | `seo-engineering` |
 | Every screen looks slightly different | `design-system` |
+| Custom fonts hide text, shift the layout or load from a third party | `font-loading` |
 | We hold personal data | `data-privacy` |
 | Nobody can answer a question from our data | `analytics-instrumentation` |
 | This must ship disabled, or needs a kill switch | `feature-flags` |
@@ -213,6 +214,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `internationalization` | more than one language and region, done properly |
 | `seo-engineering` | the technical half of search visibility |
 | `design-system` | tokens, component contracts, themes, adoption |
+| `font-loading` | self-hosted fonts that render at once and never shift the layout |
 | `data-privacy` | what is held, for how long, and deletion that works |
 | `analytics-instrumentation` | events designed from the questions they answer |
 | `feature-flags` | flag types, rollout, stale detection, removal |

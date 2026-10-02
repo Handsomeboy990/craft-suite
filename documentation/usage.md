@@ -227,13 +227,13 @@ in:
 |---|---|---|
 | `--writing` | 44 | 0 |
 | `--documents` | 9 | 0 |
-| `--dev` | 86 | 29 |
+| `--dev` | 87 | 29 |
 | `--security` | 18 | 3 |
 | `--research` | 7 | 1 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 168 | 33 |
+| `--all` | 169 | 33 |
 | `--agents` | 0 | 33 |
 
 `~/.claude/skills` is shared. It holds every skill you have, not only this

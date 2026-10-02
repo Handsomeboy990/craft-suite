@@ -217,7 +217,7 @@ rotation.
 - [ ] Every index and `skills-guide.md` list the new skill.
 - [ ] `README.md` and `README.fr.md` still say the same thing.
 - [ ] Counts are correct wherever they appear. `bash tests/validate-counts.sh`
-      checks the totals (168 skills, 33 agents), the per-tree and per-category
+      checks the totals (169 skills, 33 agents), the per-tree and per-category
       counts, the plugin tables and the installer menu. It does not read free
       prose, so the sentence at the top of a category README is still on you.
 - [ ] A new skill is listed in its own category README, not only in the

@@ -33,7 +33,7 @@ the design implies a new library.
 ## FRONTEND
 
 category: FRONTEND
-plan: project-exploration -> template-selection -> ui-ux-engineering -> frontend-engineering -> animation -> input-validation -> testing-quality -> playwright-automation -> accessibility-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> template-selection -> ui-ux-engineering -> frontend-engineering -> font-loading -> animation -> input-validation -> testing-quality -> playwright-automation -> accessibility-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
 `template-selection` runs only when the build starts from a template rather
 than a blank page, and hands the chosen one to `ui-ux-engineering` for
@@ -112,7 +112,7 @@ produce the baseline, and again at the end to prove the delta.
 ## UI_UX
 
 category: UI_UX
-plan: project-exploration -> template-selection -> ui-ux-engineering -> design-system -> frontend-engineering -> design-authenticity -> animation -> testing-quality -> playwright-automation -> accessibility-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> template-selection -> ui-ux-engineering -> design-system -> font-loading -> frontend-engineering -> design-authenticity -> animation -> testing-quality -> playwright-automation -> accessibility-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
 `template-selection` runs only when the design starts from a template rather
 than a blank page; it shortlists clean, licence-clear candidates for the user

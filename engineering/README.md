@@ -1,13 +1,13 @@
 # engineering
 
-Software engineering and project delivery. 84 skills in three categories, plus
+Software engineering and project delivery. 85 skills in three categories, plus
 33 specialised agents defined at the repository root in `agents/`.
 
 ## Categories
 
 | Category | Skills | Question it answers |
 |---|---|---|
-| [dev-skills](dev-skills/) | 57 | how a change is made correctly |
+| [dev-skills](dev-skills/) | 58 | how a change is made correctly |
 | [delivery-skills](delivery-skills/) | 11 | what to build, in what order, with what approval |
 | [devops-skills](devops-skills/) | 16 | how the system runs, deploys and restores |
 
