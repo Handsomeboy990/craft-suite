@@ -37,6 +37,50 @@ point describes the two site examples.
 | Motion signature | operational |
 | Status | built; gate D1 to D26 run by `npm run gate`, 26 of 26 passed on the last run |
 
+## One source for the shared code
+
+The two site examples share their site shell, their back office components and
+their library code: thirty files, listed in `shared-files.txt`. Those files live
+once, in `_shared/`, and neither example carries a copy. Each example installs
+`_shared` as the local package `site-template-shared`:
+
+```
+package.json      "site-template-shared": "file:../_shared"
+.npmrc            install-links=true    a copy in node_modules, not a link
+next.config.mjs   transpilePackages: ['site-template-shared']
+imports           site-template-shared/lib/auth, ...
+```
+
+The content model is not shared and is never imported by the shared code. Each
+example keeps its own `lib/types.ts`, `lib/schema.ts`, `lib/legal.ts` and
+`lib/content.ts`, and passes what the shared code needs as props and arguments:
+its ui strings to the theme toggle and the install prompt, its legal pages to
+the legal document, its field groups to the content editor, its theme to the
+token bridge. The shared code declares only the shape it reads, so TypeScript
+checks each hand over where it happens. `_shared/README.md` has the table.
+
+Why a copy and not a link or a path alias: `_shared/` sits outside each app's
+root. Linked there, which is what npm does by default for a `file:`
+dependency, the build fails: Turbopack answers "Module not found" for every
+shared import, observed on the portfolio with the `.npmrc` removed. Even with
+the root widened, a file in `_shared/` would resolve `next`, `react`, `sharp`,
+`nodemailer` and `web-push` from `_shared/`, where none is installed. Installed
+as a copy, the same file sits in the app's `node_modules` and finds the app's
+own libraries, with one React. A workspace at this level would hoist the
+libraries instead, but then neither example would install on its own.
+
+**Copying an example out of the repository.** Take the example directory and
+`_shared/`, nothing else. Keep them side by side, or change the one `file:` path
+in the example's `package.json`, and keep the example's `.npmrc`. Each example's
+README also says how to fold `_shared` into the project for a single standalone
+directory. After editing `_shared`, refresh the installed copy in each example
+(`rm -rf node_modules/site-template-shared && npm install`) and build both.
+
+A CI step holds the arrangement: every listed file exists in `_shared/` and in
+neither example, every file in `_shared/components` and `_shared/lib` is
+listed, the shared code imports nothing from an example, and both examples are
+wired to the package.
+
 ## Why there is a server
 
 The back office, the uploads, the inbox, the rate limits and the push

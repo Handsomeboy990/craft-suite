@@ -20,6 +20,32 @@ npm run dev                                     # http://localhost:3000
 For a production run: `npm run build` then `npm start`. The back office is at
 `/admin`, and a content change is live on reload.
 
+## The shared code, and copying this example out
+
+The site shell, the back office components and the library code this example
+has in common with the other site example live once, in `../_shared`. They are
+installed as the local package `site-template-shared` (`"file:../_shared"` in
+`package.json`), copied into `node_modules` rather than linked, because
+`.npmrc` sets `install-links=true`, and compiled with the app through
+`transpilePackages` in `next.config.mjs`. Imports read
+`site-template-shared/lib/auth`, `site-template-shared/components/site/Reveal`
+and so on. The content model stays here: `lib/types.ts`, `lib/schema.ts` and
+`lib/legal.ts` are this instance's own, and the shared code receives what it
+needs as props and arguments instead of importing them.
+
+To take this example out of the repository, copy two directories: this one and
+`../_shared`, nothing else. Either keep them side by side as they are here,
+or put `_shared` anywhere and change the one path in `package.json`. Keep the
+`.npmrc`: without it npm links the package instead of copying it, and the
+build fails on every shared import. To fold the shared code into the project
+for good, copy `_shared/components` and `_shared/lib` into this directory, replace
+`site-template-shared/` with `@/` in the imports, and drop the dependency, the
+`.npmrc` and the `transpilePackages` line.
+
+After a change in `../_shared`, refresh the installed copy, since npm does not
+notice it: `rm -rf node_modules/site-template-shared && npm install`.
+`npm run typecheck` checks the shared code together with this app.
+
 ## Routes
 
 ```
