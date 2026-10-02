@@ -3,7 +3,7 @@ import Image from 'next/image';
 import type { CSSProperties } from 'react';
 import { getContent } from '@/lib/content';
 import PageHeader from '@/components/site/PageHeader';
-import Reveal from '@/components/site/Reveal';
+import Reveal from 'site-template-shared/components/site/Reveal';
 
 export const dynamic = 'force-dynamic';
 

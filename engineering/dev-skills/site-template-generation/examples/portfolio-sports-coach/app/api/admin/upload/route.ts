@@ -1,7 +1,7 @@
-import { HttpError, requireSession } from '@/lib/auth';
-import { callerAddress, consume } from '@/lib/rate-limit';
-import { record } from '@/lib/audit';
-import { UploadError, deleteUpload, storeUpload } from '@/lib/uploads';
+import { HttpError, requireSession } from 'site-template-shared/lib/auth';
+import { callerAddress, consume } from 'site-template-shared/lib/rate-limit';
+import { record } from 'site-template-shared/lib/audit';
+import { UploadError, deleteUpload, storeUpload } from 'site-template-shared/lib/uploads';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';

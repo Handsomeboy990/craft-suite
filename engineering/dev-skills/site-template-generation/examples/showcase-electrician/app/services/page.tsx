@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { getContent } from '@/lib/content';
-import { has } from '@/lib/motion';
+import { has } from 'site-template-shared/lib/motion';
 import PageHeader from '@/components/site/PageHeader';
 import ServiceList from '@/components/site/ServiceList';
 

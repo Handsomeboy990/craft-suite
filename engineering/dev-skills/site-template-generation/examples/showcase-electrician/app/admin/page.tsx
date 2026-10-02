@@ -1,10 +1,10 @@
 import { getContent } from '@/lib/content';
 import { buildLegalPages } from '@/lib/legal';
 import { buildChecklist } from '@/lib/checklist';
-import { unreadCount } from '@/lib/messages';
-import { pushPublicKey } from '@/lib/push';
-import { requirePage } from '@/lib/guard';
-import PushToggle from '@/components/admin/PushToggle';
+import { unreadCount } from 'site-template-shared/lib/messages';
+import { pushPublicKey } from 'site-template-shared/lib/push';
+import { requirePage } from 'site-template-shared/lib/guard';
+import PushToggle from 'site-template-shared/components/admin/PushToggle';
 
 export const dynamic = 'force-dynamic';
 

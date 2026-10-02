@@ -1,6 +1,6 @@
 import type { PortfolioContent } from '@/lib/types';
 import ContactForm from './ContactForm';
-import Reveal from './Reveal';
+import Reveal from 'site-template-shared/components/site/Reveal';
 
 export default function ContactSection({ content }: { content: PortfolioContent }) {
   const { contactSection, contact, forms, ui } = content;

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { Message } from '@/lib/messages';
+import type { Message } from '../../lib/messages';
 
 const LABELS: Record<Message['status'], string> = {
   unread: 'Non lu',

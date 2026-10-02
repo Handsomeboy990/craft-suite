@@ -1,6 +1,6 @@
-import { requirePage } from '@/lib/guard';
-import { list } from '@/lib/history';
-import HistoryList from '@/components/admin/HistoryList';
+import { requirePage } from 'site-template-shared/lib/guard';
+import { list } from 'site-template-shared/lib/history';
+import HistoryList from 'site-template-shared/components/admin/HistoryList';
 
 export const dynamic = 'force-dynamic';
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import type { ReactNode } from 'react';
 import { getContent } from '@/lib/content';
-import { cssVariables, themeScript } from '@/lib/tokens';
+import { cssVariables, themeScript } from 'site-template-shared/lib/tokens';
 import StructuredData from '@/components/site/StructuredData';
 import './globals.css';
 

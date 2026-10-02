@@ -1,5 +1,5 @@
-import { mailConfigured } from '@/lib/mail';
-import ResetForm from '@/components/admin/ResetForm';
+import { mailConfigured } from 'site-template-shared/lib/mail';
+import ResetForm from 'site-template-shared/components/admin/ResetForm';
 
 export const dynamic = 'force-dynamic';
 

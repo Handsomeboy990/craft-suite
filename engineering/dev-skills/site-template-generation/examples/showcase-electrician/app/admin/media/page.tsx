@@ -1,6 +1,6 @@
-import { requirePage } from '@/lib/guard';
-import { listUploads } from '@/lib/uploads';
-import MediaManager from '@/components/admin/MediaManager';
+import { requirePage } from 'site-template-shared/lib/guard';
+import { listUploads } from 'site-template-shared/lib/uploads';
+import MediaManager from 'site-template-shared/components/admin/MediaManager';
 
 export const dynamic = 'force-dynamic';
 
