@@ -4,7 +4,7 @@ description: Builds client side features to production standard: component bound
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core, project-exploration, ui-ux-engineering]
   outputs: [components, client-state, ui-states, accessibility-notes]
 ---
@@ -114,7 +114,9 @@ Client validation is ergonomics. The server rejects independently. See
 - Motion respects the reduced motion preference.
 
 Accessibility is applied while building. Retrofitting it costs several times
-more and is usually done badly.
+more and is usually done badly. When the work is an audited surface someone
+else built, the findings are worked down with `accessibility-remediation`,
+not improvised from this list.
 
 ## 7. Responsive
 
@@ -192,6 +194,7 @@ control unreachable by keyboard is an automatic failure.
 ## 13. Interfaces
 
 - Upstream: `ui-ux-engineering`, `project-exploration`, `architecture-design`.
-- Lateral: `input-validation`, `backend-engineering` for the contract.
+- Lateral: `input-validation`, `backend-engineering` for the contract,
+  `accessibility-remediation` when the work is an audit's findings.
 - Downstream: `testing-quality`, `playwright-automation`,
   `performance-engineering`, `code-review-protocol`.

@@ -282,9 +282,16 @@ first, then the UI library, then the agent and operations layers.
   by attack-path, ledger pattern feeds `security-audit` and the authorized
   testing agents. `curb`'s measured-outcome and verify-loop discipline feeds
   `accessibility-testing`.
-- [ ] **Accessibility remediation capability** (L, decide first). Decided
-  and proposed: ADR 0005, one skill and no new agent, awaiting the owner; the
-  build is a later, count-changing change. Whether the
+- [x] **Accessibility remediation capability** (L, decide first). Done: ADR
+  0005 accepted by the owner on 2026-10-03, one skill and no new agent, then
+  built as `accessibility-remediation` (skill 170, manifests 3.31.0): triage,
+  decision rules per barrier family, native elements before ARIA, an explicit
+  escalation list, and every fix handed back to the verify loop of
+  `accessibility-testing`, which alone closes a finding. Given to
+  `frontend-engineer`; no agent both fixes and verifies. Its example is
+  measured: on one booking form, scanner-clean 100 percent against fixed 22
+  percent from the scanner report, and fixed 78 percent with two escalations,
+  then 100 percent, by the rules. Whether the
   suite gains a remediation skill and agent that fix a surface and verify the
   fix helped assistive-technology users, not merely silenced a scanner.
   `technology-selection` decides scope before any build.

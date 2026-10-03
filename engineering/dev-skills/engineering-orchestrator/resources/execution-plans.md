@@ -33,13 +33,16 @@ the design implies a new library.
 ## FRONTEND
 
 category: FRONTEND
-plan: project-exploration -> template-selection -> ui-ux-engineering -> frontend-engineering -> font-loading -> animation -> input-validation -> testing-quality -> playwright-automation -> accessibility-testing -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> template-selection -> ui-ux-engineering -> frontend-engineering -> font-loading -> animation -> input-validation -> testing-quality -> playwright-automation -> accessibility-testing -> accessibility-remediation -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
 `template-selection` runs only when the build starts from a template rather
 than a blank page, and hands the chosen one to `ui-ux-engineering` for
 customisation. `input-validation` covers client side form constraints and any
 server action the page introduces. `playwright-automation` is dropped when the
 repository has no browser tooling and the change does not justify adding it.
+`accessibility-remediation` runs only when `accessibility-testing` returns
+findings; each fix goes back to the verify loop of `accessibility-testing`,
+run by another agent, which alone closes a finding.
 
 ## BACKEND
 
@@ -176,10 +179,15 @@ a stated reason. `security-testing` runs only inside a written authorization.
 ## ACCESSIBILITY
 
 category: ACCESSIBILITY
-plan: project-exploration -> accessibility-testing -> ui-ux-engineering -> design-system -> frontend-engineering -> testing-quality -> playwright-automation -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> accessibility-testing -> accessibility-remediation -> ui-ux-engineering -> design-system -> frontend-engineering -> testing-quality -> playwright-automation -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
 The audit runs first, because the findings decide what is built.
-`design-system` enters only when the fix belongs to a shared component.
+`accessibility-remediation` triages them, escalates the intent questions and
+chooses each fix by barrier family; `frontend-engineering` makes the change.
+`design-system` enters only when the fix belongs to a shared component. The
+plan lists `accessibility-testing` once, but it runs twice: the audit first,
+then its verify loop on every fix, run by an agent other than the fixer. Only
+that loop's outcome class "fixed" closes a finding.
 
 ## REGRESSION
 

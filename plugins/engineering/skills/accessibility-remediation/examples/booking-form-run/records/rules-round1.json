@@ -1,0 +1,10 @@
+{
+  "round": 1,
+  "summary": "the decision rules of accessibility-remediation; two intent questions escalated",
+  "changed": ["A11Y-01", "A11Y-03", "A11Y-04", "A11Y-05", "A11Y-06", "A11Y-08", "A11Y-09"],
+  "escalated": ["A11Y-02", "A11Y-07"],
+  "questions": {
+    "A11Y-02": "Does the dining room photograph tell a visitor anything they need, or is it atmosphere? Neither the content brief nor the page says.",
+    "A11Y-07": "May the custom room chooser become a native select? Its look would change; nothing in the specification requires the custom one."
+  }
+}

@@ -48,7 +48,7 @@ any behaviour change and `final-verifier` before done.
 | REFACTORING | the owning implementer | `principal-engineer` when several surfaces move |
 | DEPENDENCY | the owning implementer | `security-engineer` for the audit of the new tree |
 | QUALITY_CAMPAIGN | `qa-engineer` | `playwright-engineer`, `penetration-tester` only with authorization on record |
-| ACCESSIBILITY | `ui-ux-engineer` | `frontend-engineer`, `playwright-engineer` |
+| ACCESSIBILITY | `ui-ux-engineer` | `frontend-engineer` for the remediation, `playwright-engineer` |
 | REGRESSION | `qa-engineer` | `playwright-engineer` |
 | MIGRATION | `principal-engineer` when several surfaces move, otherwise the owning implementer | `database-engineer` when data moves, `checkup` on inherited code |
 | LEGACY | the chief's staff: `checkup`, `codebase-cartographer` when large | the owning implementer once the risk map exists |
@@ -87,6 +87,7 @@ write dispatch, whatever this column says.
 | `database-design`, `database-operations` | `database-engineer` | write |
 | `backend-engineering`, `input-validation`, `background-jobs`, `payment-engineering`, `file-handling`, `realtime-systems`, `llm-integration`, `data-privacy` | `backend-engineer` | write |
 | `frontend-engineering`, `font-loading`, `animation`, `internationalization`, `seo-engineering` | `frontend-engineer` | write |
+| `accessibility-remediation` | `frontend-engineer`, never the agent that runs the verify loop on the same findings | write; each fix handed back to `accessibility-testing` |
 | `fullstack-engineering` | `principal-engineer`, which splits it into server and client dispatches across the contract | lead |
 | `ui-ux-engineering`, `template-selection`, `design-system` | `ui-ux-engineer` | write, specification or tokens |
 | `design-authenticity` | `design-research` before the build, `design-verification` after it | read |

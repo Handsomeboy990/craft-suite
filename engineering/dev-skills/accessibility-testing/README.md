@@ -9,7 +9,8 @@ technology and at reduced vision. Keyboard first, automated scan last.
   criteria coverage, remediation list.
 - Depends on: engineering-core, quality-engineering.
 - Lateral: playwright-automation, ui-ux-engineering, exploratory-testing.
-- Downstream: frontend-engineering, test-reporting, technical-documentation.
+- Downstream: accessibility-remediation, frontend-engineering, test-reporting,
+  technical-documentation.
 
 The scan runs last so the session is not anchored on what a tool can find.
 A remediation is verified by the barrier check, a universal regression layer

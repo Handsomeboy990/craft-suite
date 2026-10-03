@@ -1,6 +1,6 @@
 # dev-skills
 
-Senior full-stack engineering skill system. Fifty eight skills that let an agent
+Senior full-stack engineering skill system. Fifty nine skills that let an agent
 work on a production codebase the way an experienced engineer does: read
 before writing, verify before claiming, and finish the whole vertical slice
 rather than the part that demonstrates well.
@@ -53,6 +53,7 @@ no em dash.
 | `frontend-engineering` | client side features, five states, accessibility |
 | `backend-engineering` | handlers, services, data, transactions, jobs |
 | `fullstack-engineering` | the vertical slice and the contract both sides share |
+| `accessibility-remediation` | an audit's findings fixed by barrier family, native first, closed only by someone else's verify loop |
 
 ### Verification
 
