@@ -30,6 +30,28 @@ implied.
 | **moderate** | high | medium | medium | low |
 | **hard** | medium | medium | low | low |
 
+## Method, shown beside the level
+
+The level says how bad a finding is; the method says how well it is known.
+Both are reported.
+
+| Method | Meaning | Confidence |
+|---|---|---|
+| reproduced | a test or a bounded proof makes the flaw happen on this revision | high |
+| observed | the flaw was seen in a debugger or a trace, not driven end to end | medium |
+| code reading | the path was traced in the source and nothing on it stops the input | low |
+
+A finding whose level is critical and whose method is code reading is
+reported as `critical (unproven)`. It is still acted on as critical; the label
+keeps the proof gap visible. It is never quietly lowered because nobody
+reproduced it, and never presented as proven. The fix test that fails before
+the fix is a reproduction and removes the label.
+
+The facts the level is read from (impact, vector, access needed, whether the
+path is reachable, whether it crosses a tenant) are recorded with the finding,
+per `findings-ledger.md`, so a reader can recompute the level instead of
+trusting it.
+
 ## Action by level
 
 | Level | Action |
@@ -80,6 +102,8 @@ written down with its argument. Silent deviation is not.
   and let the attacker path do the persuading.
 - Lowering severity because the fix is inconvenient.
 - Ranking on the theoretical worst case rather than on the reachable one.
+- Lowering severity because the claim was only read, not reproduced. Label
+  it unproven instead.
 - Ranking a whole class as one finding when only one instance is reachable, or
   the reverse: reporting one instance when the class is systemic. State which
   it is.

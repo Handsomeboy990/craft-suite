@@ -12,4 +12,7 @@ technology and at reduced vision. Keyboard first, automated scan last.
 - Downstream: frontend-engineering, test-reporting, technical-documentation.
 
 The scan runs last so the session is not anchored on what a tool can find.
+A remediation is verified by the barrier check, a universal regression layer
+and preservation before the scan, with checks proven able to fail; the loop is
+in `resources/verify-loop.md`.
 Every finding names the criterion, the barrier, and the person who hits it.
