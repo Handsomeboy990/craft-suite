@@ -4,7 +4,7 @@ description: Owns a feature across every layer: contract first design, schema to
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.1.0
+  version: 1.2.0
   depends_on: [engineering-core, architecture-design, backend-engineering, frontend-engineering]
   outputs: [feature-contract, layer-completion-matrix, end-to-end-verification]
 ---
@@ -122,6 +122,9 @@ an action that writes the raw fields is the defect this rule exists for. A
 schema shared with the form runs on the server only when it is pure: a rule
 that fetches a user supplied URL becomes a server side request to anywhere the
 moment it is applied there.
+`examples/directory-server-boundary.md` works the rule through a small
+directory: the boundary declared on each server function, visibility decided
+from the session, and a view counter incremented by the store.
 
 **Rendering user content.** Markdown or rich text from a user is passed
 through an allowlist sanitiser before it becomes HTML, per `input-validation`,
