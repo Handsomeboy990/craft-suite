@@ -13,3 +13,7 @@ flow tracing with failure paths.
 
 Three depth levels: L1 targeted, L2 feature slice, L3 full census. The level
 is declared before exploration starts.
+
+Instruction files are read before conventions are inferred: the root one
+first, then every one found between a touched file and the root, since a
+package often keeps its own rules next to its code.
