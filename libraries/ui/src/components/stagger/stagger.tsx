@@ -1,6 +1,5 @@
 import { Children, useRef, type CSSProperties, type ReactNode } from "react";
-import { useInViewOnce } from "../../hooks/use-in-view-once";
-import { useReducedMotion } from "../../hooks/use-reduced-motion";
+import { useEntrance } from "../../hooks/use-entrance";
 
 /*
  * Stagger.
@@ -10,6 +9,12 @@ import { useReducedMotion } from "../../hooks/use-reduced-motion";
  * Reveal's motion applied per item with a small, growing delay, and it shares
  * Reveal's in-view logic through `useInViewOnce` rather than repeating it. One
  * observer watches the group, not one per item.
+ *
+ * Visible by default, on the same contract as Reveal (`useEntrance`): the
+ * server render, a page without JavaScript, a crawler and the first client
+ * render get every item plainly. Items are hidden until seen only once the
+ * client has confirmed IntersectionObserver, no reduced motion, and that the
+ * group is not already on screen.
  *
  * Reduced motion is the same hard floor as Reveal's: when the viewer asks for
  * reduced motion, or IntersectionObserver is absent, every item is shown at
@@ -44,14 +49,12 @@ export function Stagger({
   className,
   itemClassName,
 }: StaggerProps) {
-  const reduced = useReducedMotion();
   const ref = useRef<HTMLElement | null>(null);
-  const shown = useInViewOnce(ref, { threshold: 0.15, skip: reduced });
+  const { armed, shown } = useEntrance(ref, 0.15);
   const Item = Group === "div" ? "div" : "li";
-  const animated = !reduced;
 
   const itemStyle = (index: number): CSSProperties =>
-    animated
+    armed
       ? {
           opacity: shown ? 1 : 0,
           transform: shown ? "none" : "translateY(0.75rem)",
@@ -67,6 +70,7 @@ export function Stagger({
     <Group
       ref={ref as never}
       data-cu="stagger"
+      data-armed={armed}
       data-shown={shown}
       className={className}
       style={Group === "div" ? undefined : listReset}
