@@ -1,7 +1,7 @@
 # ADR 0005: an accessibility remediation skill, no new agent
 
 Date: 2026-10-02
-Status: proposed
+Status: accepted (by the owner, 2026-10-03)
 Supersedes: none
 
 Roadmap item 8.4, second task. The owner accepts or rejects this record; until

@@ -18,6 +18,30 @@ versions it never had.
 
 ## Unreleased
 
+Nothing yet.
+
+## 3.31.0 remediation, measured
+
+Phase 8 of `docs/ROADMAP.md` continued. The manifests moved to 3.31.0 with
+`accessibility-remediation`, the second skill of the phase and the build ADR
+0005 decided; the entries below are everything since 3.30.0: the reference
+lessons carried into the chief's, backend and security skills, the verify loop
+in `accessibility-testing`, and the remediation skill that hands every fix
+back to it.
+
+- `accessibility-remediation` (engineering/dev-skills), skill 170, ADR 0005
+  accepted by the owner and built: triage of an audit's findings, decision
+  rules per barrier family from WCAG 2.2 and the criteria map, native elements
+  before ARIA with the custom select as the reason, an explicit escalation
+  list where escalation is a valid outcome, and a record in which no finding
+  is called fixed; only the verify loop of `accessibility-testing` closes one.
+  A measured example: one booking form, nine findings, checks proven before
+  any fix; from the scanner report, scanner-clean 100 percent and fixed 22
+  percent; by the rules, fixed 78 percent with two escalations, then 100
+  percent once answered. Given to `frontend-engineer`, never to a verifier;
+  wired into the ACCESSIBILITY and FRONTEND plans and `agent-dispatch.md`.
+  `accessibility-testing` 1.2.0 and `frontend-engineering` 1.1.0 name it.
+  Manifests 3.31.0.
 - `libraries/ui` released under MIT (ADR 0004); ADR 0003 accepted.
 - The opencode lessons in the chief's skills: `delivery-orchestrator` 1.2.0
   (permits as data, sub-dispatch inheriting denies and never allows, one level

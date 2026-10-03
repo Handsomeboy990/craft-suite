@@ -12,8 +12,9 @@ itself is phase 8 of `docs/ROADMAP.md`; the direction behind it is
 
 ### State
 
-On `dev`, merged (pull requests 55 to 83). Manifests 3.30.0, 169 skills, 33
-agents; `CHANGELOG.md` 3.30.0 lists everything since 3.29.0.
+On `dev`, merged (pull requests 55 to 85), and this change. Manifests 3.31.0,
+170 skills, 33 agents; `CHANGELOG.md` 3.30.0 lists everything since 3.29.0,
+and 3.31.0 everything since 3.30.0.
 
 - Agents 27 to 33 and `codebase-mapping` (3.28.0, 3.29.0).
 - Phase 8.0: decision records 0001 and 0002, `libraries/` and its CI gate, the
@@ -24,6 +25,13 @@ agents; `CHANGELOG.md` 3.30.0 lists everything since 3.29.0.
   jsdom only. MIT since ADR 0004; the rest of the repository stays
   proprietary.
 - `font-loading`, skill 169, wired into the FRONTEND and UI_UX plans.
+- `accessibility-remediation`, skill 170 (ADR 0005, accepted by the owner on
+  2026-10-03): given to `frontend-engineer`, wired into the ACCESSIBILITY and
+  FRONTEND plans and `agent-dispatch.md`; only the verify loop of
+  `accessibility-testing` closes a finding, run by another agent. Its example
+  is a runnable, measured harness in
+  `engineering/dev-skills/accessibility-remediation/examples/booking-form-run/`
+  (Chromium and axe-core; no screen reader).
 - The chief and the skills under it: `delivery-orchestrator` 1.1.0 (team map,
   parallel dispatch, handoff and escalation), `engineering-orchestrator` 1.2.0
   (`resources/agent-dispatch.md`), `task-complexity` 1.1.0, `model-routing` 1.2.0
@@ -45,7 +53,7 @@ Merged on 2026-10-03, pull requests 77 to 80: ADR 0003 accepted and
 chief's skills (78); the confhub and yc_directory lessons in seven backend, API
 and deployment skills (79); OpenSec and curb read first-hand, with
 `security-audit`, `authorized-pentesting` and `accessibility-testing` at 1.1.0
-and ADR 0005 proposed (80). `CHANGELOG.md` Unreleased lists them.
+and ADR 0005 proposed (80). `CHANGELOG.md` 3.31.0 lists them.
 
 ### How the work has been run
 
@@ -76,11 +84,13 @@ and ADR 0005 proposed (80). `CHANGELOG.md` Unreleased lists them.
 Each item names the agent and the governing skill. Count-changing items are
 marked; run those one at a time.
 
-1. **The owner: ADR 0005** (`docs/decisions/0005-accessibility-remediation-capability.md`,
-   proposed). If accepted, build the accessibility remediation skill as the
-   record specifies: it depends on `accessibility-testing`, never closes a
-   finding itself, ships a measured worked example, and is given to
-   `frontend-engineer`. Count-changing: run it alone.
+1. **Done on 2026-10-03**: ADR 0005 accepted by the owner and built as
+   `accessibility-remediation`, skill 170, manifests 3.31.0. It depends on
+   `accessibility-testing`, never closes a finding itself, ships a measured
+   example (scanner-clean 100 percent against fixed 22 percent from the
+   scanner report; fixed 78 percent with two escalations, then 100 percent,
+   by its rules), and is given to `frontend-engineer` only. A second engine
+   and a real screen reader on that example belong with item 4.
 2. **Done on 2026-10-03** (82, 83, and 84 once merged): the remaining reference
    follow-ups, `Reveal` and `Stagger` visible without JavaScript plus a pause
    control on `GradientBackdrop`, and check 14 keeping the three agent tables
@@ -100,8 +110,8 @@ marked; run those one at a time.
    build today).
 6. **`design-research`, `time-builders-webpage.vercel.app`**: blocked by this
    environment's network; run it locally.
-7. **Release**: bump the eight manifests to the next version for everything
-   under Unreleased in `CHANGELOG.md`.
+7. **Release**: done as 3.31.0, which took in everything that was under
+   Unreleased in `CHANGELOG.md`. The next bump waits for new entries there.
 
 ### Learned in this phase
 
