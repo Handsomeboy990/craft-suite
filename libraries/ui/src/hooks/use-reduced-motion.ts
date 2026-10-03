@@ -27,3 +27,13 @@ export function useReducedMotion(): boolean {
 
   return reduced;
 }
+
+/**
+ * The same preference read once, synchronously, for code that must decide
+ * before the hook above has synced (a layout effect). False where `window` or
+ * `matchMedia` is absent.
+ */
+export function prefersReducedMotion(): boolean {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") return false;
+  return window.matchMedia(QUERY).matches;
+}

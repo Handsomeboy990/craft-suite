@@ -22,10 +22,10 @@ reference analysis are in `docs/architecture/RESOURCE_LIBRARY.md` and
 |---|---|---|
 | `Dialog` | `@radix-ui/react-dialog` | a required accessible name, token styling, a closed API over the base |
 | `Tooltip`, `TooltipProvider` | `@radix-ui/react-tooltip` | a required `content`, token styling, a closed API, self-providing or grouped |
-| `Reveal` | the platform (IntersectionObserver), motion tokens | a scroll-in reveal that never hides content, reduced-motion safe |
+| `Reveal` | the platform (IntersectionObserver), motion tokens | a scroll-in reveal that never hides content: visible without JavaScript, armed only off screen on the client, reduced-motion safe |
 | `Marquee` | the platform (Web Animations API), space tokens | a seamless loop with a named group, an `aria-hidden` inert duplicate, pause on hover, focus and a toggle; static and wrapped under reduced motion |
 | `Counter` | the platform (IntersectionObserver, requestAnimationFrame) | a count-up in view whose accessible text is always the final value; final at once under reduced motion |
-| `Stagger` | the platform (IntersectionObserver), motion tokens | a staggered entrance of a group's items, sharing `Reveal`'s in-view logic, one observer per group, a capped delay; all shown at once under reduced motion |
+| `Stagger` | the platform (IntersectionObserver), motion tokens | a staggered entrance of a group's items, sharing `Reveal`'s in-view and arming logic, visible without JavaScript, one observer per group, a capped delay; all shown at once under reduced motion |
 | `Magnetic` | the platform (Pointer Events, requestAnimationFrame) | a pointer-only pull of one element, transform only, one write per frame, reset on leave; nothing attached under reduced motion |
 | `Tilt` | the platform (Pointer Events, requestAnimationFrame) | a pointer-only tilt of one surface, same engine as `Magnetic`; flat under reduced motion |
 | `StackedCards` | CSS `position: sticky` | scroll-stacked cards with no scroll listener, a list in source order, a focused card raised above the stack; an ordinary list under reduced motion |
