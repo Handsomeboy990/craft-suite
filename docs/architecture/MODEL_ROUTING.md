@@ -98,8 +98,8 @@ routing. This is the suite's answer to the requested anti-thrash guarantee.
 
 ## Testability without a live model call
 
-`tests/validate-model-routing.sh` checks eleven fixtures, five base tiers,
-four override conditions, two escalation and de-escalation transitions,
+`tests/validate-model-routing.sh` checks fourteen fixtures: five base tiers,
+six override conditions and three escalation and de-escalation transitions,
 against the machine-checked table in
 `model-routing/resources/tier-table.json`. Every fixture is a static
 assertion: given this classification and this override condition, the table

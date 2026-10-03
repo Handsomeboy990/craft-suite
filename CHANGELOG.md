@@ -18,7 +18,29 @@ versions it never had.
 
 ## Unreleased
 
-Nothing yet.
+- `libraries/ui` released under MIT (ADR 0004); ADR 0003 accepted.
+- The opencode lessons in the chief's skills: `delivery-orchestrator` 1.2.0
+  (permits as data, sub-dispatch inheriting denies and never allows, one level
+  of nesting, a rejection cancelling the other pending requests),
+  `validation-gate` 1.1.0 (plan mode until the user's explicit yes),
+  `engineering-orchestrator` 1.3.0 (loop rule 6), `project-continuity` 1.1.0
+  (next move and a merge rule), `token-optimization` 1.1.0 (large output by
+  path), `model-routing` 1.3.0 (`text-only-transform`), `codebase-mapping`
+  1.1.0 (convention files per node).
+- The confhub and yc_directory lessons, each skill at 1.1.0:
+  `backend-engineering`, `api-design`, `llm-integration`,
+  `fullstack-engineering`, `database-operations`, `deployment-engineering`,
+  `environment-management` (the server boundary declared with every handler,
+  visibility and ownership decided on the server, atomic counters, no schema
+  push to a shared database, build gates kept on, model output parsed against
+  the input schema).
+- Security and accessibility, measured: `docs/architecture/SECURITY_REFERENCES.md`
+  (OpenSec and curb read first-hand), `security-audit` 1.1.0 (probe, validate
+  and assess; a findings ledger), `authorized-pentesting` 1.1.0 (the attack path
+  traced before exploitation), `accessibility-testing` 1.1.0 (the verify loop
+  and outcome classes); ADR 0005 proposed.
+- The architecture notes brought in line: six override conditions and fourteen
+  fixtures in `MODEL_ROUTING.md`, the dispatch bounds in `ORCHESTRATION.md`.
 
 ## 3.30.0 the library of resources begins
 

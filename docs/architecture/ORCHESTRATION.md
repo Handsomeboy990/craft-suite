@@ -89,6 +89,13 @@ recursively, from its own plan, one orchestration per request, re-planned in
 place rather than nested. `delivery-orchestrator` delegates downward only,
 to `engineering-orchestrator` and `devops-core`, never the reverse.
 
+Dispatch is bounded the same way. Only an agent whose definition lists the
+dispatch tool may dispatch, and nesting stops one level below a domain lead. A
+sub-dispatch inherits its parent's denies, kept actions and pending human
+stops, never its allows. The rules are in `delivery-orchestrator`
+`resources/parallel-dispatch.md`, sections 1.1 (permits) and 1.2
+(sub-dispatch).
+
 ## Parallel dispatch, and the write surface
 
 Concurrency between agents is governed by `delivery-orchestrator` section 6,
