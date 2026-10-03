@@ -41,6 +41,19 @@ versions it never had.
   and outcome classes); ADR 0005 proposed.
 - The architecture notes brought in line: six override conditions and fourteen
   fixtures in `MODEL_ROUTING.md`, the dispatch bounds in `ORCHESTRATION.md`.
+- The last reference follow-ups (82): `task-complexity` 1.2.0 (text-only steps
+  sized on their own), `project-exploration` 1.1.0 (root and per-directory
+  instruction files read), `delivery-orchestrator` 1.3.0 (no test command or
+  pipeline keeps the release at no go), `architecture-design` 1.1.0 (the
+  dependency direction written down and checked), `rate-limiting` 1.1.0 (atomic
+  check-and-increment), `fullstack-engineering` 1.2.0 (a worked server boundary
+  example).
+- `libraries/ui` (83): `Reveal` and `Stagger` visible without JavaScript through
+  a shared `useEntrance` hook, and a pause control on `GradientBackdrop`
+  (WCAG 2.2.2), on by default. 72 tests, jsdom only.
+- Check 14 of `validate-orchestration.sh` (84): `agent-tiers.md`,
+  `team-routing.md` and `agent-dispatch.md` must each list every agent; it found
+  five agents missing from `agent-dispatch.md`, now added.
 
 ## 3.30.0 the library of resources begins
 
