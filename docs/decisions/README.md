@@ -16,3 +16,4 @@ Format and rules: the `decision-records` skill
 | `0002-ui-primitive-base.md` | accepted | Radix UI as the headless primitive base for `libraries/ui`, behind the suite's own component API |
 | `0003-no-php-templating-domain.md` | accepted | no PHP or templating domain and no PHP code; the transferable patterns of the four PHP references are recorded for existing skills |
 | `0004-libraries-ui-mit-licence.md` | accepted | `libraries/ui` is released under MIT so other projects may install and reuse it; the rest of the repository stays under its own terms |
+| `0005-accessibility-remediation-capability.md` | proposed | an accessibility remediation skill in a later change, no new agent; the fixer and the verifier stay separate roles |

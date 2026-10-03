@@ -275,11 +275,16 @@ first, then the UI library, then the agent and operations layers.
 
 ### 8.4 Security and accessibility, measured
 
-- [ ] **Analyse OpenSec and `curb`** (M), first-hand. OpenSec's probe, validate
+- [x] **Analyse OpenSec and `curb`** (M), first-hand. Done:
+  `docs/architecture/SECURITY_REFERENCES.md` (OpenSec Apache 2.0; curb, the
+  owner's, unlicensed), then `security-audit`, `authorized-pentesting` and
+  `accessibility-testing` at 1.1.0. OpenSec's probe, validate
   by attack-path, ledger pattern feeds `security-audit` and the authorized
   testing agents. `curb`'s measured-outcome and verify-loop discipline feeds
   `accessibility-testing`.
-- [ ] **Accessibility remediation capability** (L, decide first). Whether the
+- [ ] **Accessibility remediation capability** (L, decide first). Decided
+  and proposed: ADR 0005, one skill and no new agent, awaiting the owner; the
+  build is a later, count-changing change. Whether the
   suite gains a remediation skill and agent that fix a surface and verify the
   fix helped assistive-technology users, not merely silenced a scanner.
   `technology-selection` decides scope before any build.
