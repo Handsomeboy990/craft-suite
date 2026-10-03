@@ -4,7 +4,7 @@ description: The chief orchestrator, above every agent. Owns a project from spec
 license: MIT
 metadata:
   category: delivery-skills
-  version: 1.2.0
+  version: 1.3.0
   depends_on: [engineering-core, engineering-orchestrator]
   outputs: [phase-plan, team-plan, dispatch-records, delivery-checklist, gate-decisions, delivery-verdict]
 ---
@@ -189,7 +189,9 @@ Maintained continuously, in `resources/delivery-checklist.md`. Every item is
 `done` with evidence, `not applicable` with a reason, or `pending`.
 
 A checkbox is never marked from intention. `Tests written` is not `tests
-pass`. `Deployed` is not `verified in production`.
+pass`. `Deployed` is not `verified in production`. An application with no test
+command and no pipeline fails items 17 and 26 however finished its features
+look; neither is `not applicable` for software that ships.
 
 ## 9. Leading the teams
 

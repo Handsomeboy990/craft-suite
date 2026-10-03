@@ -16,3 +16,8 @@ types, money, dates, empty values, cache invalidation and authorization.
 Does not replace the frontend and backend skills. It sequences them and holds
 the contract they share, including the failure chain both sides must
 implement.
+
+Worked examples: `examples/feature-across-layers.md` traces one feature
+through every layer; `examples/directory-server-boundary.md` shows a server
+boundary declared on each server function, visibility decided on the server,
+and an atomic counter.

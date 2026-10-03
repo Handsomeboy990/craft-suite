@@ -27,6 +27,31 @@ No consumer re-derives either classification. A consumer that disagrees with
 one asks for a reclassification, section 4, with its evidence; it does not
 compute a private tier and act on it.
 
+### Text-only steps
+
+Some slices only transform text the dispatcher already holds: a title for a
+pull request, a summary of a returned handoff, a compaction into
+`project-continuity`'s sections, a reformat of a table. Such a slice is sized
+by what it actually does, not by the request it serves:
+
+```
+files, systems     none: it reads no file and touches no system   TRIVIAL
+dependencies       none                                            TRIVIAL
+testing            none: no behaviour changes                      TRIVIAL
+reasoning          mechanical, or one inference step               TRIVIAL or LOW
+rollback           the dispatcher discards the text                TRIVIAL
+```
+
+It is dispatched with no tools and no write surface; the dispatcher writes
+its result, and `model-routing` section 5 routes it to the smallest tier. The
+request's driving risk signal does not travel into it, because it touches
+nothing that carries the risk.
+
+Not a text-only step, whatever its length: a verdict, a gate decision, a
+security finding, a review of another dispatch's work, or a summary that a
+gate will read in place of the evidence. Each of these is a judgement, and is
+classified as the work it judges.
+
 ## 2. Phase depth
 
 `delivery-orchestrator` section 3 sizes phases 1 to 6 as small, medium or

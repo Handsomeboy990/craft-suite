@@ -2,8 +2,9 @@
 
 Designs the smallest architecture that serves the product. Reads the existing
 structure, states the forces, assigns single ownership of behaviour and data,
-defines boundary contracts, models failures before implementation, and records
-the decision with its reversal cost.
+defines boundary contracts, writes the dependency direction down and has the
+pipeline enforce it, models failures before implementation, and records the
+decision with its reversal cost.
 
 - Inputs: project map, the requested change, the stated constraints.
 - Outputs: architecture decision, boundary map, failure model, decision

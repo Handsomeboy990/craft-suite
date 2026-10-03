@@ -16,7 +16,9 @@ A single global limit is two mistakes at once: too loose for the login endpoint
 an attacker sprays, too tight for the search box a user types into. The key
 must be one a caller cannot forge (reading the client IP correctly behind a
 proxy), the count must live in a shared store when more than one instance
-serves or the real limit is a fraction of the stated one, and the response is a
+serves or the real limit is a fraction of the stated one, the check and the
+increment are one atomic operation in that store, never a read then a write
+that a concurrent burst slips through, and the response is a
 429 with Retry-After that leaks nothing about whether an account exists.
 
 A rate limit is one layer. It slows an attack; it does not replace the slow

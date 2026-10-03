@@ -15,7 +15,10 @@ verification depth all read, instead of each re-deriving its own.
 The request is sized once, before composition, and each dispatched slice
 once, when it is cut. `resources/sizing-to-composition.md` maps the size to
 the chief's phase depth, team shape and parallel waves, and orders how a
-re-size propagates when the scope changes.
+re-size propagates when the scope changes. A text-only step (a title, a
+summary, a compaction) is sized by what it does, not by the request it
+serves: no tools, no write surface, the smallest model tier, unless its text
+is a verdict on other work.
 
 A one-line change to a password reset flow classifies CRITICAL because of its
 security signal alone, even though every other signal says TRIVIAL. A

@@ -83,6 +83,12 @@ task requires.
 
 ## Conventions
 
+- [ ] Root instruction file read: `AGENTS.md`, `CONTRIBUTING`, or a README
+      section of rules.
+- [ ] Every instruction file between each touched file and the root found
+      and read, listed by path.
+- [ ] A contradiction between a nested and the root instruction file
+      recorded, the nearer one followed for its directory.
 - [ ] File naming pattern, two occurrences minimum.
 - [ ] Placement rule for new files of the kind being added.
 - [ ] Error handling pattern.

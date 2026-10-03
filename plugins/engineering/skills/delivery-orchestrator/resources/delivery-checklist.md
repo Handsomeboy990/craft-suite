@@ -50,7 +50,7 @@ Updated:
 | 35 | Release verdict issued           | | go, go with notes, or no go with blockers |
 ```
 
-## The five lines that get faked
+## The six lines that get faked
 
 **Item 14, integrations.** Marked done when the code compiles against the SDK.
 Done means a real call succeeded against the real service, or the blocker is
@@ -67,6 +67,15 @@ restore was performed somewhere, or the impossibility is stated.
 
 **Item 20, performance.** Marked done because the application feels fast on a
 developer machine with fifty rows of seed data.
+
+**Items 17 and 26, tests and pipeline.** Marked done, or quietly `n/a`,
+because every feature works when clicked through. An application with no test
+command in its manifest and no pipeline in the repository cannot pass item 17
+or item 26, however complete its features look: there is no suite output to
+cite and no run identifier to quote. Neither line is ever `n/a` for software
+that ships. Done means a test command exists, its output is attached, and a
+pipeline runs it on every change; until then both lines are `pending`, and the
+release verdict, item 35, is `no go` with them named as blockers.
 
 ## Reporting
 
