@@ -36,12 +36,12 @@ bash install.sh
 ```
    1) Creative writing        42 skills   novels, poetry, screenplay, editing
    2) Professional documents   7 skills   guides, manuals, reports, letters, PDF
-   3) Software engineering    85 skills   plus 29 agents
+   3) Software engineering    86 skills   plus 29 agents
    4) Cybersecurity           12 skills   threat models, audits, hardening
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
-   8) Everything             169 skills   plus 33 agents
+   8) Everything             170 skills   plus 33 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -123,7 +123,7 @@ bash install.sh --group devops-skills     operations only
 | `documentation` | 4 | documents |
 | `administrative` | 1 | documents |
 | `publishing` | 2 | documents |
-| `dev-skills` | 58 | engineering |
+| `dev-skills` | 59 | engineering |
 | `delivery-skills` | 11 | engineering |
 | `devops-skills` | 16 | engineering |
 | `secure-development` | 9 | security |
@@ -339,13 +339,13 @@ counted in:
 |---|---|---|
 | `--writing` | 44 | 0 |
 | `--documents` | 9 | 0 |
-| `--dev` | 87 | 29 |
+| `--dev` | 88 | 29 |
 | `--security` | 18 | 3 |
 | `--research` | 7 | 1 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 169 | 33 |
+| `--all` | 170 | 33 |
 | `--agents` | 0 | 33 |
 
 `~/.claude/skills` is shared. It holds every skill you have, not only this

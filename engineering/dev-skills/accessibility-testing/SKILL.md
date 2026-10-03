@@ -4,7 +4,7 @@ description: Verifies that a product can actually be operated by keyboard, by as
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.1.0
+  version: 1.2.0
   depends_on: [engineering-core, quality-engineering]
   outputs: [accessibility-findings, keyboard-report, criteria-coverage, remediation-list]
 ---
@@ -247,6 +247,7 @@ closed on a clean scan alone.
   `ui-ux-engineering` for what the interface was specified to be.
 - Lateral: `playwright-automation` to automate keyboard and focus checks,
   `exploratory-testing` for the flows worth checking first.
-- Downstream: `frontend-engineering` for remediation, whose result comes back
-  through the verify loop of section 10, `test-reporting` for the findings,
+- Downstream: `accessibility-remediation` for working down the findings,
+  carried out with `frontend-engineering`, whose result comes back through the
+  verify loop of section 10; `test-reporting` for the findings,
   `technical-documentation` for the accessibility statement.

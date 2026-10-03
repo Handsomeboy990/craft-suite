@@ -17,6 +17,7 @@ contracts.
 | The API works and I do not trust it | `api-testing` |
 | I want the defects tests do not find | `exploratory-testing`, `bug-hunting` |
 | Someone asked whether it is accessible | `accessibility-testing` |
+| I have an accessibility audit full of findings to fix | `accessibility-remediation` |
 | I am authorised to test the security of a running system | `security-testing` |
 | Users are hammering my login or my forms | `rate-limiting` |
 | I need HTTPS, or a certificate is about to expire | `tls-certificates` |
@@ -165,9 +166,9 @@ Depend on nothing. Callable from any tree, usable alone.
 | `document-design` | publishing | hierarchy, typography, tables, page furniture, metadata |
 | `pdf-production` | publishing | engine selection, generation, render verification |
 
-## engineering, 82 skills
+## engineering, 86 skills
 
-### dev-skills, 55
+### dev-skills, 59
 
 | Skill | What it does |
 |---|---|
@@ -226,6 +227,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `bug-hunting` | systematic adversarial testing of a working feature |
 | `regression-testing` | what to re-run, and what was deliberately excluded |
 | `accessibility-testing` | keyboard first, scanner last |
+| `accessibility-remediation` | an audit's findings fixed by barrier family, native first, closed by the verify loop |
 | `security-testing` | authorized dynamic testing of the real controls |
 | `reliability-testing` | what happens when a dependency fails |
 | `test-reporting` | findings, severity, evidence, lifecycle, one verdict |

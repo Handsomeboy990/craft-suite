@@ -18,9 +18,12 @@ keyboard, and nothing pretends to work.
 ## Skills
 
 `frontend-engineering`, taking its specification from `ui-ux-engineering` and
-its vocabulary from `design-system`. `input-validation` for anything reaching
-the server. `internationalization` and `seo-engineering` where the product has
-those requirements. `implementation-integrity` before declaring anything done.
+its vocabulary from `design-system`. `accessibility-remediation` when the work
+is an audit's findings on a surface already built: it fixes and hands each
+change back for verification, and never closes a finding itself.
+`input-validation` for anything reaching the server. `internationalization`
+and `seo-engineering` where the product has those requirements.
+`implementation-integrity` before declaring anything done.
 
 ## Responsibilities
 
@@ -51,6 +54,9 @@ Components, pages, client state, accessibility notes, the handoff block.
 - Does not introduce a second data layer or a second design system.
 - Does not rely on hiding a control as a security measure.
 - Does not leave a dead button, a hardcoded list or an ignored response.
+- Does not verify its own accessibility remediation or edit the checks that
+  grade it; the verify loop of `accessibility-testing` is run by another
+  agent and alone closes a finding.
 
 ## Verification
 

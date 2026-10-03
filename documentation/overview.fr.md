@@ -8,7 +8,7 @@ Des systèmes d'expertise pour un agent, dans un seul dépôt : **écrire**,
 Le dépôt s'appelait `claude-writer-suite` jusqu'à la version 3.0.0, quand
 l'arbre d'écriture a cessé d'en être la totalité.
 
-169 skills et 33 agents. Pas des prompts : des protocoles numérotés, des
+170 skills et 33 agents. Pas des prompts : des protocoles numérotés, des
 critères de décision, des grilles d'évaluation et des procédures de révision,
 chacun avec un seuil chiffré de ce qui compte comme terminé.
 
@@ -19,7 +19,7 @@ craft-suite/
 ├── shared/           2 skills transversaux, appelés par tous les arbres
 ├── writing/         42 skills d'écriture créative
 ├── documents/        7 skills de document professionnel
-├── engineering/     85 skills d'ingénierie
+├── engineering/     86 skills d'ingénierie
 ├── agents/          33 définitions de rôle, transversales au dépôt
 ├── security/        12 skills de sécurité défensive
 ├── research/         5 skills de recherche générale
@@ -48,7 +48,7 @@ Le dépôt sépare trois langues que l'on confond couramment.
 
 | Couche | De quoi il s'agit | Valeur |
 |---|---|---|
-| Langue des skills | les instructions elles-mêmes | anglais, pour les 169 skills |
+| Langue des skills | les instructions elles-mêmes | anglais, pour les 170 skills |
 | Langue du système | chemins, identifiants, clés de configuration, commits | anglais |
 | Langue de sortie | ce que reçoit le lecteur | la sienne, réglée par projet |
 
@@ -117,7 +117,7 @@ en production.
 
 | Catégorie | Skills | Question à laquelle elle répond |
 |---|---|---|
-| [dev-skills](../engineering/dev-skills/) | 58 | comment une modification est faite correctement |
+| [dev-skills](../engineering/dev-skills/) | 59 | comment une modification est faite correctement |
 | [delivery-skills](../engineering/delivery-skills/) | 11 | quoi construire, dans quel ordre, avec quelle approbation |
 | [devops-skills](../engineering/devops-skills/) | 16 | comment le système tourne, se déploie et se restaure |
 
@@ -217,12 +217,12 @@ reçoit jamais l'arbre d'ingénierie.
 ```
    1) Creative writing        42 skills   romans, poésie, scénario, édition
    2) Professional documents   7 skills   guides, manuels, rapports, lettres, PDF
-   3) Software engineering    85 skills   plus 29 agents
+   3) Software engineering    86 skills   plus 29 agents
    4) Cybersecurity           12 skills   modèles de menace, audits, durcissement
    5) Research                 5 skills   sources, vérification, synthèse
    6) Career                   7 skills   recherche d'emploi, CV, entretiens
    7) Opportunity              9 skills   idéation, hackathons, prospection
-   8) Everything             169 skills   plus 33 agents
+   8) Everything             170 skills   plus 33 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -283,7 +283,7 @@ bash install.sh --group devops-skills     l'exploitation seule
 | `documentation` | 4 | documents |
 | `administrative` | 1 | documents |
 | `publishing` | 2 | documents |
-| `dev-skills` | 58 | engineering |
+| `dev-skills` | 59 | engineering |
 | `delivery-skills` | 11 | engineering |
 | `devops-skills` | 16 | engineering |
 | `secure-development` | 9 | security |
@@ -570,7 +570,7 @@ est affichée comme indisponible, jamais inventée. Détail :
 ## Validation
 
 ```bash
-bash tests/validate-structure.sh      structure et métadonnées des 169 skills
+bash tests/validate-structure.sh      structure et métadonnées des 170 skills
 bash tests/validate-rules.sh          emoji, tiret cadratin, secrets, identité codée en dur
 bash tests/validate-orchestration.sh  plans, phases, agents, renvois croisés
 bash tests/validate-plugins.sh        bundles de plugins synchronisés avec les arbres
@@ -585,7 +585,7 @@ Les six doivent passer avant tout commit. Détail dans
 | Fichier | Contenu |
 |---|---|
 | [documentation/architecture.md](architecture.md) | organisation, isolation des skills, métadonnées |
-| [documentation/skills-guide.md](skills-guide.md) | répertoire des 169 skills |
+| [documentation/skills-guide.md](skills-guide.md) | répertoire des 170 skills |
 | [documentation/installation.md](installation.md) | installation complète et par skill |
 | [documentation/configuration.md](configuration.md) | le contrat de configuration |
 | [documentation/agents.md](agents.md) | skill, agent, orchestration |
