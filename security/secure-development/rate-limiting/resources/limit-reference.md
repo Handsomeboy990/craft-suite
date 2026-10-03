@@ -37,3 +37,56 @@ by the cost of abuse, not a rule; the point is that they differ by endpoint.
 
 The reference exists to be varied. A grid where every row carries the same
 number has missed the point of the skill.
+
+## Atomic check and increment, by store
+
+Whatever the store, one statement or one script both decides and counts. The
+shapes below are written for this reference, generic, and adapted to the
+project's own store and driver.
+
+Relational, fixed window, one row per key and window start, a unique key on
+both:
+
+```sql
+insert into rate_limit_window (key, window_start, hits, expires_at)
+values ($1, $2, 1, $3)
+on conflict (key, window_start)
+do update set hits = rate_limit_window.hits + 1
+  where rate_limit_window.hits < $4
+returning hits;
+```
+
+A returned row means the request is counted and allowed. No row means the
+conflict update was skipped because the window is full: refused, 429. Two
+windows for one request run as two such statements in one transaction, and
+the code rolls the transaction back on any refusal, so a refused request is
+counted in no window.
+
+Key-value store:
+
+```
+count = INCR key                    atomic, returns the new value
+if count == 1: EXPIRE key window    set in the same script or pipeline
+                                    transaction, never as a later call
+allowed = count <= limit
+```
+
+Run as one server-side script so the expiry cannot be lost between the two
+calls, which would leave a key that never resets.
+
+The defect this replaces, in any store:
+
+```
+hits = read(key)          two requests read 9 under a limit of 10
+if hits >= limit: refuse  both pass
+write(key, hits + 1)      both write 10; the store saw two requests and
+                          counted one
+```
+
+## Cleanup
+
+| Store | Expiry |
+|---|---|
+| Relational | a scheduled job deletes rows whose `expires_at` has passed, indexed on that column |
+| Key-value | the key's own expiry, set atomically with the first increment |
+| In memory | evicted on window rollover; one instance only |

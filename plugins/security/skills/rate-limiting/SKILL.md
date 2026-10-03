@@ -4,7 +4,7 @@ description: Sets a rate limit per endpoint by what abuse of that endpoint costs
 license: MIT
 metadata:
   category: secure-development
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [security-core]
   outputs: [rate-limit-policy, per-endpoint-limits, limit-implementation, throttle-response]
 ---
@@ -74,6 +74,29 @@ A rate limit kept in the memory of one instance, behind a load balancer across
 three, is a third of the limit it claims to be. Multi-instance rate limiting
 needs a shared store.
 
+The check and the count are one operation. Reading the count, comparing it to
+the limit, then writing the count plus one is a race: concurrent requests all
+read the same value under the limit and all pass, so a burst, which is exactly
+what an attacker sends, walks through a limit that holds for sequential
+traffic. The store does the check and the increment together:
+
+```
+relational   one insert-or-update on the key and window start, whose update
+             applies only while the count is under the limit; no row
+             returned means refused
+key-value    one atomic increment that returns the new value, the expiry set
+             in the same atomic step; over the limit means refused
+several      every window of one request (per minute, per day) checked and
+windows      counted in one transaction or one script, so a refusal by one
+             window does not leave another window counted
+in memory    one instance only, and still a single atomic operation, never a
+             read then a write across an await
+```
+
+Expired windows are deleted by a scheduled cleanup, per `background-jobs`, or
+carry a store expiry; a counter table nobody prunes grows with every key.
+Forms by store in `resources/limit-reference.md`.
+
 ## 5. What the caller gets back
 
 ```
@@ -105,6 +128,8 @@ A limit alone is a speed bump. The control it sits in front of still exists.
 - No single global limit standing in for per-endpoint limits.
 - No limit keyed on a client-supplied header a caller can forge.
 - No in-memory limit on a multi-instance deployment.
+- No limit that reads the count and then writes it; the check and the
+  increment are one atomic operation in the store.
 - No 200 or silent drop where a 429 with `Retry-After` belongs.
 - No limit that reveals account existence on a login or a reset.
 - No rate limit treated as the whole defence for the endpoint it guards.
@@ -117,7 +142,9 @@ A limit alone is a speed bump. The control it sits in front of still exists.
 3. Choose the key per endpoint from section 2, by user, by source, or both,
    reading the client IP correctly behind a proxy.
 4. Choose the algorithm from section 3 and state it.
-5. Put the count in a shared store if more than one instance serves.
+5. Put the count in a shared store if more than one instance serves, and
+   check and increment it in one atomic operation, every window of the
+   request together, with expired windows cleaned up.
 6. Return 429 with `Retry-After`, leak nothing about account existence, and
    log the repeated-trigger signal without the credential.
 7. Confirm the limit sits in front of the real control, not instead of it.
@@ -127,13 +154,15 @@ A limit alone is a speed bump. The control it sits in front of still exists.
 Score from 0 to 5: limits are per endpoint by cost rather than one global
 number, the key cannot be forged and is right for authenticated versus
 anonymous traffic, the algorithm and its boundary behaviour are stated, a
-multi-instance deployment uses a shared store, the response is a 429 with
+multi-instance deployment uses a shared store, the check and the increment
+are one atomic operation, the response is a 429 with
 `Retry-After` and leaks no account existence, and the limit is one layer over
 the real control.
 
 Threshold: no axis below 3, average at least 4. A limit keyed on a forgeable
-header, or an in-memory limit behind a load balancer, scores 0 overall, because
-it is a limit in name that an attacker walks through.
+header, an in-memory limit behind a load balancer, or a count read and then
+written, scores 0 overall, because it is a limit in name that an attacker walks
+through.
 
 ## 10. Interfaces
 
@@ -142,4 +171,5 @@ it is a limit in name that an attacker walks through.
   guards, `input-validation` for the anti-spam and upload controls it sits in
   front of, `session-security` for the authenticated key, `security-headers`
   for the response.
-- Downstream: `observability` for the repeated-trigger signal.
+- Downstream: `observability` for the repeated-trigger signal,
+  `background-jobs` for the cleanup of expired windows.
