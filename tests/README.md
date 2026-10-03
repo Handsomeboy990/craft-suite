@@ -67,7 +67,7 @@ counter-example inside a French dialogue rules table.
 
 ## validate-orchestration.sh
 
-Thirteen checks on internal coherence.
+Fourteen checks on internal coherence.
 
 | # | Check |
 |---|---|
@@ -84,6 +84,7 @@ Thirteen checks on internal coherence.
 | 11 | agents cite only real skills |
 | 12 | the document pipeline: `document-core` declared, design before production |
 | 13 | `shared/` depends on nothing, so every tree can call it |
+| 14 | the three agent tables list every agent and name no agent that does not exist |
 
 Checks 8 and 9 resolve skill names across all eight trees, which is what allows
 a documents skill to reference an engineering skill in its `Interfaces`
@@ -91,6 +92,19 @@ section without breaking.
 
 Check 13 is the one that keeps `shared/` shared. A dependency added there
 would make two trees depend on a third by transitivity.
+
+Check 14 covers three prose tables that must name every agent and that
+nothing else checks, so they fall behind silently when an agent is added:
+
+| File | What it must hold |
+|---|---|
+| `model-routing/resources/agent-tiers.md` | exactly one row per agent, keyed by its first cell |
+| `delivery-orchestrator/resources/team-routing.md` | exactly one team row per agent; the chief, `delivery-orchestrator`, is named rather than given a row |
+| `engineering-orchestrator/resources/agent-dispatch.md` | every agent named somewhere, so none is unreachable; the chief is exempt, since it dispatches and is never dispatched |
+
+It also fails in the other direction: a row keyed by a name that is not in
+`AGENT_NAMES`, and any backticked name in the three files that resolves to no
+agent, no skill and no condition id declared in `tier-table.json`.
 
 ## validate-plugins.sh
 
@@ -186,6 +200,8 @@ The six scripts are the acceptance criteria. A new skill passes when:
 Check 10 fails both for a declared agent with no file and for a file with no
 declaration. Add the name to `AGENT_NAMES` in `validate-orchestration.sh` in
 the same change as the file.
+Check 14 then fails until the agent has its row in `agent-tiers.md` and in
+`team-routing.md`, and is reachable from `agent-dispatch.md`.
 
 ## After moving anything
 
