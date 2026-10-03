@@ -32,7 +32,7 @@ any behaviour change and `final-verifier` before done.
 | FRONTEND | `frontend-engineer` | `ui-ux-engineer` for visual output, `playwright-engineer` for a browser surface |
 | BACKEND | `backend-engineer` | `security-engineer` on user scoped data, `database-engineer` for a schema change |
 | FULLSTACK | `principal-engineer` | `backend-engineer` and `frontend-engineer` across the fixed contract, `ui-ux-engineer`, `playwright-engineer` |
-| DATABASE | `database-engineer` | `backend-engineer` for the code that reads it, `performance-engineer` on a measured cost |
+| DATABASE | `database-engineer` | `backend-engineer` for the code that reads it, `performance-engineer` on a measured cost, `data-collection-engineer` when the data is gathered from external sources |
 | API | `backend-engineer` | `security-engineer` on user scoped data, `documentation-engineer` for the reference |
 | AUTHENTICATION | `backend-engineer` | `security-engineer`, always: its condition is met by the category |
 | SECURITY | `security-engineer` | `penetration-tester` only with written authorization on record, the owning implementer for each fix |
@@ -80,6 +80,8 @@ write dispatch, whatever this column says.
 | Plan step | Agent | Mode |
 |---|---|---|
 | `project-exploration`, `codebase-mapping` | the dispatched implementer for its own slice; `codebase-cartographer` on a large repository; `checkup` on inherited code | read |
+| `requirements-analysis`, `clarification-gate` | `requirements-analyst`, in phases 01 and 02, or when slippage traces to unclear scope | write, documents only |
+| `delivery-planning` | `delivery-manager`, when there is a date, a milestone or more than one wave of work | write, documents only |
 | `architecture-design`, `decision-records` | `software-architect` for a boundary or contract; the owning implementer for one module's internals | write, documents only |
 | `api-design` | `backend-engineer`, one writer of the contract file | write |
 | `database-design`, `database-operations` | `database-engineer` | write |
@@ -91,6 +93,7 @@ write dispatch, whatever this column says.
 | `accessibility-testing` | `ui-ux-engineer`, with `playwright-engineer` for the rendered checks | read |
 | `security-audit` | `security-engineer` | read; fixes go back to the owner |
 | `security-testing` | `penetration-tester`, only with written authorization on record | read, bounded proofs |
+| `website-audit` | `web-auditor`, when a live site is audited from its URL; active testing only with written authorization on record | read; fixes go back to the owner |
 | `testing-quality`, `api-testing`, `regression-testing`, `quality-engineering`, `exploratory-testing`, `bug-hunting`, `reliability-testing`, `test-reporting` | `qa-engineer` | write for tests, read for findings |
 | `playwright-automation` | `playwright-engineer` | write for specs, read for runs |
 | `performance-engineering`, `caching-strategy` | `performance-engineer` | read for the baseline, write for the fix |
@@ -99,6 +102,7 @@ write dispatch, whatever this column says.
 | `project-continuity` | the wave's named integrator: the note is a hot file | write, serial |
 | `git-workflow` | each write dispatch commits on its own branch; `pr-author` opens the pull request | write |
 | `release-readiness`, `release-engineering`, `feature-flags` rollout | `release-engineer` | write |
+| `launch-readiness` | `compliance-verifier`, at phase 11 of a user-facing web product | read; fixes go back to the owner |
 | `devops-core`, `infrastructure-as-code`, `environment-management`, `secrets-management`, `deployment-engineering`, `observability` | `devops-engineer` | write |
 | `ci-cd-pipelines` | `ci-cd-engineer` | write |
 | `incident-response`, `production-verification` during an incident | `incident-responder` | write |

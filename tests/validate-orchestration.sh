@@ -409,6 +409,63 @@ for skill in "$ROOT/shared"/*/; do
   done
 done
 
+printf 'Check 14: agent tables list every agent, and only real ones\n'
+# Three prose tables must name every agent and fall behind silently when one
+# is added. agent-tiers.md and team-routing.md hold one row per agent, keyed
+# by its first cell; agent-dispatch.md makes every agent reachable, so a
+# mention anywhere in it counts. The chief sits above the teams of
+# team-routing.md, so there it is named rather than given a team row, and it
+# is exempt from agent-dispatch.md.
+TIERS="$DEV/model-routing/resources/agent-tiers.md"
+DISPATCH="$ORCH/resources/agent-dispatch.md"
+TEAMS="$DELIVERY/delivery-orchestrator/resources/team-routing.md"
+TIER_TABLE="$DEV/model-routing/resources/tier-table.json"
+for f in "$TIERS" "$DISPATCH" "$TEAMS" "$TIER_TABLE"; do
+  [ -f "$f" ] || fail "missing file: ${f#"$ROOT"/}"
+done
+for agent in $AGENT_NAMES; do
+  for table in "$TIERS" "$TEAMS"; do
+    [ -f "$table" ] || continue
+    rel="${table#"$ROOT"/}"
+    if [ "$table" = "$TEAMS" ] && [ "$agent" = "delivery-orchestrator" ]; then
+      grep -q "\`$agent\`" "$table" || fail "$rel: chief not named, $agent"
+      continue
+    fi
+    rows="$(grep -c "^| \`$agent\` |" "$table" || true)"
+    if [ "$rows" -eq 0 ]; then
+      fail "$rel: no row for agent $agent"
+    elif [ "$rows" -gt 1 ]; then
+      fail "$rel: $rows rows for agent $agent instead of 1"
+    fi
+  done
+  # The chief dispatches and is never dispatched, so agent-dispatch.md, which
+  # lists who is dispatched, does not have to reach it.
+  [ "$agent" = "delivery-orchestrator" ] && continue
+  [ -f "$DISPATCH" ] && ! grep -q "\`$agent\`" "$DISPATCH" \
+    && fail "${DISPATCH#"$ROOT"/}: agent unreachable, $agent"
+done
+# The reverse: a row keyed by a name that is no agent, and any backticked
+# name that resolves to no agent, no skill, and no condition id declared in
+# tier-table.json.
+TABLE_IDS="$(grep -o '"id": *"[a-z0-9-]*"' "$TIER_TABLE" 2>/dev/null \
+  | sed 's/.*"\([a-z0-9-]*\)"$/\1/')"
+for table in "$TIERS" "$TEAMS"; do
+  [ -f "$table" ] || continue
+  while IFS= read -r name; do
+    printf '%s\n' $AGENT_NAMES | grep -qx "$name" \
+      || fail "${table#"$ROOT"/}: row for an agent that does not exist, $name"
+  done < <(grep -o '^| `[a-z][a-z0-9-]*` |' "$table" | tr -d '|` ')
+done
+for table in "$TIERS" "$DISPATCH" "$TEAMS"; do
+  [ -f "$table" ] || continue
+  while IFS= read -r name; do
+    printf '%s\n' $AGENT_NAMES | grep -qx "$name" && continue
+    skill_dir "$name" >/dev/null && continue
+    printf '%s\n' $TABLE_IDS | grep -qx "$name" && continue
+    fail "${table#"$ROOT"/}: names no agent, skill or condition, $name"
+  done < <(grep -o '`[a-z][a-z0-9-]*`' "$table" | tr -d '`' | sort -u)
+done
+
 printf '\n%s errors.\n' "$ERRORS"
 [ "$ERRORS" -eq 0 ] || exit 1
 printf 'Orchestration coherent.\n'
