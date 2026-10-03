@@ -29,7 +29,7 @@ reference analysis are in `docs/architecture/RESOURCE_LIBRARY.md` and
 | `Magnetic` | the platform (Pointer Events, requestAnimationFrame) | a pointer-only pull of one element, transform only, one write per frame, reset on leave; nothing attached under reduced motion |
 | `Tilt` | the platform (Pointer Events, requestAnimationFrame) | a pointer-only tilt of one surface, same engine as `Magnetic`; flat under reduced motion |
 | `StackedCards` | CSS `position: sticky` | scroll-stacked cards with no scroll listener, a list in source order, a focused card raised above the stack; an ordinary list under reduced motion |
-| `GradientBackdrop` | the platform (Web Animations API), colour tokens | a decorative, `aria-hidden` drifting gradient with a static grain, transform only, contained, paused off screen; still under reduced motion |
+| `GradientBackdrop` | the platform (Web Animations API), colour tokens | a decorative, `aria-hidden` drifting gradient with a static grain, transform only, contained, paused off screen, a pause toggle beside it (WCAG 2.2.2); still under reduced motion |
 | `useReducedMotion` | `matchMedia` | the reduced-motion signal the motion layer treats as a hard floor |
 | `useInViewOnce` | `IntersectionObserver` | the seen-once signal `Reveal` and `Stagger` share; true at once when skipped or unsupported |
 
