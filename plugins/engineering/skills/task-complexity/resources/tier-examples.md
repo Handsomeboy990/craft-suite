@@ -1,6 +1,6 @@
 # Worked classifications
 
-Five tasks, classified with the section 5 template. Each shows the signal
+Six tasks, classified with the section 5 template. Each shows the signal
 that decided the tier, not just the tier itself.
 
 ## TRIVIAL: fix a typo in a log message
@@ -115,3 +115,29 @@ Decomposition: does not apply. The two files that need the idempotency key
 are already the minimal slice; splitting further would separate the check
 from the write it protects.
 ```
+
+## TRIVIAL by construction: a text-only step inside a CRITICAL request
+
+```
+Task: turn the returned handoff of a payment-fix dispatch into the
+Next move and Remaining lines of the continuity note
+Signals:
+  files: 0, the text is in hand    -> TRIVIAL
+  systems: 0                         -> TRIVIAL
+  architecture: none                   -> TRIVIAL
+  security: none, it changes nothing     -> TRIVIAL
+  ambiguity: none                          -> TRIVIAL
+  dependencies: 0                            -> TRIVIAL
+  testing: none                                -> TRIVIAL
+  reasoning: mechanical                          -> TRIVIAL
+  rollback: discard the text                       -> TRIVIAL
+  user_impact: none                                  -> TRIVIAL
+  production_impact: none                              -> TRIVIAL
+Classification: TRIVIAL
+Driving signal: none; the step reads no file and writes nothing.
+```
+
+Dispatched with no tools and no write surface, its result written by the
+dispatcher, routed to the smallest tier. Had the step been "decide whether the
+payment fix is ready to merge", it would have been a verdict on the CRITICAL
+work, classified CRITICAL, per `resources/sizing-to-composition.md` section 1.

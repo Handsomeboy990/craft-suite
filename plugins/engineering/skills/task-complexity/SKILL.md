@@ -4,7 +4,7 @@ description: Classifies a task's complexity into one of five tiers, from eleven 
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.1.0
+  version: 1.2.0
   depends_on: [engineering-core]
   outputs: [complexity-classification, classification-rationale]
 ---
@@ -178,6 +178,16 @@ slice     once per dispatch, when the slice is cut; a slice carrying the
 None of these re-derive the tier from the eleven signals. They read the
 classification this skill produced and act on it. A consumer that disagrees
 asks for a reclassification with its evidence, section 7.
+
+A text-only step is a slice whose whole work is transforming text already in
+hand: a title, a summary, a compaction, a reformat. It reads no file, runs no
+tool and writes nothing; whoever dispatched it writes its result. It is
+classified on its own signals, which leave it TRIVIAL or LOW, and is sized for
+the smallest model tier through `model-routing` section 5. The exception holds
+here too: a step whose text is a verdict, a gate decision, a security finding
+or a judgement on another dispatch's work is not a text-only step, and keeps
+the tier of the work it judges. Full rule in
+`resources/sizing-to-composition.md` section 1.
 
 ## 9. Feeding the chief's composition
 
