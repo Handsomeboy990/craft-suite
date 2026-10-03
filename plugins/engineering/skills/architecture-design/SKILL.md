@@ -4,7 +4,7 @@ description: Designs the smallest architecture that serves the product: reads th
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core, project-exploration]
   outputs: [architecture-decision, boundary-map, failure-model, decision-record]
 ---
@@ -86,6 +86,26 @@ Data ownership rule: one module writes a table, others read through it. When
 two modules write the same table, they are one module that has not been
 merged.
 
+Dependency direction rule: once the product has more than one package or
+module, the direction between them is written down once, as an ordered list where each entry names what it may
+import, and a check in the pipeline enforces it.
+
+```
+schema     shapes and validators, imports nothing in the product
+domain     business rules, imports schema
+transport  handlers and server, imports domain and schema
+clients    import schema and generated clients, never domain or transport
+```
+
+The names follow the project; the arrows point one way. The check is an
+import rule, a dependency graph check in the pipeline, or the language's own
+visibility (internal packages, module exports), and it fails the build when an
+arrow points back. A direction that lives only in a document drifts at the
+first convenient import. The violations found in step 1 are listed as the
+check's only exceptions, each recorded as damage per section 4, so the check
+blocks new ones from the day it is added. For a server with several clients,
+`api-design` section 10 states the same rule for the published contract.
+
 ### Step 5, model the failures
 
 For every external dependency, decide before implementation:
@@ -134,6 +154,9 @@ Refused unless a stated force demands it, and the force is written down:
 - a queue added to hide a slow query;
 - configurable behaviour nobody has asked to configure.
 
+Refused outright, whatever the force: a dependency direction stated in a
+document with no check that enforces it.
+
 Each of these is a real cost paid today against a benefit that may never
 arrive. The correct response is to name the trigger that would justify it
 later.
@@ -161,6 +184,8 @@ Existing architecture   layers, dependency direction, current violations
 Forces                  constraint, load, failure cost, change rate
 Decision                the chosen shape, in one sentence
 Ownership               who owns what data and what behaviour
+Dependency direction    the ordered list, the check that enforces it, and
+                        its listed exceptions
 Contracts               input, output, invariants, failures per boundary
 Failure model           timeout, retry, degradation per dependency
 Rejected options        each with the reason and the trigger that would
@@ -171,7 +196,8 @@ Reversal cost           what it takes to undo this
 ## 6. Auto-critique
 
 Score from 0 to 5: fidelity to the architecture that exists, honesty of the
-forces, single ownership of every responsibility, completeness of the failure
+forces, single ownership of every responsibility, dependency direction written
+down and enforced by a check, completeness of the failure
 model, minimality of the chosen shape, quality of the rejected options,
 clarity of the reversal cost.
 

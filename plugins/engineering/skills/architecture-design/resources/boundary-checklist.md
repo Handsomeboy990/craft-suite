@@ -23,6 +23,10 @@ Applied to every boundary the change creates or moves.
 
 ## Dependency direction
 
+- [ ] The direction is written down as an ordered list of packages or
+      modules, each naming what it may import.
+- [ ] A check in the pipeline enforces it and fails the build on a reversed
+      import; existing violations are its only listed exceptions.
 - [ ] Dependencies point one way. Cycles are named and broken.
 - [ ] The domain does not import the transport layer.
 - [ ] The data layer does not import the handler layer.
