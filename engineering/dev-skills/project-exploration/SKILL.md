@@ -4,7 +4,7 @@ description: Maps an unfamiliar codebase before any change: stack detection from
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core]
   outputs: [project-map, stack-report, convention-report, flow-traces]
 ---
@@ -104,6 +104,18 @@ output.
 
 ### Step 4, convention extraction
 
+Instruction files come first, because they are conventions the project has
+already written down. Read the root one before anything else: an `AGENTS.md`,
+a `CONTRIBUTING` file, a README section of rules. Then, for every file the
+task will read or change, walk the directories from that file up to the root
+and read each instruction file found on the way, once per session, before the
+file is changed. A package or layer often keeps its own boundary rules next to
+its code, and a root-only read misses them. The nearer file governs its own
+directory; where it contradicts the root, record both in the map and follow
+the nearer one for that directory. A file named after one agent runtime is
+local configuration, not a project convention, per `codebase-mapping`
+section 3. When a codebase map exists, its nodes already name these files.
+
 Conventions are observed, never imported from habit. A convention needs at
 least two independent occurrences before it is treated as a rule.
 
@@ -156,6 +168,8 @@ Auth
   mechanism, verification point, authorization model
 Boundaries
   entry points relevant to the task
+Instructions
+  the instruction files read, root and per directory, by path
 Conventions
   the rules the change must follow
 Flows
@@ -177,12 +191,15 @@ produces more text than the change it enables has failed its purpose.
 - No reading of dependency source trees to answer a project question.
 - No exhaustive dump of file contents into the report.
 - No question to the user about anything the repository states.
+- No change to a file whose directory chain holds an instruction file not
+  yet read.
 
 ## 6. Auto-critique
 
 Score from 0 to 5: evidence attached to every claim, correct depth level,
 completeness of the maps the task needs, quality of the flow traces including
-failure paths, conventions actually extracted rather than assumed, explicit
+failure paths, conventions actually extracted rather than assumed, instruction
+files read at the root and along every touched directory chain, explicit
 list of unknowns, conciseness.
 
 Threshold: no axis below 3, average at least 4. A map with an unmarked gap is
@@ -191,6 +208,8 @@ below threshold whatever the other scores.
 ## 7. Interfaces
 
 - Upstream: `engineering-core`, `engineering-orchestrator`.
+- Lateral: `codebase-mapping`, whose nodes name the instruction files of
+  each subsystem.
 - Downstream: every implementation, review, security and testing skill.
 - Feeds: `architecture-design` with the current architecture,
   `security-audit` with the boundary map, `testing-quality` with the test map,
