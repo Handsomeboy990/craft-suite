@@ -1,11 +1,10 @@
 # ADR 0003: no PHP or templating domain; patterns recorded only
 
 Date: 2026-10-01
-Status: proposed
+Status: accepted (by the owner, 2026-10-02)
 Supersedes: none
 
-Roadmap item 8.5. The owner accepts or rejects this record; until then nothing
-it describes is acted on. It runs the `technology-selection` order (question 1
+Roadmap item 8.5. Accepted by the owner on 2026-10-02. It runs the `technology-selection` order (question 1
 first: is anything new required at all) and the `dependency-selection` gate on
 the four PHP references named in `docs/architecture/RESOURCE_LIBRARY.md`.
 

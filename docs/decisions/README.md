@@ -14,4 +14,5 @@ Format and rules: the `decision-records` skill
 |---|---|---|
 | `0001-resource-library-structure.md` | accepted | skill trees stay at root; a top-level `libraries/` holds shippable code |
 | `0002-ui-primitive-base.md` | accepted | Radix UI as the headless primitive base for `libraries/ui`, behind the suite's own component API |
-| `0003-no-php-templating-domain.md` | proposed | no PHP or templating domain and no PHP code; the transferable patterns of the four PHP references are recorded for existing skills |
+| `0003-no-php-templating-domain.md` | accepted | no PHP or templating domain and no PHP code; the transferable patterns of the four PHP references are recorded for existing skills |
+| `0004-libraries-ui-mit-licence.md` | accepted | `libraries/ui` is released under MIT so other projects may install and reuse it; the rest of the repository stays under its own terms |
