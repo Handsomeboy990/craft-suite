@@ -4,15 +4,28 @@ Brings a group of items into place one after another the first time the group
 scrolls into view: a row of features, a short list of steps. Original to this
 library.
 
+## Visible without JavaScript
+
+Every item is visible by default, on the same contract as `Reveal`, through
+the shared `useEntrance` hook. The server HTML, a page whose JavaScript never
+runs, a crawler and the first client render get every item plainly, with no
+opacity, transform, transition or delay. The items are hidden until the group
+is seen only once a client layout effect has confirmed `IntersectionObserver`,
+no reduced motion, and that the group is not already in the viewport. A group
+on screen at mount is never hidden and faded back, so there is no flash, and
+arming touches opacity and transform alone, so it shifts no layout.
+`data-armed` on the group says which path was taken. `Reveal`'s README gives
+the reasoning against an `html.js` class or a `<noscript>` style.
+
 ## Reduced motion is the floor
 
 `Stagger` is `Reveal`'s motion applied per item, and it shares `Reveal`'s
-in-view logic through the `useInViewOnce` hook rather than repeating it. It
-never hides an item it might fail to reveal. Every item is shown at once, with
-no transition and no delay, when:
+in-view and arming logic through the `useInViewOnce` and `useEntrance` hooks
+rather than repeating it. It never hides an item it might fail to reveal.
+Every item is shown at once, with no transition and no delay, when:
 
 - the viewer asked for reduced motion (`useReducedMotion`);
-- `IntersectionObserver` is absent (server render, old browser);
+- `IntersectionObserver` is absent (old browser);
 - the motion tokens are zero, which the same preference makes them.
 
 ## Accessibility
@@ -54,5 +67,7 @@ or paint per frame, no animation library. The delay stops growing after the
 tenth item (`STAGGER_MAX_STEPS`), so a long group never keeps the reader
 waiting; budget: the last item settles within `delayMs + 10 * stepMs` plus
 one `--cu-motion-base`. Verified by `stagger.test.tsx`: source order, the
+server render (`renderToString`) with no hiding style, the
 no-IntersectionObserver fallback, the reduced-motion path with no transition
-or delay, one observer per group, the delay cap, and list semantics.
+or delay, one observer per group, a group on screen at mount never hidden, the
+delay cap, and list semantics.

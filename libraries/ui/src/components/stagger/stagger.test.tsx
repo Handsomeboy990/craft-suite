@@ -1,4 +1,5 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
+import { renderToString } from "react-dom/server";
 import { afterEach, describe, it, expect, vi } from "vitest";
 import { Stagger } from "./stagger";
 
@@ -71,7 +72,8 @@ describe("Stagger", () => {
     );
     const group = container.querySelector("[data-cu='stagger']");
     await waitFor(() => expect(group).toHaveAttribute("data-shown", "true"));
-    for (const item of items(container)) expect(item.style.opacity).toBe("1");
+    expect(group).toHaveAttribute("data-armed", "false");
+    for (const item of items(container)) expect(item.style.opacity).toBe("");
   });
 
   it("applies no transition, delay or hidden state under reduced motion", async () => {
@@ -103,6 +105,8 @@ describe("Stagger", () => {
       </Stagger>,
     );
     await waitFor(() => expect(observed).toBe(1));
+    // jsdom lays nothing out, so the group's box is empty at the top: off screen, armed.
+    expect(container.querySelector("[data-cu='stagger']")).toHaveAttribute("data-armed", "true");
     expect(items(container).map((item) => item.style.opacity)).toEqual(["0", "0", "0"]);
     expect(items(container).map((item) => item.style.transitionDelay)).toEqual([
       "20ms",
@@ -113,9 +117,54 @@ describe("Stagger", () => {
     expect(items(container).map((item) => item.style.opacity)).toEqual(["1", "1", "1"]);
   });
 
-  it("caps the delay so a long group never drags", () => {
+  it("server-renders every item visible, with no hiding style, for a page without JavaScript", () => {
+    mockMatchMedia(false);
+    mockIntersectionObserver();
+    const html = renderToString(
+      <Stagger as="ul" stepMs={50}>
+        <span>first</span>
+        <span>second</span>
+      </Stagger>,
+    );
+    expect(html).toContain("first");
+    expect(html).toContain("second");
+    expect(html).not.toMatch(/opacity|transform|transition/);
+    expect(html).toContain('data-armed="false"');
+  });
+
+  it("never hides a group already on screen at mount, so there is no flash", async () => {
+    mockMatchMedia(false);
+    mockIntersectionObserver();
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue({
+      top: 10,
+      bottom: 110,
+      left: 0,
+      right: 100,
+      width: 100,
+      height: 100,
+      x: 0,
+      y: 10,
+      toJSON: () => ({}),
+    } as DOMRect);
+    const { container } = render(
+      <Stagger>
+        <span>a</span>
+        <span>b</span>
+      </Stagger>,
+    );
+    await waitFor(() => expect(observed).toBe(1));
+    const group = container.querySelector("[data-cu='stagger']");
+    expect(group).toHaveAttribute("data-armed", "false");
+    for (const item of items(container)) expect(item.style.opacity).toBe("");
+  });
+
+  it("caps the delay so a long group never drags", async () => {
+    mockMatchMedia(false);
+    mockIntersectionObserver();
     const children = Array.from({ length: 14 }, (_, i) => <span key={i}>{i}</span>);
     const { container } = render(<Stagger stepMs={10}>{children}</Stagger>);
+    const group = container.querySelector("[data-cu='stagger']");
+    await waitFor(() => expect(group).toHaveAttribute("data-armed", "true"));
     const delays = items(container).map((item) => item.style.transitionDelay);
     expect(delays[10]).toBe("100ms");
     expect(delays[13]).toBe("100ms");
