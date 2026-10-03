@@ -24,6 +24,30 @@ nothing is lost when a viewer cannot see it. Contrast is still the page's
 responsibility: check text against the brightest point of the gradient, in
 light and dark.
 
+### Pause control, on by default
+
+The drift starts by itself, runs beside the content and never ends, which is
+exactly what WCAG 2.2.2 (Pause, Stop, Hide) covers: such motion needs a way
+to pause it. The criterion makes no exception for decoration, and a
+reduced-motion preference is not that mechanism, because not every viewer who
+is distracted by motion can or knows to set it. So, while the drift runs,
+`GradientBackdrop` renders a toggle button, as `Marquee` does: its name stays
+the same (`pauseLabel`, default `"Pause motion"`) and `aria-pressed` carries
+the state. The viewer's pause survives the backdrop leaving and re-entering the
+screen.
+
+The button is rendered beside the `aria-hidden` root, never inside it, so it
+is reachable and announced while the backdrop itself stays inert. It sits at
+the top end corner of the positioned container, `z-index: 1`, so it comes
+first both in the section's focus order and where the eye starts. No button
+is rendered when nothing moves: on the server, without the Web Animations API,
+under reduced motion, or with `durationMs={0}`.
+
+Opt out with `showControl={false}` only when the page already offers another
+way to stop the motion, for example a site-wide motion switch that sets
+`durationMs={0}` or unmounts the backdrop. Small or faint is not a reason on
+its own: 2.2.2 has no exemption for motion that is easy to overlook.
+
 ## API
 
 | Prop | Purpose |
@@ -32,6 +56,8 @@ light and dark.
 | `durationMs` | time for one drift in milliseconds; it eases out and back (default 40000) |
 | `grain` | lay a static grain over the gradient (default `true`) |
 | `grainOpacity` | opacity of the grain, 0 to 1 (default 0.06) |
+| `showControl` | render the pause toggle while the drift runs (default `true`); turn off only when the page offers another way to stop the motion |
+| `pauseLabel` | text of the toggle (default `"Pause motion"`), for the recipient's language |
 | `className` | passed to the root |
 
 Place it as the first child of a positioned container; the content after it
@@ -58,6 +84,8 @@ painted once and tiled, never animated. No WebGL, no canvas, no library: the
 default blooms use `color-mix()`; a browser without it draws no gradient,
 which for decoration is an acceptable floor. Verified by
 `gradient-backdrop.test.tsx`: hidden from assistive technology and the
-pointer, the static fallback without the API, the reduced-motion path with no
-animation, transform-only keyframes, the off-screen pause, cancel on unmount,
-and the grain switch.
+pointer, the static fallback without the API, the server render
+(`renderToString`) still and without a control, the reduced-motion path with
+no animation and no control, transform-only keyframes, the off-screen pause,
+the pause toggle with a stable name and `aria-pressed` outside the hidden
+root, the label and the opt-out, cancel on unmount, and the grain switch.
