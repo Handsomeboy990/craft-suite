@@ -1,0 +1,70 @@
+/* Tokens and neutral layout shared by every variant. Nothing that a finding
+   is about lives here: each variant carries those rules in its own style
+   block, so the difference between two variants is the remediation. */
+:root {
+  --text: #1a1a1a;
+  --text-muted: #595959;
+  --surface: #ffffff;
+  --accent: #0b57d0;
+  --danger: #b3261e;
+  --border: #6f6f6f;
+  --focus: #0b57d0;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font: 16px/1.5 system-ui, sans-serif;
+  color: var(--text);
+  background: var(--surface);
+}
+
+main { max-width: 40rem; margin: 0 auto; padding: 1rem; }
+
+img { max-width: 100%; height: auto; display: block; margin: 0.5rem 0; }
+
+.skip { position: absolute; left: -999px; top: 0; }
+.skip:focus { left: 0.5rem; padding: 0.5rem; background: var(--surface); }
+
+.field { margin: 1rem 0; }
+.field input { display: block; width: 100%; min-height: 2.5rem; padding: 0.4rem; font: inherit; border: 1px solid var(--border); }
+
+fieldset { border: 1px solid var(--border); margin: 1rem 0; padding: 0.5rem 1rem; }
+#guests { padding-left: 1.2rem; }
+#guests li { min-height: 2rem; }
+
+.btn, .btn-primary, select {
+  display: inline-block;
+  min-height: 2.5rem;
+  padding: 0.4rem 1rem;
+  font: inherit;
+  border: 1px solid var(--accent);
+  background: var(--surface);
+  color: var(--accent);
+  cursor: pointer;
+}
+.btn-primary { background: var(--accent); color: var(--surface); }
+
+.icon-btn {
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0.2rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+}
+.icon-btn svg { width: 100%; height: 100%; }
+
+.custom-select { position: relative; display: inline-block; min-width: 12rem; }
+.cs-current { min-height: 2.5rem; padding: 0.4rem 1rem; border: 1px solid var(--border); cursor: pointer; }
+.cs-options { position: absolute; left: 0; right: 0; background: var(--surface); border: 1px solid var(--border); z-index: 1; }
+.cs-option { padding: 0.4rem 1rem; cursor: pointer; }
+
+.error { color: var(--danger); }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}

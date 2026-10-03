@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a table, Example Bistro</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* Reference fix, written with the checks to prove they can pass. It is the
+     ceiling, not a remediation, and it is not scored. */
+  .btn-primary:focus-visible, .btn:focus-visible, select:focus-visible, .icon-btn:focus-visible {
+    outline: 3px solid var(--focus); outline-offset: 2px;
+  }
+  .hint { color: var(--text-muted); font-size: 0.9rem; }
+  label { display: block; font-weight: 600; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to booking</a>
+<main id="main">
+  <h1>Book a table</h1>
+
+  <section>
+    <h2>Getting here</h2>
+    <img id="access-map" src="access-map.svg" width="320" height="180"
+         alt="Map of the entrance: the step-free way in is the side door, to the left of the main steps on Rue Example.">
+    <img id="dining-room" src="dining-room.svg" width="320" height="180" alt="">
+  </section>
+
+  <form id="booking" novalidate>
+    <h2>Your booking</h2>
+
+    <div class="field">
+      <label for="email">Email address</label>
+      <input id="email" type="email" autocomplete="email" aria-describedby="email-hint">
+      <div id="email-error" class="error" hidden>Enter an email address, like name@example.com</div>
+      <p id="email-hint" class="hint">We send the confirmation here.</p>
+    </div>
+
+    <div class="field">
+      <label for="room">Room</label>
+      <select id="room">
+        <option value="main">Main room</option>
+        <option value="terrace">Terrace</option>
+        <option value="private">Private room</option>
+      </select>
+    </div>
+
+    <fieldset>
+      <legend>Guests</legend>
+      <ul id="guests">
+        <li><span class="guest-name">Guest 1</span></li>
+        <li><span class="guest-name">Guest 2</span>
+          <button type="button" class="icon-btn remove" aria-label="Remove guest 2" data-name-pattern="remove"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 3l10 10M13 3L3 13" stroke="#1a1a1a" stroke-width="2"/></svg></button>
+        </li>
+      </ul>
+      <button type="button" id="add-guest" class="btn">Add guest</button>
+    </fieldset>
+
+    <button type="submit" class="btn-primary">Request booking</button>
+    <p id="status" role="status"></p>
+  </form>
+</main>
+<script>
+  window.onInvalidEmail = (input) => {
+    input.setAttribute('aria-invalid', 'true');
+    input.setAttribute('aria-describedby', 'email-error email-hint');
+    input.focus();
+  };
+  window.onValidEmail = (input) => {
+    input.removeAttribute('aria-invalid');
+    input.setAttribute('aria-describedby', 'email-hint');
+  };
+</script>
+<script src="app.js"></script>
+</body>
+</html>
