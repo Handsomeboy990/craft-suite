@@ -4,7 +4,7 @@ description: The hard stop before implementation. Presents a short approval pack
 license: MIT
 metadata:
   category: delivery-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core, architecture-proposal, technology-selection]
   outputs: [approval-package, approval-record, revision-log]
 ---
@@ -30,6 +30,30 @@ installation, project scaffolding, configuration, commits of implementation.
 
 A scaffold committed before approval is implementation. It anchors every
 subsequent decision and makes the approval theatre.
+
+### In dispatch terms
+
+The rule is a field a checker can read, not a sentence an agent is trusted
+to remember. Every dispatch of phases 1 to 4, per the chief's
+`resources/parallel-dispatch.md` section 1:
+
+```
+Mode       read, except the one writer of a planning document
+Surface    the specification, the clarification record, the stack decision,
+           the proposal document; nothing under the source tree
+Permits    write deny outside that surface; dependency installation deny;
+           a commit only of the planning documents, and only as the
+           delegation configuration allows
+```
+
+The switch to write mode for implementation is one event: the user's
+explicit yes to the decision request, `approved` or `approved with changes`
+of section 4, recorded verbatim per section 5. No quote, no switch. Silence,
+a timeout, a question back, an approval of something else, or an agent's own
+judgement that the proposal is good is not approval, and leaves every
+dispatch in planning mode. The narrow work section 7 allows while approval is
+pending is named in its own dispatch record, with its surface, before it
+starts.
 
 ## 2. The approval package
 
@@ -142,9 +166,10 @@ The choice is stated, not assumed.
 2. Write the approval package, section 2.
 3. Write the decision request, section 3, naming the item that most deserves
    attention.
-4. Present, once. Stop.
+4. Present, once. Stop. Every dispatch stays in planning mode, section 1.
 5. On a response, classify it against section 4.
-6. Record the approval, section 5.
+6. Record the approval, section 5. Only a recorded, quoted yes switches the
+   project to write mode.
 7. Update the architecture document when the approval changed anything.
 8. Hand to `delivery-planning`.
 

@@ -92,6 +92,15 @@
       "override": "independent-verifier-floor",
       "expected_model_tier": "strongest",
       "expected_effort": "max"
+    },
+    {
+      "id": "override-text-only-on-medium",
+      "description": "Compact a long session's handoff blocks into the eight sections of a continuity note, no tool used, the integrator writing the result.",
+      "complexity": "MEDIUM",
+      "driving_signal": "text already in hand, transformed only, no verdict inside it",
+      "override": "text-only-transform",
+      "expected_model_tier": "fast",
+      "expected_effort": "medium"
     }
   ],
   "transition_fixtures": [

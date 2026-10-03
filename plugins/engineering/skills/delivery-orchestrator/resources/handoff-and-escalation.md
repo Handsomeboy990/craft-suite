@@ -81,6 +81,23 @@ stack is an interruption, not diligence.
 One message per stop. The question, the options, the consequence of each, the
 recommendation. Not a status report with a question buried in it.
 
+The human's answer is read whole:
+
+```
+yes            approves the request it answered, and nothing wider; a
+               standing approval belongs in the delegation configuration,
+               never inferred from one yes
+no             rejects that request and cancels every other request of the
+               same dispatch or wave still waiting at a stop; none of them
+               is asked again one by one after the human said no
+no, because    a correction: applied as a change of instruction, the
+               dispatch record updated, the work resumed on it; it is not
+               reported back as a blocker
+```
+
+A cancelled request comes back only re-planned, as a new question that
+states what changed since the no.
+
 ## 4. Deadline and quality
 
 `delivery-manager` owns time. The chief owns the gates. The tension between

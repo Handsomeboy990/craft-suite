@@ -1,9 +1,11 @@
 # project-continuity
 
-Leaves the project resumable. Seven sections: completed, current state,
-decisions, remaining, risks, verification, context. Every vague statement is
-converted to a concrete one, every secret is referenced by name rather than by
-value, and stale entries are deleted rather than accumulated.
+Leaves the project resumable. Eight sections: completed, current state,
+decisions, remaining, next move, risks, verification, context. Every vague
+statement is converted to a concrete one, every secret is referenced by name
+rather than by value, stale entries are deleted rather than accumulated, and
+an existing note is merged with the newest state winning and nothing open
+dropped silently.
 
 - Inputs: the session's commits and findings.
 - Outputs: continuity notes, handoff report, follow up list.

@@ -18,8 +18,10 @@ Lead        <the domain lead it reports to, or the chief>
 Task        <one outcome, with its acceptance items>
 Mode        read | write
 Surface     <files and directories it may write; "none" in read mode>
+Permits     <one allow | ask | deny per action class, section 1.1>
 Contract    <the fixed artefact it builds against, by path>
-Inputs      <the handoff blocks and documents it starts from>
+Inputs      <the handoff blocks and documents it starts from, and the
+            tracked convention file of each directory in its surface>
 Base        <branch and commit it starts from>
 Branch      <its own branch, one per write dispatch>
 Model       <tier, resolved with model-routing>
@@ -27,7 +29,61 @@ Exit        <the evidence that closes it: command and expected result>
 Returns     the handoff block, to <lead or chief>
 ```
 
-Two fields carry the safety of the whole wave: `Mode` and `Surface`.
+Three fields carry the safety of the whole wave: `Mode`, `Surface` and
+`Permits`.
+
+### 1.1 Permits, as data
+
+`Mode` and `Surface` say what may be written. `Permits` says what else the
+dispatch may do, as rules a checker can read rather than intentions in prose.
+Each rule names an action class, an optional pattern, and one of three values.
+
+```
+action classes   write, run, network, outside-repo, dispatch, plus any
+                 action the delegation configuration names (commit, push,
+                 pull request, deployment, database operation)
+values           allow    done without asking
+                 ask      stopped and handed to the rung above, section 2 of
+                          handoff-and-escalation.md
+                 deny     never done; a need for it is reported in Known issues
+evaluation       the last rule that matches wins; an action no rule matches
+                 is ask, never allow
+```
+
+```
+Permits   write allow (inside Surface); run allow (the project's test and
+          lint commands); network deny; outside-repo deny; dispatch deny;
+          push ask
+```
+
+`write allow` never reaches outside `Surface`, whatever the pattern says, and
+an `allow` never overrides a stop of `handoff-and-escalation.md` section 3 or
+an action the `delegation` configuration keeps: those are `ask` or `deny` by
+construction. Read mode is `write deny`.
+
+### 1.2 What a sub-dispatch inherits
+
+A dispatch may start further dispatches only when its agent definition grants
+the dispatch tool in its `tools` field: today the chief, `principal-engineer`
+and `design-director`. Every other agent holds `dispatch deny`, and a
+specialist that needs more hands reports it to its lead; it does not
+dispatch. Nesting stops at one level below a lead: chief, lead, specialist,
+never deeper.
+
+When a lead does dispatch, the child's record starts from the parent's
+restrictions, not from its grants:
+
+```
+inherited       every deny of the parent, every action the delegation
+                configuration keeps, every pending stop, and outside-repo
+                rules
+not inherited   any allow; each is granted again, explicitly, in the
+                child's own record
+surface         a subset of the parent's surface, never larger
+```
+
+A restriction placed on a dispatch binds everything that dispatch starts. A
+permission does not travel.
 
 ## 2. Read mode and write mode
 

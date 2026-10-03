@@ -4,7 +4,7 @@ description: The chief orchestrator, above every agent. Owns a project from spec
 license: MIT
 metadata:
   category: delivery-skills
-  version: 1.1.0
+  version: 1.2.0
   depends_on: [engineering-core, engineering-orchestrator]
   outputs: [phase-plan, team-plan, dispatch-records, delivery-checklist, gate-decisions, delivery-verdict]
 ---
@@ -87,6 +87,11 @@ Three kinds. They are not the same and are not treated the same.
 | change | any | a departure from the approved architecture |
 | irreversible action | any | destructive migration, production data operation, recurring cost |
 
+Before the validation gate, phases 1 to 4 run as planning dispatches: their
+only write surface is the planning documents, as `validation-gate` section 1
+states it. The switch to write mode is the user's explicit approval, quoted
+in that skill's approval record; nothing else switches it.
+
 **Verification gates.** No human needed. The gate passes on evidence.
 
 | Gate | Passes when |
@@ -134,9 +139,15 @@ The rule: parallelise across a contract, never across an unknown.
 
 The procedure that applies it, in `resources/parallel-dispatch.md`: a
 dispatch record for every agent, read mode separated from write mode, a
-declared write surface per dispatch, hot files owned by one named integrator,
-work grouped in waves, and a conflict check on every branch before any pull
-request is opened.
+declared write surface per dispatch, permits stated as allow, ask or deny per
+action class with ask for anything unlisted, hot files owned by one named
+integrator, work grouped in waves, and a conflict check on every branch
+before any pull request is opened.
+
+A specialist does not dispatch further agents: only an agent whose definition
+grants the dispatch tool does, and nesting stops one level below a lead. A
+sub-dispatch inherits its parent's denies and kept actions, never its allows.
+Rules in `resources/parallel-dispatch.md` sections 1.1 and 1.2.
 
 ### Reviewers in parallel
 
@@ -237,7 +248,10 @@ section 4 above, a significant architecture change, an irreversible action,
 an offensive security action without authorization on record, an action the
 `delegation` configuration keeps, a date that cannot be met without moving
 scope or time, and a blocker outside the project. One message per stop: the
-question, the options, the consequence of each, the recommendation.
+question, the options, the consequence of each, the recommendation. A no
+cancels every other pending request of that dispatch, and a no with a reason
+is applied as a correction rather than reported as a blocker, same file,
+section 3.
 
 ## 11. Deadline and quality
 

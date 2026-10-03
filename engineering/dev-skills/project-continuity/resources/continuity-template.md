@@ -25,6 +25,11 @@ Looks finished but is not:
 - <task>, <where>, first step: <action>
 - <task>, <where>, first step: <action>
 
+## Next move
+
+1. <command or edit>, <path>
+2. <command or edit>, <path>
+
 ## Risks
 
 - <what breaks>, under <condition>, presents as <symptom>
@@ -85,6 +90,13 @@ Looks finished but is not:
 - Cross team invitation flooding for one address is unlimited. First step:
   decide whether the limit is per address globally or per address per hour.
 
+## Next move
+
+1. Open app/invite/[token]/page.tsx at line 34 and call addMember from
+   lib/services/teams.ts inside the existing branch.
+2. Run npx playwright test invitations and extend its accept case to assert
+   the membership exists.
+
 ## Risks
 
 - Mail delivery failure leaves an invitation nobody sees. The list shows the
@@ -122,7 +134,8 @@ provider configured.
 
 ## What makes this note work
 
-Every remaining item names a file and a first step. Every risk names a
+Every remaining item names a file and a first step, and the next move picks
+the one to start with. Every risk names a
 condition and a symptom. Every decision carries the rejected alternative, so
 the next engineer does not spend a morning rediscovering why the obvious
 approach was not taken. The last context line prevents a specific, expensive

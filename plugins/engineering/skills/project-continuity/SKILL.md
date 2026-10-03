@@ -1,10 +1,10 @@
 ---
 name: project-continuity
-description: Leaves the project in a state another engineer or agent can resume: what was completed, what works now, decisions taken, concrete remaining work, known risks, verification performed and integration context, with no secrets. Use at the end of any session that changed the repository.
+description: Leaves the project in a state another engineer or agent can resume: what was completed, what works now, decisions taken, concrete remaining work, the next move, known risks, verification performed and integration context, with no secrets, and merges into an existing note without dropping anything open. Use at the end of any session that changed the repository.
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core]
   outputs: [continuity-notes, handoff-report, follow-up-list]
 ---
@@ -18,13 +18,14 @@ memory of this one.
 Continuity is written at the end of every session that changed anything, and
 it is short.
 
-## 1. The seven sections
+## 1. The eight sections
 
 ```
 Completed      what was actually implemented, with paths
 Current state  what works now, and what is knowingly incomplete
 Decisions      choices taken, with the reason and the rejected option
 Remaining      concrete unfinished work, each item actionable
+Next move      the first concrete actions of the next session, numbered
 Risks          known issues, limitations and their trigger conditions
 Verification   what was run, and what it returned
 Context        integration details and constraints a newcomer cannot deduce
@@ -53,6 +54,12 @@ reversed by the next person who has the same idea.
 **Remaining.** Each item is a task someone could start: what, where, and the
 first step. `Improve error handling` is not an item. `Add a timeout to the
 mail client in lib/mail.ts, currently unbounded` is.
+
+**Next move.** Where the next session starts, not what it must eventually
+finish: one to three numbered actions, each a command to run or an edit to
+make, with its path, in the order to take them. `Remaining` is the backlog;
+`Next move` is the first step of it, and answers the resumption test's "what
+should I do next" without a choice. When nothing is open, it says so.
 
 **Risks.** What could break, under what condition, and how it would present.
 Includes limits that are fine today with the volume that would change that.
@@ -106,10 +113,31 @@ Continuity notes that grow without bound stop being read, which defeats their
 purpose. Completed work older than the current effort is deleted, not
 archived in place: the git history already holds it.
 
+### Updating an existing note
+
+A note is usually rewritten over a previous one, by a session that does not
+remember writing it. The merge follows three rules:
+
+```
+newest wins        where the old note and this session disagree, this
+                   session's verified state replaces the old text
+open is carried    every open item of the old note, a remaining task, a
+                   risk, an assumption, a constraint in Context, survives
+                   into the new one, even when this session never touched it
+resolved is gone   an item this session closed is deleted, not marked done
+```
+
+Whatever the new note does not carry is lost. Dropping an open item is
+therefore a decision, stated in the session's report with its reason, never
+a side effect of rewriting. The same rule applies to any summary that replaces
+a longer record, a compacted session included: it is written in these eight
+sections, and merged by these three rules.
+
 ## 6. Protocol
 
 1. List what changed, from the commits of this session.
-2. Fill the seven sections.
+2. Read the existing note, if any, and fill the eight sections, merging per
+   section 5.
 3. Convert every vague statement into a concrete one.
 4. Remove any secret or personal data.
 5. Delete stale entries that this session resolved.
@@ -134,8 +162,9 @@ A note that fails any of these questions is rewritten before it is committed.
 
 ## 8. Auto-critique
 
-Score from 0 to 5: all seven sections present, concreteness of the remaining
-items, decisions carry their rejected alternatives, verification quotes real
+Score from 0 to 5: all eight sections present, concreteness of the remaining
+items, a next move that can be started without a choice, nothing open dropped
+silently in a merge, decisions carry their rejected alternatives, verification quotes real
 results, no secret, stale content removed, passes the resumption test, length
 under control.
 
