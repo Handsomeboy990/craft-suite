@@ -44,7 +44,8 @@ outcome. For the UI, that means a rendered state, not a thrown error.
 | Row | What gets missed |
 |---|---|
 | migration | reversibility, and whether the running code survives the deploy window |
-| authorization | the update and delete paths, when only the read was checked |
+| authorization | the create, update and delete paths, when only the read was checked; the list that returns drafts to anyone who asks |
+| handler | the server action called directly, without the form that validated it |
 | external effects | what happens when the mail provider is down |
 | cache invalidation | the list that still shows stale data after the mutation |
 | navigation and focus | focus after a dialog closes, and after a redirect |

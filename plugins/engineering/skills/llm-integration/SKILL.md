@@ -4,7 +4,7 @@ description: Builds a feature on a language model so it is correct, bounded and 
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core]
   outputs: [prompt-contract, evaluation-set, retrieval-design, cost-latency-budget, llm-guardrails]
 ---
@@ -39,6 +39,14 @@ system      the instruction that sets the role and the rules, kept apart from
 version     the prompt is versioned like code, because a change to it changes
             the behaviour of every call
 ```
+
+Model output is untrusted input. When a program consumes it, it is parsed
+against the same schema the equivalent user input passes: a model that turns a
+sentence into search filters produces values validated by the filter schema,
+with the allowed values (the real tags, the real countries) read from the data
+and given to the model, and a failed parse is a clear error, never a partial
+result. The output is not trusted because the prompt asked for the right
+shape.
 
 ## 2. Evaluate, before launch and after every change
 
@@ -111,13 +119,17 @@ degrade     when the model is unavailable, the feature has a stated fallback,
 | Hallucination | a factual answer is grounded (section 3) or marked uncertain; a claim the feature acts on is verified, not taken on the model's word |
 | Truncated output | the output length is bounded and the truncation is detected and handled, not shipped as a complete answer that stops mid-sentence |
 | Unsafe or off-task output | the output is validated against its contract before use, and a moderation or a policy check runs where the surface needs it |
-| Cost blowout from abuse | the endpoint is rate limited per user, per `rate-limiting`, because a model call is an expensive operation |
+| Cost blowout from abuse | the endpoint requires a session and is rate limited per user, per `rate-limiting`, because a model call is an expensive operation |
+| Content kept in logs | user prompts and model answers are not logged by default; logs carry identifiers, token counts, latency and outcome. Capturing content for evaluation is a decision under `data-privacy`: opt in, scoped, with a stated retention |
 
 ## 7. Prohibitions
 
 - No model identifier, parameter or price coded from memory; the provider's
   current documentation is read.
 - No program parsing free text where a structured output was available.
+- No model output used without passing the schema the same input from a user
+  would pass.
+- No user prompt or model answer written to a log by default.
 - No prompt shipped or changed without its evaluation set run.
 - No factual feature without grounding or an honest do-not-know.
 - No secret in the system prompt, which is assumed discoverable.
@@ -136,19 +148,21 @@ degrade     when the model is unavailable, the feature has a stated fallback,
    context down, and cache what repeats.
 5. Stream where a user waits, set a timeout and a fallback, retry only
    transient errors.
-6. Apply the section 6 guardrails, and rate limit the endpoint as an expensive
-   operation.
+6. Apply the section 6 guardrails: parse the output against the input schema,
+   keep prompts and answers out of the logs, and rate limit the endpoint as an
+   expensive operation.
 7. Read the provider's current API documentation for every model, limit and
    price; verify against it rather than from memory.
 
 ## 9. Auto-critique
 
 Score from 0 to 5: the output is a structured contract where a program
-consumes it, an evaluation set exists and gates changes, a factual feature is
+consumes it and passes the same schema as user input, an evaluation set exists
+and gates changes, a factual feature is
 grounded or honestly uncertain, cost and latency are budgeted at the real
 price, guardrails against injection and a leaked prompt and a truncated output
-are present, privileged actions are gated outside the model, and no API detail
-was coded from memory.
+are present, privileged actions are gated outside the model, prompts and
+answers stay out of the logs, and no API detail was coded from memory.
 
 Threshold: no axis below 3, average at least 4. A privileged action performed
 on the model's say-so, or a factual feature with no grounding and no

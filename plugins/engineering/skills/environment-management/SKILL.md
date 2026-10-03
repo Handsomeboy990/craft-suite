@@ -4,7 +4,7 @@ description: Owns configuration across environments: the variable inventory, the
 license: MIT
 metadata:
   category: devops-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core, devops-core]
   outputs: [variable-inventory, example-file, environment-matrix, drift-report]
 ---
@@ -100,17 +100,28 @@ can read when the platform offers a secret type.
 
 ## 5. Drift detection
 
-Two directions, both checked. Checking one leaves either an undocumented
-requirement or a stale instruction.
+One source of truth, the inventory, and every other place that names a
+variable agrees with it. Each pair is checked in both directions: checking one
+leaves either an undocumented requirement or a stale instruction.
 
 ```
 Code to inventory   every process.env read, or equivalent, has a row
 Inventory to code   every row is read somewhere
 Inventory to example every row exists in .env.example
 Example to inventory every example line has a row
+Docs to inventory   the setup and deployment documentation names exactly the
+                    inventory's variables, and only configuration options the
+                    configuration files actually contain
 Inventory to env    every required variable is set in each environment that
                     needs it
 ```
+
+The three drifts that recur: a variable documented as required but missing
+from the example file, so every new developer meets it as a runtime error; a
+variable the code reads that no document mentions, typically one added with a
+new provider; and a documented option that the configuration file no longer
+contains. Generating the example file and the documentation table from the
+inventory removes the first and third; the pipeline check removes the rest.
 
 The last check is the one that catches the failed deployment before it
 happens. It is worth automating in the pipeline: list the required variables
@@ -130,6 +141,17 @@ Additional rules:
   see what the process actually loaded.
 - Never log a value marked secret, including partially. A prefix is enough to
   identify which key is in use, which is sometimes enough to matter.
+
+Server-only configuration:
+
+- A module that holds a write credential (a database or content store write
+  client, a payment key, an admin token) is marked server-only, so that an
+  import from client code fails the build, and it throws at load, naming the
+  variable, when its secret is missing. A missing secret then fails at start,
+  not at the first write. See `secrets-management`.
+- A variable the framework exposes to the browser through its public prefix is
+  public by definition. No secret ever carries that prefix, and the inventory's
+  `Secret` column and the prefix never disagree.
 
 ## 7. Documentation
 
@@ -153,17 +175,18 @@ Wrong:    STRIPE_SECRET_KEY=sk_test_51H...   (a test key is still a credential)
 3. Write or correct `.env.example`, section 2.
 4. Check the names against section 3.
 5. Fill the environment matrix, section 4.
-6. Run the five drift checks, section 5.
-7. Enforce startup validation, section 6.
+6. Run the six drift checks, section 5.
+7. Enforce startup validation and server-only confinement, section 6.
 8. Document, section 7.
 9. Add the required variable check to the pipeline where the platform allows
    it.
 
 ## 9. Auto-critique
 
-Score from 0 to 5: inventory complete in both directions, example file
-matching the inventory, naming consistent, environment matrix filled, drift
-checks run, startup validation enforced, documentation complete, no value
+Score from 0 to 5: inventory complete in both directions, example file and
+documentation matching the inventory, naming consistent, environment matrix
+filled, drift checks run, startup validation enforced, write credentials
+confined to server-only modules, documentation complete, no value
 anywhere.
 
 Threshold: no axis below 3, average at least 4. A committed real value, or a

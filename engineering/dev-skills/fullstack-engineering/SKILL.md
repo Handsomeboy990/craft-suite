@@ -4,7 +4,7 @@ description: Owns a feature across every layer: contract first design, schema to
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core, architecture-design, backend-engineering, frontend-engineering]
   outputs: [feature-contract, layer-completion-matrix, end-to-end-verification]
 ---
@@ -58,9 +58,16 @@ Effects       what changes in storage, what is sent, what is invalidated
 Both sides implement the same contract, and the tests assert it. Two
 implementations that agree by coincidence diverge on the first change.
 
-Where the stack generates types from a schema, generate them. Where it does
+Where the stack generates types from a schema, generate them, as a step that
+runs before both the development server and the build, so a query is typed
+against the schema that exists rather than the one remembered. Where it does
 not, define the shape once and import it on both sides. Hand written duplicate
-types are a defect that surfaces months later.
+types are a defect that surfaces months later, and generated code is never
+edited by hand.
+
+With more than one client, the server's published API is the contract, the
+clients are generated from it, and the package dependency direction is written
+down and checked, per `api-design` section 10.
 
 ## 3. Protocol, the order of work
 
@@ -103,7 +110,33 @@ array or an absent field, and hold it on both sides.
 at the time the mutation is written.
 
 **Authorization.** The UI may hide a control. The server rejects it anyway,
-and there is a test for that rejection.
+and there is a test for that rejection. Which rows a list returns is part of
+it: drafts and private content are filtered on the server from the session,
+never from a parameter the page sends.
+
+**Server functions and server actions.** Each is a public endpoint: anyone can
+call it with any payload, not only the form written for it. Each declares its
+input schema and its authorization at the definition, create paths included,
+per `backend-engineering` section 2. A form that validates in the browser and
+an action that writes the raw fields is the defect this rule exists for. A
+schema shared with the form runs on the server only when it is pure: a rule
+that fetches a user supplied URL becomes a server side request to anywhere the
+moment it is applied there.
+
+**Rendering user content.** Markdown or rich text from a user is passed
+through an allowlist sanitiser before it becomes HTML, per `input-validation`,
+never injected raw on the trust of a parser's defaults.
+
+**Framework configuration.** Part of the boundary, reviewed like code: the
+build fails on type and lint errors, the image optimiser accepts remote images
+only from named hosts, and a module holding a write credential is server-only,
+per `environment-management` section 6. The full list is in
+`resources/server-boundary-checklist.md`.
+
+**Content.** How content enters the product is chosen explicitly: a data file
+with an import script, a submission queue reviewed before publication, or a
+hosted editor. Each has a review path, and an import into production is a
+`database-operations` operation, not a script run on the side.
 
 ## 5. Layer completion matrix
 
@@ -136,6 +169,11 @@ matrix is reported as partial, with the missing cells named.
 - No endpoint shipped without a caller or a contract test.
 - No duplicated type definitions on the two sides.
 - No client side only rule that the server does not enforce.
+- No server function or server action without its schema and its
+  authorization declared at the definition.
+- No visibility decided by a parameter the client sends.
+- No build configured to ignore type or lint errors, and no unrestricted
+  remote image host.
 - No mutation without a declared invalidation.
 - No feature declared done with an unfilled matrix row.
 - No layer skipped because it is expected to work.
@@ -143,8 +181,9 @@ matrix is reported as partial, with the missing cells named.
 ## 7. Auto-critique
 
 Score from 0 to 5: contract fixed before implementation, chain traced in both
-directions, failure chain implemented, cross layer consistency, matrix
-completeness, end to end verification actually executed.
+directions, failure chain implemented, cross layer consistency, server
+boundary declared on every server function and action, matrix completeness,
+end to end verification actually executed.
 
 Threshold: no axis below 3, average at least 4. An untraced failure chain is
 an automatic failure, because that is where a feature breaks in production.
@@ -152,7 +191,7 @@ an automatic failure, because that is where a feature breaks in production.
 ## 8. Interfaces
 
 - Upstream: `architecture-design`, `project-exploration`.
-- Coordinates: `backend-engineering`, `frontend-engineering`,
-  `input-validation`, `security-audit`.
+- Coordinates: `backend-engineering`, `frontend-engineering`, `api-design`,
+  `input-validation`, `environment-management`, `security-audit`.
 - Downstream: `testing-quality`, `playwright-automation`,
   `code-review-protocol`, `technical-documentation`, `project-continuity`.

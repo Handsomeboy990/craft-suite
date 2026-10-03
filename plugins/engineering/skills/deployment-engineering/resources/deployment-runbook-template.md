@@ -35,6 +35,7 @@ after the artefact has replaced the running version.
 <migration command>
 ```
 
+Applies the committed migration files; never a schema push or sync command.
 Runs before the code deploy. Expected output: <what>.
 Applies: <which migrations, additive only>.
 Lock behaviour on the largest affected table: <known, and acceptable because>.

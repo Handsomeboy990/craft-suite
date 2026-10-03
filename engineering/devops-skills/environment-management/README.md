@@ -2,7 +2,7 @@
 
 Turns configuration into an inventory: every variable with purpose, format,
 requirement and per environment presence, a committed example file that is the
-contract, consistent naming, five drift checks in both directions, startup
+contract, consistent naming, six drift checks in both directions, startup
 validation and documentation without values.
 
 - Inputs: the code's configuration reads, the environments.

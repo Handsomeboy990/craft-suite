@@ -32,7 +32,9 @@ grow        every real failure becomes a case, so it cannot return unseen
 | Hallucination | the model invents a fact and states it confidently | ground factual answers in retrieved context, or mark them uncertain; verify a claim the feature acts on |
 | Truncated output | the answer stops mid-sentence and is used as complete | bound the output length, detect truncation, handle it |
 | Off-task or unsafe output | the output does something the feature did not intend | validate against the output contract before use; moderate where the surface needs it |
-| Cost blowout | an attacker loops the endpoint and runs up the bill | rate limit the endpoint as an expensive operation |
+| Cost blowout | an attacker loops the endpoint and runs up the bill | require a session and rate limit the endpoint as an expensive operation |
+| Output trusted as valid | a malformed or out of range value reaches the query or the store | parse the output with the same schema as the equivalent user input, allowed values read from the data |
+| Content in the logs | every user's prompt and every answer sits in plain log storage | log identifiers, token counts, latency and outcome; capture content only by an explicit, scoped, time bounded decision |
 
 ## The rule under all of it
 
