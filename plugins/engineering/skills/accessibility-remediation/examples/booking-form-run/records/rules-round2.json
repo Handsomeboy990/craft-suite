@@ -1,0 +1,7 @@
+{
+  "round": 2,
+  "summary": "round 1 plus the two escalations answered: decorative, and the native select approved",
+  "changed": ["A11Y-01", "A11Y-02", "A11Y-03", "A11Y-04", "A11Y-05", "A11Y-06", "A11Y-07", "A11Y-08", "A11Y-09"],
+  "escalated": [],
+  "questions": {}
+}

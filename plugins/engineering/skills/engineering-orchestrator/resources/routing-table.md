@@ -27,7 +27,7 @@ obvious. When several rows match, the row with the stricter gates wins.
 | clean up, restructure, extract, rename | REFACTORING | TESTING |
 | use library X, replace X, upgrade X | DEPENDENCY | SECURITY, PERFORMANCE |
 | test the whole thing, QA the product, validate before launch | QUALITY_CAMPAIGN | TESTING, SECURITY |
-| keyboard, screen reader, contrast, WCAG, a11y | ACCESSIBILITY | UI_UX |
+| keyboard, screen reader, contrast, WCAG, a11y, fix the audit findings | ACCESSIBILITY | UI_UX |
 | did anything else break, after the fix, before merging | REGRESSION | TESTING |
 | upgrade the framework, move to X, replace provider Y | MIGRATION | DEPENDENCY, DATABASE |
 | inherited project, no tests, nobody knows this code | LEGACY | EXPLORATION, REFACTORING |
@@ -89,6 +89,7 @@ category.
 | an event is emitted for measurement | `analytics-instrumentation`, `data-privacy` |
 | a conditional ships disabled | `feature-flags`, with an owner and a date |
 | an interactive element is added or changed | `accessibility-testing` |
+| accessibility findings are to be fixed | `accessibility-remediation`, then the verify loop of `accessibility-testing` |
 | a public URL changes | `seo-engineering`, redirect map |
 | a dependency is added or bumped | `dependency-selection`, `security-audit` |
 | a migration is added | `code-review-protocol`, reversibility check |

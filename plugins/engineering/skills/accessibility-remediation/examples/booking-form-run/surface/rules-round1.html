@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a table, Example Bistro</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* Remediated by the decision rules of accessibility-remediation, round 1.
+     A11Y-02 and A11Y-07 are escalated and left as they were. */
+
+  /* A11Y-08, focus family: the suppression removed and an indicator given,
+     on keyboard focus, offset so it reads against the filled button. */
+  .btn-primary:focus-visible, .btn:focus-visible, .icon-btn:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  /* A11Y-09, contrast family: the token, not a new grey. */
+  .hint { color: var(--text-muted); font-size: 0.9rem; }
+
+  label { display: block; font-weight: 600; }
+  figure { margin: 0; }
+  figcaption { font-weight: 600; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to booking</a>
+<main id="main">
+  <h1>Book a table</h1>
+
+  <section>
+    <h2>Getting here</h2>
+    <!-- A11Y-01, images family: the content brief says the map exists to show
+         the step-free entrance. That fact matters to everyone, so it is
+         written as text; the alternative names the image. -->
+    <figure>
+      <img id="access-map" src="access-map.svg" width="320" height="180" alt="Map of the entrance on Rue Example">
+      <figcaption>Step-free entrance: the side door, to the left of the main steps.</figcaption>
+    </figure>
+    <!-- A11Y-02: escalated, intent not stated anywhere. Unchanged. -->
+    <img id="dining-room" src="dining-room.svg" width="320" height="180">
+  </section>
+
+  <form id="booking" novalidate>
+    <h2>Your booking</h2>
+
+    <!-- A11Y-05 and A11Y-06, forms family: a visible label, the error tied to
+         the field, flagged invalid, and focus moved to it on submit. -->
+    <div class="field">
+      <label for="email">Email address</label>
+      <input id="email" type="email" autocomplete="email" placeholder="name@example.com" aria-describedby="email-hint">
+      <div id="email-error" class="error" hidden>Enter an email address, like name@example.com</div>
+      <p id="email-hint" class="hint">We send the confirmation here.</p>
+    </div>
+
+    <!-- A11Y-07: escalated, native replacement proposed. Unchanged; no ARIA
+         added over the divs in the meantime. -->
+    <div class="field">
+      <span id="room-label">Room</span>
+      <div id="room" class="custom-select" data-value="main">
+        <div class="cs-current">Main room</div>
+        <div class="cs-options" hidden>
+          <div class="cs-option" data-value="main">Main room</div>
+          <div class="cs-option" data-value="terrace">Terrace</div>
+          <div class="cs-option" data-value="private">Private room</div>
+        </div>
+      </div>
+    </div>
+
+    <fieldset>
+      <legend>Guests</legend>
+      <ul id="guests">
+        <li><span class="guest-name">Guest 1</span></li>
+        <li><span class="guest-name">Guest 2</span>
+          <!-- A11Y-03, names family: the name says what and whom; the icon
+               is hidden from the tree. -->
+          <button type="button" class="icon-btn remove" aria-label="Remove guest 2" data-name-pattern="remove"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 3l10 10M13 3L3 13" stroke="#1a1a1a" stroke-width="2"/></svg></button>
+        </li>
+      </ul>
+      <!-- A11Y-04, roles family: the native element, not a role on a div. -->
+      <button type="button" id="add-guest" class="btn">Add guest</button>
+    </fieldset>
+
+    <button type="submit" class="btn-primary">Request booking</button>
+    <p id="status"></p>
+  </form>
+</main>
+<script>
+  window.onInvalidEmail = (input) => {
+    input.setAttribute('aria-invalid', 'true');
+    input.setAttribute('aria-describedby', 'email-error email-hint');
+    input.focus();
+  };
+  window.onValidEmail = (input) => {
+    input.removeAttribute('aria-invalid');
+    input.setAttribute('aria-describedby', 'email-hint');
+  };
+</script>
+<script src="app.js"></script>
+</body>
+</html>

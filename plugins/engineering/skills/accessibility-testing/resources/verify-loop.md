@@ -1,7 +1,7 @@
 # The verify loop: measuring whether a fix helped
 
-Used whenever a remediation comes back from `frontend-engineering`, or any
-change claims to have fixed an accessibility finding. The question is not
+Used whenever a remediation comes back from `accessibility-remediation`, or
+any change claims to have fixed an accessibility finding. The question is not
 whether the scanner is quieter. It is whether the person the finding named can
 now do what they could not.
 

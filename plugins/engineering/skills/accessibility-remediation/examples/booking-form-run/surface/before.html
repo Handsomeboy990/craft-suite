@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a table, Example Bistro</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  /* A11Y-08: the focus indicator removed on the primary button. */
+  .btn-primary:focus { outline: none; }
+  /* A11Y-09: hint text in a grey outside the tokens, 2.8 to 1 on white. */
+  .hint { color: #999999; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to booking</a>
+<main id="main">
+  <h1>Book a table</h1>
+
+  <section>
+    <h2>Getting here</h2>
+    <!-- A11Y-01 --><img id="access-map" src="access-map.svg" width="320" height="180">
+    <!-- A11Y-02 --><img id="dining-room" src="dining-room.svg" width="320" height="180">
+  </section>
+
+  <form id="booking" novalidate>
+    <h2>Your booking</h2>
+
+    <div class="field">
+      <!-- A11Y-05 --><input id="email" type="email" placeholder="Email address" autocomplete="email">
+      <!-- A11Y-06 --><div id="email-error" class="error" hidden>Enter an email address, like name@example.com</div>
+      <!-- A11Y-09 --><p id="email-hint" class="hint">We send the confirmation here.</p>
+    </div>
+
+    <div class="field">
+      <span id="room-label">Room</span>
+      <!-- A11Y-07 -->
+      <div id="room" class="custom-select" data-value="main">
+        <div class="cs-current">Main room</div>
+        <div class="cs-options" hidden>
+          <div class="cs-option" data-value="main">Main room</div>
+          <div class="cs-option" data-value="terrace">Terrace</div>
+          <div class="cs-option" data-value="private">Private room</div>
+        </div>
+      </div>
+    </div>
+
+    <fieldset>
+      <legend>Guests</legend>
+      <ul id="guests">
+        <li><span class="guest-name">Guest 1</span></li>
+        <li><span class="guest-name">Guest 2</span>
+          <!-- A11Y-03 --><button type="button" class="icon-btn remove"><svg viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13" stroke="#1a1a1a" stroke-width="2"/></svg></button>
+        </li>
+      </ul>
+      <!-- A11Y-04 --><div id="add-guest" class="btn">Add guest</div>
+    </fieldset>
+
+    <!-- A11Y-08 --><button type="submit" class="btn-primary">Request booking</button>
+    <p id="status"></p>
+  </form>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
