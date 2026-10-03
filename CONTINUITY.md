@@ -12,7 +12,7 @@ itself is phase 8 of `docs/ROADMAP.md`; the direction behind it is
 
 ### State
 
-On `dev`, merged (pull requests 55 to 80). Manifests 3.30.0, 169 skills, 33
+On `dev`, merged (pull requests 55 to 83). Manifests 3.30.0, 169 skills, 33
 agents; `CHANGELOG.md` 3.30.0 lists everything since 3.29.0.
 
 - Agents 27 to 33 and `codebase-mapping` (3.28.0, 3.29.0).
@@ -81,14 +81,11 @@ marked; run those one at a time.
    record specifies: it depends on `accessibility-testing`, never closes a
    finding itself, ships a measured worked example, and is given to
    `frontend-engineer`. Count-changing: run it alone.
-2. **In progress when this was written, each its own pull request:** the
-   remaining reference follow-ups (`task-complexity`, `project-exploration`,
-   `delivery-orchestrator`, `fullstack-engineering` example,
-   `architecture-design`, `rate-limiting`); a `validate-orchestration.sh`
-   check that `agent-tiers.md`, `agent-dispatch.md` and `team-routing.md` each
-   list every agent; and in `libraries/ui`, a no-JavaScript-safe first render
-   for `Reveal` and `Stagger` plus a pause control for `GradientBackdrop`. If
-   any never arrives as a pull request, restart it from this list.
+2. **Done on 2026-10-03** (82, 83, and 84 once merged): the remaining reference
+   follow-ups, `Reveal` and `Stagger` visible without JavaScript plus a pause
+   control on `GradientBackdrop`, and check 14 keeping the three agent tables
+   complete. When an agent is added, it now needs a row in `agent-tiers.md`,
+   `team-routing.md` and `agent-dispatch.md`, or orchestration fails.
 3. **`site-template-engineer`, finish the shared example code**: the remaining
    identical files (admin and API routes, `middleware.ts`, configs,
    `admin.css`, `sw.js`, scripts) into `_shared`; SKILL.md section 4 for the
