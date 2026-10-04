@@ -24,7 +24,9 @@ client-side navigation mounts straight into the viewport simply appears, with
 no entrance, since the hook cannot tell it from hydrated server HTML. So
 arming only ever touches content
 off screen, and since it changes opacity and transform alone, it shifts no
-layout. `data-armed` on the wrapper says which path was taken.
+layout. `data-armed` on the wrapper says which path was taken. Arming hides
+at once: the transition is part of the shown state only, so the server HTML
+never visibly fades out before it fades back in.
 
 Why this and not an `html.js` class or a `<noscript>` style: both need a
 script or a stylesheet outside the component, which a project that copies the

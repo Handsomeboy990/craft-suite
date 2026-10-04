@@ -35,7 +35,8 @@ reference analysis are in `docs/architecture/RESOURCE_LIBRARY.md` and
 
 This is the foundation plus the motion layer the roadmap names: scroll reveal,
 staggered entrance, magnetic and tilt hover, logo marquee, scroll-stacked
-cards and one background. A real-browser and screen-reader pass and the
+cards and one background. A real-browser pass in Chromium is recorded in
+`BROWSER_PASS.md`; a screen-reader pass, other engines and the
 `design-director` sign-off are still to come, and the duplicated site-example
 code is consolidated into this library in a later phase-8.1 PR.
 
@@ -48,8 +49,57 @@ npm run typecheck
 npm test
 ```
 
-CI runs the same. The repository's root has no Node toolchain; this library
-carries its own, isolated here.
+CI runs the same three commands; it does not run the browser tests below.
+The repository's root has no Node toolchain; this library carries its own,
+isolated here.
+
+## Browser tests
+
+`npm test` runs the unit tests in jsdom. `npm run test:browser` runs the
+Playwright tests in `e2e/` in a real Chromium, for what jsdom cannot prove:
+layout, sticky positioning, focus, real pointer and touch input, running
+animations, the accessibility tree, and the page with JavaScript off.
+
+```
+npx playwright install chromium   # once, where the download is allowed
+npm run test:browser
+```
+
+How it is built:
+
+- `e2e/fixtures/` holds one page per component. `e2e/serve.mjs` bundles them
+  with esbuild, renders each on the server with `renderToString` and hydrates
+  it in the browser, so a page is what a server-rendered site sends. Playwright
+  starts that server itself (`webServer` in `playwright.config.ts`, port 4317,
+  or `PORT`).
+- `e2e/support.ts` fails any test whose page logs a console error or warning,
+  so a hydration mismatch cannot pass behind a green assertion. It also holds
+  the shared checks: focus visibility by `elementFromPoint`, running
+  animations, and axe-core.
+- Test files end in `.e2e.ts`, so vitest never picks them up.
+
+Where Playwright's browser download is blocked, point `CHROMIUM_PATH` at any
+Chromium executable:
+
+```
+CHROMIUM_PATH=/path/to/chromium npm run test:browser
+```
+
+The launch then adds `--no-sandbox --disable-gpu`, which a root, GPU-less
+container needs. One way to get such a binary without the Playwright download
+host is the `@sparticuz/chromium` npm package, installed outside this
+library (it is not a dependency and nothing of it is committed):
+
+```
+mkdir -p /tmp/chromium-pkg && cd /tmp/chromium-pkg
+npm init -y && npm install @sparticuz/chromium
+node -e "import('@sparticuz/chromium').then(m => m.default.executablePath()).then(console.log)"
+# prints the extracted binary, /tmp/chromium; pass it as CHROMIUM_PATH
+```
+
+Without `CHROMIUM_PATH`, the normally installed Playwright Chromium is used,
+with no extra flags. Traces of failing tests land in `e2e/.results/`, which
+is ignored.
 
 ## How a project uses it
 

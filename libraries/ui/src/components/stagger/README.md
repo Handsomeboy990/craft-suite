@@ -14,7 +14,9 @@ is seen only once a client layout effect has confirmed `IntersectionObserver`,
 no reduced motion, and that the group is not already in the viewport. A group
 on screen at mount is never hidden and faded back, so there is no flash, and
 arming touches opacity and transform alone, so it shifts no layout.
-`data-armed` on the group says which path was taken. `Reveal`'s README gives
+`data-armed` on the group says which path was taken. As in `Reveal`, arming
+hides at once; the transition and its delay apply only on the way in.
+`Reveal`'s README gives
 the reasoning against an `html.js` class or a `<noscript>` style.
 
 ## Reduced motion is the floor
