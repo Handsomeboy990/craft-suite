@@ -1,24 +1,37 @@
 # The code the two site examples share, held once in _shared/.
 #
 # The portfolio-sports-coach and showcase-electrician examples share the same
-# site shell, back office and library code; they differ only in their content
-# model (lib/types, lib/schema, lib/legal, lib/content), their data and their
-# trade tokens. The files below live in _shared/ and nowhere else. Each example
-# installs _shared as the local package site-template-shared and imports these
-# modules from it; the shared code receives the per-app content model as props
-# and arguments, and never imports it. See _shared/README.md.
+# site shell, back office, route handlers, request proxy, Next configuration,
+# service worker and operator scripts; they differ only in their content model
+# (lib/types, lib/schema, lib/legal, lib/content, lib/instance), their public
+# pages, their data and their trade tokens. The files below live in _shared/
+# and nowhere else. Each example installs _shared as the local package
+# site-template-shared and imports these modules from it; the shared code
+# receives the per-app content model as props and arguments (the instance of
+# lib/instance.ts), and never imports it. See _shared/README.md.
+#
+# What Next requires inside each app stays there as a thin file that delegates
+# here: the route files under app/, proxy.ts and next.config.mjs. Those, and
+# every other file still identical in both examples, are listed with their
+# reason in app-local-files.txt.
 #
 # A CI guard holds the arrangement: every path below exists in _shared/, none
 # exists in either example (a copy would shadow the source and drift), every
-# file under _shared/components and _shared/lib is listed here, the shared code
-# imports nothing from an example, and both examples are wired to the package.
+# file in _shared/ other than README.md and package.json is listed here, the
+# shared code imports nothing from an example, both examples are wired to the
+# package, no file is identical in both examples unless app-local-files.txt
+# lists it, and no example keeps a middleware.ts.
 # One path per line, relative to _shared/.
+
+# The site shell.
 components/site/Counter.tsx
 components/site/Parallax.tsx
 components/site/ThemeToggle.tsx
 components/site/Reveal.tsx
 components/site/LegalDocument.tsx
 components/site/AppShell.tsx
+
+# The back office components.
 components/admin/PasswordForm.tsx
 components/admin/LoginForm.tsx
 components/admin/MediaManager.tsx
@@ -28,6 +41,42 @@ components/admin/HistoryList.tsx
 components/admin/ContentEditor.tsx
 components/admin/MessageList.tsx
 components/admin/ResetForm.tsx
+
+# The back office pages, its frame and its stylesheet.
+admin/AdminLayout.tsx
+admin/HomePage.tsx
+admin/HelpPage.tsx
+admin/ContentPage.tsx
+admin/ThemePage.tsx
+admin/HistoryPage.tsx
+admin/LoginPage.tsx
+admin/MediaPage.tsx
+admin/MessagesPage.tsx
+admin/ResetPage.tsx
+admin/SecurityPage.tsx
+admin/admin.css
+
+# The route handlers: the admin API, the public form, the media, the manifest,
+# robots.txt and the service worker.
+routes/admin/content.ts
+routes/admin/fields.ts
+routes/admin/history.ts
+routes/admin/login.ts
+routes/admin/logout.ts
+routes/admin/messages.ts
+routes/admin/password.ts
+routes/admin/push.ts
+routes/admin/reset.ts
+routes/admin/upload.ts
+routes/contact.ts
+routes/media.ts
+routes/manifest.ts
+routes/robots.ts
+routes/service-worker.ts
+
+# The library: sessions and CSRF, the request proxy, rate limits, uploads, the
+# store, history, messages, mail, push, motion, tokens, paths, the field
+# language, the checklist and the instance contract.
 lib/history.ts
 lib/push.ts
 lib/motion.ts
@@ -43,3 +92,12 @@ lib/rate-limit.ts
 lib/mail.ts
 lib/paths.ts
 lib/fields.ts
+lib/checklist.ts
+lib/site-instance.ts
+lib/proxy.ts
+
+# The Next configuration and the operator scripts.
+config/next-config.mjs
+scripts/push-keys.mjs
+scripts/seed-media.mjs
+scripts/set-password.mjs

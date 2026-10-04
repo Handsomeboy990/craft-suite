@@ -1,25 +1,9 @@
-import { readFileSync } from 'node:fs';
-import { FILES } from 'site-template-shared/lib/paths';
-import { GROUPS } from '@/lib/schema';
-import { requirePage } from 'site-template-shared/lib/guard';
-import ContentEditor from 'site-template-shared/components/admin/ContentEditor';
+// Shared page: ../_shared/admin/ThemePage.tsx, given this instance. Next reads the route and its segment config here.
+import ThemePage from 'site-template-shared/admin/ThemePage';
+import { instance } from '@/lib/instance';
 
 export const dynamic = 'force-dynamic';
 
-export default async function ThemePage() {
-  const { csrf } = await requirePage('/admin/theme');
-  const content = JSON.parse(readFileSync(FILES.content, 'utf8')) as Record<string, unknown>;
-  const groups = GROUPS.filter((group) => group.id === 'theme');
-
-  return (
-    <>
-      <h1>Couleurs et animation</h1>
-      <p className="admin-field__hint">
-        Les deux thèmes sont livrés et modifiables séparément : le thème sombre n’est pas déduit du
-        clair. Vérifiez le contraste après un changement de couleur, le texte doit rester lisible
-        dans les deux thèmes.
-      </p>
-      <ContentEditor groups={groups} content={content} csrf={csrf} />
-    </>
-  );
+export default function Page() {
+  return <ThemePage instance={instance} />;
 }

@@ -39,25 +39,39 @@ point describes the two site examples.
 
 ## One source for the shared code
 
-The two site examples share their site shell, their back office components and
-their library code: thirty files, listed in `shared-files.txt`. Those files live
-once, in `_shared/`, and neither example carries a copy. Each example installs
-`_shared` as the local package `site-template-shared`:
+The two site examples share their site shell, their back office pages and
+components, their route handlers, their request proxy and its content security
+policy, their service worker, their Next configuration, their operator scripts
+and the library behind all of it, sessions and CSRF included: sixty four files,
+listed in `shared-files.txt`. Those files live once, in `_shared/`, and neither
+example carries a copy. Each example installs `_shared` as the local package
+`site-template-shared`:
 
 ```
 package.json      "site-template-shared": "file:../_shared"
 .npmrc            install-links=true    a copy in node_modules, not a link
-next.config.mjs   transpilePackages: ['site-template-shared']
+next.config.mjs   ...siteNextConfig, transpilePackages: ['site-template-shared']
+proxy.ts          export { proxy } from 'site-template-shared/lib/proxy'
+app/**/route.ts   a thin file per shared route, page or handler
 imports           site-template-shared/lib/auth, ...
 ```
 
+Next finds a route only by a file under the app's own `app/`, and reads the
+segment config, the proxy matcher and the configuration statically from the
+app's files, ignoring a re-exported one. So each example keeps one thin file
+per shared route, which re-exports the handler or passes the instance to a
+shared factory, and declares its segment config. Those files, and every other
+file still identical in both examples, are listed in `app-local-files.txt`
+with the reason each one stays in the app.
+
 The content model is not shared and is never imported by the shared code. Each
 example keeps its own `lib/types.ts`, `lib/schema.ts`, `lib/legal.ts` and
-`lib/content.ts`, and passes what the shared code needs as props and arguments:
-its ui strings to the theme toggle and the install prompt, its legal pages to
-the legal document, its field groups to the content editor, its theme to the
-token bridge. The shared code declares only the shape it reads, so TypeScript
-checks each hand over where it happens. `_shared/README.md` has the table.
+`lib/content.ts`, hands them to the shared routes and admin pages once in
+`lib/instance.ts`, and passes the rest as props: its ui strings to the theme
+toggle and the install prompt, its legal pages to the legal document, its
+theme to the token bridge. The shared code declares only the shape it reads,
+so TypeScript checks each hand over where it happens. `_shared/README.md` has
+the table.
 
 Why a copy and not a link or a path alias: `_shared/` sits outside each app's
 root. Linked there, which is what npm does by default for a `file:`
@@ -77,9 +91,12 @@ directory. After editing `_shared`, refresh the installed copy in each example
 (`rm -rf node_modules/site-template-shared && npm install`) and build both.
 
 A CI step holds the arrangement: every listed file exists in `_shared/` and in
-neither example, every file in `_shared/components` and `_shared/lib` is
-listed, the shared code imports nothing from an example, and both examples are
-wired to the package.
+neither example, every file in `_shared/` is listed and shipped by its
+`package.json`, the shared code imports nothing from an example, both examples
+are wired to the package, no file is identical in both examples unless
+`app-local-files.txt` lists it, a listed file stays a short pointer to the
+package rather than logic, and no example, the dashboard included, keeps a
+`middleware.ts`: all three use `proxy.ts`, the Next 16 convention.
 
 ## Why there is a server
 

@@ -2,10 +2,18 @@
 // falls back to the offline page for a navigation it cannot reach, and never
 // caches the back office or an API response: a cached back office is a signed
 // in page left on a shared machine.
+//
+// It is served by a route rather than from public/, because public/ is read
+// only from the app's own directory and this file has one source for both
+// examples. Each app's `app/sw.js/route.ts` re-exports GET from here, and the
+// URL stays /sw.js, so the worker's scope stays the whole origin. The source
+// below is the worker exactly as the browser receives it. It sits in a
+// template literal, so it must carry no backtick, no dollar brace and no
+// backslash.
 
-const VERSION = 'v1';
-const SHELL = `shell-${VERSION}`;
-const MEDIA = `media-${VERSION}`;
+const SOURCE = `const VERSION = 'v1';
+const SHELL = 'shell-' + VERSION;
+const MEDIA = 'media-' + VERSION;
 const OFFLINE = '/offline';
 
 self.addEventListener('install', (event) => {
@@ -89,3 +97,15 @@ self.addEventListener('notificationclick', (event) => {
   const target = event.notification.data?.url ?? '/admin/messages';
   event.waitUntil(self.clients.openWindow(target));
 });
+`;
+
+export function GET() {
+  return new Response(SOURCE, {
+    headers: {
+      // What Next sent for the file in public/, kept so the browser checks for
+      // a new worker on every navigation.
+      'Content-Type': 'application/javascript; charset=UTF-8',
+      'Cache-Control': 'public, max-age=0',
+    },
+  });
+}

@@ -1,5 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
+// The request proxy, the Next 16 convention that replaces middleware. It always
+// runs on the Node.js runtime, and its matcher below is read statically.
+//
 // Three jobs, none of them access control.
 //
 // The content security policy, with a nonce issued per request: a script that
@@ -14,7 +17,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 // saves a round trip.
 const OPEN = ['/login', '/setup', '/offline', '/privacy'];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
   const https = (request.headers.get('x-forwarded-proto') ?? '').split(',')[0]?.trim() === 'https';
   const dev = process.env.NODE_ENV !== 'production';

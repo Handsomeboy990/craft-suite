@@ -1,7 +1,6 @@
-import { mailConfigured } from 'site-template-shared/lib/mail';
-import { pushPublicKey } from 'site-template-shared/lib/push';
-import type { LegalPage } from './legal';
-import type { ShowcaseContent } from './types';
+import type { InstanceContent } from './site-instance';
+import { mailConfigured } from './mail';
+import { pushPublicKey } from './push';
 
 // What is left to do, computed rather than remembered. A client who does not
 // know the trade cannot be expected to notice that their site still shows a
@@ -29,7 +28,9 @@ function collectImages(value: unknown, found: string[] = []): string[] {
   return found;
 }
 
-export function buildChecklist(content: ShowcaseContent, legalPages: LegalPage[]): Task[] {
+// The legal pages arrive already built by the instance, which alone knows its
+// content model; only the markers they still carry are read here.
+export function buildChecklist(content: InstanceContent, legalPages: { markers: string[] }[]): Task[] {
   const markers = legalPages.flatMap((page) => page.markers).length;
   const placeholders = new Set(
     collectImages(content).filter((src) => src.includes('placeholder')),

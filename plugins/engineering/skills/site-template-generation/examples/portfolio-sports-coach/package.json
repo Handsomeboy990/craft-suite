@@ -7,10 +7,10 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "set-password": "node scripts/set-password.mjs",
-    "push-keys": "node scripts/push-keys.mjs",
+    "set-password": "node node_modules/site-template-shared/scripts/set-password.mjs",
+    "push-keys": "node node_modules/site-template-shared/scripts/push-keys.mjs",
     "backup": "tar -czf backup-$(date +%Y%m%d-%H%M%S).tar.gz data",
-    "seed-media": "node scripts/seed-media.mjs"
+    "seed-media": "node node_modules/site-template-shared/scripts/seed-media.mjs"
   },
   "dependencies": {
     "next": "16.3.5",
