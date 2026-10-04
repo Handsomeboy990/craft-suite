@@ -44,9 +44,8 @@ and 3.31.0 everything since 3.30.0.
   `docs/architecture/AGENT_REFERENCES.md` (opencode from source) and
   `APP_REFERENCES.md` (confhub, yc_directory, neither licensed for reuse).
 
-In progress when this was written: the single-source refactor of the 29 shared
-example files, branch `refactor/site-examples-single-source`, not yet pushed.
-If it never arrives as a pull request, restart it from roadmap 8.1.
+The single-source refactor of the shared site example files landed in 75 and
+was finished in 89.
 
 Merged on 2026-10-03, pull requests 77 to 80: ADR 0003 accepted and
 `libraries/ui` under MIT (ADR 0004); the opencode lessons in seven of the
