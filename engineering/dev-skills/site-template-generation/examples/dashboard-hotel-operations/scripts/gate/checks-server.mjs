@@ -41,7 +41,7 @@ const D1 = {
       }
     };
     for (const dir of ['app', 'lib', 'components']) walk(join(gate.appDir, dir));
-    files.push(join(gate.appDir, 'middleware.ts'));
+    files.push(join(gate.appDir, 'proxy.ts'));
 
     // Every sentence of the configuration a person reads.
     const sentences = new Set();
@@ -80,7 +80,7 @@ const D1 = {
     return problems.length
       ? result('fail', problems.slice(0, 40))
       : result('pass', [
-          `${files.length} files of app/, lib/, components/ and the middleware read, comments set aside`,
+          `${files.length} files of app/, lib/, components/ and the proxy read, comments set aside`,
           `${sentences.size} configuration sentences, the instance name, colour literals, markup text and ${thresholds.size} threshold values searched: none found`,
         ]);
   },
