@@ -53,16 +53,20 @@ export function Stagger({
   const { armed, shown } = useEntrance(ref, 0.15);
   const Item = Group === "div" ? "div" : "li";
 
+  // As in Reveal, the transition belongs to the entrance only: arming hides the
+  // items at once, so the server HTML never visibly fades out first.
   const itemStyle = (index: number): CSSProperties =>
-    armed
-      ? {
-          opacity: shown ? 1 : 0,
-          transform: shown ? "none" : "translateY(0.75rem)",
-          transition:
-            "opacity var(--cu-motion-base, 200ms) var(--cu-motion-ease, ease), transform var(--cu-motion-base, 200ms) var(--cu-motion-ease, ease)",
-          transitionDelay: `${delayMs + Math.min(index, STAGGER_MAX_STEPS) * stepMs}ms`,
-        }
-      : {};
+    !armed
+      ? {}
+      : shown
+        ? {
+            opacity: 1,
+            transform: "none",
+            transition:
+              "opacity var(--cu-motion-base, 200ms) var(--cu-motion-ease, ease), transform var(--cu-motion-base, 200ms) var(--cu-motion-ease, ease)",
+            transitionDelay: `${delayMs + Math.min(index, STAGGER_MAX_STEPS) * stepMs}ms`,
+          }
+        : { opacity: 0, transform: "translateY(0.75rem)" };
 
   const items = Children.toArray(children);
 

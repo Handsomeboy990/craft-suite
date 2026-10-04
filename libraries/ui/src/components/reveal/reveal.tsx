@@ -32,15 +32,20 @@ export function Reveal({ children, delayMs = 0, className }: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const { armed, shown } = useEntrance(ref, 0.15);
 
-  const style: CSSProperties = armed
-    ? {
-        opacity: shown ? 1 : 0,
-        transform: shown ? "none" : "translateY(1rem)",
-        transition:
-          "opacity var(--cu-motion-base, 200ms) var(--cu-motion-ease, ease), transform var(--cu-motion-base, 200ms) var(--cu-motion-ease, ease)",
-        transitionDelay: `${delayMs}ms`,
-      }
-    : {};
+  // The transition belongs to the entrance only. Arming hides the content at
+  // once; were the transition already set, the server HTML would visibly fade
+  // out first, on screen whenever the browser restores a scroll position.
+  const style: CSSProperties = !armed
+    ? {}
+    : shown
+      ? {
+          opacity: 1,
+          transform: "none",
+          transition:
+            "opacity var(--cu-motion-base, 200ms) var(--cu-motion-ease, ease), transform var(--cu-motion-base, 200ms) var(--cu-motion-ease, ease)",
+          transitionDelay: `${delayMs}ms`,
+        }
+      : { opacity: 0, transform: "translateY(1rem)" };
 
   return (
     <div
