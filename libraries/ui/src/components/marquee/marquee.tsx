@@ -41,6 +41,50 @@ function canAnimate(el: Element | null): el is HTMLElement {
   return !!el && typeof (el as HTMLElement).animate === "function";
 }
 
+/*
+ * Brings a focused item of the paused loop fully into view (WCAG 2.4.7 and
+ * 2.4.11). The loop pauses wherever it happens to be, so without this a
+ * focused item can sit half or wholly outside the clipped viewport. Two
+ * things are corrected:
+ *
+ * - the browser's own focus scroll: on a fully hidden item it scrolls the
+ *   clipped viewport, and that offset would outlive the focus and shift the
+ *   loop's seam. It is reset to zero;
+ * - the loop's position: the animation is seeked, not the layout moved, to the
+ *   nearest offset that shows the whole item, so the loop resumes from there
+ *   without a jump.
+ *
+ * The track is two copies, each `copy` pixels wide, translated from 0 to
+ * -copy (left) or from -copy to 0 (right) over one iteration. Only the first
+ * copy is focusable, so its item is shown by an offset within [-copy, 0].
+ */
+function revealFocused(
+  viewport: HTMLElement,
+  track: HTMLElement,
+  item: HTMLElement,
+  animation: Animation,
+  direction: "left" | "right",
+  durationMs: number,
+) {
+  viewport.scrollLeft = 0;
+  const view = viewport.getBoundingClientRect();
+  const trackBox = track.getBoundingClientRect();
+  const box = item.getBoundingClientRect();
+  const copy = trackBox.width / 2;
+  if (copy <= 0 || box.width > view.width) return;
+  const offset = trackBox.left - view.left;
+  const start = box.left - trackBox.left;
+  const lowest = Math.max(-start, -copy);
+  const highest = Math.min(view.width - box.width - start, 0);
+  const target = Math.min(Math.max(offset, lowest), highest);
+  if (Math.abs(target - offset) < 0.5) return;
+  const progress = direction === "left" ? -target / copy : (target + copy) / copy;
+  const time = Number(animation.currentTime ?? 0);
+  const iterationStart = time - (time % durationMs);
+  // Stay inside the iteration: its very end is the next one's start, the other offset.
+  animation.currentTime = iterationStart + Math.min(Math.max(progress, 0), 1 - 1e-6) * durationMs;
+}
+
 const rowStyle: CSSProperties = {
   display: "flex",
   flexWrap: "nowrap",
@@ -139,7 +183,18 @@ export function Marquee({
         style={viewportStyle}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        onFocus={() => setFocused(true)}
+        onFocus={(event) => {
+          setFocused(true);
+          const viewport = event.currentTarget;
+          const item = event.target;
+          // After the browser's own focus scroll, and after the pause has applied.
+          requestAnimationFrame(() => {
+            const animation = animationRef.current;
+            const track = trackRef.current;
+            if (!animation || !track || document.activeElement !== item) return;
+            revealFocused(viewport, track, item, animation, direction, durationMs);
+          });
+        }}
         onBlur={(event) => {
           if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false);
         }}

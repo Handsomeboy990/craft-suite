@@ -22,6 +22,12 @@ when the platform and the viewer both allow it.
   2.2.2). The loop pauses while the pointer is over it or focus is inside it,
   and a toggle button pauses and resumes it for anyone who cannot hover. The
   button's name stays the same; `aria-pressed` carries its state.
+- A focused item is always wholly in view (WCAG 2.4.7, 2.4.11). The loop
+  pauses wherever it is, so on focus the animation is seeked to the nearest
+  position that shows the whole item, and the scroll offset the browser's own
+  focus scroll leaves on the clipped viewport is reset, so the seam never
+  shifts. The loop resumes from there without a jump. Verified in a real
+  browser by `e2e/marquee.e2e.ts`; see `BROWSER_PASS.md`.
 
 ## API
 

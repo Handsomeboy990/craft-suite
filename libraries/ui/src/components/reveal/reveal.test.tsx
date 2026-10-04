@@ -121,9 +121,25 @@ describe("Reveal", () => {
     const wrapper = wrapperOf("below the fold");
     await waitFor(() => expect(wrapper).toHaveAttribute("data-armed", "true"));
     expect(wrapper.style.opacity).toBe("0");
-    expect(wrapper.style.transitionDelay).toBe("40ms");
     act(() => intersect?.());
     expect(wrapper.style.opacity).toBe("1");
+    expect(wrapper.style.transition).toMatch(/opacity/);
+    expect(wrapper.style.transitionDelay).toBe("40ms");
+  });
+
+  it("hides armed content at once, with no transition, so it never fades out", async () => {
+    mockMatchMedia(false);
+    mockIntersectionObserver();
+    render(
+      <Reveal delayMs={40}>
+        <span>below the fold</span>
+      </Reveal>,
+    );
+    const wrapper = wrapperOf("below the fold");
+    await waitFor(() => expect(wrapper).toHaveAttribute("data-armed", "true"));
+    // A transition here would play the server HTML fading out, then in again.
+    expect(wrapper.style.transition).toBe("");
+    expect(wrapper.style.transitionDelay).toBe("");
   });
 
   it("never hides content already on screen at mount, so there is no flash", async () => {

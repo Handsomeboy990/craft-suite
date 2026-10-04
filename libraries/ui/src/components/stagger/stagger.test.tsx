@@ -108,13 +108,15 @@ describe("Stagger", () => {
     // jsdom lays nothing out, so the group's box is empty at the top: off screen, armed.
     expect(container.querySelector("[data-cu='stagger']")).toHaveAttribute("data-armed", "true");
     expect(items(container).map((item) => item.style.opacity)).toEqual(["0", "0", "0"]);
+    // Hidden at once, with no transition, so nothing fades out before it enters.
+    expect(items(container).map((item) => item.style.transition)).toEqual(["", "", ""]);
+    act(() => intersect?.());
+    expect(items(container).map((item) => item.style.opacity)).toEqual(["1", "1", "1"]);
     expect(items(container).map((item) => item.style.transitionDelay)).toEqual([
       "20ms",
       "70ms",
       "120ms",
     ]);
-    act(() => intersect?.());
-    expect(items(container).map((item) => item.style.opacity)).toEqual(["1", "1", "1"]);
   });
 
   it("server-renders every item visible, with no hiding style, for a page without JavaScript", () => {
@@ -165,6 +167,7 @@ describe("Stagger", () => {
     const { container } = render(<Stagger stepMs={10}>{children}</Stagger>);
     const group = container.querySelector("[data-cu='stagger']");
     await waitFor(() => expect(group).toHaveAttribute("data-armed", "true"));
+    act(() => intersect?.());
     const delays = items(container).map((item) => item.style.transitionDelay);
     expect(delays[10]).toBe("100ms");
     expect(delays[13]).toBe("100ms");
