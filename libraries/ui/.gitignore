@@ -1,0 +1,5 @@
+node_modules/
+package-lock.json
+e2e/.out/
+e2e/.results/
+playwright-report/
