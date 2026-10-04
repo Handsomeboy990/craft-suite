@@ -88,14 +88,14 @@ For an agent or a person picking this up on their own machine.
 2. `git fetch origin && git checkout dev && git pull`. Then list the open pull
    requests and the remote branches: work in flight lives there, never only in
    a local copy.
-3. Two branches were in progress on 2026-10-04, each its own pull request once
-   pushed: `refactor/site-examples-shared-2` (the remaining identical site
-   example files into `_shared`, and `middleware.ts` to `proxy.ts` in all
-   three examples) and `test/ui-real-browser` (a Playwright layer for
-   `libraries/ui`, with `BROWSER_PASS.md`). If either branch exists without a
-   pull request, check it out, finish its verification (below), and open the
-   pull request. If neither exists, restart them from item 3 and item 4 under
-   "Next, by agent".
+3. Two pull requests finished the in-progress work on 2026-10-04: 88,
+   `test/ui-real-browser` (a Playwright layer for `libraries/ui`, 45 browser
+   tests, two defects fixed, `BROWSER_PASS.md`), and 89,
+   `refactor/site-examples-shared-2` (`_shared` now holds 64 files, every
+   remaining identical file moved or listed in `examples/app-local-files.txt`
+   with its reason, `proxy.ts` in all three examples, the dashboard gate 26 of
+   26 after the migration). If either is still open, merge it; nothing else on
+   those branches is unfinished.
 4. Before running the six scripts or `bash plugins/build.sh`, remove any agent
    copies under `.claude/worktrees/` (`git worktree list`, then
    `git worktree remove`), or validate in a clean clone: those copies are
@@ -126,23 +126,24 @@ marked; run those one at a time.
    control on `GradientBackdrop`, and check 14 keeping the three agent tables
    complete. When an agent is added, it now needs a row in `agent-tiers.md`,
    `team-routing.md` and `agent-dispatch.md`, or orchestration fails.
-3. **In progress, `refactor/site-examples-shared-2`**
-   (`site-template-engineer`): the remaining identical files (admin and API
-   routes, `middleware.ts`, configs, `admin.css`, `sw.js`, scripts) into
-   `_shared`; SKILL.md section 4 for the shared package;
-   `verification/hardcoded.mjs` scanning `_shared`; `middleware.ts` to
-   `proxy.ts` in the three examples. Done means: all three build, answer with
-   the nonce CSP, refuse a write without CSRF, the dashboard gate passes D1 to
-   D26, the CI guard fails on a planted copy.
-4. **In progress, `test/ui-real-browser`** (`playwright-engineer`): a
-   Playwright layer in `libraries/ui` (`npm run test:browser`) covering what
-   jsdom cannot, and `BROWSER_PASS.md`. Still for a person, locally: a real
-   screen reader (NVDA or VoiceOver) and Firefox and WebKit, on `libraries/ui`,
-   the dashboard example and the `accessibility-remediation` example; then the
-   `design-director` sign-off of the motion set.
-5. **`ci-cd-engineer`**, after item 3 lands (same workflow file): build the
-   site examples in CI and decide whether the dashboard gate and
-   `test:browser` run there.
+3. **Done in 89**: `_shared` is the single source for the two site examples
+   (64 files), installed as `site-template-shared`; each app keeps only thin
+   route files, `proxy.ts`, its config and its own `lib/instance.ts`. A new
+   file identical in both apps now fails CI unless it moves to `_shared` or is
+   listed in `examples/app-local-files.txt` with its reason. `proxy.ts`
+   replaces `middleware.ts` in all three examples, with the CSP unchanged.
+   Not run there: the browser scripts in `examples/verification/`.
+4. **Done in 88**: the Chromium pass on `libraries/ui` (`npm run
+   test:browser`, 45 tests; Marquee focus visibility and the Reveal and Stagger
+   entrance fixed). Still for a person, locally: a real screen reader (NVDA or
+   VoiceOver), Firefox and WebKit, real touch hardware, zoom and reflow, on
+   `libraries/ui`, the dashboard example and the `accessibility-remediation`
+   example; then the `design-director` sign-off of the motion set.
+5. **`ci-cd-engineer`**, now that 88 and 89 land: build the three examples in
+   CI, and run `libraries/ui` `test:browser` as its own job
+   (`npx playwright install --with-deps chromium`, results uploaded on
+   failure), non-blocking first, then required; decide the same for the
+   dashboard gate. Then the CHANGELOG entries for 87 to 89 under Unreleased.
 6. **Phase 9, brief to brand, content and site**: ADR 0006 first, then
    `brand-identity`, `editorial-line`, `social-content`, a `community-manager`
    agent and the design-to-code handoff, one count-changing pull request at a
