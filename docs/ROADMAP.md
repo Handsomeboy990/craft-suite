@@ -323,6 +323,65 @@ first, then the UI library, then the agent and operations layers.
   Still open: a screen-reader pass, a second browser engine, timing over a real
   network, and `middleware.ts` to `proxy.ts` across all three examples.
 
+## Phase 9: from brief to brand, content and site
+
+The owner's goal, stated 2026-10-04: define what is wanted as a community
+manager, a designer and similar roles, agree a brief (an editorial line, a
+branding, a portfolio and the like), have that brief turned into a clean
+visual identity, a moodboard and a prototype on the Claude Design canvas, then
+have the agents take the prototype and build the real site from it. What
+exists today: the brief side (`project-brief`, `requirements-analysis`,
+`clarification-gate`, `delivery-orchestrator`), the design side
+(`design-research`, `design-director`, `design-system`,
+`design-authenticity`, `design-verification`) and the build side
+(`site-template-generation`, `libraries/ui`, `frontend-engineering`). What is
+missing: any skill or agent for brand identity, editorial line or community
+management, and a written handoff from a Claude Design canvas to code.
+
+Facts the plan rests on, checked 2026-10-04: an agent can create a Design
+artifact (the Claude Design canvas) from Claude Code with the Artifact tool and
+fill it from a brief; a Claude Design prototype is a self-contained HTML
+bundle an agent can read back; the `DesignSync` tool, started by the owner
+through `/design-sync`, keeps a claude.ai/design design-system project and
+`libraries/ui` in step one component at a time; Vercel can import a Claude
+Design bundle as a hosted prototype. No tool lets an agent hand a brief to
+Claude Design and receive its own generation back unattended, so the flow
+below has the agent fill the canvas, or the owner paste the brief into
+claude.ai/design and hand back the link.
+
+- [ ] **Decide the scope** (S, decide first). ADR 0006 with
+  `technology-selection`: which skills and which agent, and what stays with
+  existing roles (`design-director` keeps design authority). Proposed shape
+  below; the owner accepts before anything is built.
+- [ ] **`brand-identity`** (M, count-changing). A visual identity from a brief:
+  positioning and personality, logo brief and usage rules, palette with
+  measured contrast pairs in both themes, type scale, imagery and iconography
+  direction, tone of voice, a moodboard with every reference sourced and
+  licence-noted, and the charter document itself. Hands its tokens to
+  `design-system`. Governed by `design-authenticity`.
+- [ ] **`editorial-line`** (M, count-changing). The editorial line: audience,
+  promise, pillars, tone and vocabulary, what is never said, formats, and the
+  review rule. Feeds `social-content` and site copy.
+- [ ] **`social-content`** (M, count-changing). The community manager's
+  method: a calendar per channel, post formats and sizes per network, captions
+  in the editorial line, a moderation and reply policy, and measurement that
+  states what it can and cannot attribute. Visual posts drafted on the Design
+  canvas.
+- [ ] **`community-manager` agent** (S, count-changing). Owns
+  `editorial-line` and `social-content`; hands visual work to `design-director`
+  and site work to `site-template-engineer`. Rows in `agent-tiers.md`,
+  `team-routing.md` and `agent-dispatch.md` (check 14).
+- [ ] **The design-to-code handoff** (M). A resource, in `design-system` or
+  `site-template-generation`, for the whole path: brief validated, Design
+  canvas created and filled (or the owner's claude.ai/design link read back),
+  owner sign-off, tokens synced to `libraries/ui` through `/design-sync`,
+  the site built from the prototype, `design-verification` comparing the build
+  to the canvas, and `production-verification` before anything is called
+  delivered.
+- [ ] **A worked run** (M). One real brief taken end to end: editorial line,
+  charter, moodboard and prototype on the canvas, then the site, every gate
+  observed.
+
 ## Parked and external
 
 Not waiting on work in this repository.

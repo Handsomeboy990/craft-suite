@@ -1,9 +1,9 @@
-# Continuity, 2026-10-02
+# Continuity, 2026-10-04
 
 State of the repository for whoever takes it over, human or agent. Written to
 `engineering/dev-skills/project-continuity/resources/continuity-template.md`.
 
-## Handover, 2026-10-02: phase 8 in progress
+## Handover, 2026-10-04: phase 8 closing, phase 9 planned
 
 Read this section first. The rest of the file is the record up to 3.29.0 and
 stays true; this section is what changed since and what to do next. The plan
@@ -44,9 +44,8 @@ and 3.31.0 everything since 3.30.0.
   `docs/architecture/AGENT_REFERENCES.md` (opencode from source) and
   `APP_REFERENCES.md` (confhub, yc_directory, neither licensed for reuse).
 
-In progress when this was written: the single-source refactor of the 29 shared
-example files, branch `refactor/site-examples-single-source`, not yet pushed.
-If it never arrives as a pull request, restart it from roadmap 8.1.
+The single-source refactor of the shared site example files landed in 75 and
+was finished in 89.
 
 Merged on 2026-10-03, pull requests 77 to 80: ADR 0003 accepted and
 `libraries/ui` under MIT (ADR 0004); the opencode lessons in seven of the
@@ -79,6 +78,36 @@ and ADR 0005 proposed (80). `CHANGELOG.md` 3.31.0 lists them.
   licence recorded first, nothing copied. React Bits is under the Commons
   Clause: ideas only. `elder-plinius/L1B3RT4S` was excluded (jailbreak prompts).
 
+### Resuming locally
+
+For an agent or a person picking this up on their own machine.
+
+1. Read `AGENTS.md`, then this section, then phase 8 and phase 9 of
+   `docs/ROADMAP.md`.
+2. `git fetch origin && git checkout dev && git pull`. Then list the open pull
+   requests and the remote branches: work in flight lives there, never only in
+   a local copy.
+3. Two pull requests finished the in-progress work on 2026-10-04: 88,
+   `test/ui-real-browser` (a Playwright layer for `libraries/ui`, 45 browser
+   tests, two defects fixed, `BROWSER_PASS.md`), and 89,
+   `refactor/site-examples-shared-2` (`_shared` now holds 64 files, every
+   remaining identical file moved or listed in `examples/app-local-files.txt`
+   with its reason, `proxy.ts` in all three examples, the dashboard gate 26 of
+   26 after the migration). If either is still open, merge it; nothing else on
+   those branches is unfinished.
+4. Before running the six scripts or `bash plugins/build.sh`, remove any agent
+   copies under `.claude/worktrees/` (`git worktree list`, then
+   `git worktree remove`), or validate in a clean clone: those copies are
+   scanned as if they were the tree and the counts fail.
+5. A Chromium for Playwright: where the Playwright download host is blocked,
+   install the `@sparticuz/chromium` npm package outside the repository and
+   point the harness at it with `CHROMIUM_PATH`. Locally, a normal
+   `npx playwright install` works and also brings Firefox and WebKit, which
+   this environment never had.
+6. Commit as the owner, atomic, in English, with no trailer and no mention of a
+   tool; open draft pull requests into `dev`; read each body back and remove
+   any footer the platform appended (see "How the work has been run").
+
 ### Next, by agent
 
 Each item names the agent and the governing skill. Count-changing items are
@@ -96,22 +125,34 @@ marked; run those one at a time.
    control on `GradientBackdrop`, and check 14 keeping the three agent tables
    complete. When an agent is added, it now needs a row in `agent-tiers.md`,
    `team-routing.md` and `agent-dispatch.md`, or orchestration fails.
-3. **`site-template-engineer`, finish the shared example code**: the remaining
-   identical files (admin and API routes, `middleware.ts`, configs,
-   `admin.css`, `sw.js`, scripts) into `_shared`; SKILL.md section 4 for the
-   shared package; `verification/hardcoded.mjs` scanning `_shared`; and
-   `middleware.ts` to `proxy.ts` across the three examples. Wide: alone.
-4. **`playwright-engineer` with `accessibility-testing`**: the real-browser and
-   screen-reader pass on the `libraries/ui` motion layer and on the dashboard
-   example; a second browser engine for the dashboard gate; then the
-   `design-director` sign-off of the motion set.
-5. **`ci-cd-engineer`**: decide whether the dashboard gate and the site
-   example builds run in CI (a broken edit in `_shared` only shows in a local
-   build today).
-6. **`design-research`, `time-builders-webpage.vercel.app`**: blocked by this
-   environment's network; run it locally.
-7. **Release**: done as 3.31.0, which took in everything that was under
-   Unreleased in `CHANGELOG.md`. The next bump waits for new entries there.
+3. **Done in 89**: `_shared` is the single source for the two site examples
+   (64 files), installed as `site-template-shared`; each app keeps only thin
+   route files, `proxy.ts`, its config and its own `lib/instance.ts`. A new
+   file identical in both apps now fails CI unless it moves to `_shared` or is
+   listed in `examples/app-local-files.txt` with its reason. `proxy.ts`
+   replaces `middleware.ts` in all three examples, with the CSP unchanged.
+   Not run there: the browser scripts in `examples/verification/`.
+4. **Done in 88**: the Chromium pass on `libraries/ui` (`npm run
+   test:browser`, 45 tests; Marquee focus visibility and the Reveal and Stagger
+   entrance fixed). Still for a person, locally: a real screen reader (NVDA or
+   VoiceOver), Firefox and WebKit, real touch hardware, zoom and reflow, on
+   `libraries/ui`, the dashboard example and the `accessibility-remediation`
+   example; then the `design-director` sign-off of the motion set.
+5. **`ci-cd-engineer`**, now that 88 and 89 land: build the three examples in
+   CI, and run `libraries/ui` `test:browser` as its own job
+   (`npx playwright install --with-deps chromium`, results uploaded on
+   failure), non-blocking first, then required; decide the same for the
+   dashboard gate. Then the CHANGELOG entries for 87 to 89 under Unreleased.
+6. **Phase 9, brief to brand, content and site**: ADR 0006 first, then
+   `brand-identity`, `editorial-line`, `social-content`, a `community-manager`
+   agent and the design-to-code handoff, one count-changing pull request at a
+   time. The plan and the facts it rests on are in `docs/ROADMAP.md` phase 9.
+7. **Smaller items still open in the roadmap**: exercise the full agent layer
+   on a real project (phase 4), deflate `overview.md` and translate
+   `installation.md` and `configuration.md` (phase 7).
+8. **Local only**: the design study of `time-builders-webpage.vercel.app`
+   (blocked by this environment's network); n8n end to end and a second code
+   owner stay parked on the owner.
 
 ### Learned in this phase
 
