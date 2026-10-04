@@ -138,11 +138,14 @@ marked; run those one at a time.
    VoiceOver), Firefox and WebKit, real touch hardware, zoom and reflow, on
    `libraries/ui`, the dashboard example and the `accessibility-remediation`
    example; then the `design-director` sign-off of the motion set.
-5. **`ci-cd-engineer`**, now that 88 and 89 land: build the three examples in
-   CI, and run `libraries/ui` `test:browser` as its own job
-   (`npx playwright install --with-deps chromium`, results uploaded on
-   failure), non-blocking first, then required; decide the same for the
-   dashboard gate. Then the CHANGELOG entries for 87 to 89 under Unreleased.
+5. **`ci-cd-engineer`**: done in `.github/workflows/examples.yml`. The three
+   examples build on every pull request that touches them; the `libraries/ui`
+   browser tests and the dashboard gate run as their own jobs,
+   `continue-on-error` for now, evidence uploaded. What remains: once each has
+   stayed green on dev for a few weeks, drop its `continue-on-error` and its
+   paths filter, then add it to branch protection
+   (`documentation/branch-protection.md`). CHANGELOG Unreleased covers 87 to
+   89 and this workflow.
 6. **Phase 9, brief to brand, content and site**: ADR 0006 first, then
    `brand-identity`, `editorial-line`, `social-content`, a `community-manager`
    agent and the design-to-code handoff, one count-changing pull request at a

@@ -18,7 +18,29 @@ versions it never had.
 
 ## Unreleased
 
-Nothing yet.
+No manifest change: no skill or agent was added. Everything since 3.31.0.
+
+- Roadmap phase 9, from brief to brand, content and site (#87): the pipeline
+  from an agreed brief to a brand identity, an editorial line, social content
+  and a built site, planned on the tool facts verified on 2026-10-04 and gated
+  on ADR 0006. `CONTINUITY.md` gained a procedure for resuming the work from a
+  local clone.
+- `libraries/ui` in a real browser (#88): 45 Playwright tests beside the 73
+  jsdom unit tests, `npm run test:browser`, covering focus, dialogs, tooltips,
+  reduced motion and the scroll primitives in Chromium, with the observed
+  pass recorded in `BROWSER_PASS.md`. A screen reader, Firefox, WebKit and
+  the `design-director` sign-off remain for a person.
+- Site-template examples (#89): the code the two site examples share lives
+  once, in `examples/_shared` (64 files), installed as the local package
+  `site-template-shared`; each example keeps its own values in
+  `lib/instance.ts`. The three examples moved from `middleware.ts` to Next 16
+  `proxy.ts`, and the validate job's guard checks the single source.
+- CI (`.github/workflows/examples.yml`): the three examples are installed,
+  typechecked and built on every pull request that touches them; the
+  `libraries/ui` browser tests and the dashboard gate D1 to D26 run in
+  Playwright's Chromium as their own jobs, non-blocking until proved stable,
+  with traces and the gate report uploaded. Observed before the change: three
+  builds clean, 45 of 45 browser tests and 26 of 26 gate lines passed.
 
 ## 3.31.0 remediation, measured
 
