@@ -1,11 +1,15 @@
 {
   "name": "site-template-shared",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "The site shell, back office and library code shared by the site-template examples, consumed as TypeScript source.",
+  "description": "The site shell, back office, route handlers, request proxy, configuration and operator scripts shared by the site-template examples, consumed as TypeScript source.",
   "files": [
+    "admin",
     "components",
+    "config",
     "lib",
+    "routes",
+    "scripts",
     "README.md"
   ],
   "peerDependencies": {

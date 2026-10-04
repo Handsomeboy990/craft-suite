@@ -1,73 +1,16 @@
-import { headers } from 'next/headers';
+// Shared frame: ../_shared/admin/AdminLayout.tsx, given this instance. The two
+// stylesheets are imported here, the app's own first, so their order is set
+// where Next reads it.
 import type { ReactNode } from 'react';
-import { readSession } from 'site-template-shared/lib/auth';
-import { getContent } from '@/lib/content';
-import { unreadCount } from 'site-template-shared/lib/messages';
-import { cssVariables, themeScript } from 'site-template-shared/lib/tokens';
-import LogoutButton from 'site-template-shared/components/admin/LogoutButton';
+import AdminLayout from 'site-template-shared/admin/AdminLayout';
+import { instance } from '@/lib/instance';
 import '../globals.css';
-import './admin.css';
+import 'site-template-shared/admin/admin.css';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata = { robots: { index: false, follow: false } };
 
-const LINKS = [
-  ['/admin', 'Tableau de bord'],
-  ['/admin/content', 'Contenu'],
-  ['/admin/media', 'Images'],
-  ['/admin/theme', 'Couleurs'],
-  ['/admin/messages', 'Messages'],
-  ['/admin/history', 'Historique'],
-  ['/admin/security', 'Sécurité'],
-  ['/admin/aide', 'Aide'],
-];
-
-export default async function AdminLayout({ children }: { children: ReactNode }) {
-  const content = getContent();
-  const nonce = (await headers()).get('x-nonce') ?? undefined;
-  const session = await readSession();
-  const unread = session ? unreadCount() : 0;
-
-  return (
-    <html lang={content.site.locale} suppressHydrationWarning>
-      <head>
-        <style nonce={nonce} dangerouslySetInnerHTML={{ __html: cssVariables(content.theme) }} />
-        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: themeScript }} />
-        {session ? <meta name="csrf-token" content={session.csrf} /> : null}
-      </head>
-      <body>
-        {session ? (
-          <div className="admin">
-            <div>
-              <div className="admin__bar">
-                <p className="admin__title">{content.site.name}</p>
-                <a className="admin-small" href="/" target="_blank" rel="noreferrer">
-                  Voir le site
-                </a>
-                <LogoutButton csrf={session.csrf} />
-              </div>
-              <nav aria-label="Administration">
-                <ul className="admin__nav">
-                  {LINKS.map(([href, label]) => (
-                    <li key={href}>
-                      <a href={href}>
-                        {label}
-                        {href === '/admin/messages' && unread > 0 ? (
-                          <> <span className="admin__badge">{unread}</span></>
-                        ) : null}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-            <main className="admin__main">{children}</main>
-          </div>
-        ) : (
-          children
-        )}
-      </body>
-    </html>
-  );
+export default function Layout({ children }: { children: ReactNode }) {
+  return <AdminLayout instance={instance}>{children}</AdminLayout>;
 }

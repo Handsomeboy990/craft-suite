@@ -1,21 +1,4 @@
-import { requirePage } from 'site-template-shared/lib/guard';
-import { list } from 'site-template-shared/lib/history';
-import HistoryList from 'site-template-shared/components/admin/HistoryList';
+// Shared page: ../_shared/admin/HistoryPage.tsx. Next reads the route and its segment config here.
+export { default } from 'site-template-shared/admin/HistoryPage';
 
 export const dynamic = 'force-dynamic';
-
-export default async function HistoryPage() {
-  const { csrf } = await requirePage('/admin/history');
-  return (
-    <>
-      <h1>Historique</h1>
-      <p className="admin-field__hint">
-        Chaque enregistrement conserve la version qu’il remplace. Si une modification ne vous
-        convient pas, revenez à la version précédente : la restauration est elle-même annulable,
-        puisqu’elle conserve à son tour l’état qu’elle remplace. Les trente dernières versions sont
-        gardées.
-      </p>
-      <HistoryList versions={list()} csrf={csrf} />
-    </>
-  );
-}

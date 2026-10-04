@@ -34,25 +34,47 @@ npm run push-keys        # prints a VAPID pair to put in the environment
 
 ## The shared code, and copying this example out
 
-The site shell, the back office components and the library code this example
-has in common with the other site example live once, in `../_shared`. They are
-installed as the local package `site-template-shared` (`"file:../_shared"` in
-`package.json`), copied into `node_modules` rather than linked, because
-`.npmrc` sets `install-links=true`, and compiled with the app through
-`transpilePackages` in `next.config.mjs`. Imports read
-`site-template-shared/lib/auth`, `site-template-shared/components/site/Reveal`
-and so on. The content model stays here: `lib/types.ts`, `lib/schema.ts` and
-`lib/legal.ts` are this instance's own, and the shared code receives what it
-needs as props and arguments instead of importing them.
+Everything this example has in common with the other site example lives once,
+in `../_shared`: the site shell, the back office pages and components, the
+route handlers, the request proxy with its content security policy, the
+service worker, the Next configuration, the operator scripts and the library
+behind them, sessions and CSRF included. It is installed as the local package
+`site-template-shared` (`"file:../_shared"` in `package.json`), copied into
+`node_modules` rather than linked, because `.npmrc` sets `install-links=true`,
+and compiled with the app through `transpilePackages` in `next.config.mjs`.
+
+What stays here is what belongs to this instance, and what Next requires to
+live in the app:
+
+```
+lib/types.ts lib/schema.ts lib/legal.ts lib/content.ts
+                  the content model, this instance's own
+lib/instance.ts   the instance as the shared code receives it: the loader,
+                  the writer, the allow list, the legal pages and the form
+app/              the public pages, and a thin file per shared route: Next
+                  finds a route only by a file under app/ and reads its
+                  segment config there, so each one re-exports a shared
+                  handler or passes lib/instance.ts to a shared factory
+proxy.ts          re-exports the shared proxy; the matcher is written here
+                  because Next reads it statically from this file
+next.config.mjs   spreads the shared configuration and adds transpilePackages
+```
+
+`../app-local-files.txt` lists every file still identical in both examples,
+with the reason it stays in each app.
 
 To take this example out of the repository, copy two directories: this one and
 `../_shared`, nothing else. Either keep them side by side as they are here,
 or put `_shared` anywhere and change the one path in `package.json`. Keep the
 `.npmrc`: without it npm links the package instead of copying it, and the
 build fails on every shared import. To fold the shared code into the project
-for good, copy `_shared/components` and `_shared/lib` into this directory, replace
-`site-template-shared/` with `@/` in the imports, and drop the dependency, the
-`.npmrc` and the `transpilePackages` line.
+for good, copy the directories of `_shared` (`admin`, `components`, `config`,
+`lib`, `routes`, `scripts`) into this directory, replace
+`site-template-shared/` with `@/` in the imports under `app/`, `lib/` and
+`proxy.ts`, import `./config/next-config.mjs` by relative path in
+`next.config.mjs` (the alias does not apply there), point the npm scripts at
+`scripts/`, and drop the dependency, the `.npmrc` and the `transpilePackages`
+line.
 
 After a change in `../_shared`, refresh the installed copy, since npm does not
 notice it: `rm -rf node_modules/site-template-shared && npm install`.
@@ -63,7 +85,7 @@ notice it: `rm -rf node_modules/site-template-shared && npm install`.
 | Rule of the skill | Where to look |
 |---|---|
 | Template, content and tokens kept apart | `components/`, `data/content.json`, `../_shared/lib/tokens.ts` |
-| Content read at runtime, written by the back office | `lib/content.ts`, `app/api/admin/content/route.ts` |
+| Content read at runtime, written by the back office | `lib/content.ts`, `../_shared/routes/admin/content.ts` |
 | Required fields refused by name, on read and on write | `lib/content.ts`, `validate` |
 | Alt text is content, and required | `lib/content.ts`, `lib/schema.ts` |
 | Both palettes authored, neither derived | `data/content.json`, `theme.palettes` |
@@ -73,13 +95,14 @@ notice it: `rm -rf node_modules/site-template-shared && npm install`.
 | The back office is generated from the contract | `lib/schema.ts`, `../_shared/components/admin/ContentEditor.tsx` |
 | A path outside the schema cannot be written | `lib/schema.ts`, `applyPatch` |
 | Sessions server side, CSRF on every write | `../_shared/lib/auth.ts` |
+| Content security policy with a nonce per request | `proxy.ts`, `../_shared/lib/proxy.ts` |
 | Login and public form rate limited | `../_shared/lib/rate-limit.ts` |
 | Uploads checked by type and by content, no SVG | `../_shared/lib/uploads.ts` |
 | Path traversal refused on media | `../_shared/lib/uploads.ts`, `resolveUpload` |
-| The contact form reaches an inbox | `app/api/contact/route.ts`, `app/admin/messages` |
+| The contact form reaches an inbox | `../_shared/routes/contact.ts`, `../_shared/admin/MessagesPage.tsx` |
 | Legal pages from facts, gaps marked | `lib/legal.ts` |
 | The site's own 404 and offline pages | `app/not-found.tsx`, `app/offline/page.tsx` |
-| Manifest generated, worker that never caches the admin | `app/manifest.webmanifest/route.ts`, `public/sw.js` |
+| Manifest generated, worker that never caches the admin | `../_shared/routes/manifest.ts`, `../_shared/routes/service-worker.ts`, served at `/sw.js` |
 
 ## The data directory
 

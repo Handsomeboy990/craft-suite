@@ -107,29 +107,39 @@ jobs:
           # The code the two site-template examples share lives once, in
           # examples/_shared, listed in examples/shared-files.txt. Each example
           # installs it as the local package site-template-shared and passes
-          # its own content model in. This guard fails if a shared file is
+          # its own content model in. What Next requires inside each app stays
+          # there as a thin file, listed with its reason in
+          # examples/app-local-files.txt. This guard fails if a shared file is
           # missing from the source, if a copy reappears in an example (it would
           # shadow the source and drift), if the list and the source disagree,
-          # if the shared code imports anything from an example, or if an
-          # example is no longer wired to the package.
+          # if a shared directory is left out of the package, if the shared code
+          # imports anything from an example, if an example is no longer wired
+          # to the package, if any file is identical in both examples without
+          # being listed as app local, if a listed file grows into logic, or if
+          # an example goes back to the deprecated middleware.ts.
           EX=engineering/dev-skills/site-template-generation/examples
           SH="$EX/_shared"
-          LIST="$EX/shared-files.txt"
+          APPS="portfolio-sports-coach showcase-electrician"
           status=0
+          SHARED_LIST=$(grep -vE '^[[:space:]]*(#|$)' "$EX/shared-files.txt")
+          LOCAL_LIST=$(grep -vE '^[[:space:]]*(#|$)' "$EX/app-local-files.txt")
           while IFS= read -r rel; do
-            case "$rel" in ''|\#*) continue ;; esac
             [ -f "$SH/$rel" ] || { echo "shared file missing from _shared: $rel"; status=1; }
-            for app in portfolio-sports-coach showcase-electrician; do
+            for app in $APPS; do
               [ ! -e "$EX/$app/$rel" ] || { echo "copy of a shared file in $app: $rel"; status=1; }
             done
-          done < "$LIST"
-          for f in $(cd "$SH" && find components lib -type f | sort); do
-            grep -qxF "$f" "$LIST" || { echo "file in _shared not listed in shared-files.txt: $f"; status=1; }
+          done <<< "$SHARED_LIST"
+          for f in $(cd "$SH" && find . -type f ! -path './node_modules/*' ! -name README.md ! -name package.json | sed 's#^\./##' | sort); do
+            grep -qxF "$f" <<< "$SHARED_LIST" || { echo "file in _shared not listed in shared-files.txt: $f"; status=1; }
           done
-          if grep -rnE "from '(@/|(\.\./)+(portfolio-sports-coach|showcase-electrician)/)" "$SH/components" "$SH/lib"; then
+          for dir in $(cut -d/ -f1 <<< "$SHARED_LIST" | sort -u); do
+            grep -qF "\"$dir\"" "$SH/package.json" \
+              || { echo "_shared/package.json does not ship $dir/ in its files"; status=1; }
+          done
+          if grep -rnE "(from|import) ['\"](@/|(\.\./)+(portfolio-sports-coach|showcase-electrician|dashboard-hotel-operations)/)" "$SH" --include='*.ts' --include='*.tsx' --include='*.mjs' --include='*.css'; then
             echo "the shared code imports from an example; pass the value in instead"; status=1
           fi
-          for app in portfolio-sports-coach showcase-electrician; do
+          for app in $APPS; do
             A="$EX/$app"
             grep -qF '"site-template-shared": "file:../_shared"' "$A/package.json" \
               || { echo "$app does not depend on file:../_shared"; status=1; }
@@ -137,6 +147,30 @@ jobs:
               || { echo "$app/.npmrc does not set install-links=true"; status=1; }
             grep -qF "transpilePackages: ['site-template-shared']" "$A/next.config.mjs" \
               || { echo "$app/next.config.mjs does not transpile site-template-shared"; status=1; }
+          done
+          P="$EX/portfolio-sports-coach"
+          S="$EX/showcase-electrician"
+          for f in $(cd "$P" && git ls-files --cached --others --exclude-standard . | sort); do
+            if [ -f "$S/$f" ] && cmp -s "$P/$f" "$S/$f"; then
+              grep -qxF "$f" <<< "$LOCAL_LIST" \
+                || { echo "identical in both site examples, move it to _shared or list it in app-local-files.txt: $f"; status=1; }
+            fi
+          done
+          while IFS= read -r rel; do
+            for app in $APPS; do
+              [ -f "$EX/$app/$rel" ] || { echo "app-local-files.txt lists $rel, missing from $app"; status=1; continue; }
+              case "$rel" in
+                *.ts|*.tsx|*.mjs)
+                  grep -qF "site-template-shared/" "$EX/$app/$rel" \
+                    || { echo "$app/$rel is listed as app local but does not delegate to site-template-shared"; status=1; }
+                  [ "$(wc -l < "$EX/$app/$rel")" -le 25 ] \
+                    || { echo "$app/$rel is listed as app local but is longer than 25 lines: move its logic to _shared"; status=1; } ;;
+              esac
+            done
+          done <<< "$LOCAL_LIST"
+          for app in $APPS dashboard-hotel-operations; do
+            [ ! -e "$EX/$app/middleware.ts" ] || { echo "$app still has middleware.ts; Next 16 reads proxy.ts"; status=1; }
+            [ -f "$EX/$app/proxy.ts" ] || { echo "$app has no proxy.ts"; status=1; }
           done
           exit "$status"
 

@@ -1,20 +1,4 @@
-import { requirePage } from 'site-template-shared/lib/guard';
-import { listUploads } from 'site-template-shared/lib/uploads';
-import MediaManager from 'site-template-shared/components/admin/MediaManager';
+// Shared page: ../_shared/admin/MediaPage.tsx. Next reads the route and its segment config here.
+export { default } from 'site-template-shared/admin/MediaPage';
 
 export const dynamic = 'force-dynamic';
-
-export default async function MediaPage() {
-  const { csrf } = await requirePage('/admin/media');
-  return (
-    <>
-      <h1>Images</h1>
-      <p className="admin-field__hint">
-        Les images sont stockées dans le dossier de données du site, pas dans le code. Le texte
-        alternatif se renseigne dans Contenu, au moment où l’image est choisie : c’est du contenu,
-        pas de la décoration.
-      </p>
-      <MediaManager initial={listUploads()} csrf={csrf} />
-    </>
-  );
-}

@@ -137,14 +137,32 @@ data/content.json     the instance's content, the only file the back office
                       writes, the only file a backup must carry
 data/                 everything else a running instance writes, and nothing a
                       developer edits: uploads, sessions, messages, history
-lib/                  the loader, the contract, the tokens, the security
+lib/                  the instance's own code: the loader, the contract, the
+                      legal pages, and the hand over to the shared package
 app/                  routes, following the framework's own convention
 public/               what is served unchanged
+proxy.ts              the request proxy: the nonce content security policy and
+                      the redirect to the login (Next 16; never middleware.ts)
 ```
 
 No `src/` wrapper: it adds a level that carries no meaning here, and two
 instances that disagree about it cannot share a script. The framework's config
 keeps the framework's own extension.
+
+What does not differ between instances is not written once per instance. When
+two or more instances are built from the same template, the code they share,
+the security included (sessions, CSRF, rate limits, uploads, the proxy and its
+policy), the back office pages and components, the route handlers, the token
+bridge, the service worker and the operator scripts, lives once in a package
+each instance installs, and the instance passes its content model in rather
+than the package importing it. What the framework requires inside the app
+stays there as a thin file that delegates to the package: a route file under
+`app/` with its segment config, the proxy with its matcher, the framework
+config with the line that compiles the package. A file identical in two
+instances that is neither is a copy that will drift, and a check refuses it.
+The two site examples are built this way, around `examples/_shared`, the
+package `site-template-shared`; `examples/README.md` says how, and
+`examples/app-local-files.txt` lists what stays in each app and why.
 
 ### What the custom properties are called
 

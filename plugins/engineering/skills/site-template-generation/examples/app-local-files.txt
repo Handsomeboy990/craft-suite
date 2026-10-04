@@ -1,0 +1,68 @@
+# Files byte-identical in both site examples that stay in each app, and why.
+#
+# Everything the two examples have in common lives once, in _shared/ (see
+# shared-files.txt). What remains identical is listed here, each group with
+# its reason. The CI guard fails on any file identical in portfolio-sports-coach
+# and showcase-electrician that is not listed here, and on any listed .ts, .tsx
+# or .mjs file that grows past 25 lines or stops delegating to
+# site-template-shared: a listed file is a pointer, never logic.
+# One path per line, relative to each example.
+
+# Route files. Next finds a route only by a file under app/, and reads its
+# segment config (runtime, dynamic, metadata) statically from that file: a
+# re-exported `runtime` or `dynamic` is ignored with a warning. Each file
+# re-exports a shared handler or page, or passes this app's instance from
+# lib/instance.ts to a shared factory, and declares its segment config.
+app/admin/layout.tsx
+app/admin/page.tsx
+app/admin/aide/page.tsx
+app/admin/content/page.tsx
+app/admin/history/page.tsx
+app/admin/login/page.tsx
+app/admin/media/page.tsx
+app/admin/messages/page.tsx
+app/admin/reset/page.tsx
+app/admin/security/page.tsx
+app/admin/theme/page.tsx
+app/api/admin/content/route.ts
+app/api/admin/fields/route.ts
+app/api/admin/history/route.ts
+app/api/admin/login/route.ts
+app/api/admin/logout/route.ts
+app/api/admin/messages/route.ts
+app/api/admin/password/route.ts
+app/api/admin/push/route.ts
+app/api/admin/reset/route.ts
+app/api/admin/upload/route.ts
+app/api/contact/route.ts
+app/manifest.webmanifest/route.ts
+app/media/[...path]/route.ts
+app/robots.txt/route.ts
+app/sw.js/route.ts
+
+# The proxy. Next looks for proxy.ts at the app root and reads `config.matcher`
+# statically from it; a re-exported config is ignored. The function itself is
+# re-exported from site-template-shared/lib/proxy.
+proxy.ts
+
+# The Next configuration. Next reads next.config.mjs from the app root, and
+# `transpilePackages: ['site-template-shared']` has to be written there, since
+# it is what lets the shared TypeScript compile at all. The rest is spread from
+# site-template-shared/config/next-config.mjs.
+next.config.mjs
+
+# npm reads .npmrc from the project root, before the shared package exists in
+# node_modules, and install-links=true is what makes it a copy and not a link.
+.npmrc
+
+# TypeScript resolves `paths` (the @/ alias) and `include` relative to the file
+# that declares them, and Next checks and rewrites the app's own tsconfig.json
+# on build. Extending a base in node_modules would move only the compiler
+# options, and would resolve @/ against the package instead of the app.
+tsconfig.json
+
+# The app's own directories, kept in version control by a placeholder, and the
+# note on the photographs the client provides. Next serves public/ only from
+# the app's directory, and the data directory belongs to the instance.
+data/uploads/.gitkeep
+public/images/README.md
