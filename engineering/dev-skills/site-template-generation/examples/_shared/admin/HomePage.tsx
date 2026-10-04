@@ -3,7 +3,7 @@ import { unreadCount } from '../lib/messages';
 import { pushPublicKey } from '../lib/push';
 import { requirePage } from '../lib/guard';
 import PushToggle from '../components/admin/PushToggle';
-import type { InstanceContent, SiteInstance } from '../lib/instance';
+import type { InstanceContent, SiteInstance } from '../lib/site-instance';
 
 export default async function AdminHome<C extends InstanceContent>({
   instance,

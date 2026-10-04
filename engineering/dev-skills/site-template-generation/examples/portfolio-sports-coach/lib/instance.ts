@@ -1,4 +1,4 @@
-import type { SiteInstance } from 'site-template-shared/lib/instance';
+import type { SiteInstance } from 'site-template-shared/lib/site-instance';
 import { ContentError, getContent, saveContent } from './content';
 import { buildLegalPages } from './legal';
 import { GROUPS, PatchError, applyPatch } from './schema';

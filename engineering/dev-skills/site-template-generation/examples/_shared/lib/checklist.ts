@@ -1,4 +1,4 @@
-import type { InstanceContent } from './instance';
+import type { InstanceContent } from './site-instance';
 import { mailConfigured } from './mail';
 import { pushPublicKey } from './push';
 

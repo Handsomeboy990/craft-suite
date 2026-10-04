@@ -3,7 +3,7 @@ import { addMessage } from '../lib/messages';
 import { send } from '../lib/mail';
 import { notify } from '../lib/push';
 import { callerAddress, consume } from '../lib/rate-limit';
-import type { InstanceContent, SiteInstance } from '../lib/instance';
+import type { InstanceContent, SiteInstance } from '../lib/site-instance';
 
 // POST /api/contact, the public form of the instance: its declared fields, the
 // inbox label a submission is stored under and the notification title.

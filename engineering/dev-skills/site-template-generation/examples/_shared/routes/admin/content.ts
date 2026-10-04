@@ -4,7 +4,7 @@ import { HttpError, requireSession, refuseOversizedBody } from '../../lib/auth';
 import { FILES } from '../../lib/paths';
 import { callerAddress, consume } from '../../lib/rate-limit';
 import { record } from '../../lib/audit';
-import type { InstanceContent, SiteInstance } from '../../lib/instance';
+import type { InstanceContent, SiteInstance } from '../../lib/site-instance';
 
 // GET and PUT /api/admin/content, for the instance whose loader, writer and
 // allow list are passed in.

@@ -2,7 +2,7 @@ import { revalidatePath } from 'next/cache';
 import { record } from '../../lib/audit';
 import { HttpError, refuseOversizedBody, requireSession } from '../../lib/auth';
 import { list, read } from '../../lib/history';
-import type { InstanceContent, SiteInstance } from '../../lib/instance';
+import type { InstanceContent, SiteInstance } from '../../lib/site-instance';
 import { callerAddress } from '../../lib/rate-limit';
 
 // POST /api/admin/history: put the site back to a saved version, through the

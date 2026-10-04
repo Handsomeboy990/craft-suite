@@ -1,5 +1,5 @@
 import { HttpError, requireSession } from '../../lib/auth';
-import type { InstanceContent, SiteInstance } from '../../lib/instance';
+import type { InstanceContent, SiteInstance } from '../../lib/site-instance';
 
 // GET /api/admin/fields: the field map, as data. Two readers need it and
 // neither should have to crawl the back office to get it: the handover document

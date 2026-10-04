@@ -5,7 +5,7 @@ import { mailConfigured, send } from '../../lib/mail';
 import { callerAddress, consume, reset as clearLimit } from '../../lib/rate-limit';
 import { MINIMUM_PASSWORD_LENGTH } from '../../lib/auth';
 import { clearToken, hashPassword, issueToken, tokenValid } from '../../lib/reset';
-import type { InstanceContent, SiteInstance } from '../../lib/instance';
+import type { InstanceContent, SiteInstance } from '../../lib/site-instance';
 
 // POST and PUT /api/admin/reset, for the instance whose recovery address and
 // site name the link is sent with.

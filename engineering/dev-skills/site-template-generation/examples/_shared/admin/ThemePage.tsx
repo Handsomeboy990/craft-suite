@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { FILES } from '../lib/paths';
 import { requirePage } from '../lib/guard';
 import ContentEditor from '../components/admin/ContentEditor';
-import type { InstanceContent, SiteInstance } from '../lib/instance';
+import type { InstanceContent, SiteInstance } from '../lib/site-instance';
 
 export default async function ThemePage<C extends InstanceContent>({
   instance,

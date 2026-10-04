@@ -4,7 +4,7 @@ import { readSession } from '../lib/auth';
 import { unreadCount } from '../lib/messages';
 import { cssVariables, themeScript } from '../lib/tokens';
 import LogoutButton from '../components/admin/LogoutButton';
-import type { InstanceContent, SiteInstance } from '../lib/instance';
+import type { InstanceContent, SiteInstance } from '../lib/site-instance';
 
 // The back office frame: its navigation, the unread count, the sign out, and
 // the instance's own tokens so it follows the client's palette. Each app's

@@ -1,6 +1,6 @@
 import { mailConfigured } from '../lib/mail';
 import { requirePage } from '../lib/guard';
-import type { InstanceContent, SiteInstance } from '../lib/instance';
+import type { InstanceContent, SiteInstance } from '../lib/site-instance';
 
 // Written for the person who owns the site and has never administered one.
 // No vocabulary that has to be looked up, and no instruction that leads

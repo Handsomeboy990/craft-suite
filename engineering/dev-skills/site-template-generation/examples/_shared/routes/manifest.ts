@@ -1,4 +1,4 @@
-import type { InstanceContent, SiteInstance } from '../lib/instance';
+import type { InstanceContent, SiteInstance } from '../lib/site-instance';
 
 // GET /manifest.webmanifest, from the instance's own content file.
 export function manifestRoute<C extends InstanceContent>(instance: SiteInstance<C>) {

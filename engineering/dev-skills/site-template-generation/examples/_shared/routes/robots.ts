@@ -1,4 +1,4 @@
-import type { InstanceContent, SiteInstance } from '../lib/instance';
+import type { InstanceContent, SiteInstance } from '../lib/site-instance';
 
 // GET /robots.txt, from the instance's own content file.
 export function robotsRoute<C extends InstanceContent>(instance: SiteInstance<C>) {
