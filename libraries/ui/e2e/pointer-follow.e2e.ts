@@ -77,9 +77,13 @@ for (const c of CASES) {
       const seen: string[] = [];
       await page.exposeFunction("recordPointer", (type: string) => seen.push(type));
       await page.locator(c.area).evaluate((area) => {
-        area.addEventListener("pointermove", (event) =>
-          (window as unknown as { recordPointer: (t: string) => void }).recordPointer((event as PointerEvent).pointerType),
-        );
+        // Without this the browser takes the drag as a pan and cancels the
+        // pointer, which resets anyway; with it, only the touch guard keeps
+        // the target still, so the check can fail.
+        (area as HTMLElement).style.touchAction = "none";
+        const record = (window as unknown as { recordPointer: (t: string) => void }).recordPointer;
+        area.addEventListener("pointermove", (event) => record((event as PointerEvent).pointerType));
+        area.addEventListener("pointercancel", () => record("cancel"));
       });
 
       const cdp = await page.context().newCDPSession(page);
@@ -96,6 +100,7 @@ for (const c of CASES) {
       await frames(page, 3);
       // The moves really arrived as touch pointer events, and moved nothing.
       expect(seen).toContain("touch");
+      expect(seen).not.toContain("cancel");
       expect(await inlineTransform(page, c.target)).toBe("");
       await touch("touchEnd", 0);
       await frames(page, 3);
