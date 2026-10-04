@@ -1,34 +1,4 @@
-import { isConfigured, readSession } from 'site-template-shared/lib/auth';
-import { redirect } from 'next/navigation';
-import LoginForm from 'site-template-shared/components/admin/LoginForm';
+// Shared page: ../_shared/admin/LoginPage.tsx. Next reads the route and its segment config here.
+export { default } from 'site-template-shared/admin/LoginPage';
 
 export const dynamic = 'force-dynamic';
-
-export default async function LoginPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ next?: string }>;
-}) {
-  if (await readSession()) redirect('/admin');
-  const { next } = await searchParams;
-  const target = next && next.startsWith('/admin') ? next : '/admin';
-
-  return (
-    <div className="admin-login">
-      <div style={{ width: '100%', maxWidth: '24rem' }}>
-        <h1>Administration</h1>
-        {isConfigured() ? null : (
-          <p className="form__status form__status--error">
-            Aucun mot de passe n’est défini sur cette instance. Exécutez
-            <code> npm run set-password -- &apos;votre mot de passe&apos; </code>
-            sur le serveur.
-          </p>
-        )}
-        <LoginForm next={target} />
-        <p className="admin-field__hint">
-          <a href="/admin/reset">Mot de passe oublié</a>
-        </p>
-      </div>
-    </div>
-  );
-}

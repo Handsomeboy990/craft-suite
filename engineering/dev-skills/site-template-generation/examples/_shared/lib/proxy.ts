@@ -1,17 +1,22 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
-// Two jobs, both cheap enough for the edge.
+// The request proxy of both site examples, the Next 16 convention that replaces
+// middleware. Each app's `proxy.ts` re-exports this function and declares its
+// own `config`, because Next reads the matcher statically from that file and
+// ignores one that is re-exported. Proxy always runs on the Node.js runtime.
 //
-// The first is a convenience redirect: this runtime cannot read the session
-// store, so it only checks that a cookie exists. Every admin page and every
-// admin endpoint verifies the session on the server, which is where access
-// control actually lives.
+// Two jobs.
+//
+// The first is a convenience redirect: it only checks that a session cookie
+// exists, without reading the session store. Every admin page and every admin
+// endpoint verifies the session on the server, which is where access control
+// actually lives.
 //
 // The second is the content security policy. It carries a fresh nonce on every
 // request, and the layout puts that nonce on the two inline elements the site
 // needs. Anything else that ends up inside a script tag, however it got there,
 // does not run.
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
   const https = (request.headers.get('x-forwarded-proto') ?? '').split(',')[0]?.trim() === 'https';
   const dev = process.env.NODE_ENV !== 'production';
@@ -59,11 +64,3 @@ export function middleware(request: NextRequest) {
   response.headers.set('Content-Security-Policy', policy);
   return response;
 }
-
-export const config = {
-  matcher: [
-    // Everything a person navigates to, which is where a policy matters. The
-    // static chunks and the uploaded media carry their own headers.
-    { source: '/((?!_next/static|_next/image|favicon.ico).*)' },
-  ],
-};
