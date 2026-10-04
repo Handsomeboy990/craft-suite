@@ -1,0 +1,138 @@
+# Builds the code the repository ships as runnable examples, and runs the
+# real-browser checks that need more than the validate job's toolchain.
+#
+# Kept apart from validate.yml so the required status check of branch
+# protection keeps its name. Nothing here is required yet:
+#
+# - examples-build fails the run when an example stops installing,
+#   typechecking or building. It becomes a required check once it has stayed
+#   green on dev for a few weeks.
+# - ui-browser and dashboard-gate run in a real Chromium and are
+#   continue-on-error for now: a red result is reported and its evidence
+#   uploaded, but the run stays green. Each is made blocking by removing its
+#   continue-on-error line, then added to branch protection.
+#
+# The paths filter keeps unrelated pull requests fast. A check that becomes
+# required must lose its paths filter first, or branch protection waits for a
+# context that never reports on pull requests outside these paths.
+name: examples
+
+on:
+  pull_request:
+    branches: [dev, main]
+    paths:
+      - "engineering/dev-skills/site-template-generation/examples/**"
+      - "libraries/ui/**"
+      - ".github/workflows/examples.yml"
+  push:
+    branches: [dev, main]
+    paths:
+      - "engineering/dev-skills/site-template-generation/examples/**"
+      - "libraries/ui/**"
+      - ".github/workflows/examples.yml"
+
+permissions:
+  contents: read
+
+env:
+  EXAMPLES: engineering/dev-skills/site-template-generation/examples
+
+jobs:
+  examples-build:
+    name: example builds (${{ matrix.app }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app:
+          - portfolio-sports-coach
+          - showcase-electrician
+          - dashboard-hotel-operations
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # The dashboard reads node:sqlite, unflagged from 22.13.
+          node-version: "22"
+
+      - name: Install, typecheck and build
+        working-directory: ${{ env.EXAMPLES }}/${{ matrix.app }}
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+        run: |
+          # Lockfiles are gitignored by convention, so install, not ci.
+          npm install --no-audit --no-fund
+          npm run typecheck
+          npm run build
+
+  ui-browser:
+    name: libraries/ui in a real browser
+    runs-on: ubuntu-latest
+    # Non-blocking until it has proved stable. Remove to make it blocking.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install the library and Playwright's Chromium
+        working-directory: libraries/ui
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+
+      - name: Browser tests
+        working-directory: libraries/ui
+        env:
+          CI: "1"
+        run: npm run test:browser
+
+      - name: Upload the traces of a failed run
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-browser-results
+          path: libraries/ui/e2e/.results
+          retention-days: 14
+
+  dashboard-gate:
+    name: dashboard gate D1 to D26
+    runs-on: ubuntu-latest
+    # Non-blocking until it has proved stable. Remove to make it blocking.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install, build, and add the gate's browser driver
+        working-directory: ${{ env.EXAMPLES }}/dashboard-hotel-operations
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+        run: |
+          npm install --no-audit --no-fund
+          npm run build
+          # The gate drives Chromium through playwright-core, which the
+          # application itself does not depend on. Installed for the run only.
+          npm install --no-save --no-audit --no-fund playwright-core
+          npx playwright-core install --with-deps chromium
+
+      - name: Run the gate against a fresh seeded instance
+        working-directory: ${{ env.EXAMPLES }}/dashboard-hotel-operations
+        run: npm run gate
+
+      - name: Upload the gate report and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dashboard-gate-report
+          path: |
+            ${{ env.EXAMPLES }}/dashboard-hotel-operations/.gate/report.json
+            ${{ env.EXAMPLES }}/dashboard-hotel-operations/.gate/screens
+          retention-days: 14
+          if-no-files-found: warn
