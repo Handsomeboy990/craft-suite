@@ -44,7 +44,7 @@ INSTANCE=../portfolio-sports-coach npm run unlock
 ```
 
 Run the instance with `npm run build && npm start`, not `npm run dev`. The
-policy the middleware serves in production forbids `eval`, which React's
+policy the proxy serves in production forbids `eval`, which React's
 development build needs; the development server relaxes it for itself, so
 verifying against `dev` would verify a policy no client is ever served.
 
