@@ -12,7 +12,7 @@ itself is phase 8 of `docs/ROADMAP.md`; the direction behind it is
 
 ### State
 
-On `dev`, merged (pull requests 55 to 98), and this change. Manifests 3.35.0,
+On `dev`, merged (pull requests 55 to 100), and this change. Manifests 3.35.0,
 173 skills, 34 agents; `CHANGELOG.md` 3.30.0 lists everything since 3.29.0,
 and each version after it everything since the one before.
 
@@ -156,12 +156,12 @@ marked; run those one at a time.
    agent folder to the same validators and to `install.sh` `agent_domains`.
    The publishing boundary holds: the `delegation` section has no publishing
    field, so every post is handed over; changing that reopens ADR 0006.
-   Remaining: the design-to-code handoff resource in `design-system` (in
-   progress on branch `feat/design-to-code-handoff`; it references
-   `brand-identity/resources/token-handoff.md` and also names `editorial-line`
-   in the Interfaces of `site-template-generation` and
-   `frontend-engineering`), then a worked run of one real brief, which needs a
-   brief from the owner.
+   The design-to-code handoff landed as a resource of `design-system`
+   (#100), with no count change. Remaining: a worked run of one real brief,
+   end to end, following that resource's checklist. It needs a real brief
+   from the owner (a client, a portfolio or the owner's own brand) and the
+   owner's own steps: the claude.ai/design link if that mode is chosen, the
+   canvas sign-off, and `/design-sync`.
 7. **Smaller items still open in the roadmap**: exercise the full agent layer
    on a real project (phase 4), deflate `overview.md` and translate
    `installation.md` and `configuration.md` (phase 7).

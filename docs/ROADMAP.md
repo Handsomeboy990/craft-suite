@@ -367,13 +367,9 @@ claude.ai/design and hand back the link.
 - [x] **`community-manager` agent**. Delivered in 3.35.0 (#98), in
   `agents/communication/`, shipped in the documents bundle; it drafts and
   never publishes.
-- [ ] **The design-to-code handoff** (M). A resource, in `design-system` or
-  `site-template-generation`, for the whole path: brief validated, Design
-  canvas created and filled (or the owner's claude.ai/design link read back),
-  owner sign-off, tokens synced to `libraries/ui` through `/design-sync`,
-  the site built from the prototype, `design-verification` comparing the build
-  to the canvas, and `production-verification` before anything is called
-  delivered.
+- [x] **The design-to-code handoff**. Delivered as
+  `design-system/resources/design-to-code-handoff.md` (#100): eight gated
+  steps, the canvas in three modes, `/design-sync` started only by the owner.
 - [ ] **A worked run** (M). One real brief taken end to end: editorial line,
   charter, moodboard and prototype on the canvas, then the site, every gate
   observed.
