@@ -361,11 +361,9 @@ claude.ai/design and hand back the link.
 - [x] **`editorial-line`**. Delivered in 3.33.0 (#94), in the new
   `documents/communication/` category, routed by `delivery-orchestrator` until
   `community-manager` exists.
-- [ ] **`social-content`** (M, count-changing). The community manager's
-  method: a calendar per channel, post formats and sizes per network, captions
-  in the editorial line, a moderation and reply policy, and measurement that
-  states what it can and cannot attribute. Visual posts drafted on the Design
-  canvas.
+- [x] **`social-content`**. Delivered in 3.34.0 (#96): drafts and never
+  publishes; network specifications cited with a date or left as fields; no
+  invented figure.
 - [ ] **`community-manager` agent** (S, count-changing). Owns
   `editorial-line` and `social-content`; hands visual work to `design-director`
   and site work to `site-template-engineer`. Rows in `agent-tiers.md`,

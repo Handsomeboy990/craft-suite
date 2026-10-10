@@ -18,7 +18,28 @@ versions it never had.
 
 ## Unreleased
 
-Nothing since 3.33.0.
+Nothing since 3.34.0.
+
+## 3.34.0 social content
+
+The manifests moved to 3.34.0 with `social-content`, the third skill ADR 0006
+decided; the entry below is everything since 3.33.0.
+
+- `social-content` (documents/communication), skill 173 (#96): the community
+  manager's method. A calendar per channel at a cadence derived from the
+  client's stated capacity; network formats and sizes read at the network's
+  own page on a stated date, or left as fields to check at publication;
+  captions held to the editorial line and visual posts under the signed
+  identity; a moderation and reply policy with an escalation matrix and a list
+  of what is never done; a measurement plan stating what each number can and
+  cannot attribute, with no invented reach, engagement or audience figure; and
+  a handover record per post. It drafts and never publishes, schedules or
+  replies from a real account: the configuration's `delegation` section has no
+  publishing field, so every post is handed to the owner. Its example
+  continues the fictional Tidewell co-op and holds its posts as provisional
+  while the voice conflict stays open. `editorial-line` 1.1.0 names it;
+  `design-director` decides the visual questions a post raises. 173 skills,
+  documents 9.
 
 ## 3.33.0 editorial line
 
