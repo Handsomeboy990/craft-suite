@@ -349,10 +349,11 @@ Claude Design and receive its own generation back unattended, so the flow
 below has the agent fill the canvas, or the owner paste the brief into
 claude.ai/design and hand back the link.
 
-- [ ] **Decide the scope** (S, decide first). ADR 0006 with
-  `technology-selection`: which skills and which agent, and what stays with
-  existing roles (`design-director` keeps design authority). Proposed shape
-  below; the owner accepts before anything is built.
+- [x] **Decide the scope**. ADR 0006, accepted by the owner 2026-10-10:
+  `brand-identity` in `engineering/dev-skills/`, `editorial-line` and
+  `social-content` in a new `documents/communication/`, a `community-manager`
+  agent in `agents/communication/` that drafts and never publishes, the
+  handoff as a resource of `design-system`. Built in the order below.
 - [ ] **`brand-identity`** (M, count-changing). A visual identity from a brief:
   positioning and personality, logo brief and usage rules, palette with
   measured contrast pairs in both themes, type scale, imagery and iconography

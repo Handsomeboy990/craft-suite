@@ -17,3 +17,4 @@ Format and rules: the `decision-records` skill
 | `0003-no-php-templating-domain.md` | accepted | no PHP or templating domain and no PHP code; the transferable patterns of the four PHP references are recorded for existing skills |
 | `0004-libraries-ui-mit-licence.md` | accepted | `libraries/ui` is released under MIT so other projects may install and reuse it; the rest of the repository stays under its own terms |
 | `0005-accessibility-remediation-capability.md` | accepted | an accessibility remediation skill, no new agent; the fixer and the verifier stay separate roles |
+| `0006-brand-content-and-site-pipeline.md` | accepted | `brand-identity` beside `design-system`, `editorial-line` and `social-content` in a new `documents/communication/`, one `community-manager` agent that drafts and never publishes; `design-director` keeps design authority |
