@@ -364,6 +364,42 @@ for f in documentation/installation.md documentation/usage.md documentation/usag
 done
 
 # --------------------------------------------------------------------------
+# installation.fr.md: the French twin of installation.md carries the same
+# category table, installer menu and per-scope table. The menu labels and the
+# table rows stay in English, so the English selectors apply unchanged.
+# --------------------------------------------------------------------------
+IFR=documentation/installation.fr.md
+check "$IFR" "$DEV"       'dev-skills.*\| [0-9]+ \|'         "$IFR dev-skills row"
+check "$IFR" "$DELIV"     'delivery-skills.*\| [0-9]+ \|'    "$IFR delivery-skills row"
+check "$IFR" "$DEVOPS"    'devops-skills.*\| [0-9]+ \|'      "$IFR devops-skills row"
+check "$IFR" "$SECDEV"    'secure-development.*\| [0-9]+ \|' "$IFR secure-development row"
+check "$IFR" "$SECASSURE" 'security-assurance.*\| [0-9]+ \|' "$IFR security-assurance row"
+check "$IFR" "$COMM"      'communication.*\| [0-9]+ \|'      "$IFR communication row"
+check "$IFR" "$WRITING"     'Creative writing +[0-9]+ skills'       "$IFR menu writing"     "$MENU"
+check "$IFR" "$DOCUMENTS"   'Professional documents +[0-9]+ skills' "$IFR menu documents"   "$MENU"
+check "$IFR" "$ENG"         'Software engineering +[0-9]+ skills'   "$IFR menu engineering" "$MENU"
+check "$IFR" "$SECURITY"    'Cybersecurity +[0-9]+ skills'          "$IFR menu security"    "$MENU"
+check "$IFR" "$RESEARCH"    'Research +[0-9]+ skills'               "$IFR menu research"    "$MENU"
+check "$IFR" "$CAREER"      'Career +[0-9]+ skills'                 "$IFR menu career"      "$MENU"
+check "$IFR" "$OPPORTUNITY" 'Opportunity +[0-9]+ skills'            "$IFR menu opportunity" "$MENU"
+check "$IFR" "$TOTAL"       'Everything +[0-9]+ skills'             "$IFR menu everything"  "$MENU"
+check_nth "$IFR" "$B_WRITING"     '^\| `--writing` \|'     1 "$IFR scope writing skills"
+check_nth "$IFR" "$B_DOCUMENTS"   '^\| `--documents` \|'   1 "$IFR scope documents skills"
+check_nth "$IFR" "$B_DOC_AGENTS"  '^\| `--documents` \|'   2 "$IFR scope documents agents"
+check_nth "$IFR" "$B_ENG"         '^\| `--dev` \|'         1 "$IFR scope dev skills"
+check_nth "$IFR" "$B_ENG_AGENTS"  '^\| `--dev` \|'         2 "$IFR scope dev agents"
+check_nth "$IFR" "$B_SECURITY"    '^\| `--security` \|'    1 "$IFR scope security skills"
+check_nth "$IFR" "$B_SEC_AGENTS"  '^\| `--security` \|'    2 "$IFR scope security agents"
+check_nth "$IFR" "$B_RESEARCH"    '^\| `--research` \|'    1 "$IFR scope research skills"
+check_nth "$IFR" "$B_RES_AGENTS"  '^\| `--research` \|'    2 "$IFR scope research agents"
+check_nth "$IFR" "$B_CAREER"      '^\| `--career` \|'      1 "$IFR scope career skills"
+check_nth "$IFR" "$B_OPPORTUNITY" '^\| `--opportunity` \|' 1 "$IFR scope opportunity skills"
+check_nth "$IFR" "$SHARED"        '^\| `--shared` \|'      1 "$IFR scope shared skills"
+check_nth "$IFR" "$TOTAL"         '^\| `--all` \|'         1 "$IFR scope all skills"
+check_nth "$IFR" "$AGENTS"        '^\| `--all` \|'         2 "$IFR scope all agents"
+check_nth "$IFR" "$AGENTS"        '^\| `--agents` \|'      2 "$IFR scope agents only"
+
+# --------------------------------------------------------------------------
 # AGENTS.md tree table. This is the third hand-written copy of the per-tree
 # counts, and it is where the security 10 against 12 divergence was born.
 # --------------------------------------------------------------------------
