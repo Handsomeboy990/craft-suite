@@ -1,6 +1,6 @@
 # documents
 
-Professional document production. Seven skills in three categories, for
+Professional document production. Eight skills in four categories, for
 documents that are delivered to someone rather than written for yourself.
 
 Skill language: English. Output language: the recipient's, decided per
@@ -14,8 +14,9 @@ thing this tree gets right.
 | [documentation](documentation/) | 4 | how the reader understands and uses the system |
 | [administrative](administrative/) | 1 | how a formal document survives being filed and quoted |
 | [publishing](publishing/) | 2 | how the document looks, paginates and renders |
+| [communication](communication/) | 1 | what a brand says, in which words, approved by whom |
 
-## The seven
+## The eight
 
 | Skill | Produces | Reader |
 |---|---|---|
@@ -26,21 +27,23 @@ thing this tree gets right.
 | [administrative-writing](administrative/administrative-writing/) | letters, notices, attestations, minutes, applications | an institution, a client, a counterparty |
 | [document-design](publishing/document-design/) | the style sheet and the layout system | applied to everything above |
 | [pdf-production](publishing/pdf-production/) | the rendered, verified PDF | the final deliverable |
+| [editorial-line](communication/editorial-line/) | audience, promise, pillars, vocabulary, what is never said, formats, review rule | whoever writes for a brand |
 
 ## Order
 
 ```
 document-core
     -> technical-writing | user-documentation | report-writing
-       | administrative-writing
+       | administrative-writing | editorial-line
     -> document-design
     -> pdf-production
     -> self-critique
 ```
 
-`document-core` is loaded first, always. The four writing skills are
+`document-core` is loaded first, always. The five writing skills are
 alternatives, not stages: pick the one whose reader you have. The last three
-run on whatever the writing skill produced.
+run on whatever the writing skill produced. `editorial-line` is the one whose
+reader is a writer: it produces the rules others write by, for a brand.
 
 ## The four rules of this tree
 
@@ -69,6 +72,7 @@ run on whatever the writing skill produced.
 | A contract has to be terminated formally | `administrative-writing` |
 | Four deliverables must look like one set | `document-design` |
 | The client wants a PDF | `pdf-production` |
+| Someone other than the client will write for the brand | `editorial-line` |
 
 ## Boundary with the other trees
 
@@ -87,14 +91,14 @@ belongs here.
 ## Installation
 
 ```bash
-bash install.sh --documents     these seven, plus the two shared skills
+bash install.sh --documents     these eight, plus the two shared skills
 ```
 
 ## Configuration
 
 | Field | Used by |
 |---|---|
-| `language.document_output` | all seven, as the default output language |
+| `language.document_output` | all eight, as the default output language |
 | `identity.organization` | covers, letterheads, PDF metadata |
 | `identity.author_name` | signature blocks, PDF metadata |
 | `documents.page_size` | `document-design`, `pdf-production` |

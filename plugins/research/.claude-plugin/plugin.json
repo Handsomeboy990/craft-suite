@@ -1,6 +1,6 @@
 {
   "name": "craft-research",
-  "version": "3.32.0",
+  "version": "3.33.0",
   "description": "General-purpose research for a decision: question framing, source gathering and verification, competitive analysis, and conclusion-first synthesis, plus the researcher and data-collection role agents. A source is cited only if it was consulted.",
   "author": {
     "name": "Lauret Chacha"
