@@ -223,29 +223,19 @@ first, then the UI library, then the agent and operations layers.
   dependency. Governed by `design-system`, built to pass `accessibility-testing`
   and `frontend-engineering`. `dependency-selection` decides Radix or Base UI
   for the hard primitives before any is added.
-- [ ] **Consolidate the duplicated site code** (M). The twenty-nine identical
-  files across the two `site-template-generation` examples are not liftable as
-  they stand: each imports the per-app content model (`lib/types`,
-  `lib/schema`, `lib/legal`), so a single source needs those three injected
-  rather than imported, plus a build of both Next apps to prove it. Done so
-  far: a canonical `examples/shared-files.txt` and a CI guard that fails if any
-  shared file drifts between the two examples, so the duplication can no longer
-  rot while the single-source refactor waits. Still to do: the injection
-  refactor into a shared source (`libraries/ui` or an examples-local package),
-  with both apps built to verify.
-- [ ] **The motion layer** (M). A small set of signature effects chosen for a
-  project's identity, not a catalogue: scroll reveal, staggered entrance,
-  magnetic and tilt hover, logo marquee, scroll-stacked cards, one background.
-  Each ships a reduced-motion variant, a performance budget, and the lightest
-  technique that suffices per the `animation` ladder. `design-director` signs
-  off that the set reads as intended, not as generic defaults. Done so far:
-  every named effect, built and tested in jsdom: `Reveal`, `Stagger`,
-  `Magnetic`, `Tilt`, `Marquee`, `StackedCards`, `GradientBackdrop`, `Counter`,
-  with `useReducedMotion`, `useInViewOnce` and the `Tooltip` primitive. Still
-  to do: a real-browser and screen-reader pass (sticky stacking, pointer feel,
-  frame rate, focus not obscured, list announcements), the `design-director`
-  sign-off, a no-JavaScript-safe first render for `Reveal` and `Stagger`
-  together, and an optional pause control for `GradientBackdrop`.
+- [x] **Consolidate the duplicated site code**. Done in #89: the shared code
+  lives once, in `examples/_shared` (64 files), installed by both apps as the
+  local package `site-template-shared`, each app passing its own content model
+  in through `lib/instance.ts`; the CI guard checks the single source, and the
+  examples workflow (#90) builds all three apps.
+- [x] **The motion layer**. Every named effect is built and tested:
+  `Reveal`, `Stagger`, `Magnetic`, `Tilt`, `Marquee`, `StackedCards`,
+  `GradientBackdrop` (with its pause control, WCAG 2.2.2), `Counter`,
+  `useReducedMotion`, `useInViewOnce` and `Tooltip`, with a first render that
+  stays visible without JavaScript. 73 jsdom tests and 45 real-browser tests in
+  Chromium (#88, `BROWSER_PASS.md`), run in CI (#90). Left for a person, at the
+  end with the owner's other checks: a screen reader pass, Firefox and WebKit,
+  and the `design-director` sign-off of the set.
 
 ### 8.2 Fonts and front-end performance
 
