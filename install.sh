@@ -7,7 +7,7 @@
 #
 #   bash install.sh                ask what to install
 #   bash install.sh --writing      creative writing, 42 skills
-#   bash install.sh --documents    professional documents, 7 skills
+#   bash install.sh --documents    professional documents, 8 skills
 #   bash install.sh --dev          software engineering, its skills and 29 agents
 #   bash install.sh --security     defensive security, 12 skills and 3 agents
 #   bash install.sh --research     general research, 5 skills and 2 agents
@@ -89,7 +89,7 @@ migrate_legacy_config "$@"
 
 # A skill group is a repository relative path holding skill directories.
 WRITING_GROUPS="writing/core writing/genres writing/poetry writing/quality"
-DOCUMENT_GROUPS="documents/documentation documents/administrative documents/publishing"
+DOCUMENT_GROUPS="documents/documentation documents/administrative documents/publishing documents/communication"
 ENGINEERING_GROUPS="engineering/dev-skills engineering/delivery-skills engineering/devops-skills"
 SECURITY_GROUPS="security/secure-development security/security-assurance"
 RESEARCH_GROUPS="research"

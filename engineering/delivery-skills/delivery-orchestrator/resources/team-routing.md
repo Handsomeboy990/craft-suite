@@ -155,11 +155,18 @@ mandatory gate:
 |---|---|---|
 | fiction, poetry, screenplay, revision | `writing-constitution` | `self-critique-protocol`, then at least one revision skill |
 | delivered document, report, letter, PDF | `document-core` | the eight-point gate, eleven when paginated |
+| editorial line, tone of voice, content charter | `document-core`, then `editorial-line` | the eight-point gate; the review rule accepted by the client; any conflict with the brand identity escalated to `design-director` and the owner, never settled |
 | job search, CV, cover letter, interview | `career-core` | every listing and deadline cited from a live source or withheld |
 | ideas, hackathons, clients, markets | `opportunity-core` | a ranked few with reasoning, never a long list |
 
 When one of these needs engineering, research or security work, that part is
 routed to its team in section 3, and the rest stays with the chief.
+
+`documents/communication/` is in this case until the community-manager agent
+planned by ADR 0006 exists: the chief holds `editorial-line` itself, drafts
+but never publishes, and brings in `design-director` only for a conflict with
+the identity. Site copy written against the line goes to the team that builds
+the site, in section 3.
 
 ## 5. Composing the smallest complete team
 

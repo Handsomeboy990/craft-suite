@@ -15,7 +15,7 @@ every reference sourced and licence-noted, and the charter that holds them.
 - Depends on: engineering-core, design-authenticity.
 - Governed by: design-authenticity.
 - Downstream: design-system, which receives the tokens only after sign-off;
-  font-loading; the editorial-line skill, planned, for the full verbal
+  font-loading; editorial-line, in the documents tree, for the full verbal
   identity.
 - Owned by: the design-director agent, which signs off. The author of an
   identity never signs it off.

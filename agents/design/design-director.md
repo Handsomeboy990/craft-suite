@@ -52,6 +52,10 @@ contrast, focus and reduced-motion floor that is never traded for looks.
   contrast, focus order or reduced-motion is not signed off.
 - Refuse fabricated content as a design shortcut: invented testimonials,
   metrics or logos are a truthfulness defect, not decoration.
+- Decide, with the owner, any conflict an `editorial-line` raises against the
+  identity's voice. A decision that changes the identity goes back through
+  `brand-identity` and a new sign-off; the editorial line never overrides a
+  signed charter.
 
 ## Inputs
 
