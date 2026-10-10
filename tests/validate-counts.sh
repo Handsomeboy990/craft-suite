@@ -399,6 +399,25 @@ check_nth "$IFR" "$TOTAL"         '^\| `--all` \|'         1 "$IFR scope all ski
 check_nth "$IFR" "$AGENTS"        '^\| `--all` \|'         2 "$IFR scope all agents"
 check_nth "$IFR" "$AGENTS"        '^\| `--agents` \|'      2 "$IFR scope agents only"
 
+# The scoped-installation list in installation.md and its twin. These are tree
+# counts, with the agents each scope carries; the list said 82 and 24 for
+# --dev long after the tree reached 87 and 29.
+for f in documentation/installation.md "$IFR"; do
+  check_nth "$f" "$WRITING"      '^bash install\.sh --writing +[a-z ]*[0-9]'     1 "$f scope list writing"
+  check_nth "$f" "$DOCUMENTS"    '^bash install\.sh --documents +[a-z ]*[0-9]'   1 "$f scope list documents skills"
+  check_nth "$f" "$B_DOC_AGENTS" '^bash install\.sh --documents +[a-z ]*[0-9]'   2 "$f scope list documents agents"
+  check_nth "$f" "$ENG"          '^bash install\.sh --dev +[a-z ]*[0-9]'         1 "$f scope list dev skills"
+  check_nth "$f" "$B_ENG_AGENTS" '^bash install\.sh --dev +[a-z ]*[0-9]'         2 "$f scope list dev agents"
+  check_nth "$f" "$SECURITY"     '^bash install\.sh --security +[a-z ]*[0-9]'    1 "$f scope list security skills"
+  check_nth "$f" "$B_SEC_AGENTS" '^bash install\.sh --security +[a-z ]*[0-9]'    2 "$f scope list security agents"
+  check_nth "$f" "$RESEARCH"     '^bash install\.sh --research +[a-z ]*[0-9]'    1 "$f scope list research skills"
+  check_nth "$f" "$B_RES_AGENTS" '^bash install\.sh --research +[a-z ]*[0-9]'    2 "$f scope list research agents"
+  check_nth "$f" "$CAREER"       '^bash install\.sh --career +[a-z ]*[0-9]'      1 "$f scope list career"
+  check_nth "$f" "$OPPORTUNITY"  '^bash install\.sh --opportunity +[a-z ]*[0-9]' 1 "$f scope list opportunity"
+  check_nth "$f" "$SHARED"       '^bash install\.sh --shared +[a-z ]*[0-9]'      1 "$f scope list shared"
+  check_nth "$f" "$AGENTS"       '^bash install\.sh --agents +[a-z ]*[0-9]'      1 "$f scope list agents"
+done
+
 # --------------------------------------------------------------------------
 # AGENTS.md tree table. This is the third hand-written copy of the per-tree
 # counts, and it is where the security 10 against 12 divergence was born.
