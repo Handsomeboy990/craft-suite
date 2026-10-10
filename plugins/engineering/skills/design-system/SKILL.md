@@ -4,7 +4,7 @@ description: Builds and maintains the shared visual and interaction language: to
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core, ui-ux-engineering]
   outputs: [token-set, component-contracts, theme-definition, usage-documentation, adoption-plan]
 ---
@@ -175,7 +175,9 @@ reworked before it spreads.
 ## 12. Interfaces
 
 - Upstream: `ui-ux-engineering` for the experience decisions,
-  `requirements-analysis` for the brand and platform constraints.
+  `requirements-analysis` for the brand and platform constraints,
+  `brand-identity` for the palette, type and brand tokens, received only after
+  its sign-off; a brand value is changed there, never here.
 - Lateral: `frontend-engineering` for implementation, `accessibility-testing`
   for the contracts, `internationalization` for logical properties and text
   expansion, `dependency-selection` before adopting an external library.

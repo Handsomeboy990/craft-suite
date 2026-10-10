@@ -4,7 +4,7 @@ description: Detects the cluster of generic defaults that make an interface look
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core]
   outputs: [authenticity-findings, cluster-assessment, intentionality-gaps]
 ---
@@ -157,6 +157,8 @@ because it mistakes a signal for a verdict.
 - Upstream: `engineering-core`.
 - Lateral: `ui-ux-engineering` for the rendered experience it judges,
   `design-system` for the tokens a real identity would define,
+  `brand-identity` for the identity itself when the product has none, which
+  this skill governs,
   `frontend-engineering` for the implementation, `accessibility-testing` for
   the reduced-motion and contrast overlap, `implementation-integrity` for the
   fabricated-content defects.
