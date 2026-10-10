@@ -1,7 +1,7 @@
 # Team routing
 
 How the chief turns a request into the smallest complete team. Every one of
-the thirty-three agents under `agents/` appears here by its exact name, in
+the thirty-four agents under `agents/` appears here by its exact name, in
 exactly one team, with the condition that brings it in. No agent is invented,
 and none is unreachable.
 
@@ -33,7 +33,7 @@ Three rules hold the structure together.
 
 ## 2. The teams
 
-Eight teams plus the independent gates. Thirty-three agents in all.
+Nine teams plus the independent gates. Thirty-four agents in all.
 
 ### Chief's staff, five agents
 
@@ -103,6 +103,12 @@ Eight teams plus the independent gates. Thirty-three agents in all.
 | `researcher` | lead: a question needs real, cited sources; a claim must be checked before a decision | the chief with the answer and the evidence trail, `software-architect` |
 | `data-collection-engineer` | structured data must be gathered from external sources lawfully | `researcher`, `backend-engineer` or `database-engineer` when it feeds a build |
 
+### Communication team, lead `community-manager`, one agent
+
+| Agent | Brought in when | Hands to |
+|---|---|---|
+| `community-manager` | lead: an editorial line, a tone of voice, a content charter, a content calendar, social posts or a moderation policy | the reviewer and approver of the line's review rule, never itself; `design-director` for visual work and any conflict with the identity; the chief for site copy, routed to `site-template-engineer`; the owner for every publication |
+
 ### Independent gates, four agents
 
 | Agent | Brought in when | Answers to |
@@ -112,8 +118,8 @@ Eight teams plus the independent gates. Thirty-three agents in all.
 | `compliance-verifier` | phase 11 of a user-facing web product | the chief with the launch verdict |
 | `final-verifier` | the last step before the chief reports anything done | the chief, whose verdict it is the last word on |
 
-Count check: 5 + 7 + 4 + 2 + 3 + 4 + 1 + 2 + 4 = 32 agents in teams, plus
-`delivery-orchestrator` itself, 33.
+Count check: 5 + 7 + 4 + 2 + 3 + 4 + 1 + 2 + 1 + 4 = 33 agents in teams, plus
+`delivery-orchestrator` itself, 34.
 
 ## 3. Request to team
 
@@ -141,13 +147,15 @@ condition in section 2 is met.
 | performance symptom with a measurement | `performance-engineering` | `performance-engineer` | the owning implementer, `qa-engineer` |
 | docs drifted from code | `technical-documentation` | `documentation-engineer` | `source-of-truth` |
 | a research question with cited sources | `research-core` | `researcher` | `data-collection-engineer` when data must be gathered |
+| an editorial line, a tone of voice, a content charter | `editorial-line`, under `document-core` | `community-manager` | the approver of the review rule; `design-director` for any conflict with the brand identity, decided with the owner, never by the drafter |
+| a content calendar, social posts, a moderation policy | `social-content`, under `document-core` | `community-manager` | a signed or explicitly provisional editorial line, or `editorial-line` first; `design-director` for visual posts; the owner for every publication |
 | schedule at risk | `delivery-planning` | `delivery-manager` | the chief, who decides |
 | finished work to a pull request | `git-workflow` | `pr-author` | `pr-reviewer`, never the author |
 
 ## 4. Domains with no agent team
 
 Four trees have skills but no agent: `writing/`, `documents/` beyond technical
-documentation, `career/` and `opportunity/`. The chief does not invent an
+documentation and communication, `career/` and `opportunity/`. The chief does not invent an
 agent for them. It loads the tree's constitution itself and runs that tree's
 mandatory gate:
 
@@ -155,20 +163,20 @@ mandatory gate:
 |---|---|---|
 | fiction, poetry, screenplay, revision | `writing-constitution` | `self-critique-protocol`, then at least one revision skill |
 | delivered document, report, letter, PDF | `document-core` | the eight-point gate, eleven when paginated |
-| editorial line, tone of voice, content charter | `document-core`, then `editorial-line` | the eight-point gate; the review rule accepted by the client; any conflict with the brand identity escalated to `design-director` and the owner, never settled |
-| content calendar, social posts, moderation policy | `document-core`, then `social-content` | the eight-point gate; a signed or explicitly provisional editorial line as input, or `editorial-line` first; every post handed over with its exact content, never published by an agent; visual questions to `design-director` |
 | job search, CV, cover letter, interview | `career-core` | every listing and deadline cited from a live source or withheld |
 | ideas, hackathons, clients, markets | `opportunity-core` | a ranked few with reasoning, never a long list |
 
 When one of these needs engineering, research or security work, that part is
 routed to its team in section 3, and the rest stays with the chief.
 
-`documents/communication/` is in this case until the community-manager agent
-planned by ADR 0006 exists: the chief holds `editorial-line` and
-`social-content` itself, drafts but never publishes, schedules or replies from
-a real account, and brings in `design-director` only for a conflict with the
-identity or a visual question on a post. Site copy written against the line
-goes to the team that builds the site, in section 3.
+`documents/communication/` is not in this case: it has its own team since ADR
+0006, led by `community-manager`, in sections 2 and 3. The chief no longer
+holds `editorial-line` or `social-content` itself. It dispatches them, holds
+`document-core`'s gate on what comes back, and keeps the publishing boundary:
+the agent drafts and never publishes, schedules or replies from a real
+account, and every item reaches the owner as a handover with its exact
+content. Site copy written against the line goes to the team that builds the
+site, in section 3.
 
 ## 5. Composing the smallest complete team
 
@@ -188,7 +196,7 @@ Never run a whole chain by reflex. The procedure:
    reason, the way `engineering-orchestrator` names dropped steps.
 6. Route a model for every dispatch with `model-routing`.
 
-Two failure modes, equally bad: thirty-three agents on a typo, and a payment
+Two failure modes, equally bad: thirty-four agents on a typo, and a payment
 endpoint without `security-engineer`. The second is never an optimisation; it
 is a missing gate.
 

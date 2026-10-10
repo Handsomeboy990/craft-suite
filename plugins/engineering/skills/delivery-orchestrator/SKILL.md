@@ -4,7 +4,7 @@ description: The chief orchestrator, above every agent. Owns a project from spec
 license: MIT
 metadata:
   category: delivery-skills
-  version: 1.3.0
+  version: 1.4.0
   depends_on: [engineering-core, engineering-orchestrator]
   outputs: [phase-plan, team-plan, dispatch-records, delivery-checklist, gate-decisions, delivery-verdict]
 ---
@@ -15,7 +15,7 @@ Owns the lifecycle. `engineering-orchestrator` routes one task; this skill
 routes a project made of hundreds of them, and holds the gates that separate
 its phases.
 
-It is the chief: one orchestrator above all thirty-three agents, leading them
+It is the chief: one orchestrator above all thirty-four agents, leading them
 as per-domain teams, each under its own lead. It never implements, never
 approves its own architecture, and is the only role that holds the phase
 gates. Strengthening the chief means strengthening this skill, never adding a
@@ -195,8 +195,8 @@ look; neither is `not applicable` for software that ships.
 
 ## 9. Leading the teams
 
-The thirty-three agents form eight teams and a set of independent gates: the
-staff serves the chief directly, the seven domain teams each work under their
+The thirty-four agents form nine teams and a set of independent gates: the
+staff serves the chief directly, the eight domain teams each work under their
 own lead. The full map, with every agent by its exact name, the
 condition that brings it in and where it hands off, is
 `resources/team-routing.md`.
@@ -212,6 +212,7 @@ delivery-orchestrator         the chief
   operations                  lead devops-engineer
   documentation               lead documentation-engineer
   research                    lead researcher
+  communication               lead community-manager
   independent gates           pr-author, pr-reviewer, compliance-verifier,
                               final-verifier
 ```
@@ -227,9 +228,10 @@ Composition, never by reflex:
 
 Rules the teams live by: no lead signs off its own team's work; the
 independent gates answer only to the chief; the stricter position wins on
-security and correctness. Writing, documents, career and opportunity requests
-have no agent team: the chief loads that tree's constitution and holds its
-gate itself, and never invents an agent for them.
+security and correctness. Writing, documents beyond technical documentation
+and communication, career and opportunity requests have no agent team: the
+chief loads that tree's constitution and holds its gate itself, and never
+invents an agent for them.
 
 ## 10. Handoff and escalation
 
