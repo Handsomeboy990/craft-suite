@@ -48,6 +48,8 @@ DELIV=$(skills_in engineering/delivery-skills)
 DEVOPS=$(skills_in engineering/devops-skills)
 ENG=$((DEV + DELIV + DEVOPS))
 
+COMM=$(skills_in documents/communication)
+
 SECDEV=$(skills_in security/secure-development)
 SECASSURE=$(skills_in security/security-assurance)
 
@@ -144,6 +146,12 @@ for f in documentation/overview.md documentation/overview.fr.md documentation/in
   check "$f" "$SECASSURE" 'security-assurance.*\| [0-9]+ \|'  "$f security-assurance row"
 done
 
+# The documents category added by ADR 0006. Its name is unique to the tree, so
+# its rows can be selected without colliding with the agent groups.
+for f in documentation/overview.md documentation/overview.fr.md documentation/installation.md documents/README.md; do
+  check "$f" "$COMM"      'communication.*\| [0-9]+ \|'      "$f communication row"
+done
+
 check engineering/README.md "$DEV"    'dev-skills.*\| [0-9]+ \|'      "engineering/README dev-skills row"
 check engineering/README.md "$DELIV"  'delivery-skills.*\| [0-9]+ \|' "engineering/README delivery-skills row"
 check engineering/README.md "$DEVOPS" 'devops-skills.*\| [0-9]+ \|'   "engineering/README devops-skills row"
@@ -167,6 +175,7 @@ check "$A" "$DEVOPS"    'devops-skills/ +[0-9]'        "architecture devops-skil
 check "$A" "$SECURITY"  'security/ +[0-9]+ skills'     "architecture security tree"
 check "$A" "$SECDEV"    'secure-development/ +[0-9]'   "architecture secure-development"
 check "$A" "$SECASSURE" 'security-assurance/ +[0-9]'   "architecture security-assurance"
+check "$A" "$COMM"      'communication/ +[0-9]'        "architecture communication"
 check "$A" "$AGENTS"    'agents/ +[0-9]'               "architecture agents total"
 
 # --------------------------------------------------------------------------

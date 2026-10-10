@@ -20,6 +20,7 @@ ENGINEERING_CATEGORIES="dev-skills delivery-skills devops-skills"
 # Every group holding skills, so a cross reference resolves across trees.
 ALL_GROUPS="writing/core writing/genres writing/poetry writing/quality
 documents/documentation documents/administrative documents/publishing
+documents/communication
 engineering/dev-skills engineering/delivery-skills engineering/devops-skills
 security/secure-development security/security-assurance
 research career
@@ -28,7 +29,8 @@ shared"
 
 # Groups whose SKILL.md carries an Interfaces section.
 PROCEDURAL_GROUPS="documents/documentation documents/administrative
-documents/publishing engineering/dev-skills engineering/delivery-skills
+documents/publishing documents/communication engineering/dev-skills
+engineering/delivery-skills
 engineering/devops-skills
 security/secure-development security/security-assurance
 research career

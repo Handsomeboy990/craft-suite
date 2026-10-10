@@ -8,7 +8,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 # A skill group is a repository relative path holding skill directories. The
 # category recorded in a skill's metadata is the basename of its group.
 WRITING_GROUPS="writing/core writing/genres writing/poetry writing/quality"
-DOCUMENT_GROUPS="documents/documentation documents/administrative documents/publishing"
+DOCUMENT_GROUPS="documents/documentation documents/administrative documents/publishing documents/communication"
 ENGINEERING_GROUPS="engineering/dev-skills engineering/delivery-skills engineering/devops-skills"
 SECURITY_GROUPS="security/secure-development security/security-assurance"
 RESEARCH_GROUPS="research"
