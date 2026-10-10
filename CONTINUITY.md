@@ -12,9 +12,9 @@ itself is phase 8 of `docs/ROADMAP.md`; the direction behind it is
 
 ### State
 
-On `dev`, merged (pull requests 55 to 92), and this change. Manifests 3.32.0,
-171 skills, 33 agents; `CHANGELOG.md` 3.30.0 lists everything since 3.29.0,
-3.31.0 everything since 3.30.0, and 3.32.0 everything since 3.31.0.
+On `dev`, merged (pull requests 55 to 94), and this change. Manifests 3.33.0,
+172 skills, 33 agents; `CHANGELOG.md` 3.30.0 lists everything since 3.29.0,
+and each version after it everything since the one before.
 
 - Agents 27 to 33 and `codebase-mapping` (3.28.0, 3.29.0).
 - Phase 8.0: decision records 0001 and 0002, `libraries/` and its CI gate, the
@@ -146,15 +146,21 @@ marked; run those one at a time.
    paths filter, then add it to branch protection
    (`documentation/branch-protection.md`). CHANGELOG Unreleased covers 87 to
    89 and this workflow.
-6. **Phase 9, brief to brand, content and site**: ADR 0006 accepted (#91)
-   and `brand-identity` landed in 3.32.0 (#92): 171 skills, 33 agents. Next,
-   one count-changing pull request at a time, in the ADR's order:
-   `editorial-line` in `documents/communication/` (in progress on branch
-   `feat/editorial-line`; when it lands, `brand-identity` section 16 names it
-   with backticks), then `social-content`, the `community-manager` agent in
-   `agents/communication/`, the handoff resource in `design-system` (it
-   references `brand-identity/resources/token-handoff.md` rather than
-   repeating it), and a worked run of one real brief.
+6. **Phase 9, brief to brand, content and site**: ADR 0006 accepted (#91),
+   `brand-identity` in 3.32.0 (#92), `editorial-line` in 3.33.0 (#94), in the
+   new `documents/communication/` category. A new skill group must be added to
+   three lists: `install.sh`, `tests/validate-structure.sh` and
+   `tests/validate-orchestration.sh`; `tests/validate-counts.sh` has a `COMM`
+   check for this one. Next, one count-changing pull request at a time:
+   `social-content` in the same category (in progress on branch
+   `feat/social-content`), the `community-manager` agent in
+   `agents/communication/` (it takes over the routing of both communication
+   skills from `delivery-orchestrator`), the handoff resource in
+   `design-system` (it references `brand-identity/resources/token-handoff.md`),
+   and a worked run of one real brief. Small follow-ups: name `editorial-line`
+   in the Interfaces of `site-template-generation` and `frontend-engineering`;
+   the engineering row of the plugin tables in both overviews still says 82
+   skills and 24 agents, unchecked by `validate-counts.sh`.
 7. **Smaller items still open in the roadmap**: exercise the full agent layer
    on a real project (phase 4), deflate `overview.md` and translate
    `installation.md` and `configuration.md` (phase 7).

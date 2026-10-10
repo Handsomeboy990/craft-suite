@@ -18,7 +18,28 @@ versions it never had.
 
 ## Unreleased
 
-Nothing since 3.32.0.
+Nothing since 3.33.0.
+
+## 3.33.0 editorial line
+
+The manifests moved to 3.33.0 with `editorial-line`, the second skill ADR 0006
+decided, in a new `documents/communication/` category; the entry below is
+everything since 3.32.0.
+
+- `editorial-line` (documents/communication), skill 172 (#94): the audience,
+  the promise in one sentence, three to five pillars each with what it never
+  covers, tone and vocabulary per output language with words kept and
+  refused, what is never said, the formats, and the review rule (nobody
+  approves their own draft; the agent never publishes). Governed by
+  `document-core`: no invented client fact, statistic, testimonial or
+  audience figure. It extends a signed `brand-identity` and never contradicts
+  one; a conflict goes to `design-director` and the owner. Its example
+  continues the fictional Tidewell co-op and escalates a voice conflict rather
+  than settling it. The new category is registered in `install.sh`,
+  `tests/validate-structure.sh` and `tests/validate-orchestration.sh`, and
+  `tests/validate-counts.sh` checks its rows. Routed by `delivery-orchestrator`
+  until the `community-manager` agent exists; `brand-identity` 1.1.0 names it.
+  172 skills, documents 8, nineteen skill groups.
 
 ## 3.32.0 phase 9 opened, brand identity
 
