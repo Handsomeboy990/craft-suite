@@ -3,6 +3,8 @@
 The skills and agents are Markdown, the installer is shell. No runtime and no
 package manager are needed to use them.
 
+[Version francaise](installation.fr.md)
+
 If you are new to the suite, read [usage.md](usage.md) first: it says what runs
 these skills, what happens after the install, and how a skill comes to be used
 at all. This page covers the install itself.
