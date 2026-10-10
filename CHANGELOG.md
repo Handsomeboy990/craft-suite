@@ -18,8 +18,30 @@ versions it never had.
 
 ## Unreleased
 
-No manifest change: no skill or agent was added. Everything since 3.31.0.
+Nothing since 3.32.0.
 
+## 3.32.0 phase 9 opened, brand identity
+
+Roadmap phase 9 opened. The manifests moved to 3.32.0 with `brand-identity`,
+the first skill ADR 0006 decided; the entries below are everything since
+3.31.0.
+
+- ADR 0006, accepted by the owner (#91): `brand-identity` beside
+  `design-system`, `editorial-line` and `social-content` in a new
+  `documents/communication/` category, one `community-manager` agent that
+  drafts and never publishes, `design-director` keeping design authority, and
+  the canvas-to-code handoff as a resource of `design-system`. One
+  count-changing pull request at a time.
+- `brand-identity` (engineering/dev-skills), skill 171 (#92): a visual
+  identity from a validated brief, with a palette measured in both themes
+  against WCAG 2.2, a sourced and licence-noted moodboard, the charter, and
+  sign-off by `design-director` before any token reaches `design-system`. No
+  vendor tool is required. Its example, a fictional repair co-op, computes
+  every ratio with a script: one pair fails in round 1 and all 20 pass in
+  round 2; the sign-off is refused on purpose, glyph coverage being asserted
+  rather than checked. Wired into the DESIGN_SYSTEM and SITE_TEMPLATE plans;
+  `design-system` and `design-authenticity` 1.1.0. 171 skills, engineering 87,
+  dev-skills 60.
 - Roadmap phase 9, from brief to brand, content and site (#87): the pipeline
   from an agreed brief to a brand identity, an editorial line, social content
   and a built site, planned on the tool facts verified on 2026-10-04 and gated
@@ -35,7 +57,7 @@ No manifest change: no skill or agent was added. Everything since 3.31.0.
   `site-template-shared`; each example keeps its own values in
   `lib/instance.ts`. The three examples moved from `middleware.ts` to Next 16
   `proxy.ts`, and the validate job's guard checks the single source.
-- CI (`.github/workflows/examples.yml`): the three examples are installed,
+- CI (#90, `.github/workflows/examples.yml`): the three examples are installed,
   typechecked and built on every pull request that touches them; the
   `libraries/ui` browser tests and the dashboard gate D1 to D26 run in
   Playwright's Chromium as their own jobs, non-blocking until proved stable,
