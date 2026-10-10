@@ -199,195 +199,33 @@ Index: [opportunity/README.md](../opportunity/README.md).
 
 ## Installation
 
-No dependencies. The repository is Markdown and shell.
+No dependencies: the repository is Markdown and shell. Clone it and run
+`bash install.sh`. Nothing is installed until you choose: with no argument the
+installer asks what you actually do and installs only that, whether a whole
+tree, one category of a tree, or a single skill with its dependencies
+resolved. A developer is never given a novelist's toolkit, and a novelist is
+never given the engineering tree. `bash install.sh --configure` then writes
+your configuration.
 
-```bash
-git clone <repository-url> craft-suite
-cd craft-suite
-bash install.sh
-```
-
-**Nothing is installed until you choose.** With no argument the installer asks
-what you actually do, and installs only that. A developer is never given a
-novelist's toolkit, and a novelist is never given the engineering tree.
-
-```
-   1) Creative writing        42 skills   novels, poetry, screenplay, editing
-   2) Professional documents   9 skills   guides, manuals, reports, letters, PDF
-   3) Software engineering    87 skills   plus 29 agents
-   4) Cybersecurity           12 skills   threat models, audits, hardening
-   5) Research                 5 skills   sources, verification, synthesis
-   6) Career                   7 skills   job search, CV, interviews
-   7) Opportunity              9 skills   ideation, hackathons, business
-   8) Everything             173 skills   plus 34 agents
-   9) Individual skills, chosen by name
-  10) One or more categories, for example genres only
-
-Choice [1]:
-```
-
-Several numbers may be given: `1 2` installs writing and documents.
-
-Then configure it:
-
-```bash
-bash install.sh --configure
-```
-
-### Choosing without the prompt
-
-```bash
-bash install.sh --writing      42 creative writing skills
-bash install.sh --documents     9 professional document skills and 1 agent
-bash install.sh --dev          87 engineering skills and 29 agents
-bash install.sh --security     12 defensive security skills
-bash install.sh --research      5 general research skills
-bash install.sh --career        7 job search and application skills
-bash install.sh --opportunity   9 ideation, hackathon and business skills
-bash install.sh --all          everything
-bash install.sh --shared        the 2 cross domain skills only
-bash install.sh --agents        the 34 agents only
-bash install.sh --no-agents     skills without agents
-bash install.sh --all --zip     also build one archive per skill in dist/
-bash install.sh --remove        uninstall the selected scope
-```
-
-Scopes combine: `bash install.sh --writing --documents`.
-
-Every scope also installs the two cross domain skills, `self-critique` and
-`project-brief`, because every tree calls them. A scoped removal leaves them
-in place, so removing one tree never breaks another.
-
-### By category
-
-A tree is often more than you need. A thriller writer has no use for prosody.
-
-```bash
-bash install.sh --group genres            15 skills, plus the shared pair
-bash install.sh --group genres,quality    two categories
-bash install.sh --group writing/poetry    the full path also works
-bash install.sh --group devops-skills     operations only
-```
-
-| Category | Skills | Tree |
-|---|---|---|
-| `core` | 14 | writing |
-| `genres` | 15 | writing |
-| `poetry` | 5 | writing |
-| `quality` | 8 | writing |
-| `documentation` | 4 | documents |
-| `administrative` | 1 | documents |
-| `publishing` | 2 | documents |
-| `communication` | 2 | documents |
-| `dev-skills` | 60 | engineering |
-| `delivery-skills` | 11 | engineering |
-| `devops-skills` | 16 | engineering |
-| `secure-development` | 9 | security |
-| `security-assurance` | 3 | security |
-| `research` | 5 | research |
-| `career` | 7 | career |
-| `ideation` | 3 | opportunity |
-| `hackathons` | 3 | opportunity |
-| `business` | 3 | opportunity |
-| `shared` | 2 | shared |
-
-Everything combines, and the result is deduplicated:
-
-```bash
-bash install.sh --group poetry --skill thriller
-12 skills installed
-```
-
-The five poetry skills, `thriller` with its four dependencies,
-`writing-constitution` counted once, and the cross domain pair.
-
-The agents follow the engineering tree, not a category of it. Add them with
-`--agents` when installing `--group dev-skills` alone.
-
-### One skill at a time
-
-```bash
-bash install.sh --list                    every skill, with its purpose
-bash install.sh --skill thriller          one skill, and what it needs
-bash install.sh --skill sonnet,haiku      several
-```
-
-Dependencies are resolved transitively, so a single skill is never installed
-broken:
-
-```
-$ bash install.sh --skill thriller
-7 skills installed
-Installed: thriller writing-constitution novel-architect scene-builder
-           chapter-architect self-critique project-brief
-```
-
-An unknown name stops the install rather than silently shortening it.
-
-### Without cloning first
-
-```bash
-curl -fsSL <raw-url>/install.sh | bash -s -- --writing
-```
-
-The script fetches the skills into `~/.cache/craft-suite` when it has
-none beside it. It still asks what to install if you give it no scope, reading
-your answer from the terminal rather than from the pipe. If the repository is
-private, clone it yourself and run `install.sh` from inside it.
-
-Skills go to `~/.claude/skills`, agents to `~/.claude/agents`, configuration to
-`~/.claude/craft.config.yaml`. All three are overridable with
-`CLAUDE_SKILLS_DIR`, `CLAUDE_AGENTS_DIR` and `CLAUDE_CONFIG_FILE`.
-
-Full detail, including installing one skill alone:
-[documentation/installation.md](installation.md).
+Every scope, flag and category, the target directories, and installing
+without cloning: [installation.md](installation.md).
 
 ## Configuration
 
 Nothing assumes who you are, which tools you use, or which language your
-readers speak.
+readers speak. `bash install.sh --configure` asks only the fields relevant to
+what you installed, each with a recommended answer already selected. Two
+fields have no default, ever: `identity.author_name` and
+`identity.author_email`, because a commit carries a real person.
 
-```bash
-bash install.sh --configure
-```
+The `delegation` section decides what the agent may do on its own: commits,
+branches, push, pull requests, release tags, deployments, database operations
+and dependency changes. Anything you keep is prepared and handed over with its
+command, never performed anyway, and never silently skipped.
 
-Every question has a recommended answer, already selected: press enter to
-accept it. Only the fields relevant to the scope you installed are asked.
-
-Two fields are required and have no default, ever: `identity.author_name` and
-`identity.author_email`. A commit carries a real person, and `git-workflow`
-stops and names the missing field rather than inventing one. The installer
-rejects an author name that looks like a tool.
-
-### What the agent may do on its own
-
-The `delegation` section decides how much of the work reaches you as a
-finished action and how much reaches you as a prepared step.
-
-| Field | Values |
-|---|---|
-| `commits` | yes, stage-only, no |
-| `branches` | yes, no |
-| `push` | yes, branch-only, no |
-| `pull_requests` | yes, draft, no |
-| `release_tags` | yes, no |
-| `deployments` | yes, non-production, no |
-| `database_operations` | yes, non-production, no |
-| `dependency_changes` | yes, with-justification, no |
-
-Say no to anything you would rather do yourself. The agent stops at that
-boundary, hands you what it prepared, and names the step.
-
-Everything you keep is written to `craft-manual-tasks.md`, next to the
-configuration file, with the command for each step. Nothing is silently left
-undone.
-
-Two rules are never delegated: a destructive operation is counted and
-confirmed before it runs, and a leaked secret is reported for rotation rather
-than quietly removed.
-
-Field reference: [config/README.md](../config/README.md). Installer side:
-[documentation/configuration.md](configuration.md).
+The prompts, the delegation fields and their values:
+[configuration.md](configuration.md). Field reference:
+[config/README.md](../config/README.md).
 
 ## Which skill do I need
 
@@ -516,32 +354,14 @@ Two prohibitions apply to every file in the repository, including this one:
 
 ## Plugins
 
-The suite also ships as Claude Code plugins, one per domain, so a user can add a
-marketplace and install only the domains they want.
+The suite also ships as Claude Code plugins, one per domain, so a user can add
+a marketplace and install only the domains they want. The trees are the single
+source of truth: the bundles under `plugins/` are generated from them by
+`bash plugins/build.sh`, and `tests/validate-plugins.sh` verifies they stay in
+sync. The `install.sh` path keeps working unchanged.
 
-```
-/plugin marketplace add Handsomeboy990/craft-suite
-/plugin install craft-security
-```
-
-| Plugin | Installs |
-|---|---|
-| `craft-writing` | the writing tree, 42 skills |
-| `craft-documents` | the documents tree, 9 skills and 1 agent |
-| `craft-engineering` | the engineering tree, 87 skills and 29 agents |
-| `craft-security` | the security tree, 12 skills and 3 agents |
-| `craft-research` | the research tree, 5 skills and 2 agents |
-| `craft-career` | the career tree, 7 skills |
-| `craft-opportunity` | the opportunity tree, 9 skills |
-
-Those are tree counts. A bundle also carries the two cross domain skills and any
-cross tree dependency its skills declare, so what lands on disk is larger. The
-per bundle figure is in [plugins.md](plugins.md).
-
-The trees are the single source of truth. The plugin bundles under `plugins/`
-are generated from them by `bash plugins/build.sh`, and
-`tests/validate-plugins.sh` verifies they stay in sync. The `install.sh` path
-keeps working unchanged for everyone who prefers it.
+The plugins, what each bundle carries and the marketplace command:
+[plugins.md](plugins.md).
 
 ## Control Center
 
@@ -567,6 +387,7 @@ bash tests/validate-rules.sh          emoji, em dash, secrets, hardcoded identit
 bash tests/validate-orchestration.sh  plans, phases, agents, cross references
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees
 bash tests/validate-model-routing.sh  routing fixtures against the tier table
+bash tests/validate-counts.sh         every written count against the trees
 ```
 
 All six must pass before any commit. Detail in
