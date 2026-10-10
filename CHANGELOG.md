@@ -18,7 +18,21 @@ versions it never had.
 
 ## Unreleased
 
-Nothing since 3.35.0.
+No manifest change: no skill or agent was added. Everything since 3.35.0.
+
+- The design-to-code handoff (#100):
+  `design-system/resources/design-to-code-handoff.md`, the path ADR 0006
+  decided from a validated brief to a delivered site, in eight gated steps
+  each with its owner, artefact and blocking condition. The canvas has three
+  modes: filled by the agent, the owner's claude.ai/design link read back, or
+  no canvas at all, with the tokens, charter and static mock-ups in the
+  repository. The resource states that no tool hands a brief to the canvas and
+  returns its generation unattended. `/design-sync` is started only by the
+  owner; the build reads the prototype as reference, never pasting its markup;
+  `design-verification` keeps a drift record; `production-verification`
+  comes before anything is called delivered. `design-system` 1.2.0,
+  `site-template-generation` 2.2.0 and `frontend-engineering` 1.2.0 name it,
+  and the last two also name `editorial-line`.
 
 ## 3.35.0 community manager
 
