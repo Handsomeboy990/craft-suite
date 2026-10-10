@@ -354,12 +354,10 @@ claude.ai/design and hand back the link.
   `social-content` in a new `documents/communication/`, a `community-manager`
   agent in `agents/communication/` that drafts and never publishes, the
   handoff as a resource of `design-system`. Built in the order below.
-- [ ] **`brand-identity`** (M, count-changing). A visual identity from a brief:
-  positioning and personality, logo brief and usage rules, palette with
-  measured contrast pairs in both themes, type scale, imagery and iconography
-  direction, tone of voice, a moodboard with every reference sourced and
-  licence-noted, and the charter document itself. Hands its tokens to
-  `design-system`. Governed by `design-authenticity`.
+- [x] **`brand-identity`**. Delivered in 3.32.0 (#92), owned by
+  `design-director`, no new agent: a measured palette in both themes, a
+  sourced moodboard, the charter, and sign-off before tokens reach
+  `design-system`.
 - [ ] **`editorial-line`** (M, count-changing). The editorial line: audience,
   promise, pillars, tone and vocabulary, what is never said, formats, and the
   review rule. Feeds `social-content` and site copy.
