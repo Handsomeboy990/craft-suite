@@ -16,8 +16,8 @@ the review rule that says who approves what before publication.
 - Depends on: `document-core`.
 - Governed by: `document-core`, its evidence rule and its eight-point gate.
 - Downstream: site copy in `site-template-generation` and
-  `frontend-engineering`; the social-content skill, planned, for channels,
-  calendar and moderation.
+  `frontend-engineering`; `social-content`, in the same category, for
+  channels, calendar, moderation and measurement.
 
 ## When to use
 

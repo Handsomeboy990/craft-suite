@@ -13,7 +13,7 @@ are ignored. See `Why this file exists` at the end.
 
 ## What this repository is
 
-Craft Suite: 172 skills and 33 agents, in eight trees. Named
+Craft Suite: 173 skills and 33 agents, in eight trees. Named
 `claude-writer-suite` until 3.0.0, when the writing tree stopped being the
 whole of it.
 
@@ -21,7 +21,7 @@ whole of it.
 |---|---|---|
 | `shared/` | 2 cross domain skills | none, they depend on nothing |
 | `writing/` | 42 creative writing skills | `writing/core/writing-constitution` |
-| `documents/` | 8 professional document skills | `documents/documentation/document-core` |
+| `documents/` | 9 professional document skills | `documents/documentation/document-core` |
 | `engineering/` | 87 software skills | `engineering/dev-skills/engineering-core` and `engineering/devops-skills/devops-core` |
 | `agents/` | 33 role definitions, repository wide | none, defined once per role |
 | `security/` | 12 defensive security skills | `security/secure-development/security-core` |
@@ -52,6 +52,7 @@ skill. Never run a whole chain by reflex: compose the smallest complete plan.
 | Fixing the findings of an accessibility audit | `accessibility-remediation` |
 | A brand identity, a visual charter or a moodboard | `brand-identity` |
 | An editorial line, a tone of voice or a content charter | `editorial-line` |
+| A content calendar, social posts or a moderation policy | `social-content` |
 | A degraded production system | `incident-response` |
 | Threat modeling, a security audit, or hardening | `security-core` |
 | Active testing under written authorization | `authorized-pentesting` |
@@ -90,7 +91,7 @@ skill. Never run a whole chain by reflex: compose the smallest complete plan.
 
 1. No emoji, in any file or any output.
 2. No em dash. The en dash is for dialogue only.
-3. Skill language is English, for all 172 skills and all 33 agents. Output
+3. Skill language is English, for all 173 skills and all 33 agents. Output
    language is the recipient's, set in the configuration. The three layers are
    defined in `documentation/configuration.md`.
 4. Commits are atomic, in English, with no mention of an AI, an assistant or

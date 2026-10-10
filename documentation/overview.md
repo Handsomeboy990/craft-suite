@@ -7,7 +7,7 @@ search**, **find and evaluate opportunities**, and **review your own work**.
 Called `claude-writer-suite` until 3.0.0, when the writing tree stopped being
 the whole of it.
 
-172 skills and 33 agents. Not prompts: numbered protocols, decision criteria,
+173 skills and 33 agents. Not prompts: numbered protocols, decision criteria,
 scoring grids and review procedures, each with a stated threshold for what
 counts as finished.
 
@@ -17,7 +17,7 @@ counts as finished.
 craft-suite/
 ├── shared/           2 cross domain skills, called by every tree
 ├── writing/         42 creative writing skills
-├── documents/        8 professional document skills
+├── documents/        9 professional document skills
 ├── engineering/     87 software skills
 ├── agents/          33 role definitions, repository wide
 ├── security/        12 defensive security skills
@@ -47,7 +47,7 @@ The repository separates three languages that are routinely confused.
 
 | Layer | What it is | Value |
 |---|---|---|
-| Skill language | the instructions themselves | English, all 172 skills |
+| Skill language | the instructions themselves | English, all 173 skills |
 | System language | paths, identifiers, config keys, commits | English |
 | Output language | what the reader receives | theirs, set per project |
 
@@ -97,7 +97,7 @@ Professional documents that are delivered to someone.
 | [documentation](../documents/documentation/) | 4 | how the reader understands and uses the system |
 | [administrative](../documents/administrative/) | 1 | how a formal document survives being filed and quoted |
 | [publishing](../documents/publishing/) | 2 | how it looks, paginates and renders |
-| [communication](../documents/communication/) | 1 | what a brand says, in which words, approved by whom |
+| [communication](../documents/communication/) | 2 | what a brand says, in which words, approved by whom, and on which channels |
 
 Four rules run through the tree: the audience is named before the first
 sentence; the output language is the recipient's; nothing is asserted that was
@@ -213,13 +213,13 @@ novelist's toolkit, and a novelist is never given the engineering tree.
 
 ```
    1) Creative writing        42 skills   novels, poetry, screenplay, editing
-   2) Professional documents   8 skills   guides, manuals, reports, letters, PDF
+   2) Professional documents   9 skills   guides, manuals, reports, letters, PDF
    3) Software engineering    87 skills   plus 29 agents
    4) Cybersecurity           12 skills   threat models, audits, hardening
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
-   8) Everything             172 skills   plus 33 agents
+   8) Everything             173 skills   plus 33 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -238,7 +238,7 @@ bash install.sh --configure
 
 ```bash
 bash install.sh --writing      42 creative writing skills
-bash install.sh --documents     8 professional document skills
+bash install.sh --documents     9 professional document skills
 bash install.sh --dev          82 engineering skills and 24 agents
 bash install.sh --security     12 defensive security skills
 bash install.sh --research      5 general research skills
@@ -278,7 +278,7 @@ bash install.sh --group devops-skills     operations only
 | `documentation` | 4 | documents |
 | `administrative` | 1 | documents |
 | `publishing` | 2 | documents |
-| `communication` | 1 | documents |
+| `communication` | 2 | documents |
 | `dev-skills` | 60 | engineering |
 | `delivery-skills` | 11 | engineering |
 | `devops-skills` | 16 | engineering |
@@ -406,6 +406,7 @@ Field reference: [config/README.md](../config/README.md). Installer side:
 | A formal letter has to be sent | `documents/administrative/administrative-writing` |
 | The client wants a PDF | `documents/publishing/pdf-production` |
 | A brand needs an editorial line or a tone of voice | `documents/communication/editorial-line` |
+| A brand needs a content calendar, social posts or a moderation policy | `documents/communication/social-content` |
 | I have a coding task | `engineering/dev-skills/engineering-orchestrator` |
 | I have a bug | `engineering/dev-skills/debugging` |
 | I have a specification, not a task | `engineering/delivery-skills/delivery-orchestrator` |
@@ -526,7 +527,7 @@ marketplace and install only the domains they want.
 | Plugin | Installs |
 |---|---|
 | `craft-writing` | the writing tree, 42 skills |
-| `craft-documents` | the documents tree, 8 skills |
+| `craft-documents` | the documents tree, 9 skills |
 | `craft-engineering` | the engineering tree, 82 skills and 24 agents |
 | `craft-security` | the security tree, 12 skills and 2 agents |
 | `craft-research` | the research tree, 5 skills |
@@ -561,7 +562,7 @@ never invented. Detail: [control-center/README.md](../control-center/README.md).
 ## Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of 172 skills
+bash tests/validate-structure.sh      structure and metadata of 173 skills
 bash tests/validate-rules.sh          emoji, em dash, secrets, hardcoded identity
 bash tests/validate-orchestration.sh  plans, phases, agents, cross references
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees
@@ -576,7 +577,7 @@ All six must pass before any commit. Detail in
 | File | Contents |
 |---|---|
 | [documentation/architecture.md](architecture.md) | organisation, skill isolation, metadata |
-| [documentation/skills-guide.md](skills-guide.md) | directory of the 172 skills |
+| [documentation/skills-guide.md](skills-guide.md) | directory of the 173 skills |
 | [documentation/installation.md](installation.md) | full and per-skill installation |
 | [documentation/configuration.md](configuration.md) | the configuration contract |
 | [documentation/agents.md](agents.md) | skill, agent, orchestration |

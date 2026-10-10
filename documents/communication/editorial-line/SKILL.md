@@ -4,7 +4,7 @@ description: Turns a validated brief, and a signed brand identity when one exist
 license: MIT
 metadata:
   category: communication
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [document-core]
   outputs: [intake-record, audience-profile, promise-statement, editorial-pillars, vocabulary-list, never-said-list, format-specifications, review-matrix, editorial-line-document, quality-gate-record]
 ---
@@ -51,10 +51,10 @@ Does not own:
   agent. This skill extends the voice brief into a full line; it never
   replaces it. Section 3.
 - The calendar per channel, the formats and sizes per network, captions,
-  moderation and measurement. That is the social-content skill, planned
-  downstream of this one and not yet written. Until it exists, section 9 of
-  this skill holds the rules a social post must follow, and nothing about
-  channels, schedules or replies.
+  moderation and measurement. That is `social-content`, downstream of this
+  skill, which applies the line to social channels and never edits it.
+  Section 9 here holds the rules a social post must follow; a rule a post
+  needs that the line does not hold comes back here as a question.
 - Writing the site copy itself. The line governs it; the copy is written in
   `site-template-generation` or `frontend-engineering` against it.
 - Search optimisation. Keywords chosen for ranking come from `seo-engineering`
@@ -251,7 +251,7 @@ who drafts      from section 10
 | site pages | the content file of `site-template-generation`, or the copy in `frontend-engineering`; every page names its pillar |
 | articles | written against the line; a factual article passes `document-core` section 5 before review |
 | newsletters | one subject per issue, the pillar named; subscription and sending are the client's tools and the client's consent rules |
-| social posts | the rules here only: pillar, vocabulary, never said. Channels, sizes, calendar, moderation and measurement belong to the social-content skill, planned |
+| social posts | the rules here only: pillar, vocabulary, never said. Channels, sizes, calendar, moderation and measurement belong to `social-content` |
 
 ## 10. The review rule
 
@@ -366,8 +366,9 @@ without escalation; a gate claimed without a record.
   positioning, `competitive-analysis` for any competitor the client names.
 - Governed by: `document-core`, its evidence rule and its gate.
 - Downstream: `site-template-generation` and `frontend-engineering` for site
-  copy, `seo-engineering` whose keywords are held to the vocabulary, and the
-  social-content skill, planned, for channels, calendar and moderation.
+  copy, `seo-engineering` whose keywords are held to the vocabulary, and
+  `social-content` for channels, calendar, moderation and measurement, which
+  applies the line and never edits it.
 - Lateral: `document-design` and `pdf-production` when the line is a paginated
   deliverable, `self-critique` for gate 8, `internationalization` when the
   brand publishes in more than one language.

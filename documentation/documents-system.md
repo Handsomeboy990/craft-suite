@@ -1,6 +1,6 @@
 # The documents system
 
-Technical documentation of the `documents/` tree: eight skills for documents
+Technical documentation of the `documents/` tree: nine skills for documents
 that are delivered to someone.
 
 ## 1. Why it is a separate tree
@@ -35,10 +35,11 @@ documents/
 │   ├── document-design         how it looks and is navigated
 │   └── pdf-production          how it renders, and whether it survived
 └── communication/
-    └── editorial-line          writers for a brand: what it says, how
+    ├── editorial-line          writers for a brand: what it says, how
+    └── social-content          whoever runs the accounts: calendar, replies
 ```
 
-Four categories, eight skills. The split inside `documentation/` is by
+Four categories, nine skills. The split inside `documentation/` is by
 reader, never by subject: one system produces a technical reference, a user
 manual and an assessment report, and none is derivable from another.
 
@@ -122,6 +123,7 @@ project-brief
     -> document-core
     -> technical-writing | user-documentation | report-writing
        | administrative-writing | editorial-line
+         (editorial-line -> social-content, which applies the line)
     -> document-design
     -> pdf-production
     -> self-critique
@@ -129,6 +131,10 @@ project-brief
 
 The five writing skills are alternatives, not stages. `document-design` and
 `pdf-production` run on whatever they produced.
+
+`social-content` is not a sixth alternative: it depends on `editorial-line`
+and applies a line already written, signed or explicitly provisional, to a
+brand's social channels. It drafts and hands over; it never publishes.
 
 `document-design` depends on `document-core`. `pdf-production` depends on
 `document-design`. Check 12 verifies both, so the pipeline cannot be
@@ -142,7 +148,7 @@ reordered by accident.
 | Delivered, versioned document | this tree | it is an artefact handed over |
 | Fiction, poetry, screenplay | `writing/` | it is read for its own sake |
 | The interface itself | `ui-ux-engineering` | it is not a document |
-| The visual identity and its brief voice | `brand-identity`, engineering tree | it is signed off by `design-director`; `editorial-line` extends its voice and never contradicts it |
+| The visual identity and its brief voice | `brand-identity`, engineering tree | it is signed off by `design-director`; `editorial-line` extends its voice and never contradicts it; `social-content` drafts visual posts under it, with visual questions decided by `design-director` |
 
 The line with `technical-documentation` is ownership, not subject. A readme,
 an API reference generated from routes, a runbook in the repository: those
@@ -176,7 +182,7 @@ which means the skill fails regardless of its average score.
 
 | Field | Read by | Missing behaviour |
 |---|---|---|
-| `language.document_output` | all eight | defaults to English, stated once |
+| `language.document_output` | all nine | defaults to English, stated once |
 | `identity.organization` | design, PDF, administrative, report | no organisation line, correct for a personal document |
 | `identity.author_name` | administrative, design, PDF | no signature block |
 | `documents.page_size` | design, PDF | A4 |
@@ -212,7 +218,7 @@ The six scripts cover this tree as they cover the others.
 7. Add it to `documentation/skills-guide.md`.
 8. Run the six scripts.
 
-The first step is the one that keeps the tree small. Eight skills cover the
+The first step is the one that keeps the tree small. Nine skills cover the
 document types listed in this file because they are separated by reader rather
 than by document name. A skill per document type would produce thirty skills
 sharing one method, which would then drift.

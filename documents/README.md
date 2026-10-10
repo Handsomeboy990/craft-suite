@@ -1,6 +1,6 @@
 # documents
 
-Professional document production. Eight skills in four categories, for
+Professional document production. Nine skills in four categories, for
 documents that are delivered to someone rather than written for yourself.
 
 Skill language: English. Output language: the recipient's, decided per
@@ -14,9 +14,9 @@ thing this tree gets right.
 | [documentation](documentation/) | 4 | how the reader understands and uses the system |
 | [administrative](administrative/) | 1 | how a formal document survives being filed and quoted |
 | [publishing](publishing/) | 2 | how the document looks, paginates and renders |
-| [communication](communication/) | 1 | what a brand says, in which words, approved by whom |
+| [communication](communication/) | 2 | what a brand says, in which words, approved by whom, and on which channels |
 
-## The eight
+## The nine
 
 | Skill | Produces | Reader |
 |---|---|---|
@@ -28,6 +28,7 @@ thing this tree gets right.
 | [document-design](publishing/document-design/) | the style sheet and the layout system | applied to everything above |
 | [pdf-production](publishing/pdf-production/) | the rendered, verified PDF | the final deliverable |
 | [editorial-line](communication/editorial-line/) | audience, promise, pillars, vocabulary, what is never said, formats, review rule | whoever writes for a brand |
+| [social-content](communication/social-content/) | channel calendar, formats per network, captions, moderation policy, measurement plan, publishing handover | whoever runs the brand's accounts |
 
 ## Order
 
@@ -35,6 +36,7 @@ thing this tree gets right.
 document-core
     -> technical-writing | user-documentation | report-writing
        | administrative-writing | editorial-line
+         (editorial-line -> social-content, which applies the line)
     -> document-design
     -> pdf-production
     -> self-critique
@@ -44,6 +46,9 @@ document-core
 alternatives, not stages: pick the one whose reader you have. The last three
 run on whatever the writing skill produced. `editorial-line` is the one whose
 reader is a writer: it produces the rules others write by, for a brand.
+`social-content` follows it and applies the line to social channels: its
+reader is whoever runs the brand's accounts, and it drafts but never
+publishes.
 
 ## The four rules of this tree
 
@@ -73,6 +78,7 @@ reader is a writer: it produces the rules others write by, for a brand.
 | Four deliverables must look like one set | `document-design` |
 | The client wants a PDF | `pdf-production` |
 | Someone other than the client will write for the brand | `editorial-line` |
+| The brand will post on social networks and answer there | `social-content`, after `editorial-line` |
 
 ## Boundary with the other trees
 
@@ -91,14 +97,14 @@ belongs here.
 ## Installation
 
 ```bash
-bash install.sh --documents     these eight, plus the two shared skills
+bash install.sh --documents     these nine, plus the two shared skills
 ```
 
 ## Configuration
 
 | Field | Used by |
 |---|---|
-| `language.document_output` | all eight, as the default output language |
+| `language.document_output` | all nine, as the default output language |
 | `identity.organization` | covers, letterheads, PDF metadata |
 | `identity.author_name` | signature blocks, PDF metadata |
 | `documents.page_size` | `document-design`, `pdf-production` |

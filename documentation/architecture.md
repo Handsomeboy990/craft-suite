@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Craft Suite is a library of 172 skills in nineteen groups across
+The Craft Suite is a library of 173 skills in nineteen groups across
 eight trees, plus thirty-three agents, shared resources, the configuration contract,
 an optional local dashboard, per-domain plugins, documentation, a demonstration
 project and validation scripts. The repository was called
@@ -25,11 +25,11 @@ craft-suite/
 │   ├── quality/            8
 │   ├── resources/         French reference material
 │   └── examples/          demonstration project
-├── documents/              8 skills
+├── documents/              9 skills
 │   ├── documentation/      4
 │   ├── administrative/     1
 │   ├── publishing/         2
-│   └── communication/      1
+│   └── communication/      2
 ├── engineering/           87 skills
 │   ├── dev-skills/        60
 │   ├── delivery-skills/   11
@@ -144,7 +144,7 @@ Three layers, kept apart.
 
 | Layer | Value |
 |---|---|
-| Skill language | English, all 172 skills and all 33 agents |
+| Skill language | English, all 173 skills and all 33 agents |
 | System language | English: paths, identifiers, config keys, commits, technical documentation |
 | Output language | the recipient's, set per project in the configuration |
 

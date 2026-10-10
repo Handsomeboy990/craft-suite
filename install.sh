@@ -7,7 +7,7 @@
 #
 #   bash install.sh                ask what to install
 #   bash install.sh --writing      creative writing, 42 skills
-#   bash install.sh --documents    professional documents, 8 skills
+#   bash install.sh --documents    professional documents, 9 skills
 #   bash install.sh --dev          software engineering, its skills and 29 agents
 #   bash install.sh --security     defensive security, 12 skills and 3 agents
 #   bash install.sh --research     general research, 5 skills and 2 agents
