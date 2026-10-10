@@ -4,7 +4,7 @@ description: Builds a client website as a template with its own back office: the
 license: MIT
 metadata:
   category: dev-skills
-  version: 2.1.0
+  version: 2.2.0
   depends_on: [engineering-core]
   outputs: [content-contract, token-profile, motion-spec, admin-surface, admin-security-report, legal-fact-sheet, completion-gate-report, dashboard-spec, dashboard-gate-report]
 ---
@@ -234,6 +234,12 @@ lightness flipped produces grey text on charcoal and an accent that glows. Each
 palette is authored and measured on its own. The profiles per trade, the pairs
 that must be measured and the two border tokens are in
 `resources/trade-profiles.md`.
+
+When the design arrives as a signed identity and a prototype, on the Claude
+Design canvas, from the owner's claude.ai/design link or as static mock-ups,
+`design-system`'s `resources/design-to-code-handoff.md` governs the input: the
+palettes are written from the signed token file, never re-read from the
+prototype's CSS, and the prototype is a reference, never markup to paste.
 
 The theme resolves in this order: the visitor's stored choice, then the system
 preference, then light. The stored choice is applied before first paint, so the
@@ -750,9 +756,11 @@ delivery false.
 
 - Upstream: `engineering-core`, `template-selection` when the work starts from
   an existing template rather than a blank page.
-- Lateral: `design-system` for the token structure, `ui-ux-engineering` for the
-  rendered experience, `frontend-engineering` for the implementation,
-  `animation` for the motion the intensity scalar drives,
+- Lateral: `design-system` for the token structure and, through its
+  `resources/design-to-code-handoff.md`, for a site built from a signed
+  prototype, `editorial-line` for the copy the content file carries,
+  `ui-ux-engineering` for the rendered experience, `frontend-engineering` for
+  the implementation, `animation` for the motion the intensity scalar drives,
   `design-authenticity` so the result does not read as a generic default,
   `admin-console` for the back office, `authentication-security` and
   `session-security` for the way in, `authorization-design` for the role

@@ -14,6 +14,8 @@ path that ends.
 - Lateral: frontend-engineering, accessibility-testing, internationalization,
   dependency-selection.
 - Downstream: playwright-automation, technical-documentation, technical-debt.
+- Handoff to code: `resources/design-to-code-handoff.md`, from a validated
+  brief to a delivered site through a signed prototype, eight gated steps.
 
 Tokens carry the decisions and components consume them by semantic name, so a
 theme is one indirection away. A component that accepts arbitrary style

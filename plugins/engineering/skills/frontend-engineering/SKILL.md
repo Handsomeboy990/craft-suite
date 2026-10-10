@@ -4,7 +4,7 @@ description: Builds client side features to production standard: component bound
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.1.0
+  version: 1.2.0
   depends_on: [engineering-core, project-exploration, ui-ux-engineering]
   outputs: [components, client-state, ui-states, accessibility-notes]
 ---
@@ -195,6 +195,9 @@ control unreachable by keyboard is an automatic failure.
 
 - Upstream: `ui-ux-engineering`, `project-exploration`, `architecture-design`.
 - Lateral: `input-validation`, `backend-engineering` for the contract,
-  `accessibility-remediation` when the work is an audit's findings.
+  `accessibility-remediation` when the work is an audit's findings,
+  `editorial-line` for the copy a page carries, `design-system` and its
+  `resources/design-to-code-handoff.md` when the page is built from a signed
+  prototype.
 - Downstream: `testing-quality`, `playwright-automation`,
   `performance-engineering`, `code-review-protocol`.

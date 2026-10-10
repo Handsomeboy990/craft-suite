@@ -4,7 +4,7 @@ description: Builds and maintains the shared visual and interaction language: to
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.1.0
+  version: 1.2.0
   depends_on: [engineering-core, ui-ux-engineering]
   outputs: [token-set, component-contracts, theme-definition, usage-documentation, adoption-plan]
 ---
@@ -172,7 +172,20 @@ Threshold: no axis below 3, average at least 4. A component library whose
 components accept arbitrary style overrides is not a design system, and it is
 reworked before it spreads.
 
-## 12. Interfaces
+## 12. Resources
+
+- `resources/component-contract.md`: the contract format of section 3, worked
+  for one component.
+- `resources/design-to-code-handoff.md`: the path from a validated brief to a
+  delivered site, in eight gated steps, each with its owner and artefact: the
+  identity signed, the design canvas in one of three modes (agent filled, the
+  owner's claude.ai/design link read back, or no canvas at all), the owner's
+  sign-off, the tokens synced by `/design-sync` only when the owner starts it
+  or applied by hand from the signed record, the build from the prototype
+  without pasting its markup, `design-verification` against the canvas, and
+  `production-verification` before anything is called delivered.
+
+## 13. Interfaces
 
 - Upstream: `ui-ux-engineering` for the experience decisions,
   `requirements-analysis` for the brand and platform constraints,
@@ -184,3 +197,8 @@ reworked before it spreads.
 - Downstream: `playwright-automation` for visual verification,
   `technical-documentation` for the published documentation,
   `technical-debt` for the unmigrated surface.
+- Handoff to code: `resources/design-to-code-handoff.md`, followed by
+  `site-template-generation` and `frontend-engineering` when a site is built
+  from a signed prototype, with `editorial-line` for the copy, the
+  design-verification agent for the comparison with the canvas and
+  `production-verification` before delivery.
