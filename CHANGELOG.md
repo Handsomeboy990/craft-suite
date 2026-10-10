@@ -18,7 +18,29 @@ versions it never had.
 
 ## Unreleased
 
-Nothing since 3.34.0.
+Nothing since 3.35.0.
+
+## 3.35.0 community manager
+
+The manifests moved to 3.35.0 with the `community-manager` agent, the fourth
+count-changing step of ADR 0006; the entry below is everything since 3.34.0.
+
+- `community-manager` (agents/communication), agent 34 (#98): owner of
+  `editorial-line` and `social-content`, in a ninth team of
+  `team-routing.md` that replaces the chief's interim hold on both skills. It
+  drafts the line and the content plan and hands everything over: it never
+  publishes, schedules or replies from a real account, never invents a figure,
+  a testimonial, an audience number or a client fact, and never approves its
+  own draft. Visual questions and any conflict with a signed identity go to
+  `design-director`, decided with the owner; site copy goes to
+  `site-template-engineer` through `delivery-orchestrator`; values that must
+  be read at a live source go to `researcher`. Tools: read and write only. It
+  ships in the documents bundle, so `--documents` now installs 11 skills and
+  1 agent. `delivery-orchestrator` 1.4.0, `model-routing` 1.4.0,
+  `editorial-line` 1.2.0, `social-content` 1.1.0. `validate-counts.sh` now
+  checks the documents and research bundle agent counts, and agent counts that
+  had drifted in the overviews, usage, installation and plugins prose were
+  corrected. 173 skills, 34 agents.
 
 ## 3.34.0 social content
 

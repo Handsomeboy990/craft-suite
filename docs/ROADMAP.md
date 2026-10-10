@@ -364,10 +364,9 @@ claude.ai/design and hand back the link.
 - [x] **`social-content`**. Delivered in 3.34.0 (#96): drafts and never
   publishes; network specifications cited with a date or left as fields; no
   invented figure.
-- [ ] **`community-manager` agent** (S, count-changing). Owns
-  `editorial-line` and `social-content`; hands visual work to `design-director`
-  and site work to `site-template-engineer`. Rows in `agent-tiers.md`,
-  `team-routing.md` and `agent-dispatch.md` (check 14).
+- [x] **`community-manager` agent**. Delivered in 3.35.0 (#98), in
+  `agents/communication/`, shipped in the documents bundle; it drafts and
+  never publishes.
 - [ ] **The design-to-code handoff** (M). A resource, in `design-system` or
   `site-template-generation`, for the whole path: brief validated, Design
   canvas created and filled (or the owner's claude.ai/design link read back),
