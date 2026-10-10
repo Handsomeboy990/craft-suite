@@ -387,6 +387,7 @@ bash tests/validate-rules.sh          emoji, em dash, secrets, hardcoded identit
 bash tests/validate-orchestration.sh  plans, phases, agents, cross references
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees
 bash tests/validate-model-routing.sh  routing fixtures against the tier table
+bash tests/validate-counts.sh         every written count against the trees
 ```
 
 All six must pass before any commit. Detail in

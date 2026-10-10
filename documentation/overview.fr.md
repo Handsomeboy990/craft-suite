@@ -395,6 +395,7 @@ bash tests/validate-rules.sh          emoji, tiret cadratin, secrets, identité 
 bash tests/validate-orchestration.sh  plans, phases, agents, renvois croisés
 bash tests/validate-plugins.sh        bundles de plugins synchronisés avec les arbres
 bash tests/validate-model-routing.sh  fixtures de routage contre la table de tiers
+bash tests/validate-counts.sh         chaque compte écrit contre les arbres
 ```
 
 Les six doivent passer avant tout commit. Détail dans
