@@ -12,8 +12,8 @@ itself is phase 8 of `docs/ROADMAP.md`; the direction behind it is
 
 ### State
 
-On `dev`, merged (pull requests 55 to 94), and this change. Manifests 3.33.0,
-172 skills, 33 agents; `CHANGELOG.md` 3.30.0 lists everything since 3.29.0,
+On `dev`, merged (pull requests 55 to 96), and this change. Manifests 3.34.0,
+173 skills, 33 agents; `CHANGELOG.md` 3.30.0 lists everything since 3.29.0,
 and each version after it everything since the one before.
 
 - Agents 27 to 33 and `codebase-mapping` (3.28.0, 3.29.0).
@@ -147,15 +147,17 @@ marked; run those one at a time.
    (`documentation/branch-protection.md`). CHANGELOG Unreleased covers 87 to
    89 and this workflow.
 6. **Phase 9, brief to brand, content and site**: ADR 0006 accepted (#91),
-   `brand-identity` in 3.32.0 (#92), `editorial-line` in 3.33.0 (#94), in the
-   new `documents/communication/` category. A new skill group must be added to
+   `brand-identity` in 3.32.0 (#92), `editorial-line` in 3.33.0 (#94) and
+   `social-content` in 3.34.0 (#96), the last two in the new
+   `documents/communication/` category. A new skill group must be added to
    three lists: `install.sh`, `tests/validate-structure.sh` and
    `tests/validate-orchestration.sh`; `tests/validate-counts.sh` has a `COMM`
    check for this one. Next, one count-changing pull request at a time:
-   `social-content` in the same category (in progress on branch
-   `feat/social-content`), the `community-manager` agent in
-   `agents/communication/` (it takes over the routing of both communication
-   skills from `delivery-orchestrator`), the handoff resource in
+   the `community-manager` agent in `agents/communication/` (in progress on
+   branch `feat/community-manager-agent`; it takes over the routing of both
+   communication skills from `delivery-orchestrator`, and the publishing
+   boundary stays: the `delegation` section has no publishing field, so every
+   post is handed over), the handoff resource in
    `design-system` (it references `brand-identity/resources/token-handoff.md`),
    and a worked run of one real brief. Small follow-ups: name `editorial-line`
    in the Interfaces of `site-template-generation` and `frontend-engineering`;
