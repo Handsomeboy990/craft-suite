@@ -40,6 +40,7 @@ obvious. When several rows match, the row with the stricter gates wins.
 | translate, locale, timezone, currency, right to left | I18N | FRONTEND |
 | metadata, sitemap, canonical, ranking, indexing | SEO | FRONTEND, PERFORMANCE |
 | tokens, component library, theme, dark mode, consistency | DESIGN_SYSTEM | UI_UX |
+| brand, visual identity, charter, logo rules, palette, moodboard | DESIGN_SYSTEM | UI_UX |
 | personal data, GDPR, retention, delete my account, export my data | PRIVACY | SECURITY, DATABASE |
 | cache it, invalidation, CDN, stale data | CACHING | PERFORMANCE |
 | track this, events, funnel, conversion, product metrics | ANALYTICS | PRIVACY |
@@ -89,6 +90,7 @@ category.
 | an event is emitted for measurement | `analytics-instrumentation`, `data-privacy` |
 | a conditional ships disabled | `feature-flags`, with an owner and a date |
 | an interactive element is added or changed | `accessibility-testing` |
+| a palette, a typeface or a logo is chosen and no signed identity exists | `brand-identity`, signed off before `design-system` |
 | accessibility findings are to be fixed | `accessibility-remediation`, then the verify loop of `accessibility-testing` |
 | a public URL changes | `seo-engineering`, redirect map |
 | a dependency is added or bumped | `dependency-selection`, `security-audit` |

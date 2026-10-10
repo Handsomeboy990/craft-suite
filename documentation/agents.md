@@ -76,7 +76,7 @@ sequence. `tests/validate-counts.sh` fails when the two disagree on the count.
 | `data-collection-engineer` | lawful, provenanced data collection from external sources | data is needed from the web | `researcher`, then the build agents |
 | `penetration-tester` | authorized offensive testing driven to bounded proofs | a target and written, in-scope authorization | `security-engineer` per finding, then re-test |
 | `ci-cd-engineer` | the integration and delivery pipeline and its gates | a repository and its target environments | `qa-engineer`, `release-engineer` |
-| `design-director` | direction and sign-off over the whole design | a product that must read as designed, not generic | `design-research`, `ui-ux-engineer`, `design-verification` |
+| `design-director` | direction and sign-off over the whole design | a product that must read as designed, not generic, or that has no identity yet (`brand-identity`) | `design-research`, `ui-ux-engineer`, `design-verification` |
 | `delivery-manager` | the schedule and the deadline, without trading a gate | a project with a deadline to hold | `delivery-orchestrator` |
 | `codebase-cartographer` | the structural map of the codebase, kept true | a large repository, or repeated exploration | `checkup`, `source-of-truth`, the implementing agent |
 

@@ -1,0 +1,24 @@
+| Theme | Foreground | Background | Use | Ratio | AA | AAA |
+|---|---|---|---|---|---|---|
+| light | ink #1F2421 | paper #F7F4EE | text | 14.35:1 | pass | pass |
+| light | ink #1F2421 | paper-raised #EDE7DC | text | 12.80:1 | pass | pass |
+| light | ink-muted #545C57 | paper #F7F4EE | text | 6.28:1 | pass | fail |
+| light | ink-muted #545C57 | paper-raised #EDE7DC | text | 5.60:1 | pass | fail |
+| light | on-tide #FFFFFF | tide #1E5F74 | text | 7.13:1 | pass | pass |
+| light | tide #1E5F74 | paper #F7F4EE | text | 6.49:1 | pass | fail |
+| light | rust-text #A8431F | paper #F7F4EE | text | 5.48:1 | pass | fail |
+| light | rust-text #A8431F | paper-raised #EDE7DC | text | 4.89:1 | pass | fail |
+| light | rust #C4512B | paper #F7F4EE | large-text | 4.19:1 | pass | fail |
+| light | control-edge #7D857F | paper #F7F4EE | non-text | 3.45:1 | pass | n/a |
+| light | focus #1E5F74 | paper #F7F4EE | non-text | 6.49:1 | pass | n/a |
+| dark | ink #ECE8E0 | night #121614 | text | 14.93:1 | pass | pass |
+| dark | ink #ECE8E0 | night-raised #1C221F | text | 13.24:1 | pass | pass |
+| dark | ink-muted #A9B0AA | night #121614 | text | 8.23:1 | pass | pass |
+| dark | ink-muted #A9B0AA | night-raised #1C221F | text | 7.30:1 | pass | pass |
+| dark | on-tide #121614 | tide #7FC4D6 | text | 9.35:1 | pass | pass |
+| dark | tide #7FC4D6 | night #121614 | text | 9.35:1 | pass | pass |
+| dark | rust #E8875F | night #121614 | text | 7.00:1 | pass | pass |
+| dark | control-edge #6E7771 | night #121614 | non-text | 3.94:1 | pass | n/a |
+| dark | focus #7FC4D6 | night #121614 | non-text | 9.35:1 | pass | n/a |
+
+0 pair(s) below the AA threshold of their use.

@@ -128,6 +128,7 @@ condition in section 2 is met.
 | one single-surface change | `engineering-orchestrator` | the implementer itself | `qa-engineer`, `final-verifier` |
 | inherited or unfamiliar codebase | `project-exploration`, `codebase-mapping` | the chief | `codebase-cartographer` when large, `checkup`, `source-of-truth` when docs exist |
 | design across a product | `design-authenticity` | `design-director` | `design-research`, `ui-ux-engineer`, `design-verification`, `frontend-engineer` |
+| a brand identity, a visual charter, a moodboard | `brand-identity` | `design-director` | `design-research` for the moodboard, `ui-ux-engineer` for the palette, type and tokens |
 | a client site template | `site-template-generation` | `site-template-engineer` | `ui-ux-engineer`, `security-engineer`, `qa-engineer` |
 | a QA campaign, validating a product | `quality-engineering` | `qa-engineer` | `playwright-engineer` when there is a browser surface |
 | threat model, audit, hardening | `security-core` | `security-engineer` | `qa-engineer` for the tests that encode each fix |

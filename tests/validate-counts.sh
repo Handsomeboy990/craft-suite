@@ -354,7 +354,7 @@ check_nth AGENTS.md "$OPPORTUNITY" '^\| `opportunity/` \|' 1 "AGENTS opportunity
 # The number word that opens a category index, and the agent total in prose.
 # --------------------------------------------------------------------------
 SKILLS_WORD='[A-Za-z]+([- ][a-z]+)?(?= skills)'
-check_word engineering/dev-skills/README.md      "$DEV"       'system\. [A-Za-z]+ [a-z]+ skills' "dev-skills prose count"      "$SKILLS_WORD"
+check_word engineering/dev-skills/README.md      "$DEV"       'system\. [A-Za-z]+( [a-z]+)? skills' "dev-skills prose count"      "$SKILLS_WORD"
 check_word engineering/delivery-skills/README.md "$DELIV"     'system\. [A-Za-z]+ skills'        "delivery-skills prose count" "$SKILLS_WORD"
 check_word engineering/devops-skills/README.md   "$DEVOPS"    'system\. [A-Za-z]+ skills'        "devops-skills prose count"   "$SKILLS_WORD"
 check_word security/security-assurance/README.md "$SECASSURE" 'exists\. [A-Za-z]+ skills'        "security-assurance prose count" "$SKILLS_WORD"

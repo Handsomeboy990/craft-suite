@@ -282,9 +282,13 @@ Public surfaces only. Verification happens on rendered output, which is why
 ## DESIGN_SYSTEM
 
 category: DESIGN_SYSTEM
-plan: project-exploration -> ui-ux-engineering -> design-system -> frontend-engineering -> design-authenticity -> animation -> accessibility-testing -> testing-quality -> playwright-automation -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> brand-identity -> ui-ux-engineering -> design-system -> frontend-engineering -> design-authenticity -> animation -> accessibility-testing -> testing-quality -> playwright-automation -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
 Tokens are applied to the existing product before any component is rewritten.
+`brand-identity` runs only when the product has no signed identity, or the
+request is for one; it is dropped when a signed charter and token file exist.
+Its tokens reach `design-system` only after `design-director` has signed off,
+and never on the signature of the agent that drafted them.
 
 ## PRIVACY
 
@@ -323,7 +327,7 @@ since deleting a branch changes behaviour for whoever was on it.
 ## SITE_TEMPLATE
 
 category: SITE_TEMPLATE
-plan: project-exploration -> template-selection -> site-template-generation -> design-system -> ui-ux-engineering -> frontend-engineering -> backend-engineering -> admin-console -> authentication-security -> rate-limiting -> input-validation -> file-handling -> data-privacy -> design-authenticity -> animation -> seo-engineering -> security-audit -> accessibility-testing -> testing-quality -> playwright-automation -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> template-selection -> brand-identity -> site-template-generation -> design-system -> ui-ux-engineering -> frontend-engineering -> backend-engineering -> admin-console -> authentication-security -> rate-limiting -> input-validation -> file-handling -> data-privacy -> design-authenticity -> animation -> seo-engineering -> security-audit -> accessibility-testing -> testing-quality -> playwright-automation -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
 A site delivered to a client, driven by a content file the client edits from a
 back office. `site-template-generation` fixes the content contract, both token
@@ -332,5 +336,7 @@ sixteen point gate at the end. The back office is why this plan carries the
 server side skills: it authenticates, it writes, it accepts uploads and it holds
 the client's messages, which makes it the highest value target on the
 deployment. `template-selection` runs only when the work starts from an existing
-template. `animation` is reduced to almost nothing on a trade whose motion
+template. `brand-identity` runs only when the client has no identity to give,
+and its signed palette replaces the trade palette as the source of both token
+sets. `animation` is reduced to almost nothing on a trade whose motion
 intensity is low, and is not dropped, because the intensity is still a decision.
