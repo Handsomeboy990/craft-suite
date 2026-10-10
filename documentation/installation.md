@@ -3,6 +3,8 @@
 The skills and agents are Markdown, the installer is shell. No runtime and no
 package manager are needed to use them.
 
+[Version francaise](installation.fr.md)
+
 If you are new to the suite, read [usage.md](usage.md) first: it says what runs
 these skills, what happens after the install, and how a skill comes to be used
 at all. This page covers the install itself.
@@ -59,9 +61,9 @@ everything.
 
 ```bash
 bash install.sh --writing      42 creative writing skills
-bash install.sh --documents     9 professional document skills
-bash install.sh --dev          82 engineering skills and 24 agents
-bash install.sh --security     12 defensive security skills and 2 agents
+bash install.sh --documents     9 professional document skills and 1 agent
+bash install.sh --dev          87 engineering skills and 29 agents
+bash install.sh --security     12 defensive security skills and 3 agents
 bash install.sh --research      5 general research skills and 2 agents
 bash install.sh --career        7 job search and application skills
 bash install.sh --opportunity   9 ideation, hackathon and business skills

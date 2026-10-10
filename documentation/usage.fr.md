@@ -40,7 +40,7 @@ ou, par le marketplace de plugins, un domaine à la fois :
 
 Installez l'arbre dont vous vous servirez vraiment. L'installeur ne choisit
 jamais pour vous, et une portée non installée ne vous coûte rien. Toutes les
-options sont dans [installation.md](installation.md), en anglais.
+options sont dans [installation.fr.md](installation.fr.md).
 
 ## 3. Configurer, une fois
 
@@ -68,7 +68,7 @@ nouveau collègue qui demande ce qu'il peut pousser sans vérifier.
 Relancer `--configure` est sans risque. La commande garde chaque réponse déjà
 donnée, ne vide pas les sections que sa portée n'a pas interrogées, et laisse
 `model_routing` et `career`, qu'elle ne demande jamais, exactement comme vous
-les avez écrites. Référence des champs : [configuration.md](configuration.md).
+les avez écrites. Référence des champs : [configuration.fr.md](configuration.fr.md).
 
 ## 4. Comment un skill arrive réellement dans la conversation
 
@@ -318,13 +318,13 @@ vous la supprimiez délibérément.
 
 | Vous voulez | Lisez |
 |---|---|
-| Toutes les options d'installation | [installation.md](installation.md) |
-| Tous les champs de configuration | [configuration.md](configuration.md), `config/README.md` |
+| Toutes les options d'installation | [installation.fr.md](installation.fr.md) |
+| Tous les champs de configuration | [configuration.fr.md](configuration.fr.md), `config/README.md` |
 | Le catalogue complet, arbre par arbre | [overview.fr.md](overview.fr.md) |
 | Une ligne par skill | [skills-guide.md](skills-guide.md) |
 | La liste des agents et leurs contrats | [agents.md](agents.md) |
 | Comment les pièces s'emboîtent | [architecture.md](architecture.md) |
 
-La documentation détaillée de l'installation et de la configuration n'existe
-qu'en anglais. Cette page et [overview.fr.md](overview.fr.md) sont les deux
-documents français.
+Quatre documents existent en français : cette page,
+[overview.fr.md](overview.fr.md), [installation.fr.md](installation.fr.md) et
+[configuration.fr.md](configuration.fr.md). Les autres sont en anglais.

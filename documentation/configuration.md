@@ -4,6 +4,8 @@ Nothing in this repository assumes who you are, which tools you use, or which
 language your readers speak. Those answers live in one file outside the
 repository.
 
+[Version francaise](configuration.fr.md)
+
 `config/README.md` is the field reference. This document explains the contract
 from the installer side: which fields are asked, when, and what happens when
 one is missing.
@@ -98,7 +100,7 @@ rather than one.
 | Output language | `language.creative_output`, `language.document_output` | per audience | yes |
 
 - **Skill language** is the language the instructions are written in. English
-  for all 166 skills, so the system is usable internationally.
+  for all 173 skills, so the system is usable internationally.
 - **System language** is the language of identifiers, paths, configuration
   keys, commits and technical documentation. English.
 - **Output language** is the language of what a reader receives. It is the
