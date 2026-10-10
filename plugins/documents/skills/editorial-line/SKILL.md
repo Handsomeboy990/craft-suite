@@ -4,7 +4,7 @@ description: Turns a validated brief, and a signed brand identity when one exist
 license: MIT
 metadata:
   category: communication
-  version: 1.1.0
+  version: 1.2.0
   depends_on: [document-core]
   outputs: [intake-record, audience-profile, promise-statement, editorial-pillars, vocabulary-list, never-said-list, format-specifications, review-matrix, editorial-line-document, quality-gate-record]
 ---
@@ -373,5 +373,6 @@ without escalation; a gate claimed without a record.
   deliverable, `self-critique` for gate 8, `internationalization` when the
   brand publishes in more than one language.
 - Escalation: the design-director agent and the owner, for any conflict with
-  the identity. Owned, until a communication agent exists, by
-  `delivery-orchestrator` through the documents routing.
+  the identity.
+- Owner: the community-manager agent, which drafts the line and hands it to
+  the approver of the review rule; it never approves it and never publishes.

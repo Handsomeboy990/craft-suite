@@ -1,6 +1,6 @@
 # Agent tier rules
 
-The tier rule for every one of the thirty-three agents of the chief's team
+The tier rule for every one of the thirty-four agents of the chief's team
 map, `delivery-orchestrator`'s `resources/team-routing.md`, in the same
 teams. No agent is dispatched without a rule here, and no rule here
 contradicts `SKILL.md` sections 3 to 6 or `tier-table.json`.
@@ -103,6 +103,12 @@ gated by a pass classified LOW. An independent gate is held by
 | `researcher` | lead for a research request; `uncited-claim` and `contradiction-with-sources` are its usual escalations |
 | `data-collection-engineer` | table; `security-driving-signal` when the gathered data holds personal data; `large-mechanical-output` for a bulk gather against a fixed schema |
 
+### Communication
+
+| Agent | Tier rule |
+|---|---|
+| `community-manager` | table, on the line or the plan slice; `uncited-claim` and `factual-error-on-verification` are its usual escalations. An author, never an independent gate: `independent-verifier-floor` does not apply, and whoever reviews its drafts is routed on that review slice |
+
 ### Independent gates
 
 | Agent | Tier rule |
@@ -112,7 +118,7 @@ gated by a pass classified LOW. An independent gate is held by
 | `compliance-verifier` | `independent-verifier-floor` |
 | `final-verifier` | `independent-verifier-floor` |
 
-Count check: 1 + 5 + 7 + 4 + 2 + 3 + 4 + 1 + 2 + 4 = 33.
+Count check: 1 + 5 + 7 + 4 + 2 + 3 + 4 + 1 + 2 + 1 + 4 = 34.
 
 ## 3. What no row allows
 

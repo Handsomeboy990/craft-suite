@@ -275,25 +275,33 @@ Depend on nothing. Callable from any tree, usable alone.
 | `tls-certificates` | the TLS certificate over its whole life, key never leaked |
 | `email-deliverability` | mail into the inbox: SPF, DKIM, DMARC aligned, reputation, bounces |
 
-### agents, 33
+### agents, 34
 
-Core, nine: `delivery-orchestrator`, `principal-engineer`,
+Core, eleven: `delivery-orchestrator`, `principal-engineer`,
 `requirements-analyst`, `compliance-verifier`, `source-of-truth`, `checkup`,
-`final-verifier`, `pr-author`, `pr-reviewer`.
+`final-verifier`, `pr-author`, `pr-reviewer`, `delivery-manager`,
+`codebase-cartographer`.
 
 Development, six: `software-architect`, `frontend-engineer`,
 `backend-engineer`, `database-engineer`, `performance-engineer`,
 `site-template-engineer`.
 
-Design, three: `ui-ux-engineer`, `design-research`, `design-verification`.
+Design, four: `ui-ux-engineer`, `design-research`, `design-verification`,
+`design-director`.
 
-Security, two: `security-engineer`, `web-auditor`.
+Security, three: `security-engineer`, `web-auditor`, `penetration-tester`.
 
 Testing, two: `qa-engineer`, `playwright-engineer`.
 
-DevOps, three: `devops-engineer`, `release-engineer`, `incident-responder`.
+DevOps, four: `devops-engineer`, `release-engineer`, `incident-responder`,
+`ci-cd-engineer`.
 
 Documentation, one: `documentation-engineer`.
+
+Research, two: `researcher`, `data-collection-engineer`.
+
+Communication, one: `community-manager`, owner of `editorial-line` and
+`social-content`; it drafts and never publishes.
 
 Public contracts in `agents.md`. An agent is a role: it names the skills it
 uses and restates none of them.

@@ -7,7 +7,7 @@ search**, **find and evaluate opportunities**, and **review your own work**.
 Called `claude-writer-suite` until 3.0.0, when the writing tree stopped being
 the whole of it.
 
-173 skills and 33 agents. Not prompts: numbered protocols, decision criteria,
+173 skills and 34 agents. Not prompts: numbered protocols, decision criteria,
 scoring grids and review procedures, each with a stated threshold for what
 counts as finished.
 
@@ -19,7 +19,7 @@ craft-suite/
 ├── writing/         42 creative writing skills
 ├── documents/        9 professional document skills
 ├── engineering/     87 software skills
-├── agents/          33 role definitions, repository wide
+├── agents/          34 role definitions, repository wide
 ├── security/        12 defensive security skills
 ├── research/         5 general research skills
 ├── career/           7 job search and application skills
@@ -119,7 +119,7 @@ verified in production.
 | [devops-skills](../engineering/devops-skills/) | 16 | how the system runs, deploys and restores |
 
 Stack and platform agnostic: the system reads the project it is given rather
-than assuming its shape. The thirty-three agents are not a category of this tree:
+than assuming its shape. The thirty-four agents are not a category of this tree:
 they are a repository-wide layer, at [agents](../agents/), who owns what and
 what is handed on.
 
@@ -219,7 +219,7 @@ novelist's toolkit, and a novelist is never given the engineering tree.
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
-   8) Everything             173 skills   plus 33 agents
+   8) Everything             173 skills   plus 34 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -238,15 +238,15 @@ bash install.sh --configure
 
 ```bash
 bash install.sh --writing      42 creative writing skills
-bash install.sh --documents     9 professional document skills
-bash install.sh --dev          82 engineering skills and 24 agents
+bash install.sh --documents     9 professional document skills and 1 agent
+bash install.sh --dev          87 engineering skills and 29 agents
 bash install.sh --security     12 defensive security skills
 bash install.sh --research      5 general research skills
 bash install.sh --career        7 job search and application skills
 bash install.sh --opportunity   9 ideation, hackathon and business skills
 bash install.sh --all          everything
 bash install.sh --shared        the 2 cross domain skills only
-bash install.sh --agents        the 33 agents only
+bash install.sh --agents        the 34 agents only
 bash install.sh --no-agents     skills without agents
 bash install.sh --all --zip     also build one archive per skill in dist/
 bash install.sh --remove        uninstall the selected scope
@@ -451,7 +451,7 @@ the operations and shared constitutions:
 
 ## Agents
 
-Twenty-six role definitions, for a runtime that supports subagents.
+Thirty-four role definitions, for a runtime that supports subagents.
 
 ```
 Skill          how this kind of work is done correctly
@@ -527,10 +527,10 @@ marketplace and install only the domains they want.
 | Plugin | Installs |
 |---|---|
 | `craft-writing` | the writing tree, 42 skills |
-| `craft-documents` | the documents tree, 9 skills |
-| `craft-engineering` | the engineering tree, 82 skills and 24 agents |
-| `craft-security` | the security tree, 12 skills and 2 agents |
-| `craft-research` | the research tree, 5 skills |
+| `craft-documents` | the documents tree, 9 skills and 1 agent |
+| `craft-engineering` | the engineering tree, 87 skills and 29 agents |
+| `craft-security` | the security tree, 12 skills and 3 agents |
+| `craft-research` | the research tree, 5 skills and 2 agents |
 | `craft-career` | the career tree, 7 skills |
 | `craft-opportunity` | the opportunity tree, 9 skills |
 

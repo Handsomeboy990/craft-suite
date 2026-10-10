@@ -21,7 +21,7 @@ balanced and strongest, resolved to real model identifiers through
 configuration rather than hardcoded, because model availability differs by
 account and changes over time.
 
-Every one of the thirty-three agents of the chief's team map has a tier rule
+Every one of the thirty-four agents of the chief's team map has a tier rule
 in `resources/agent-tiers.md`, and every worker of a parallel wave is routed
 from its own slice, passed its own explicit model and logged under its own
 dispatch id.

@@ -1,6 +1,6 @@
 # agents
 
-Thirty-three specialised agent definitions for an agent runtime that supports
+Thirty-four specialised agent definitions for an agent runtime that supports
 subagents, such as Claude Code.
 
 An agent here is a role with a narrow responsibility. It is thin by design:
@@ -19,7 +19,7 @@ Agent   who owns this piece of work, what they may touch, what they hand on
 Duplicating a skill's content into an agent produces two documents that drift.
 Every agent below references the skills it uses and never restates them.
 
-## The thirty-three
+## The thirty-four
 
 | Agent | Owns | Primary skills |
 |---|---|---|
@@ -56,6 +56,7 @@ Every agent below references the skills it uses and never restates them.
 | `design-director` | the whole design result held to one intentional, authentic identity | design-authenticity, design-system, ui-ux-engineering |
 | `delivery-manager` | the schedule and the deadline, pace kept without cutting a gate | delivery-planning, scope-and-change-control, task-complexity |
 | `codebase-cartographer` | the durable, commit-stamped map of the codebase, never trusted stale | codebase-mapping, project-exploration |
+| `community-manager` | what a brand says and how it is carried onto its social channels, drafted and handed over, never published | editorial-line, social-content |
 
 ## Structure
 
@@ -118,6 +119,9 @@ data-collection-engineer -> researcher for the cited synthesis of what it
                           gathered
 codebase-cartographer  -> checkup and source-of-truth, which start from its map
                           and re-read the source wherever a node is stale
+community-manager      -> the reviewer and approver of the editorial line's
+                          review rule, never itself; design-director for every
+                          visual question and any conflict with the identity
 ```
 
 ## Handoff

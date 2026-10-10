@@ -9,7 +9,7 @@ where each piece of the system actually lives.
 | Question | Answer, and where |
 |---|---|
 | What is an agent, and how does it differ from a skill | `documentation/agents.md` |
-| What are the thirty-three agents, and what does each own | `agents/README.md`, the catalog |
+| What are the thirty-four agents, and what does each own | `agents/README.md`, the catalog |
 | What is the full contract of one specific agent | the agent's own file, `agents/<group>/<name>.md` |
 | How does an agent hand off to the next one | `agents/handoff-protocol.md` |
 | How does the suite decide which agents a request needs | `docs/architecture/AGENT_ARCHITECTURE.md`, `docs/architecture/ORCHESTRATION.md` |
@@ -48,7 +48,10 @@ with `WebSearch` and `WebFetch`, and, since, five more: `penetration-tester`
 gated exactly as `web-auditor`'s active battery is), `data-collection-engineer`
 for lawful, provenanced data collection, `ci-cd-engineer` for the pipeline and
 its gates, `design-director` for direction and sign-off over the whole design,
-and `delivery-manager` for the schedule the gates may never be traded away for.
+and `delivery-manager` for the schedule the gates may never be traded away for;
+then `codebase-cartographer` for the structural map, and `community-manager`
+(`agents/communication/`), accepted by ADR 0006, for the editorial line and
+the social content plan it drafts and never publishes.
 `agents/README.md` is the roster of what exists, and
 `tests/validate-counts.sh` fails if a name in the paragraph above turns up as a
 file under `agents/`, so this page cannot go stale again in that direction.
@@ -58,7 +61,7 @@ file under `agents/`, so this page cannot go stale again in that direction.
 Agents install independently of any single domain's skills:
 
 ```bash
-bash install.sh --agents      the thirty-three agents, no skills
+bash install.sh --agents      the thirty-four agents, no skills
 bash install.sh --no-agents   skills without agents, for single-context work
 bash install.sh --dev         the engineering skills and the agents together
 ```
@@ -66,7 +69,10 @@ bash install.sh --dev         the engineering skills and the agents together
 A writer or a job seeker installing `--writing` or `--career` never receives
 an agent, per `documentation/agents.md`'s own note that the writing and
 documents trees are sequential, single-context work where an agent boundary
-would add a handoff and remove nothing. `--research` is the one exception
-outside software delivery: it installs `researcher`, because a research
-question that needs a live search and a fetched page is exactly the boundary
-an agent earns, in a way a CV or a cover letter does not.
+would add a handoff and remove nothing. Two exceptions sit outside software
+delivery. `--research` installs `researcher` and `data-collection-engineer`,
+because a research question that needs a live search and a fetched page is
+exactly the boundary an agent earns, in a way a CV or a cover letter does not.
+`--documents` installs `community-manager`, because a brand's line and its
+channels are owned over time, reviewed by someone else and handed to an owner
+who publishes.

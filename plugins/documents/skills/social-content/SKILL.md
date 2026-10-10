@@ -4,7 +4,7 @@ description: Turns an editorial line, signed or explicitly provisional, into the
 license: MIT
 metadata:
   category: communication
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [document-core, editorial-line]
   outputs: [intake-record, channel-plan, channel-calendar, format-sheet, post-briefs, caption-drafts, visual-post-drafts, moderation-policy, escalation-matrix, measurement-plan, handover-records, quality-gate-record]
 ---
@@ -483,6 +483,7 @@ post; a gate claimed without a record.
   date, a trend or a specification must be cited from a live source.
 - Escalation: the design-director agent for visual questions and any
   conflict with the identity; the owner for every publication, every
-  escalated reply and every conflict the line left open. Owned, until the
-  community-manager agent exists, by `delivery-orchestrator` through the
-  documents routing.
+  escalated reply and every conflict the line left open.
+- Owner: the community-manager agent, which drafts the plan and every item
+  in it and hands each over; it never approves its own draft and never
+  publishes, schedules or replies from a real account.

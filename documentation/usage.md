@@ -162,8 +162,9 @@ so it can be waived deliberately, which is different from it being forgotten.
 ## 7. Agents, and when not to use them
 
 The agent definitions in `~/.claude/agents` are roles for a runtime that
-supports subagents. There are 25 in the repository; `--dev` installs 24 of them
-and `--security` two, so how many you have depends on the scope you chose. Two
+supports subagents. There are 34 in the repository; `--dev` installs 29 of them,
+`--security` three, `--research` two and `--documents` one, so how many you
+have depends on the scope you chose. Two
 rules govern all of them:
 
 - **They are used only when you ask.** An agent is a separate context with its
@@ -226,15 +227,15 @@ in:
 | Scope | Skills | Agents |
 |---|---|---|
 | `--writing` | 44 | 0 |
-| `--documents` | 11 | 0 |
+| `--documents` | 11 | 1 |
 | `--dev` | 89 | 29 |
 | `--security` | 18 | 3 |
-| `--research` | 7 | 1 |
+| `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 173 | 33 |
-| `--agents` | 0 | 33 |
+| `--all` | 173 | 34 |
+| `--agents` | 0 | 34 |
 
 `~/.claude/skills` is shared. It holds every skill you have, not only this
 suite's: a skill installed from somewhere else sits beside them, and claude.ai

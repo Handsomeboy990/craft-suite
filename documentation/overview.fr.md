@@ -8,7 +8,7 @@ Des systèmes d'expertise pour un agent, dans un seul dépôt : **écrire**,
 Le dépôt s'appelait `claude-writer-suite` jusqu'à la version 3.0.0, quand
 l'arbre d'écriture a cessé d'en être la totalité.
 
-173 skills et 33 agents. Pas des prompts : des protocoles numérotés, des
+173 skills et 34 agents. Pas des prompts : des protocoles numérotés, des
 critères de décision, des grilles d'évaluation et des procédures de révision,
 chacun avec un seuil chiffré de ce qui compte comme terminé.
 
@@ -20,7 +20,7 @@ craft-suite/
 ├── writing/         42 skills d'écriture créative
 ├── documents/        9 skills de document professionnel
 ├── engineering/     87 skills d'ingénierie
-├── agents/          33 définitions de rôle, transversales au dépôt
+├── agents/          34 définitions de rôle, transversales au dépôt
 ├── security/        12 skills de sécurité défensive
 ├── research/         5 skills de recherche générale
 ├── career/           7 skills de recherche d'emploi et de candidature
@@ -123,7 +123,7 @@ en production.
 | [devops-skills](../engineering/devops-skills/) | 16 | comment le système tourne, se déploie et se restaure |
 
 Agnostique de la pile et de la plateforme : le système lit le projet qu'on lui
-confie plutôt que d'en présupposer la forme. Les vingt-six agents ne sont pas
+confie plutôt que d'en présupposer la forme. Les trente-quatre agents ne sont pas
 une catégorie de cet arbre : ils forment une couche transversale au dépôt, dans
 [agents](../agents/), qui possède quoi et ce qui est transmis.
 
@@ -223,7 +223,7 @@ reçoit jamais l'arbre d'ingénierie.
    5) Research                 5 skills   sources, vérification, synthèse
    6) Career                   7 skills   recherche d'emploi, CV, entretiens
    7) Opportunity              9 skills   idéation, hackathons, prospection
-   8) Everything             173 skills   plus 33 agents
+   8) Everything             173 skills   plus 34 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -242,15 +242,15 @@ bash install.sh --configure
 
 ```bash
 bash install.sh --writing      les 42 skills d'écriture
-bash install.sh --documents     les 9 skills de document
-bash install.sh --dev          les 82 skills d'ingénierie et les 24 agents
+bash install.sh --documents     les 9 skills de document et 1 agent
+bash install.sh --dev          les 87 skills d'ingénierie et les 29 agents
 bash install.sh --security     les 12 skills de sécurité défensive
 bash install.sh --research      les 5 skills de recherche générale
 bash install.sh --career        les 7 skills de recherche d'emploi
 bash install.sh --opportunity   les 9 skills d'idéation, hackathon et prospection
 bash install.sh --all          tout
 bash install.sh --shared        les 2 skills transversaux seulement
-bash install.sh --agents        les 33 agents seulement
+bash install.sh --agents        les 34 agents seulement
 bash install.sh --no-agents     les skills sans les agents
 bash install.sh --all --zip     construit aussi une archive par skill dans dist/
 bash install.sh --remove        désinstalle la portée choisie
@@ -460,7 +460,7 @@ constitution par arbre plus la paire transversale :
 
 ## Agents
 
-Vingt-cinq définitions de rôles, pour un runtime qui accepte des sous-agents.
+Trente-quatre définitions de rôles, pour un runtime qui accepte des sous-agents.
 
 ```
 Skill          comment ce type de travail se fait correctement
@@ -537,10 +537,10 @@ n'installer que les domaines voulus.
 | Plugin | Installe |
 |---|---|
 | `craft-writing` | l'arbre d'écriture, 42 skills |
-| `craft-documents` | l'arbre des documents, 9 skills |
-| `craft-engineering` | l'arbre d'ingénierie, 82 skills et 24 agents |
-| `craft-security` | l'arbre de sécurité, 12 skills et 2 agents |
-| `craft-research` | l'arbre de recherche, 5 skills |
+| `craft-documents` | l'arbre des documents, 9 skills et 1 agent |
+| `craft-engineering` | l'arbre d'ingénierie, 87 skills et 29 agents |
+| `craft-security` | l'arbre de sécurité, 12 skills et 3 agents |
+| `craft-research` | l'arbre de recherche, 5 skills et 2 agents |
 | `craft-career` | l'arbre d'emploi, 7 skills |
 | `craft-opportunity` | l'arbre des opportunités, 9 skills |
 

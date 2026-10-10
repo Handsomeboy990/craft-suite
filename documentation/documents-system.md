@@ -136,6 +136,11 @@ The five writing skills are alternatives, not stages. `document-design` and
 and applies a line already written, signed or explicitly provisional, to a
 brand's social channels. It drafts and hands over; it never publishes.
 
+Both communication skills have an owner, the one agent built for this tree:
+`community-manager`, in `agents/communication/`, accepted by ADR 0006. It
+drafts the line and the plan, sends visual work to `design-director`, and hands
+every item to the owner; nobody approves their own draft.
+
 `document-design` depends on `document-core`. `pdf-production` depends on
 `document-design`. Check 12 verifies both, so the pipeline cannot be
 reordered by accident.

@@ -55,7 +55,7 @@ design-research, ci-cd-engineer, incident-responder, source-of-truth: none
 of their conditions in team-routing.md section 2 is met by this brief
 ```
 
-Thirty-three agents were available to a reflex. Twenty-one take part, and each
+Thirty-four agents were available to a reflex. Twenty-one take part, and each
 of the twelve left out has a written reason.
 
 ## The waves
