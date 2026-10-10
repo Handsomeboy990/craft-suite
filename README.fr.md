@@ -120,8 +120,8 @@ emoji, aucun tiret cadratin. Les deux sont vérifiées par
 |---|---|
 | La suite entière, arbre par arbre | [documentation/overview.fr.md](documentation/overview.fr.md) |
 | Quel skill me faut-il | [documentation/skills-guide.md](documentation/skills-guide.md) |
-| Options d'installation en détail | [documentation/installation.md](documentation/installation.md) |
-| Référence de configuration | [documentation/configuration.md](documentation/configuration.md) |
+| Options d'installation en détail | [documentation/installation.fr.md](documentation/installation.fr.md) |
+| Référence de configuration | [documentation/configuration.fr.md](documentation/configuration.fr.md) |
 | Plugins, et comment les bundles sont générés | [documentation/plugins.md](documentation/plugins.md) |
 | Les 34 agents | [documentation/agents.md](documentation/agents.md) |
 | Architecture du dépôt | [documentation/architecture.md](documentation/architecture.md) |
