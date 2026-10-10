@@ -60,11 +60,13 @@ plan is structured for them and every post in it is a draft handed to them.
 
 ## Routing
 
-No agent owns this category yet. The planned community-manager agent will own
-it. Until then, a request for an editorial line or for social content is
-routed like any other delivered document: the chief, `delivery-orchestrator`,
-loads `document-core` and then the skill, and holds the eight-point gate
-itself.
+The community-manager agent, `agents/communication/community-manager.md`,
+owns both skills. The chief, `delivery-orchestrator`, dispatches a request for
+an editorial line or for social content to it, per the communication team of
+its `resources/team-routing.md`, and holds the eight-point gate of
+`document-core` on what comes back. The agent drafts and never publishes;
+visual work goes to the design-director agent, site copy to the team that
+builds the site.
 
 ## Configuration
 

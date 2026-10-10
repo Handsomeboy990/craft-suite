@@ -63,6 +63,8 @@ AG_SEC=$(agents_in security)
 AG_TEST=$(agents_in testing)
 AG_DOC=$(agents_in documentation)
 AG_OPS=$(agents_in devops)
+AG_RES=$(agents_in research)
+AG_COMMS=$(agents_in communication)
 AGENTS=$(ls "$ROOT"/agents/*/*.md 2>/dev/null \
   | grep -vE '/(README|handoff-protocol)\.md$' | wc -l | tr -d ' ')
 
@@ -70,8 +72,9 @@ printf 'Real counts: %s skills total, %s agents total.\n' "$TOTAL" "$AGENTS"
 printf '  trees: writing %s, documents %s, engineering %s, security %s, research %s, career %s, opportunity %s, shared %s\n' \
   "$WRITING" "$DOCUMENTS" "$ENG" "$SECURITY" "$RESEARCH" "$CAREER" "$OPPORTUNITY" "$SHARED"
 printf '  engineering: dev-skills %s, delivery-skills %s, devops-skills %s\n' "$DEV" "$DELIV" "$DEVOPS"
-printf '  agents: core %s, development %s, design %s, security %s, testing %s, documentation %s, devops %s\n\n' \
-  "$AG_CORE" "$AG_DEV" "$AG_DESIGN" "$AG_SEC" "$AG_TEST" "$AG_DOC" "$AG_OPS"
+printf '  agents: core %s, development %s, design %s, security %s, testing %s, documentation %s, devops %s, research %s, communication %s\n\n' \
+  "$AG_CORE" "$AG_DEV" "$AG_DESIGN" "$AG_SEC" "$AG_TEST" "$AG_DOC" "$AG_OPS" \
+  "$AG_RES" "$AG_COMMS"
 
 # The engineering total must be the sum of its categories, or the docs cannot
 # be right no matter what they say.
@@ -175,7 +178,15 @@ check "$A" "$DEVOPS"    'devops-skills/ +[0-9]'        "architecture devops-skil
 check "$A" "$SECURITY"  'security/ +[0-9]+ skills'     "architecture security tree"
 check "$A" "$SECDEV"    'secure-development/ +[0-9]'   "architecture secure-development"
 check "$A" "$SECASSURE" 'security-assurance/ +[0-9]'   "architecture security-assurance"
-check "$A" "$COMM"      'communication/ +[0-9]'        "architecture communication"
+# communication/ is both a documents category and, since ADR 0006, an agent
+# group, so the skills line is read inside the documents/ block only.
+ARCH_COMM="$(awk '/^├── documents\//{p=1; next} /^├── /{p=0} p && /communication\/ +[0-9]/' \
+  "$ROOT/$A" | grep -oE '[0-9]+' | head -1)"
+if [ -z "$ARCH_COMM" ]; then
+  fail "$A: no communication/ line in the documents/ block (diagram reworded? update the check)"
+elif [ "$ARCH_COMM" != "$COMM" ]; then
+  fail "$A: 'architecture communication' is $ARCH_COMM, expected $COMM"
+fi
 check "$A" "$AGENTS"    'agents/ +[0-9]'               "architecture agents total"
 
 # --------------------------------------------------------------------------
@@ -298,10 +309,13 @@ B_CAREER=$(bundle_skills career)
 B_OPPORTUNITY=$(bundle_skills opportunity)
 B_ENG_AGENTS=$(bundle_agents engineering)
 B_SEC_AGENTS=$(bundle_agents security)
+B_DOC_AGENTS=$(bundle_agents documents)
+B_RES_AGENTS=$(bundle_agents research)
 
-printf '  bundles: writing %s, documents %s, engineering %s (%s agents), security %s (%s agents), research %s, career %s, opportunity %s\n\n' \
-  "$B_WRITING" "$B_DOCUMENTS" "$B_ENG" "$B_ENG_AGENTS" "$B_SECURITY" \
-  "$B_SEC_AGENTS" "$B_RESEARCH" "$B_CAREER" "$B_OPPORTUNITY"
+printf '  bundles: writing %s, documents %s (%s agents), engineering %s (%s agents), security %s (%s agents), research %s (%s agents), career %s, opportunity %s\n\n' \
+  "$B_WRITING" "$B_DOCUMENTS" "$B_DOC_AGENTS" "$B_ENG" "$B_ENG_AGENTS" \
+  "$B_SECURITY" "$B_SEC_AGENTS" "$B_RESEARCH" "$B_RES_AGENTS" "$B_CAREER" \
+  "$B_OPPORTUNITY"
 
 # The plugin table in the two root READMEs and in plugins.md carries two counts
 # per row: the tree, then what the bundle actually holds.
@@ -310,6 +324,7 @@ for f in README.md README.fr.md documentation/plugins.md; do
   check_nth "$f" "$B_WRITING"     'craft-writing.*\| [0-9]+ \|'     2 "$f plugin writing bundle"
   check_nth "$f" "$DOCUMENTS"     'craft-documents.*\| [0-9]+ \|'   1 "$f plugin documents tree"
   check_nth "$f" "$B_DOCUMENTS"   'craft-documents.*\| [0-9]+ \|'   2 "$f plugin documents bundle"
+  check_nth "$f" "$B_DOC_AGENTS"  'craft-documents.*\| [0-9]+ \|'   3 "$f plugin documents agents"
   check_nth "$f" "$ENG"           'craft-engineering.*\| [0-9]+ \|' 1 "$f plugin engineering tree"
   check_nth "$f" "$B_ENG"         'craft-engineering.*\| [0-9]+ \|' 2 "$f plugin engineering bundle"
   check_nth "$f" "$B_ENG_AGENTS"  'craft-engineering.*\| [0-9]+ \|' 3 "$f plugin engineering agents"
@@ -318,6 +333,7 @@ for f in README.md README.fr.md documentation/plugins.md; do
   check_nth "$f" "$B_SEC_AGENTS"  'craft-security.*\| [0-9]+ \|'    3 "$f plugin security agents"
   check_nth "$f" "$RESEARCH"      'craft-research.*\| [0-9]+ \|'    1 "$f plugin research tree"
   check_nth "$f" "$B_RESEARCH"    'craft-research.*\| [0-9]+ \|'    2 "$f plugin research bundle"
+  check_nth "$f" "$B_RES_AGENTS"  'craft-research.*\| [0-9]+ \|'    3 "$f plugin research agents"
   check_nth "$f" "$CAREER"        'craft-career.*\| [0-9]+ \|'      1 "$f plugin career tree"
   check_nth "$f" "$B_CAREER"      'craft-career.*\| [0-9]+ \|'      2 "$f plugin career bundle"
   check_nth "$f" "$OPPORTUNITY"   'craft-opportunity.*\| [0-9]+ \|' 1 "$f plugin opportunity tree"
@@ -332,11 +348,13 @@ done
 for f in documentation/installation.md documentation/usage.md documentation/usage.fr.md; do
   check_nth "$f" "$B_WRITING"     '^\| `--writing` \|'     1 "$f scope writing skills"
   check_nth "$f" "$B_DOCUMENTS"   '^\| `--documents` \|'   1 "$f scope documents skills"
+  check_nth "$f" "$B_DOC_AGENTS"  '^\| `--documents` \|'   2 "$f scope documents agents"
   check_nth "$f" "$B_ENG"         '^\| `--dev` \|'         1 "$f scope dev skills"
   check_nth "$f" "$B_ENG_AGENTS"  '^\| `--dev` \|'         2 "$f scope dev agents"
   check_nth "$f" "$B_SECURITY"    '^\| `--security` \|'    1 "$f scope security skills"
   check_nth "$f" "$B_SEC_AGENTS"  '^\| `--security` \|'    2 "$f scope security agents"
   check_nth "$f" "$B_RESEARCH"    '^\| `--research` \|'    1 "$f scope research skills"
+  check_nth "$f" "$B_RES_AGENTS"  '^\| `--research` \|'    2 "$f scope research agents"
   check_nth "$f" "$B_CAREER"      '^\| `--career` \|'      1 "$f scope career skills"
   check_nth "$f" "$B_OPPORTUNITY" '^\| `--opportunity` \|' 1 "$f scope opportunity skills"
   check_nth "$f" "$SHARED"        '^\| `--shared` \|'      1 "$f scope shared skills"

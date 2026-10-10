@@ -23,10 +23,10 @@ dependency the tree's skills declare.
 | Plugin | Installs | Tree | Bundle |
 |---|---|---|---|
 | `craft-writing` | the writing tree | 42 | 44 |
-| `craft-documents` | the documents tree | 9 | 11 |
+| `craft-documents` | the documents tree and its agent | 9 | 11 plus 1 agent |
 | `craft-engineering` | the engineering tree and its agents | 87 | 89 plus 29 agents |
 | `craft-security` | the security tree and its agents | 12 | 18 plus 3 agents |
-| `craft-research` | the research tree | 5 | 7 |
+| `craft-research` | the research tree and its agents | 5 | 7 plus 2 agents |
 | `craft-career` | the career tree | 7 | 9 |
 | `craft-opportunity` | the opportunity tree | 9 | 11 |
 
@@ -61,8 +61,10 @@ For each domain, the script runs the same installer that populates
 `~/.claude/skills`, targeting the plugin's `skills/` directory. A plugin
 therefore contains exactly the set that scope would install, dependencies and
 all. Each domain also receives its own agents: the engineering plugin its
-24-agent delivery team, the security plugin its 2 auditors, `security-engineer`
-and `web-auditor`. A domain that owns no agent gets no `agents/` directory.
+29-agent delivery team, the security plugin its 3 security agents, the
+research plugin `researcher` and `data-collection-engineer`, the documents
+plugin `community-manager`. A domain that owns no agent gets no `agents/`
+directory.
 
 Because the bundles are generated, they can drift from the trees if someone adds
 a skill or an agent and forgets to rebuild. `tests/validate-plugins.sh` prevents

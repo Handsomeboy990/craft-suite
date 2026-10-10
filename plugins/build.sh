@@ -7,7 +7,8 @@
 # installer that populates ~/.claude/skills, so a plugin contains exactly the
 # skills that scope would install, dependencies resolved, plus the cross domain
 # pair. Each domain also receives its own agents: engineering its delivery team,
-# security its auditors. A domain with no agent of its own gets no agents/ dir.
+# security its auditors, research its researchers, documents its community
+# manager. A domain with no agent of its own gets no agents/ dir.
 #
 # Run this after adding or changing a skill, so the plugin bundles stay in sync
 # with the trees. tests/validate-plugins.sh checks that they are.

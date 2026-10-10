@@ -1,6 +1,6 @@
 # Craft Suite
 
-**Le métier, encodé.** 173 skills et 33 agents qui tiennent un agent à un
+**Le métier, encodé.** 173 skills et 34 agents qui tiennent un agent à un
 standard professionnel : écrire, produire des documents, construire un
 logiciel, le sécuriser, chercher, mener une recherche d'emploi, évaluer des
 opportunités, et relire son propre travail.
@@ -36,7 +36,7 @@ en plus `python3`.
 git clone https://github.com/Handsomeboy990/craft-suite.git
 cd craft-suite
 bash install.sh              # un menu, choisissez vos arbres
-bash install.sh --all        # ou prenez les 173 et les 33 agents
+bash install.sh --all        # ou prenez les 173 et les 34 agents
 bash install.sh --configure
 ```
 
@@ -59,7 +59,7 @@ inter-arbres déclarée par ces skills.
 | Plugin | Ce que devient l'agent | Domaine | Installé |
 |---|---|---|---|
 | `craft-writing` | romancier, scénariste, éditeur, critique, correcteur | 42 | 44 |
-| `craft-documents` | rédacteur technique, auteur de rapports, producteur de PDF, responsable éditorial, community manager | 9 | 11 |
+| `craft-documents` | rédacteur technique, auteur de rapports, producteur de PDF, responsable éditorial, community manager | 9 | 11 et 1 agent |
 | `craft-engineering` | une équipe de livraison, de la spécification à la production | 87 | 89 et 29 agents |
 | `craft-security` | ingénieur défensif, et auditeur sur autorisation écrite | 12 | 18 et 3 agents |
 | `craft-research` | chercheur qui ne cite que ce qu'il a réellement lu | 5 | 7 et 2 agents |
@@ -70,10 +70,12 @@ Chaque plugin est autonome, et c'est pourquoi la seconde colonne est plus
 grande. Le bundle security est le seul qui va aujourd'hui chercher dans un autre
 arbre : son `vulnerability-assessment` déclare `security-audit`, qui vit dans
 l'arbre engineering, donc le bundle emporte ce skill et les trois dont il dépend
-à son tour. Le plugin engineering embarque 29 des 33 agents ; `web-auditor` est
+à son tour. Le plugin engineering embarque 29 des 34 agents ; `web-auditor` est
 un outil de sécurité sans rôle dans la séquence de livraison et part avec
 `craft-security`, et `researcher` est un outil de recherche sans rôle dans la
 séquence de livraison non plus, et part avec `craft-research`.
+`community-manager` porte les deux skills de communication de l'arbre documents
+et part avec `craft-documents`.
 
 ## Ce que « terminé » veut dire ici
 
@@ -121,7 +123,7 @@ emoji, aucun tiret cadratin. Les deux sont vérifiées par
 | Options d'installation en détail | [documentation/installation.md](documentation/installation.md) |
 | Référence de configuration | [documentation/configuration.md](documentation/configuration.md) |
 | Plugins, et comment les bundles sont générés | [documentation/plugins.md](documentation/plugins.md) |
-| Les 33 agents | [documentation/agents.md](documentation/agents.md) |
+| Les 34 agents | [documentation/agents.md](documentation/agents.md) |
 | Architecture du dépôt | [documentation/architecture.md](documentation/architecture.md) |
 | Tableau de bord local d'utilisation | [control-center/README.md](control-center/README.md) |
 | Contribuer | [CONTRIBUTING.md](CONTRIBUTING.md) |

@@ -41,7 +41,7 @@ bash install.sh
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
-   8) Everything             173 skills   plus 33 agents
+   8) Everything             173 skills   plus 34 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -67,7 +67,7 @@ bash install.sh --career        7 job search and application skills
 bash install.sh --opportunity   9 ideation, hackathon and business skills
 bash install.sh --all          everything
 bash install.sh --shared        the 2 cross domain skills only
-bash install.sh --agents        the 33 agents only
+bash install.sh --agents        the 34 agents only
 bash install.sh --no-agents     skills without agents
 bash install.sh --remove        uninstall the scope instead of installing it
 ```
@@ -84,8 +84,9 @@ bash install.sh --dev --zip
 bash install.sh --writing --remove
 ```
 
-Two scopes carry agents of their own: `--dev` installs the 24-agent delivery
-team, `--security` installs `security-engineer` and `web-auditor`. No other
+Four scopes carry agents of their own: `--dev` installs the 29-agent delivery
+team, `--security` its 3 security agents, `--research` `researcher` and
+`data-collection-engineer`, and `--documents` `community-manager`. No other
 scope installs an agent unless `--agents` asks for the whole roster, and
 `--no-agents` suppresses them everywhere. The mapping lives in `install.sh`,
 in `agent_domains`, and `tests/validate-plugins.sh` check 4 verifies it per
@@ -339,15 +340,15 @@ counted in:
 | Scope | Skills | Agents |
 |---|---|---|
 | `--writing` | 44 | 0 |
-| `--documents` | 11 | 0 |
+| `--documents` | 11 | 1 |
 | `--dev` | 89 | 29 |
 | `--security` | 18 | 3 |
-| `--research` | 7 | 1 |
+| `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 173 | 33 |
-| `--agents` | 0 | 33 |
+| `--all` | 173 | 34 |
+| `--agents` | 0 | 34 |
 
 `~/.claude/skills` is shared. It holds every skill you have, not only this
 suite's: a skill installed from somewhere else sits beside them, and claude.ai

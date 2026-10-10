@@ -1,6 +1,6 @@
 # Agents
 
-Thirty-three agent definitions, for a runtime that supports subagents.
+Thirty-four agent definitions, for a runtime that supports subagents.
 
 This document explains the difference between a skill, an agent and
 orchestration, and gives the public contract of each agent. The definitions
@@ -79,6 +79,7 @@ sequence. `tests/validate-counts.sh` fails when the two disagree on the count.
 | `design-director` | direction and sign-off over the whole design | a product that must read as designed, not generic, or that has no identity yet (`brand-identity`) | `design-research`, `ui-ux-engineer`, `design-verification` |
 | `delivery-manager` | the schedule and the deadline, without trading a gate | a project with a deadline to hold | `delivery-orchestrator` |
 | `codebase-cartographer` | the structural map of the codebase, kept true | a large repository, or repeated exploration | `checkup`, `source-of-truth`, the implementing agent |
+| `community-manager` | the editorial line and the social content plan, drafted and handed over, never published | a validated brief, and a signed or drafted identity when one exists | the approver of the line's review rule, `design-director` for visual work, the owner for every publication |
 
 ## The contract of every agent
 
@@ -138,9 +139,13 @@ agents reach at the end of their work.
 - Nothing verifies at runtime that a review gate between two agents was
   actually held. `tests/validate-orchestration.sh` verifies the definitions
   are coherent, not that an execution respected them.
-- The roster covers software delivery. There is no agent for the writing tree
-  or the documents tree: both are sequential, single-context work where an
-  agent boundary would add a handoff and remove nothing.
+- The roster covers software delivery, research, and one documents category.
+  There is no agent for the writing tree or for the rest of the documents
+  tree: both are sequential, single-context work where an agent boundary
+  would add a handoff and remove nothing. `community-manager` is the
+  exception ADR 0006 accepted: a brand's line and its social channels are
+  owned over time, reviewed by someone else, and handed to an owner who
+  publishes, which is the boundary an agent earns.
 
 ## Adding an agent
 

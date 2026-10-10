@@ -11,7 +11,8 @@ DEV="$ENG/dev-skills"
 DELIVERY="$ENG/delivery-skills"
 DEVOPS="$ENG/devops-skills"
 AGENTS="$ROOT/agents"
-AGENT_GROUPS="core development design security testing documentation devops research"
+AGENT_GROUPS="core development design security testing documentation devops research
+communication"
 ORCH="$DEV/engineering-orchestrator"
 PLANS="$ORCH/resources/execution-plans.md"
 PHASES="$DELIVERY/delivery-orchestrator/resources/delivery-phases.md"
@@ -54,7 +55,7 @@ site-template-engineer
 incident-responder compliance-verifier design-verification web-auditor pr-author pr-reviewer design-research
 source-of-truth checkup final-verifier researcher
 penetration-tester ci-cd-engineer design-director delivery-manager data-collection-engineer
-codebase-cartographer"
+codebase-cartographer community-manager"
 
 fail() {
   printf 'ERROR   %s\n' "$1"

@@ -63,7 +63,7 @@ verdict.
 
 ## Delegation
 
-Every one of the thirty-three agents has a team, a lead and the condition that
+Every one of the thirty-four agents has a team, a lead and the condition that
 brings it in, in the skill's `resources/team-routing.md`; compose the smallest
 complete team from it, never the whole roster. The common core:
 
@@ -77,6 +77,7 @@ tests              -> qa-engineer, playwright-engineer
 speed              -> performance-engineer
 operations         -> devops-engineer
 documentation      -> documentation-engineer
+editorial, social  -> community-manager
 shipping           -> release-engineer
 ```
 

@@ -4,7 +4,7 @@ description: Recommends which Claude model, and where meaningful which effort, a
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.3.0
+  version: 1.4.0
   depends_on: [engineering-core, task-complexity]
   outputs: [model-recommendation, routing-rationale, escalation-record, routing-log]
 ---
@@ -237,7 +237,7 @@ Resolved model: haiku (default mapping applied, model_routing is not configured)
 
 ## 9. Agents and parallel workers
 
-**Every agent has a tier rule.** The thirty-three agents of the chief's
+**Every agent has a tier rule.** The thirty-four agents of the chief's
 `resources/team-routing.md` each have one in `resources/agent-tiers.md`,
 team by team. The rule is the slice's classification through section 3,
 plus the override the agent's own condition always fires: the
