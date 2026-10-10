@@ -104,7 +104,7 @@ trois champs au lieu d'un.
 | Langue de sortie | `language.creative_output`, `language.document_output` | selon le public | oui |
 
 - **La langue des skills** est celle dans laquelle les instructions sont
-  écrites. L'anglais pour les 166 skills, pour que le système soit utilisable
+  écrites. L'anglais pour les 173 skills, pour que le système soit utilisable
   à l'international.
 - **La langue du système** est celle des identifiants, des chemins, des clés de
   configuration, des commits et de la documentation technique. L'anglais.
