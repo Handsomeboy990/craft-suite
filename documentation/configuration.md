@@ -4,6 +4,8 @@ Nothing in this repository assumes who you are, which tools you use, or which
 language your readers speak. Those answers live in one file outside the
 repository.
 
+[Version francaise](configuration.fr.md)
+
 `config/README.md` is the field reference. This document explains the contract
 from the installer side: which fields are asked, when, and what happens when
 one is missing.
