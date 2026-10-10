@@ -62,9 +62,9 @@ complète.
 
 ```bash
 bash install.sh --writing      les 42 skills d'écriture créative
-bash install.sh --documents     les 9 skills de documents professionnels
-bash install.sh --dev          82 skills d'ingénierie et 24 agents
-bash install.sh --security     12 skills de sécurité défensive et 2 agents
+bash install.sh --documents     les 9 skills de documents professionnels et 1 agent
+bash install.sh --dev          87 skills d'ingénierie et 29 agents
+bash install.sh --security     12 skills de sécurité défensive et 3 agents
 bash install.sh --research      5 skills de recherche générale et 2 agents
 bash install.sh --career        les 7 skills de recherche d'emploi et de candidature
 bash install.sh --opportunity   les 9 skills d'idéation, de hackathon et de prospection
