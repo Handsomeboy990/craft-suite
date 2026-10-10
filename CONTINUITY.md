@@ -161,9 +161,7 @@ marked; run those one at a time.
    `brand-identity/resources/token-handoff.md` and also names `editorial-line`
    in the Interfaces of `site-template-generation` and
    `frontend-engineering`), then a worked run of one real brief, which needs a
-   brief from the owner. Still open: the engineering row of the plugin tables
-   in both overviews says 82 skills and 24 agents, unchecked by
-   `validate-counts.sh`.
+   brief from the owner.
 7. **Smaller items still open in the roadmap**: exercise the full agent layer
    on a real project (phase 4), deflate `overview.md` and translate
    `installation.md` and `configuration.md` (phase 7).
