@@ -10,6 +10,7 @@ path that ends.
 - Outputs: token set, component contracts, theme definition, usage
   documentation, adoption plan.
 - Depends on: engineering-core, ui-ux-engineering.
+- Upstream: brand-identity, whose signed tokens it receives.
 - Lateral: frontend-engineering, accessibility-testing, internationalization,
   dependency-selection.
 - Downstream: playwright-automation, technical-documentation, technical-debt.

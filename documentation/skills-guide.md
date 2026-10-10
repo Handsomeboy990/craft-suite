@@ -41,6 +41,7 @@ contracts.
 | We are launching in a second language | `internationalization` |
 | The public pages must be found | `seo-engineering` |
 | Every screen looks slightly different | `design-system` |
+| We have no brand yet, or I need a charter or a moodboard | `brand-identity` |
 | Custom fonts hide text, shift the layout or load from a third party | `font-loading` |
 | We hold personal data | `data-privacy` |
 | Nobody can answer a question from our data | `analytics-instrumentation` |
@@ -166,9 +167,9 @@ Depend on nothing. Callable from any tree, usable alone.
 | `document-design` | publishing | hierarchy, typography, tables, page furniture, metadata |
 | `pdf-production` | publishing | engine selection, generation, render verification |
 
-## engineering, 86 skills
+## engineering, 87 skills
 
-### dev-skills, 59
+### dev-skills, 60
 
 | Skill | What it does |
 |---|---|
@@ -182,6 +183,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `architecture-design` | the smallest architecture that serves the product |
 | `ui-ux-engineering` | the rendered experience, states, accessibility |
 | `design-authenticity` | detects generic AI-default design, tests for intent |
+| `brand-identity` | an identity from a brief, contrast measured in both themes, signed off before the tokens leave |
 | `animation` | motion that reads as designed: technique ladder, cheap props, reduced motion |
 | `template-selection` | finds clean, licence-clear templates that fit, shortlists them, then customises the chosen one |
 | `site-template-generation` | builds a client site with its own back office: content contract, both themes, motion by trade, an inbox, legal pages from real facts |

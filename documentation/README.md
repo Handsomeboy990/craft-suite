@@ -10,7 +10,7 @@ Written in English, the system language.
 | `usage.md`, `usage.fr.md` | what to do with the suite once it is installed: what runs it, how a skill is selected, what to say, what the gates demand |
 | `overview.md`, `overview.fr.md` | the whole suite tree by tree, the long form of the README |
 | `architecture.md` | repository organisation, skill isolation, metadata, dependency graph, how to extend |
-| `skills-guide.md` | directory of the 170 skills, inputs, outputs, table of choice by situation |
+| `skills-guide.md` | directory of the 171 skills, inputs, outputs, table of choice by situation |
 | `installation.md` | full installation, per-tree installation, installing a single skill |
 | `configuration.md` | the configuration contract, prompts, delegation, validation |
 

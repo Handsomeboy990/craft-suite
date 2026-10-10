@@ -91,6 +91,7 @@ write dispatch, whatever this column says.
 | `fullstack-engineering` | `principal-engineer`, which splits it into server and client dispatches across the contract | lead |
 | `ui-ux-engineering`, `template-selection`, `design-system` | `ui-ux-engineer` | write, specification or tokens |
 | `design-authenticity` | `design-research` before the build, `design-verification` after it | read |
+| `brand-identity` | `design-director` owns it and signs off; `design-research` drafts the moodboard, `ui-ux-engineer` the palette, type and tokens; never signed off by the agent that drafted it | write, documents and tokens; nothing to `design-system` before sign-off |
 | `accessibility-testing` | `ui-ux-engineer`, with `playwright-engineer` for the rendered checks | read |
 | `security-audit` | `security-engineer` | read; fixes go back to the owner |
 | `security-testing` | `penetration-tester`, only with written authorization on record | read, bounded proofs |

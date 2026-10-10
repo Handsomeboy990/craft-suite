@@ -1,6 +1,6 @@
 # dev-skills
 
-Senior full-stack engineering skill system. Fifty nine skills that let an agent
+Senior full-stack engineering skill system. Sixty skills that let an agent
 work on a production codebase the way an experienced engineer does: read
 before writing, verify before claiming, and finish the whole vertical slice
 rather than the part that demonstrates well.
@@ -41,6 +41,7 @@ no em dash.
 | `architecture-design` | the smallest architecture that serves the product |
 | `ui-ux-engineering` | the rendered experience, specified before it is built |
 | `design-authenticity` | the generic-defaults cluster, and the intentionality test |
+| `brand-identity` | an identity from a brief: positioning, logo rules, a palette measured in both themes, type, a sourced moodboard, the charter, signed off before its tokens leave |
 | `animation` | motion that is intended: the technique ladder, cheap properties, reduced motion |
 | `template-selection` | clean, licence-clear templates that fit the project, shortlisted for the user, then customised |
 | `site-template-generation` | a client site the client runs: content contract, trade tokens in both themes, a back office with its own security, an inbox, legal pages from real facts; or a staff operations dashboard with roles, KPIs and server side authorization |
