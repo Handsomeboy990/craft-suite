@@ -35,13 +35,13 @@ bash install.sh
 
 ```
    1) Creative writing        42 skills   novels, poetry, screenplay, editing
-   2) Professional documents   8 skills   guides, manuals, reports, letters, PDF
+   2) Professional documents   9 skills   guides, manuals, reports, letters, PDF
    3) Software engineering    87 skills   plus 29 agents
    4) Cybersecurity           12 skills   threat models, audits, hardening
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
-   8) Everything             172 skills   plus 33 agents
+   8) Everything             173 skills   plus 33 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -59,7 +59,7 @@ everything.
 
 ```bash
 bash install.sh --writing      42 creative writing skills
-bash install.sh --documents     8 professional document skills
+bash install.sh --documents     9 professional document skills
 bash install.sh --dev          82 engineering skills and 24 agents
 bash install.sh --security     12 defensive security skills and 2 agents
 bash install.sh --research      5 general research skills and 2 agents
@@ -123,7 +123,7 @@ bash install.sh --group devops-skills     operations only
 | `documentation` | 4 | documents |
 | `administrative` | 1 | documents |
 | `publishing` | 2 | documents |
-| `communication` | 1 | documents |
+| `communication` | 2 | documents |
 | `dev-skills` | 60 | engineering |
 | `delivery-skills` | 11 | engineering |
 | `devops-skills` | 16 | engineering |
@@ -339,14 +339,14 @@ counted in:
 | Scope | Skills | Agents |
 |---|---|---|
 | `--writing` | 44 | 0 |
-| `--documents` | 10 | 0 |
+| `--documents` | 11 | 0 |
 | `--dev` | 89 | 29 |
 | `--security` | 18 | 3 |
 | `--research` | 7 | 1 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 172 | 33 |
+| `--all` | 173 | 33 |
 | `--agents` | 0 | 33 |
 
 `~/.claude/skills` is shared. It holds every skill you have, not only this

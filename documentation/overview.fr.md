@@ -8,7 +8,7 @@ Des systèmes d'expertise pour un agent, dans un seul dépôt : **écrire**,
 Le dépôt s'appelait `claude-writer-suite` jusqu'à la version 3.0.0, quand
 l'arbre d'écriture a cessé d'en être la totalité.
 
-172 skills et 33 agents. Pas des prompts : des protocoles numérotés, des
+173 skills et 33 agents. Pas des prompts : des protocoles numérotés, des
 critères de décision, des grilles d'évaluation et des procédures de révision,
 chacun avec un seuil chiffré de ce qui compte comme terminé.
 
@@ -18,7 +18,7 @@ chacun avec un seuil chiffré de ce qui compte comme terminé.
 craft-suite/
 ├── shared/           2 skills transversaux, appelés par tous les arbres
 ├── writing/         42 skills d'écriture créative
-├── documents/        8 skills de document professionnel
+├── documents/        9 skills de document professionnel
 ├── engineering/     87 skills d'ingénierie
 ├── agents/          33 définitions de rôle, transversales au dépôt
 ├── security/        12 skills de sécurité défensive
@@ -48,7 +48,7 @@ Le dépôt sépare trois langues que l'on confond couramment.
 
 | Couche | De quoi il s'agit | Valeur |
 |---|---|---|
-| Langue des skills | les instructions elles-mêmes | anglais, pour les 172 skills |
+| Langue des skills | les instructions elles-mêmes | anglais, pour les 173 skills |
 | Langue du système | chemins, identifiants, clés de configuration, commits | anglais |
 | Langue de sortie | ce que reçoit le lecteur | la sienne, réglée par projet |
 
@@ -101,7 +101,7 @@ Documents professionnels destinés à être remis à quelqu'un.
 | [documentation](../documents/documentation/) | 4 | comment le lecteur comprend et utilise le système |
 | [administrative](../documents/administrative/) | 1 | comment un document formel survit au classement et à la citation |
 | [publishing](../documents/publishing/) | 2 | à quoi il ressemble, comment il pagine et se rend |
-| [communication](../documents/communication/) | 1 | ce que dit une marque, avec quels mots, validé par qui |
+| [communication](../documents/communication/) | 2 | ce que dit une marque, avec quels mots, validé par qui, et sur quels réseaux |
 
 Quatre règles traversent l'arbre : le destinataire est nommé avant la première
 phrase ; la langue de sortie est la sienne ; rien n'est affirmé qui n'ait été
@@ -217,13 +217,13 @@ reçoit jamais l'arbre d'ingénierie.
 
 ```
    1) Creative writing        42 skills   romans, poésie, scénario, édition
-   2) Professional documents   8 skills   guides, manuels, rapports, lettres, PDF
+   2) Professional documents   9 skills   guides, manuels, rapports, lettres, PDF
    3) Software engineering    87 skills   plus 29 agents
    4) Cybersecurity           12 skills   modèles de menace, audits, durcissement
    5) Research                 5 skills   sources, vérification, synthèse
    6) Career                   7 skills   recherche d'emploi, CV, entretiens
    7) Opportunity              9 skills   idéation, hackathons, prospection
-   8) Everything             172 skills   plus 33 agents
+   8) Everything             173 skills   plus 33 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -242,7 +242,7 @@ bash install.sh --configure
 
 ```bash
 bash install.sh --writing      les 42 skills d'écriture
-bash install.sh --documents     les 8 skills de document
+bash install.sh --documents     les 9 skills de document
 bash install.sh --dev          les 82 skills d'ingénierie et les 24 agents
 bash install.sh --security     les 12 skills de sécurité défensive
 bash install.sh --research      les 5 skills de recherche générale
@@ -284,7 +284,7 @@ bash install.sh --group devops-skills     l'exploitation seule
 | `documentation` | 4 | documents |
 | `administrative` | 1 | documents |
 | `publishing` | 2 | documents |
-| `communication` | 1 | documents |
+| `communication` | 2 | documents |
 | `dev-skills` | 60 | engineering |
 | `delivery-skills` | 11 | engineering |
 | `devops-skills` | 16 | engineering |
@@ -414,6 +414,7 @@ Référence des champs : [config/README.md](../config/README.md). Côté install
 | Une lettre formelle doit partir | `documents/administrative/administrative-writing` |
 | Le client veut un PDF | `documents/publishing/pdf-production` |
 | Une marque a besoin d'une ligne éditoriale ou d'un ton | `documents/communication/editorial-line` |
+| Une marque a besoin d'un calendrier de publication, de posts ou d'une politique de modération | `documents/communication/social-content` |
 | J'ai une tâche de code | `engineering/dev-skills/engineering-orchestrator` |
 | J'ai un bug | `engineering/dev-skills/debugging` |
 | J'ai une spécification, pas une tâche | `engineering/delivery-skills/delivery-orchestrator` |
@@ -536,7 +537,7 @@ n'installer que les domaines voulus.
 | Plugin | Installe |
 |---|---|
 | `craft-writing` | l'arbre d'écriture, 42 skills |
-| `craft-documents` | l'arbre des documents, 8 skills |
+| `craft-documents` | l'arbre des documents, 9 skills |
 | `craft-engineering` | l'arbre d'ingénierie, 82 skills et 24 agents |
 | `craft-security` | l'arbre de sécurité, 12 skills et 2 agents |
 | `craft-research` | l'arbre de recherche, 5 skills |
@@ -573,7 +574,7 @@ est affichée comme indisponible, jamais inventée. Détail :
 ## Validation
 
 ```bash
-bash tests/validate-structure.sh      structure et métadonnées des 172 skills
+bash tests/validate-structure.sh      structure et métadonnées des 173 skills
 bash tests/validate-rules.sh          emoji, tiret cadratin, secrets, identité codée en dur
 bash tests/validate-orchestration.sh  plans, phases, agents, renvois croisés
 bash tests/validate-plugins.sh        bundles de plugins synchronisés avec les arbres
@@ -588,7 +589,7 @@ Les six doivent passer avant tout commit. Détail dans
 | Fichier | Contenu |
 |---|---|
 | [documentation/architecture.md](architecture.md) | organisation, isolation des skills, métadonnées |
-| [documentation/skills-guide.md](skills-guide.md) | répertoire des 172 skills |
+| [documentation/skills-guide.md](skills-guide.md) | répertoire des 173 skills |
 | [documentation/installation.md](installation.md) | installation complète et par skill |
 | [documentation/configuration.md](configuration.md) | le contrat de configuration |
 | [documentation/agents.md](agents.md) | skill, agent, orchestration |

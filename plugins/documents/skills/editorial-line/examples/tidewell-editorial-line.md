@@ -163,7 +163,7 @@ Rewrites:
 |---|---|---|---|---|---|
 | site pages: home, how a repair works, visit us | when the bike is back, what was done | the promise first, then the cut-off, then the counter | home under 150 words; others under 400 | updated when the offer changes | `site-template-generation` content file |
 | article | one pillar per piece | the fault, the part, why, what the rider can watch for | 400 to 700 words, assumed, not blocking | at most monthly (E5) | the site's articles page |
-| social post | rules only: one pillar, the vocabulary, the never-said list | not specified here | not specified here | "now and then" (E5) | the social-content skill, planned |
+| social post | rules only: one pillar, the vocabulary, the never-said list | not specified here | not specified here | "now and then" (E5) | `social-content`, continued in its example `tidewell-social-content.md` |
 
 No newsletter is specified: the client said it will not sustain one (E5).
 

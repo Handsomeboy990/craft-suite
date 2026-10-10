@@ -1,18 +1,18 @@
 # communication
 
-One skill. What a brand says, to whom, in which words, and who approves it
-before it goes out.
+Two skills. What a brand says, to whom, in which words, who approves it
+before it goes out, and how it is carried onto social channels and answered
+there.
 
 | Skill | Owns |
 |---|---|
 | [editorial-line](editorial-line/) | audience, promise, pillars, tone and vocabulary, what is never said, formats, the review rule |
+| [social-content](social-content/) | channels and the calendar per channel, formats and sizes per network, captions held to the line, moderation and replies, measurement and its limits, the publishing handover |
 
 The category exists because of ADR 0006
-(`docs/decisions/0006-brand-content-and-site-pipeline.md`). It is planned to
-hold a second skill, social-content, for the calendar per channel, formats and
-sizes per network, moderation and measurement, which is not yet written. Until
-it exists, `editorial-line` holds the rules a social post must follow and
-nothing about channels or schedules.
+(`docs/decisions/0006-brand-content-and-site-pipeline.md`). `editorial-line`
+comes first: `social-content` applies a line, signed or explicitly
+provisional, and never edits it.
 
 ## editorial-line
 
@@ -32,6 +32,20 @@ Three rules do most of the work:
   Publication is the owner's act; no delegation in the configuration covers
   it.
 
+## social-content
+
+The reader of a social content plan is whoever runs the brand's accounts. The
+plan is structured for them and every post in it is a draft handed to them.
+
+- **Nothing invented.** No audience, offer, testimonial, reach, engagement,
+  follower or market figure, and no network specification that was not read
+  at the network's own source on a stated date.
+- **The line holds the posts.** Captions never leave it, and a conflict the
+  line left open holds every post it touches as provisional.
+- **The agent drafts and never publishes, schedules or replies** from a real
+  account. Every item is handed over with its exact content and the owner's
+  action.
+
 ## Boundary with the rest of the suite
 
 | Work | Owner |
@@ -40,19 +54,22 @@ Three rules do most of the work:
 | The site copy itself | `site-template-generation`, `frontend-engineering`, held to the line |
 | Keywords for search | `seo-engineering`, held to the line's vocabulary |
 | A single document for one known reader | the writing skill for that reader, `documentation/` or `administrative/` |
-| Layout and render of the line as a deliverable | `document-design`, `pdf-production` |
+| Visual posts: palette, type, imagery, a mark on a photograph | `brand-identity`, decided by the design-director agent |
+| Tracked links, pixels, consent for measurement | `analytics-instrumentation`, `data-privacy` |
+| Layout and render of the line or the plan as a deliverable | `document-design`, `pdf-production` |
 
 ## Routing
 
 No agent owns this category yet. The planned community-manager agent will own
-it. Until then, a request for an editorial line is routed like any other
-delivered document: the chief, `delivery-orchestrator`, loads `document-core`
-and then `editorial-line`, and holds the eight-point gate itself.
+it. Until then, a request for an editorial line or for social content is
+routed like any other delivered document: the chief, `delivery-orchestrator`,
+loads `document-core` and then the skill, and holds the eight-point gate
+itself.
 
 ## Configuration
 
 | Field | Used by |
 |---|---|
-| `language.document_output` | `editorial-line`, the default output language |
-| `identity.organization` | cover and metadata when the line is paginated |
-| `delegation` | read to confirm that publishing is not delegated |
+| `language.document_output` | both skills, the default output language |
+| `identity.organization` | cover and metadata when the line or the plan is paginated |
+| `delegation` | read by both to confirm that publishing is not delegated; no field covers it |

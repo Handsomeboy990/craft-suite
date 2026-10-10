@@ -1,6 +1,6 @@
 # Skills guide
 
-Directory of the 172 skills. One line each: what it does, and when to open it.
+Directory of the 173 skills. One line each: what it does, and when to open it.
 
 Every skill's own `README.md` carries its inputs, outputs, dependencies and
 configuration in four lines. This file is the index; the READMEs are the
@@ -43,6 +43,7 @@ contracts.
 | Every screen looks slightly different | `design-system` |
 | We have no brand yet, or I need a charter or a moodboard | `brand-identity` |
 | We need an editorial line, a tone of voice or a content charter | `editorial-line` |
+| We need a content calendar, social posts or a moderation policy | `social-content` |
 | Custom fonts hide text, shift the layout or load from a third party | `font-loading` |
 | We hold personal data | `data-privacy` |
 | Nobody can answer a question from our data | `analytics-instrumentation` |
@@ -156,7 +157,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `literary-critic` | weighted grid, decision scale, one recommendation |
 | `publication-review` | seven checks, written decision, publication dossier |
 
-## documents, 8 skills
+## documents, 9 skills
 
 | Skill | Category | What it does |
 |---|---|---|
@@ -168,6 +169,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `document-design` | publishing | hierarchy, typography, tables, page furniture, metadata |
 | `pdf-production` | publishing | engine selection, generation, render verification |
 | `editorial-line` | communication | audience, promise, pillars, vocabulary kept and refused, never said, formats, review rule |
+| `social-content` | communication | channel calendar, sourced formats per network, captions held to the line, moderation, measurement limits, publishing handover |
 
 ## engineering, 87 skills
 

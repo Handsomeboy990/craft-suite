@@ -1,6 +1,6 @@
 # Craft Suite
 
-**Le métier, encodé.** 172 skills et 33 agents qui tiennent un agent à un
+**Le métier, encodé.** 173 skills et 33 agents qui tiennent un agent à un
 standard professionnel : écrire, produire des documents, construire un
 logiciel, le sécuriser, chercher, mener une recherche d'emploi, évaluer des
 opportunités, et relire son propre travail.
@@ -36,7 +36,7 @@ en plus `python3`.
 git clone https://github.com/Handsomeboy990/craft-suite.git
 cd craft-suite
 bash install.sh              # un menu, choisissez vos arbres
-bash install.sh --all        # ou prenez les 172 et les 33 agents
+bash install.sh --all        # ou prenez les 173 et les 33 agents
 bash install.sh --configure
 ```
 
@@ -59,7 +59,7 @@ inter-arbres déclarée par ces skills.
 | Plugin | Ce que devient l'agent | Domaine | Installé |
 |---|---|---|---|
 | `craft-writing` | romancier, scénariste, éditeur, critique, correcteur | 42 | 44 |
-| `craft-documents` | rédacteur technique, auteur de rapports, producteur de PDF, responsable éditorial | 8 | 10 |
+| `craft-documents` | rédacteur technique, auteur de rapports, producteur de PDF, responsable éditorial, community manager | 9 | 11 |
 | `craft-engineering` | une équipe de livraison, de la spécification à la production | 87 | 89 et 29 agents |
 | `craft-security` | ingénieur défensif, et auditeur sur autorisation écrite | 12 | 18 et 3 agents |
 | `craft-research` | chercheur qui ne cite que ce qu'il a réellement lu | 5 | 7 et 2 agents |

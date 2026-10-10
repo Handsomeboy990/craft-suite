@@ -56,6 +56,9 @@ contrast, focus and reduced-motion floor that is never traded for looks.
   identity's voice. A decision that changes the identity goes back through
   `brand-identity` and a new sign-off; the editorial line never overrides a
   signed charter.
+- Decide the visual questions a `social-content` post raises that the signed
+  identity does not answer: a template, a crop, the mark on a photograph. The
+  drafter of the post does not decide them.
 
 ## Inputs
 
