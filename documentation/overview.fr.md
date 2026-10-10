@@ -202,200 +202,35 @@ Index : [opportunity/README.md](../opportunity/README.md).
 
 ## Installation
 
-Aucune dépendance. Le dépôt est du Markdown et du shell.
+Aucune dépendance : le dépôt est du Markdown et du shell. Clonez-le et lancez
+`bash install.sh`. Rien n'est installé tant que vous n'avez pas choisi : sans
+argument, l'installeur demande ce que vous faites réellement et n'installe que
+cela, un arbre entier, une catégorie d'un arbre, ou un seul skill avec ses
+dépendances résolues. Un développeur ne reçoit jamais la trousse d'un
+romancier, et un romancier ne reçoit jamais l'arbre d'ingénierie.
+`bash install.sh --configure` écrit ensuite votre configuration.
 
-```bash
-git clone <url-du-depot> craft-suite
-cd craft-suite
-bash install.sh
-```
-
-**Rien n'est installé tant que vous n'avez pas choisi.** Sans argument,
-l'installeur demande ce que vous faites réellement et n'installe que cela. Un
-développeur ne reçoit jamais la trousse d'un romancier, et un romancier ne
-reçoit jamais l'arbre d'ingénierie.
-
-```
-   1) Creative writing        42 skills   romans, poésie, scénario, édition
-   2) Professional documents   9 skills   guides, manuels, rapports, lettres, PDF
-   3) Software engineering    87 skills   plus 29 agents
-   4) Cybersecurity           12 skills   modèles de menace, audits, durcissement
-   5) Research                 5 skills   sources, vérification, synthèse
-   6) Career                   7 skills   recherche d'emploi, CV, entretiens
-   7) Opportunity              9 skills   idéation, hackathons, prospection
-   8) Everything             173 skills   plus 34 agents
-   9) Individual skills, chosen by name
-  10) One or more categories, for example genres only
-
-Choice [1]:
-```
-
-Plusieurs numéros sont acceptés : `1 2` installe l'écriture et les documents.
-
-Puis la configuration :
-
-```bash
-bash install.sh --configure
-```
-
-### Choisir sans passer par la question
-
-```bash
-bash install.sh --writing      les 42 skills d'écriture
-bash install.sh --documents     les 9 skills de document et 1 agent
-bash install.sh --dev          les 87 skills d'ingénierie et les 29 agents
-bash install.sh --security     les 12 skills de sécurité défensive
-bash install.sh --research      les 5 skills de recherche générale
-bash install.sh --career        les 7 skills de recherche d'emploi
-bash install.sh --opportunity   les 9 skills d'idéation, hackathon et prospection
-bash install.sh --all          tout
-bash install.sh --shared        les 2 skills transversaux seulement
-bash install.sh --agents        les 34 agents seulement
-bash install.sh --no-agents     les skills sans les agents
-bash install.sh --all --zip     construit aussi une archive par skill dans dist/
-bash install.sh --remove        désinstalle la portée choisie
-```
-
-Les portées se combinent : `bash install.sh --writing --documents`.
-
-Chaque portée installe aussi les deux skills transversaux, `self-critique` et
-`project-brief`, parce que tous les arbres les appellent. Une désinstallation
-partielle les conserve, si bien que retirer un arbre n'en casse jamais un
-autre.
-
-### Par catégorie
-
-Un arbre entier est souvent plus que nécessaire. Un auteur de thrillers n'a
-que faire de la prosodie.
-
-```bash
-bash install.sh --group genres            15 skills, plus la paire transversale
-bash install.sh --group genres,quality    deux catégories
-bash install.sh --group writing/poetry    le chemin complet fonctionne aussi
-bash install.sh --group devops-skills     l'exploitation seule
-```
-
-| Catégorie | Skills | Arbre |
-|---|---|---|
-| `core` | 14 | writing |
-| `genres` | 15 | writing |
-| `poetry` | 5 | writing |
-| `quality` | 8 | writing |
-| `documentation` | 4 | documents |
-| `administrative` | 1 | documents |
-| `publishing` | 2 | documents |
-| `communication` | 2 | documents |
-| `dev-skills` | 60 | engineering |
-| `delivery-skills` | 11 | engineering |
-| `devops-skills` | 16 | engineering |
-| `secure-development` | 9 | security |
-| `security-assurance` | 3 | security |
-| `research` | 5 | research |
-| `career` | 7 | career |
-| `ideation` | 3 | opportunity |
-| `hackathons` | 3 | opportunity |
-| `business` | 3 | opportunity |
-| `shared` | 2 | shared |
-
-Tout se combine, et le résultat est dédoublonné :
-
-```bash
-bash install.sh --group poetry --skill thriller
-12 skills installed
-```
-
-Les cinq skills de poésie, `thriller` et ses quatre dépendances,
-`writing-constitution` compté une seule fois, et la paire transversale.
-
-Les agents suivent l'arbre d'ingénierie, pas une de ses catégories. Ajoutez
-`--agents` si vous installez `--group dev-skills` seul.
-
-### Un seul skill à la fois
-
-```bash
-bash install.sh --list                    tous les skills et leur objet
-bash install.sh --skill thriller          un skill, et ce dont il a besoin
-bash install.sh --skill sonnet,haiku      plusieurs
-```
-
-Les dépendances sont résolues de proche en proche : un skill isolé n'est
-jamais installé cassé.
-
-```
-$ bash install.sh --skill thriller
-7 skills installed
-Installed: thriller writing-constitution novel-architect scene-builder
-           chapter-architect self-critique project-brief
-```
-
-Un nom inconnu interrompt l'installation au lieu de la raccourcir en silence.
-
-### Sans cloner d'abord
-
-```bash
-curl -fsSL <url-brute>/install.sh | bash -s -- --writing
-```
-
-Le script récupère les skills dans `~/.cache/craft-suite` quand il n'en
-trouve aucun à côté de lui. Sans portée, il pose quand même la question, en
-lisant la réponse sur le terminal et non sur le tube. Si le dépôt est privé,
-clonez-le et lancez `install.sh` depuis l'intérieur.
-
-Les skills vont dans `~/.claude/skills`, les agents dans `~/.claude/agents`, la
-configuration dans `~/.claude/craft.config.yaml`. Les trois cibles sont
-configurables par `CLAUDE_SKILLS_DIR`, `CLAUDE_AGENTS_DIR` et
-`CLAUDE_CONFIG_FILE`.
-
-Détail complet, y compris l'installation d'un seul skill :
-[documentation/installation.md](installation.md).
+Toutes les portées, options et catégories, les répertoires cibles, et
+l'installation sans cloner : [installation.md](installation.md).
 
 ## Configuration
 
 Rien ne présuppose qui vous êtes, quels outils vous employez, ni quelle langue
-lisent vos lecteurs.
+lisent vos lecteurs. `bash install.sh --configure` ne demande que les champs
+utiles à ce que vous avez installé, chacun avec une réponse recommandée déjà
+sélectionnée. Deux champs n'auront jamais de valeur par défaut :
+`identity.author_name` et `identity.author_email`, parce qu'un commit porte une
+personne réelle.
 
-```bash
-bash install.sh --configure
-```
+La section `delegation` décide de ce que l'agent peut faire seul : commits,
+branches, push, pull requests, tags de version, déploiements, opérations sur
+la base de données et changements de dépendances. Tout ce que vous gardez est
+préparé et vous est remis avec sa commande, jamais exécuté malgré tout, et
+jamais silencieusement laissé de côté.
 
-Chaque question a une réponse recommandée, déjà sélectionnée : la touche
-entrée l'accepte. Seuls les champs utiles à la portée installée sont demandés.
-
-Deux champs sont obligatoires et n'auront jamais de valeur par défaut :
-`identity.author_name` et `identity.author_email`. Un commit porte une
-personne réelle, et `git-workflow` s'arrête en nommant le champ manquant
-plutôt que d'en inventer un. L'installeur refuse un nom d'auteur qui ressemble
-à un outil.
-
-### Ce que l'agent peut faire seul
-
-La section `delegation` décide de ce qui vous parvient sous forme d'action
-terminée et de ce qui vous parvient sous forme d'étape préparée.
-
-| Champ | Valeurs |
-|---|---|
-| `commits` | yes, stage-only, no |
-| `branches` | yes, no |
-| `push` | yes, branch-only, no |
-| `pull_requests` | yes, draft, no |
-| `release_tags` | yes, no |
-| `deployments` | yes, non-production, no |
-| `database_operations` | yes, non-production, no |
-| `dependency_changes` | yes, with-justification, no |
-
-Répondez non à tout ce que vous préférez faire vous-même. L'agent s'arrête à
-cette frontière, vous remet ce qu'il a préparé, et nomme l'étape.
-
-Tout ce que vous gardez est écrit dans `craft-manual-tasks.md`, à côté
-du fichier de configuration, avec la commande correspondante. Rien n'est
-silencieusement laissé de côté.
-
-Deux règles ne se délèguent jamais : une opération destructrice est comptée et
-confirmée avant d'être exécutée, et un secret fuité est signalé pour rotation
-plutôt que discrètement supprimé.
-
-Référence des champs : [config/README.md](../config/README.md). Côté installeur :
-[documentation/configuration.md](configuration.md).
+Les questions, les champs de délégation et leurs valeurs :
+[configuration.md](configuration.md). Référence des champs :
+[config/README.md](../config/README.md).
 
 ## Quel skill me faut-il
 
@@ -527,32 +362,13 @@ Deux interdits s'appliquent à tous les fichiers du dépôt, y compris celui-ci 
 ## Plugins
 
 La suite est aussi distribuée en plugins Claude Code, un par domaine, pour
-n'installer que les domaines voulus.
+n'installer que les domaines voulus. Les arbres sont la source de vérité
+unique : les bundles sous `plugins/` sont générés depuis eux par
+`bash plugins/build.sh`, et `tests/validate-plugins.sh` vérifie qu'ils restent
+synchronisés. Le chemin `install.sh` continue de fonctionner tel quel.
 
-```
-/plugin marketplace add Handsomeboy990/craft-suite
-/plugin install craft-security
-```
-
-| Plugin | Installe |
-|---|---|
-| `craft-writing` | l'arbre d'écriture, 42 skills |
-| `craft-documents` | l'arbre des documents, 9 skills et 1 agent |
-| `craft-engineering` | l'arbre d'ingénierie, 87 skills et 29 agents |
-| `craft-security` | l'arbre de sécurité, 12 skills et 3 agents |
-| `craft-research` | l'arbre de recherche, 5 skills et 2 agents |
-| `craft-career` | l'arbre d'emploi, 7 skills |
-| `craft-opportunity` | l'arbre des opportunités, 9 skills |
-
-Ce sont les comptes des arbres. Un bundle emporte aussi les deux skills communs
-et toute dépendance inter-arbres déclarée par ses skills, donc ce qui arrive sur
-le disque est plus grand. Le chiffre par bundle est dans
+Les plugins, ce que chaque bundle emporte et la commande du marketplace :
 [plugins.md](plugins.md).
-
-Les arbres sont la source de vérité unique. Les bundles sous `plugins/` sont
-générés depuis eux par `bash plugins/build.sh`, et `tests/validate-plugins.sh`
-vérifie qu'ils restent synchronisés. Le chemin `install.sh` continue de
-fonctionner tel quel.
 
 ## Control Center
 

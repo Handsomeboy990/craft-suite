@@ -136,8 +136,8 @@ for f in documentation/overview.md documentation/overview.fr.md; do
 done
 
 # --------------------------------------------------------------------------
-# Category tables: | name | N | ... . Present in overview (two tables),
-# overview.fr, installation and engineering/README.
+# Category tables: | name | N | ... . Present in overview and overview.fr (the
+# tree sections), installation and engineering/README.
 # --------------------------------------------------------------------------
 for f in documentation/overview.md documentation/overview.fr.md documentation/installation.md; do
   check "$f" "$DEV"       'dev-skills.*\| [0-9]+ \|'         "$f dev-skills row"
@@ -190,12 +190,13 @@ fi
 check "$A" "$AGENTS"    'agents/ +[0-9]'               "architecture agents total"
 
 # --------------------------------------------------------------------------
-# Installer menus (present in installation.md and overview.md / overview.fr.md).
+# Installer menu. It lives in installation.md only: the overviews link there
+# instead of repeating it.
 # --------------------------------------------------------------------------
 # The menu lines begin with a list number (1), 2), ...), so the count is the
 # integer immediately before " skills", not the first integer on the line.
 MENU='[0-9]+(?= skills)'
-for f in documentation/installation.md documentation/overview.md documentation/overview.fr.md; do
+for f in documentation/installation.md; do
   check "$f" "$WRITING"     'Creative writing +[0-9]+ skills'       "$f menu writing"       "$MENU"
   check "$f" "$DOCUMENTS"   'Professional documents +[0-9]+ skills' "$f menu documents"     "$MENU"
   check "$f" "$ENG"         'Software engineering +[0-9]+ skills'   "$f menu engineering"   "$MENU"
