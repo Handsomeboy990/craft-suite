@@ -4,7 +4,7 @@ description: Turns a validated brief into a visual identity a product can be bui
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [engineering-core, design-authenticity]
   outputs: [positioning-statement, logo-brief, logo-usage-rules, measured-palette, type-scale, imagery-direction, voice-brief, moodboard-record, brand-charter, brand-tokens, sign-off-record]
 ---
@@ -47,10 +47,11 @@ Does not own:
 
 - The components and the token system that consumes the identity. That is
   `design-system`, which receives the tokens after sign-off and never before.
-- The full editorial line: audience by channel, pillars, vocabulary,
-  formats, the review rule. That belongs to the editorial-line skill, planned
-  downstream of this one and not yet written. Until it exists, the voice brief
-  here is the whole of the verbal identity, and it says so.
+- The full editorial line: audience by format, the promise, pillars,
+  vocabulary, what is never said, formats, the review rule. That belongs to
+  `editorial-line`, in the documents tree, which extends the voice brief here
+  and never contradicts a signed one. A conflict between the two is escalated
+  to the design-director agent and the owner; neither skill settles it alone.
 - The final drawn logo. This skill writes the brief a designer or the canvas
   works from, and the rules any mark must obey. A mark proposed on the canvas
   is a draft against the brief, not a deliverable by default.
@@ -218,8 +219,9 @@ never said      claims the brand does not make, the first being any claim
                 it cannot prove
 ```
 
-The full editorial line is downstream, section 1. The brief names it as the
-next step when the project has a content programme.
+The full editorial line is downstream, section 1: `editorial-line`. The brief
+names it as the next step when the project has a content programme, and a
+change the line asks of the voice comes back here for a new sign-off.
 
 ## 9. Moodboard
 
@@ -366,8 +368,8 @@ sign-off until the ratio is measured.
   here must pass.
 - Downstream: `design-system` for the tokens after sign-off, `font-loading`
   for the chosen families, `ui-ux-engineering` and `frontend-engineering` for
-  the surfaces, and the editorial-line skill, planned, for the full verbal
-  identity.
+  the surfaces, and `editorial-line` for the full verbal identity, which
+  extends the voice brief and never contradicts a signed one.
 - Lateral: `accessibility-testing` for contrast on the rendered surfaces,
   `dependency-selection` for font and icon licences, `implementation-integrity`
   for imagery passed off as real, `document-core`, `document-design` and
