@@ -211,7 +211,7 @@ romancier, et un romancier ne reçoit jamais l'arbre d'ingénierie.
 `bash install.sh --configure` écrit ensuite votre configuration.
 
 Toutes les portées, options et catégories, les répertoires cibles, et
-l'installation sans cloner : [installation.md](installation.md).
+l'installation sans cloner : [installation.fr.md](installation.fr.md).
 
 ## Configuration
 
@@ -229,7 +229,7 @@ préparé et vous est remis avec sa commande, jamais exécuté malgré tout, et
 jamais silencieusement laissé de côté.
 
 Les questions, les champs de délégation et leurs valeurs :
-[configuration.md](configuration.md). Référence des champs :
+[configuration.fr.md](configuration.fr.md). Référence des champs :
 [config/README.md](../config/README.md).
 
 ## Quel skill me faut-il
@@ -407,8 +407,8 @@ Les six doivent passer avant tout commit. Détail dans
 |---|---|
 | [documentation/architecture.md](architecture.md) | organisation, isolation des skills, métadonnées |
 | [documentation/skills-guide.md](skills-guide.md) | répertoire des 173 skills |
-| [documentation/installation.md](installation.md) | installation complète et par skill |
-| [documentation/configuration.md](configuration.md) | le contrat de configuration |
+| [documentation/installation.fr.md](installation.fr.md) | installation complète et par skill |
+| [documentation/configuration.fr.md](configuration.fr.md) | le contrat de configuration |
 | [documentation/agents.md](agents.md) | skill, agent, orchestration |
 | [documentation/documents-system.md](documents-system.md) | l'arbre documents en détail |
 | [documentation/engineering-system.md](engineering-system.md) | la couche dev-skills en détail |

@@ -172,13 +172,16 @@ a real reference.
   written in words, and an agent named as unbuilt while its file exists.
   `validate-structure.sh` fails on a skill missing from its category index.
   Each check was mutation-tested.
-- [ ] **Deflate `overview.md`** (S). 54 lines are duplicated verbatim from
-  `installation.md`, plus the plugin table and the configuration block. Replace
-  the installation section with a paragraph and a link. Deferred: it is a
-  future-drift problem, not a reader problem, and the guide came first.
-- [ ] **Translate `installation.md` and `configuration.md`** (M). Today
-  `usage.fr.md` and `overview.fr.md` are the only French documents, and
-  `usage.fr.md` says so rather than leaving the reader to discover it.
+- [x] **Deflate `overview.md`**. Done in #104: the installation,
+  configuration and plugin sections of both overviews are paragraphs linking
+  the canonical pages (644 to 464 and 662 to 478 lines). Measured: 73
+  non-blank lines were verbatim from `installation.md`, not 54. The installer
+  menu is now checked only where it lives, in `installation.md`.
+- [x] **Translate `installation.md` and `configuration.md`**. Done in #103:
+  `installation.fr.md` and `configuration.fr.md`, same structure and numbers,
+  linked from every French page; `validate-counts.sh` checks the French
+  installation page and, in both languages, the scoped installation list,
+  which had drifted (82 and 24 for `--dev` against 87 and 29).
 
 ## Phase 8: resources by domain, studied from real projects
 
