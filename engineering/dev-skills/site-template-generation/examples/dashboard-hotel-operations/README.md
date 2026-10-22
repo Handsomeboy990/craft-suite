@@ -71,9 +71,19 @@ Playwright download host is unreachable, or any Chromium named in
 
 ### What was observed
 
-`npm run gate` on 2026-10-01, against the production build, Node 22.22,
-headless Chromium 153: **26 of 26 lines passed**, none failed, none left
-unverified. Seeded volume: 32 rooms, 4,389 stays, 3,000 guests, 3,762 folios,
+`npm run gate` on 2026-10-22, against the production build of Next.js 16.4.2,
+Node 24.18, headless Chromium 153, on a machine under load: **25 of 26 lines
+passed**, D2 failed, none left unverified. D2 fails often, not always: a denied
+page (403) is served by Next.js as a bare shell with no stylesheet and no theme,
+and only the client render applies them, so the contrast measured at the load
+event depends on how fast that render is. The defect is real for a user, who
+sees the denied page unthemed for a moment, and it is the same under 16.3.5; it
+is recorded as open. D18, D20 and D23 used to fail intermittently because their
+checks read the page before it had hydrated or while the loading skeleton was
+still on screen; they now wait for the real state, and passed ten runs in a row.
+
+The run of 2026-10-01, Node 22.22, recorded 26 of 26 with this seeded volume,
+which `npm run seed -- --today 2026-10-01` reproduces exactly: 32 rooms, 4,389 stays, 3,000 guests, 3,762 folios,
 300 items, 19,433 movements, 8,724 ledger entries, 6 accounts.
 
 ```
