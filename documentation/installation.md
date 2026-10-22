@@ -44,7 +44,7 @@ bash install.sh
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
    8) Media                    7 skills   project demo and presentation videos
-   9) Everything             183 skills   plus 36 agents
+   9) Everything             183 skills   plus 37 agents
   10) Individual skills, chosen by name
   11) One or more categories, for example genres only
 
@@ -68,10 +68,10 @@ bash install.sh --security     12 defensive security skills and 3 agents
 bash install.sh --research      5 general research skills and 2 agents
 bash install.sh --career        7 job search and application skills
 bash install.sh --opportunity   9 ideation, hackathon and business skills
-bash install.sh --media         7 video skills, project demos and presentations, and 1 agent
+bash install.sh --media         7 video skills, project demos and presentations, and 2 agents
 bash install.sh --all          everything
 bash install.sh --shared        the 2 cross domain skills only
-bash install.sh --agents        the 36 agents only
+bash install.sh --agents        the 37 agents only
 bash install.sh --no-agents     skills without agents
 bash install.sh --remove        uninstall the scope instead of installing it
 ```
@@ -352,10 +352,10 @@ counted in:
 | `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
-| `--media` | 9 | 1 |
+| `--media` | 9 | 2 |
 | `--shared` | 2 | 0 |
-| `--all` | 183 | 36 |
-| `--agents` | 0 | 36 |
+| `--all` | 183 | 37 |
+| `--agents` | 0 | 37 |
 
 `~/.claude/skills` is shared. It holds every skill you have, not only this
 suite's: a skill installed from somewhere else sits beside them, and claude.ai

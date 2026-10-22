@@ -163,7 +163,7 @@ so it can be waived deliberately, which is different from it being forgotten.
 ## 7. Agents, and when not to use them
 
 The agent definitions in `~/.claude/agents` are roles for a runtime that
-supports subagents. There are 36 in the repository; `--dev` installs 30 of them,
+supports subagents. There are 37 in the repository; `--dev` installs 30 of them,
 `--security` three, `--research` two and `--documents` one, so how many you
 have depends on the scope you chose. Two
 rules govern all of them:
@@ -234,10 +234,10 @@ in:
 | `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
-| `--media` | 9 | 1 |
+| `--media` | 9 | 2 |
 | `--shared` | 2 | 0 |
-| `--all` | 183 | 36 |
-| `--agents` | 0 | 36 |
+| `--all` | 183 | 37 |
+| `--agents` | 0 | 37 |
 
 `~/.claude/skills` is shared. It holds every skill you have, not only this
 suite's: a skill installed from somewhere else sits beside them, and claude.ai

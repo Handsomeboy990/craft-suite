@@ -281,7 +281,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `tls-certificates` | the TLS certificate over its whole life, key never leaked |
 | `email-deliverability` | mail into the inbox: SPF, DKIM, DMARC aligned, reputation, bounces |
 
-### agents, 36
+### agents, 37
 
 Core, eleven: `delivery-orchestrator`, `principal-engineer`,
 `requirements-analyst`, `compliance-verifier`, `source-of-truth`, `checkup`,
@@ -309,8 +309,9 @@ Research, two: `researcher`, `data-collection-engineer`.
 Communication, one: `community-manager`, owner of `editorial-line` and
 `social-content`; it drafts and never publishes.
 
-Media, one: `video-producer`, owner of the media tree's pipeline; it hands
-every video over and never publishes.
+Media, two: `video-producer`, owner of the media tree's pipeline, who hands
+every video over and never publishes, and `motion-designer`, who builds its
+animated layer.
 
 Public contracts in `agents.md`. An agent is a role: it names the skills it
 uses and restates none of them.
