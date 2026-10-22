@@ -1,6 +1,6 @@
 # Craft Suite
 
-**Craft, encoded.** 176 skills and 35 agents that hold an agent to a
+**Craft, encoded.** 177 skills and 35 agents that hold an agent to a
 professional standard: write, produce documents, build software, secure it,
 research, run a job search, evaluate opportunities, and review its own work.
 
@@ -34,7 +34,7 @@ the optional Control Center and the report also want `python3`.
 git clone https://github.com/Handsomeboy990/craft-suite.git
 cd craft-suite
 bash install.sh              # a menu, pick the trees you want
-bash install.sh --all        # or take all 176 and the 35 agents
+bash install.sh --all        # or take all 177 and the 35 agents
 bash install.sh --configure
 ```
 
@@ -43,11 +43,11 @@ steps the agent may perform on its own rather than hand back to you. Nothing
 user specific is ever hardcoded in a skill.
 
 Scoped installs: `--writing`, `--documents`, `--dev`, `--security`,
-`--research`, `--career`, `--opportunity`, `--shared`, `--agents`, `--all`,
+`--research`, `--career`, `--opportunity`, `--media`, `--shared`, `--agents`, `--all`,
 `--no-agents`, `--remove`. New here: start with
 [documentation/usage.md](documentation/usage.md).
 
-## The seven plugins
+## The eight plugins
 
 Two counts, because they answer two questions. "Domain" is how many skills the
 tree itself holds. "Installed" is how many directories land on disk, which is
@@ -63,6 +63,7 @@ tree dependency those skills declare.
 | `craft-research` | researcher who cites only what was actually read | 5 | 7 and 2 agents |
 | `craft-career` | job search that never invents a listing | 7 | 9 |
 | `craft-opportunity` | ideas, hackathons, clients, markets | 9 | 11 |
+| `craft-media` | demo and presentation videos of a project, with voice-over and animation | 1 | 3 |
 
 Each plugin is self contained, which is why the second column is larger. The
 security bundle is the one that currently reaches into another tree: its

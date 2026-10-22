@@ -2,7 +2,7 @@
 # Generate the per-domain plugin bundles from the canonical skill trees.
 #
 # The trees under writing/, documents/, engineering/, security/, research/,
-# career/ and opportunity/ are the single source of truth. Each plugin under
+# career/, opportunity/ and media/ are the single source of truth. Each plugin under
 # plugins/<domain>/skills is generated from them by this script, using the same
 # installer that populates ~/.claude/skills, so a plugin contains exactly the
 # skills that scope would install, dependencies resolved, plus the cross domain
@@ -26,7 +26,8 @@ engineering:--dev
 security:--security
 research:--research
 career:--career
-opportunity:--opportunity"
+opportunity:--opportunity
+media:--media"
 
 built=0
 printf '%s\n' "$DOMAINS" | while IFS=: read -r dir scope; do

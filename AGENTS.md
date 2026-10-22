@@ -13,7 +13,7 @@ are ignored. See `Why this file exists` at the end.
 
 ## What this repository is
 
-Craft Suite: 176 skills and 35 agents, in eight trees. Named
+Craft Suite: 177 skills and 35 agents, in nine trees. Named
 `claude-writer-suite` until 3.0.0, when the writing tree stopped being the
 whole of it.
 
@@ -28,6 +28,7 @@ whole of it.
 | `research/` | 5 general research skills | `research/research-core` |
 | `career/` | 7 job search and application skills | `career/career-core` |
 | `opportunity/` | 9 ideation, hackathon and business skills | `opportunity/ideation/opportunity-core` |
+| `media/` | 1 project demo and presentation video skill | `media/video-core` |
 
 The counts above are checked against the filesystem by
 `tests/validate-counts.sh`, so this table cannot drift from the trees.
@@ -61,6 +62,7 @@ skill. Never run a whole chain by reflex: compose the smallest complete plan.
 | Generating and evaluating ideas | `opportunity-core` |
 | Finding or winning a hackathon | `hackathon-discovery` |
 | Finding clients or sizing a market | `client-discovery` |
+| A demo, presentation, tutorial or short video of a project | `video-core` |
 | Anything just finished | `self-critique` |
 
 `engineering-orchestrator` loads `engineering-core` then selects the rest.
@@ -86,12 +88,15 @@ skill. Never run a whole chain by reflex: compose the smallest complete plan.
 - Research and career: a source, a listing, a deadline or a market figure is
   cited from a live source or withheld, never invented. `research-core`,
   `career-core`.
+- Video: no project is filmed without its owner's written permission, nothing
+  staged passes as working, and no video is handed over before the twelve line
+  gate of `video-core`; none is published by an agent.
 
 ## Permanent rules
 
 1. No emoji, in any file or any output.
 2. No em dash. The en dash is for dialogue only.
-3. Skill language is English, for all 176 skills and all 35 agents. Output
+3. Skill language is English, for all 177 skills and all 35 agents. Output
    language is the recipient's, set in the configuration. The three layers are
    defined in `documentation/configuration.md`.
 4. Commits are atomic, in English, with no mention of an AI, an assistant or

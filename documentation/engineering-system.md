@@ -254,7 +254,7 @@ bash tests/validate-plugins.sh        plugin bundles in sync with the trees
 bash tests/validate-model-routing.sh  routing fixtures against the tier table
 ```
 
-The third script covers the eight trees and the agents. It verifies that every
+The third script covers the nine trees and the agents. It verifies that every
 task category has a plan, that every step names an existing skill, that the
 mandatory gates appear where they are required, that plan ordering is
 coherent, that no engineering skill is orphaned, that `depends_on` and cross

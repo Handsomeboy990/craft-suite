@@ -26,6 +26,7 @@ engineering/dev-skills engineering/delivery-skills engineering/devops-skills
 security/secure-development security/security-assurance
 research career
 opportunity/ideation opportunity/hackathons opportunity/business
+media
 shared"
 
 # Groups whose SKILL.md carries an Interfaces section.
@@ -36,6 +37,7 @@ engineering/devops-skills
 security/secure-development security/security-assurance
 research career
 opportunity/ideation opportunity/hackathons opportunity/business
+media
 shared"
 
 ERRORS=0

@@ -13,6 +13,7 @@
 #   bash install.sh --research     general research, 5 skills and 2 agents
 #   bash install.sh --career       job search and applications, 7 skills
 #   bash install.sh --opportunity  ideation, hackathons, business, 9 skills
+#   bash install.sh --media        project demo and presentation videos, 1 skill
 #   bash install.sh --shared       the 2 cross domain skills only
 #   bash install.sh --all          everything, all skills and 35 agents
 #   bash install.sh --group a,b    only these categories
@@ -95,6 +96,7 @@ SECURITY_GROUPS="security/secure-development security/security-assurance"
 RESEARCH_GROUPS="research"
 CAREER_GROUPS="career"
 OPPORTUNITY_GROUPS="opportunity/ideation opportunity/hackathons opportunity/business"
+MEDIA_GROUPS="media"
 SHARED_GROUPS="shared"
 
 MODE="install"
@@ -105,6 +107,7 @@ WANT_SECURITY="no"
 WANT_RESEARCH="no"
 WANT_CAREER="no"
 WANT_OPPORTUNITY="no"
+WANT_MEDIA="no"
 WANT_SHARED_ONLY="no"
 SELECTED_SKILLS=""
 SELECTED_GROUPS=""
@@ -115,7 +118,7 @@ WANT_ALL_AGENTS="no"
 CC_ARGS=""
 
 usage() {
-  sed -n '2,53p' "$0" | sed 's/^# \{0,1\}//'
+  sed -n '2,54p' "$0" | sed 's/^# \{0,1\}//'
 }
 
 die() { printf '%s\n' "$1" >&2; exit 1; }
@@ -144,11 +147,12 @@ while [ $# -gt 0 ]; do
     --research)    WANT_RESEARCH="yes";    SCOPE_GIVEN="yes" ;;
     --career)      WANT_CAREER="yes";      SCOPE_GIVEN="yes" ;;
     --opportunity) WANT_OPPORTUNITY="yes"; SCOPE_GIVEN="yes" ;;
+    --media)       WANT_MEDIA="yes";       SCOPE_GIVEN="yes" ;;
     --shared)      WANT_SHARED_ONLY="yes"; SCOPE_GIVEN="yes" ;;
     --all)
       WANT_WRITING="yes"; WANT_DOCUMENTS="yes"; WANT_ENGINEERING="yes"
       WANT_SECURITY="yes"; WANT_RESEARCH="yes"; WANT_CAREER="yes"
-      WANT_OPPORTUNITY="yes"
+      WANT_OPPORTUNITY="yes"; WANT_MEDIA="yes"
       SCOPE_GIVEN="yes"
       ;;
     --group=*|--groups=*|--category=*)
@@ -244,10 +248,10 @@ See the full list with: bash install.sh --list"
 }
 
 all_groups() {
-  printf '%s %s %s %s %s %s %s %s' \
+  printf '%s %s %s %s %s %s %s %s %s' \
     "$WRITING_GROUPS" "$DOCUMENT_GROUPS" "$ENGINEERING_GROUPS" \
     "$SECURITY_GROUPS" "$RESEARCH_GROUPS" "$CAREER_GROUPS" \
-    "$OPPORTUNITY_GROUPS" "$SHARED_GROUPS"
+    "$OPPORTUNITY_GROUPS" "$MEDIA_GROUPS" "$SHARED_GROUPS"
 }
 
 # Absolute path of a skill, whatever tree holds it.
@@ -304,6 +308,7 @@ active_groups() {
   [ "$WANT_RESEARCH" = "yes" ]    && groups="$groups $RESEARCH_GROUPS"
   [ "$WANT_CAREER" = "yes" ]      && groups="$groups $CAREER_GROUPS"
   [ "$WANT_OPPORTUNITY" = "yes" ] && groups="$groups $OPPORTUNITY_GROUPS"
+  [ "$WANT_MEDIA" = "yes" ]       && groups="$groups $MEDIA_GROUPS"
   # The cross domain pair belongs to every scope: every tree calls it.
   [ -n "$groups" ] && groups="$groups $SHARED_GROUPS"
   # deduplicate, since --group shared --writing would list it twice
@@ -365,7 +370,7 @@ removing_everything() {
   [ "$WANT_WRITING" = "yes" ] && [ "$WANT_DOCUMENTS" = "yes" ] \
     && [ "$WANT_ENGINEERING" = "yes" ] && [ "$WANT_SECURITY" = "yes" ] \
     && [ "$WANT_RESEARCH" = "yes" ] && [ "$WANT_CAREER" = "yes" ] \
-    && [ "$WANT_OPPORTUNITY" = "yes" ] && return 0
+    && [ "$WANT_OPPORTUNITY" = "yes" ] && [ "$WANT_MEDIA" = "yes" ] && return 0
   [ "$WANT_SHARED_ONLY" = "yes" ] && return 0
   return 1
 }
@@ -516,7 +521,7 @@ Pass a scope instead:
 }
 
 interactive_select() {
-  local writing documents engineering security research career opportunity
+  local writing documents engineering security research career opportunity media
   local total answer picked
 
   open_tty || no_terminal
@@ -528,8 +533,9 @@ interactive_select() {
   research="$(count_in "$RESEARCH_GROUPS")"
   career="$(count_in "$CAREER_GROUPS")"
   opportunity="$(count_in "$OPPORTUNITY_GROUPS")"
+  media="$(count_in "$MEDIA_GROUPS")"
   total=$((writing + documents + engineering + security + research \
-    + career + opportunity + $(count_in "$SHARED_GROUPS")))
+    + career + opportunity + media + $(count_in "$SHARED_GROUPS")))
 
   {
     printf '\nCraft Suite\n\n'
@@ -541,9 +547,10 @@ interactive_select() {
     printf '   5) Research                %2s skills   sources, verification, synthesis\n' "$research"
     printf '   6) Career                  %2s skills   job search, CV, interviews\n' "$career"
     printf '   7) Opportunity             %2s skills   ideation, hackathons, business\n' "$opportunity"
-    printf '   8) Everything             %3s skills   plus 35 agents\n' "$total"
-    printf '   9) Individual skills, chosen by name\n'
-    printf '  10) One or more categories, for example genres only\n\n'
+    printf '   8) Media                   %2s skills   project demo and presentation videos\n' "$media"
+    printf '   9) Everything             %3s skills   plus 35 agents\n' "$total"
+    printf '  10) Individual skills, chosen by name\n'
+    printf '  11) One or more categories, for example genres only\n\n'
     printf 'Every choice also installs the 2 cross domain skills, self-critique and\n'
     printf 'project-brief, because every tree calls them.\n\n'
     printf 'Several numbers may be given, separated by spaces. For example: 1 2\n'
@@ -561,11 +568,12 @@ interactive_select() {
       5) WANT_RESEARCH="yes" ;;
       6) WANT_CAREER="yes" ;;
       7) WANT_OPPORTUNITY="yes" ;;
-      8) WANT_WRITING="yes"; WANT_DOCUMENTS="yes"; WANT_ENGINEERING="yes"
+      8) WANT_MEDIA="yes" ;;
+      9) WANT_WRITING="yes"; WANT_DOCUMENTS="yes"; WANT_ENGINEERING="yes"
          WANT_SECURITY="yes"; WANT_RESEARCH="yes"; WANT_CAREER="yes"
-         WANT_OPPORTUNITY="yes" ;;
-      9) select_individual_skills ;;
-      10) select_categories ;;
+         WANT_OPPORTUNITY="yes"; WANT_MEDIA="yes" ;;
+      10) select_individual_skills ;;
+      11) select_categories ;;
       *) die "Not one of the offered choices: $picked" ;;
     esac
   done
@@ -573,7 +581,8 @@ interactive_select() {
   if [ "$WANT_WRITING" = "no" ] && [ "$WANT_DOCUMENTS" = "no" ] \
      && [ "$WANT_ENGINEERING" = "no" ] && [ "$WANT_SECURITY" = "no" ] \
      && [ "$WANT_RESEARCH" = "no" ] && [ "$WANT_CAREER" = "no" ] \
-     && [ "$WANT_OPPORTUNITY" = "no" ] && [ "$WANT_SHARED_ONLY" = "no" ] \
+     && [ "$WANT_OPPORTUNITY" = "no" ] && [ "$WANT_MEDIA" = "no" ] \
+     && [ "$WANT_SHARED_ONLY" = "no" ] \
      && [ -z "${SELECTED_SKILLS// /}" ] && [ -z "${SELECTED_GROUPS// /}" ]; then
     die "Nothing selected. Nothing installed."
   fi

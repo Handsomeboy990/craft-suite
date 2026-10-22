@@ -1,6 +1,6 @@
 # Craft Suite
 
-**Le métier, encodé.** 176 skills et 35 agents qui tiennent un agent à un
+**Le métier, encodé.** 177 skills et 35 agents qui tiennent un agent à un
 standard professionnel : écrire, produire des documents, construire un
 logiciel, le sécuriser, chercher, mener une recherche d'emploi, évaluer des
 opportunités, et relire son propre travail.
@@ -36,7 +36,7 @@ en plus `python3`.
 git clone https://github.com/Handsomeboy990/craft-suite.git
 cd craft-suite
 bash install.sh              # un menu, choisissez vos arbres
-bash install.sh --all        # ou prenez les 176 et les 35 agents
+bash install.sh --all        # ou prenez les 177 et les 35 agents
 bash install.sh --configure
 ```
 
@@ -45,11 +45,11 @@ quelles étapes l'agent peut exécuter seul plutôt que vous rendre. Aucune vale
 propre à un utilisateur n'est codée en dur dans un skill.
 
 Installations ciblées : `--writing`, `--documents`, `--dev`, `--security`,
-`--research`, `--career`, `--opportunity`, `--shared`, `--agents`, `--all`,
+`--research`, `--career`, `--opportunity`, `--media`, `--shared`, `--agents`, `--all`,
 `--no-agents`, `--remove`. Première visite : commencez par
 [documentation/usage.fr.md](documentation/usage.fr.md).
 
-## Les sept plugins
+## Les huit plugins
 
 Deux comptes, parce qu'ils répondent à deux questions. « Domaine », c'est ce que
 l'arbre contient. « Installé », c'est ce qui arrive sur le disque : le domaine,
@@ -65,6 +65,7 @@ inter-arbres déclarée par ces skills.
 | `craft-research` | chercheur qui ne cite que ce qu'il a réellement lu | 5 | 7 et 2 agents |
 | `craft-career` | recherche d'emploi qui n'invente jamais une offre | 7 | 9 |
 | `craft-opportunity` | idées, hackathons, clients, marchés | 9 | 11 |
+| `craft-media` | vidéos de démo et de présentation d'un projet, avec voix off et animations | 1 | 3 |
 
 Chaque plugin est autonome, et c'est pourquoi la seconde colonne est plus
 grande. Le bundle security est le seul qui va aujourd'hui chercher dans un autre

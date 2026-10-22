@@ -114,3 +114,14 @@ career:
   work_authorization: ""
   # Optional. Stated by the candidate or left empty; never guessed.
   salary_floor: ""
+
+# Read by the media/ skills. Every field has a default, so this section may be
+# absent. Never put a voice service key here.
+media:
+  # Empty means: language.document_output.
+  video_language: ""
+  # local | cloud | recorded. local runs an open speech engine on this machine.
+  voice_provider: local
+  # Engine and voice. Empty with local: chosen among the installed voices for
+  # the video's language, and recorded with the video.
+  voice_model: ""

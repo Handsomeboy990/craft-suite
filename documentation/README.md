@@ -1,6 +1,6 @@
 # documentation
 
-Technical documentation of the eight trees, the plugins and the Control Center.
+Technical documentation of the nine trees, the plugins and the Control Center.
 Written in English, the system language.
 
 ## Start here
@@ -10,7 +10,7 @@ Written in English, the system language.
 | `usage.md`, `usage.fr.md` | what to do with the suite once it is installed: what runs it, how a skill is selected, what to say, what the gates demand |
 | `overview.md`, `overview.fr.md` | the whole suite tree by tree, the long form of the README |
 | `architecture.md` | repository organisation, skill isolation, metadata, dependency graph, how to extend |
-| `skills-guide.md` | directory of the 176 skills, inputs, outputs, table of choice by situation |
+| `skills-guide.md` | directory of the 177 skills, inputs, outputs, table of choice by situation |
 | `installation.md`, `installation.fr.md` | full installation, per-tree installation, installing a single skill |
 | `configuration.md`, `configuration.fr.md` | the configuration contract, prompts, delegation, validation |
 
