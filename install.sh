@@ -13,7 +13,7 @@
 #   bash install.sh --research     general research, 5 skills and 2 agents
 #   bash install.sh --career       job search and applications, 7 skills
 #   bash install.sh --opportunity  ideation, hackathons, business, 9 skills
-#   bash install.sh --media        project demo and presentation videos, 5 skills
+#   bash install.sh --media        project demo and presentation videos, 6 skills
 #   bash install.sh --shared       the 2 cross domain skills only
 #   bash install.sh --all          everything, all skills and 35 agents
 #   bash install.sh --group a,b    only these categories

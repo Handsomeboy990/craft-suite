@@ -11,6 +11,7 @@ voice-over and animation.
 | `screen-capture` | the real product filmed cleanly: agreed environment, seeded data, scripted takes, a frame review |
 | `motion-design` | titles, diagrams, zooms and transitions as Remotion compositions, safe and intended |
 | `voice-over` | narration in the configured voice: verified engine, lexicon, one clip per beat, measured |
+| `video-assembly` | the edit as a decision list, licensed music ducked, a measured mix, captions from the transcript |
 
 Every skill of this tree loads `video-core` first. Its gate runs before any
 video is handed over, and no video is published by an agent.
