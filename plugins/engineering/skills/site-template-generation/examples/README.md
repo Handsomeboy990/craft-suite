@@ -24,8 +24,9 @@ formulas and drill downs, server side tables with every filter in the URL, the
 designed states, a deterministic fictional seed of a year of records, and a gate
 runner, `npm run gate`, that checks the twenty six lines of
 `resources/dashboard-contract.md` against a seeded instance, twelve of them in a
-real headless browser. On its last run all twenty six passed; its README states
-what was observed and what those results do not claim. Everything below this
+real headless browser. On its last run, on 2026-10-22, twenty five passed and
+D2 failed on a known, open defect of the denied page; its README states what
+was observed and what those results do not claim. Everything below this
 point describes the two site examples.
 
 | | `dashboard-hotel-operations` |
@@ -35,7 +36,7 @@ point describes the two site examples.
 | Routes | sign in, the overview, thirteen modules with their detail routes, settings, 404, 403, offline |
 | Accounts | several, five roles, a matrix of role by module by action |
 | Motion signature | operational |
-| Status | built; gate D1 to D26 run by `npm run gate`, 26 of 26 passed on the last run |
+| Status | built; gate D1 to D26 run by `npm run gate`, 25 of 26 on the last run, D2 open (denied page unthemed until the client renders) |
 
 ## One source for the shared code
 

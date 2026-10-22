@@ -4,7 +4,7 @@ description: Builds a client website as a template with its own back office: the
 license: MIT
 metadata:
   category: dev-skills
-  version: 2.2.0
+  version: 2.3.0
   depends_on: [engineering-core]
   outputs: [content-contract, token-profile, motion-spec, admin-surface, admin-security-report, legal-fact-sheet, completion-gate-report, dashboard-spec, dashboard-gate-report]
 ---
