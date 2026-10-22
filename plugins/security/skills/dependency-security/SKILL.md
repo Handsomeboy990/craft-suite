@@ -4,7 +4,7 @@ description: Manages the security of the code a project did not write: knowing w
 license: MIT
 metadata:
   category: secure-development
-  version: 1.0.0
+  version: 1.1.0
   depends_on: [security-core]
   outputs: [dependency-audit, reachability-assessment, upgrade-plan, supply-chain-notes]
 ---
@@ -106,6 +106,10 @@ install script   a dependency that runs a script on install has code execution
 maintenance  an unmaintained package accumulates unpatched advisories; its
              abandonment is itself a security risk, tracked with technical-debt
 ```
+
+A project that publishes a package, a plugin or a release makes it verifiable
+in turn: checksums, a signature, provenance, packed contents checked, its own
+channels declared. `resources/publishing-integrity.md`.
 
 ## 7. Prohibitions
 
