@@ -598,6 +598,8 @@ const D23 = {
     const dir = screens(gate, 'D23');
     for (const path of ['/', '/stays?arrivalFrom=any', '/stock', '/ledger', '/stays/new', '/folios?status=overdue']) {
       await page.goto(`${gate.base}${path}`);
+      // Measure the page once its loading skeleton has been replaced.
+      await page.locator('[data-state="loading"]').first().waitFor({ state: 'detached', timeout: 10000 }).catch(() => {});
       const facts = await page.evaluate(() => {
         const small = [];
         for (const element of document.querySelectorAll('a, button, input, select, textarea, summary')) {
@@ -609,8 +611,8 @@ const D23 = {
           const box = element.type === 'checkbox' && element.closest('label') ? element.closest('label').getBoundingClientRect() : rect;
           if (box.height < 44 || box.width < 44) small.push(`${element.tagName.toLowerCase()} "${(element.getAttribute('aria-label') ?? element.textContent ?? '').trim().slice(0, 30)}" ${Math.round(rect.width)}x${Math.round(rect.height)}`);
         }
-        const wrap = document.querySelector('.table-wrap');
-        const first = document.querySelector('.table tbody tr > :first-child');
+        const wrap = document.querySelector('.table:not(.table--skeleton)')?.closest('.table-wrap') ?? null;
+        const first = document.querySelector('.table:not(.table--skeleton) tbody tr > :first-child');
         return {
           page: document.documentElement.scrollWidth,
           small,
@@ -620,7 +622,8 @@ const D23 = {
       });
       await page.screenshot({ path: join(dir, `${path.replace(/[^a-z]+/gi, '_')}.png`), fullPage: true });
       details.push(`${path}: page width ${facts.page}px, targets under 44px ${facts.small.length}${facts.small.length ? ` (${facts.small.slice(0, 4).join('; ')})` : ''}${facts.tableScrolls === null ? '' : `, table scrolls in its container ${facts.tableScrolls}, first column ${facts.sticky}`}`);
-      if (facts.page > 360 || facts.small.length || (facts.tableScrolls !== null && (!facts.tableScrolls || facts.sticky !== 'sticky'))) failures.push(`${path} fails at 360px`);
+      const listPage = !['/', '/stays/new'].includes(path);
+      if (facts.page > 360 || facts.small.length || (listPage && facts.tableScrolls === null) || (facts.tableScrolls !== null && (!facts.tableScrolls || facts.sticky !== 'sticky'))) failures.push(`${path} fails at 360px`);
     }
     await context.close();
     return failures.length ? result('fail', [...failures, ...details]) : result('pass', details);
