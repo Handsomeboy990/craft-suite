@@ -162,6 +162,13 @@ found by review rather than by writing it:
   session figures would silently change the meaning of every existing number
   in the dashboard, and a test pins that boundary.
 
+  Superseded on 2026-10-22 by the redesign
+  (`docs/control-center-redesign-spec.md`). Those files held a third of the
+  output and most of the cache reads, so every consumption figure understated
+  the work. Their usage is now counted, with the model each subagent actually
+  ran on, the agent type read from its meta file (two keys only), and the
+  session's own message count kept apart; the tests pin the new boundary.
+
 The browser dashboard renders this data in the Agents tab: the dispatch total,
 the dispatched-work records, and the breakdowns by agent and by model, with a
 measured-zero empty state when the layer was not exercised. It is also reachable
