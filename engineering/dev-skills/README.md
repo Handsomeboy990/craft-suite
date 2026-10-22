@@ -1,6 +1,6 @@
 # dev-skills
 
-Senior full-stack engineering skill system. Sixty one skills that let an agent
+Senior full-stack engineering skill system. Sixty two skills that let an agent
 work on a production codebase the way an experienced engineer does: read
 before writing, verify before claiming, and finish the whole vertical slice
 rather than the part that demonstrates well.
@@ -100,6 +100,7 @@ Loaded when the request names one of them, and left alone otherwise.
 | `admin-console` | the privileged back-office, bounded by role and on the record |
 | `llm-integration` | a feature on a language model: contract, evals, grounding, guardrails |
 | `llm-gateway-engineering` | the adapter or gateway under many model features: wires, streaming, failures, routing |
+| `host-plugin-development` | a plugin for a host the team does not control, that survives the host's upgrades |
 
 ### Change and continuity
 
