@@ -367,6 +367,20 @@ claude.ai/design and hand back the link.
   charter, moodboard and prototype on the canvas, then the site, every gate
   observed.
 
+## Phase 10: model gateways and installed software
+
+From the review, on 2026-10-22, of an open-source model provider plugin: its
+engineering was worth encoding, its access method was not. Each item landed
+alone, in order.
+
+- [x] **`llm-gateway-engineering` skill** (M). 3.36.0 (#108).
+- [x] **`self-updating-software` skill** (M). 3.37.0 (#109).
+- [x] **`host-plugin-development` skill** (M). 3.38.0 (#110).
+- [x] **`llm-engineer` agent** (S). 3.39.0 (#111).
+- [ ] **Two resources from the same review** (S). Tool-output compaction as a
+  resource of `token-optimization` or `llm-integration`, and the publishing
+  side of supply chain integrity as a resource of `dependency-security`.
+
 ## Parked and external
 
 Not waiting on work in this repository.

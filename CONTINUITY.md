@@ -10,12 +10,16 @@ it and stays true where this one does not override it.
 
 ### State
 
-Manifests 3.35.0, 173 skills, 34 agents. Merged since the last versioned
-entry: #100 (design-to-code handoff), #102 (roadmap ticks), #103 (French
-installation and configuration guides), #104 (overviews deflated), all listed
-under Unreleased in `CHANGELOG.md`. Item 1 below landed as #106 (the agent
-layer exercise); this file, the changelog and the roadmap record it in the
-integrator's pull request that follows it.
+Manifests 3.39.0, 176 skills, 35 agents, once the series below lands. Item 1
+below landed as #106 and #107. Then, from a review of an open-source model
+provider plugin, four count-changing pull requests, stacked and to be merged
+in this order: #108 `llm-gateway-engineering` (3.36.0), #109
+`self-updating-software` (3.37.0), #110 `host-plugin-development` (3.38.0),
+#111 the `llm-engineer` agent (3.39.0); this file, the changelog and the
+roadmap record them in the integrator's pull request that follows #111. Merged
+out of order, `validate-counts.sh` fails on `dev` until the earlier ones land.
+Commits from 2026-10-22 are authored `Handsomeboy990`, the configured
+identity; earlier authors are left as they are.
 
 ### What remains, in order
 
