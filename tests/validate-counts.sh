@@ -66,6 +66,7 @@ AG_DOC=$(agents_in documentation)
 AG_OPS=$(agents_in devops)
 AG_RES=$(agents_in research)
 AG_COMMS=$(agents_in communication)
+AG_MEDIA=$(agents_in media)
 AGENTS=$(ls "$ROOT"/agents/*/*.md 2>/dev/null \
   | grep -vE '/(README|handoff-protocol)\.md$' | wc -l | tr -d ' ')
 
@@ -73,9 +74,9 @@ printf 'Real counts: %s skills total, %s agents total.\n' "$TOTAL" "$AGENTS"
 printf '  trees: writing %s, documents %s, engineering %s, security %s, research %s, career %s, opportunity %s, media %s, shared %s\n' \
   "$WRITING" "$DOCUMENTS" "$ENG" "$SECURITY" "$RESEARCH" "$CAREER" "$OPPORTUNITY" "$MEDIA" "$SHARED"
 printf '  engineering: dev-skills %s, delivery-skills %s, devops-skills %s\n' "$DEV" "$DELIV" "$DEVOPS"
-printf '  agents: core %s, development %s, design %s, security %s, testing %s, documentation %s, devops %s, research %s, communication %s\n\n' \
+printf '  agents: core %s, development %s, design %s, security %s, testing %s, documentation %s, devops %s, research %s, communication %s, media %s\n\n' \
   "$AG_CORE" "$AG_DEV" "$AG_DESIGN" "$AG_SEC" "$AG_TEST" "$AG_DOC" "$AG_OPS" \
-  "$AG_RES" "$AG_COMMS"
+  "$AG_RES" "$AG_COMMS" "$AG_MEDIA"
 
 # The engineering total must be the sum of its categories, or the docs cannot
 # be right no matter what they say.
@@ -316,11 +317,12 @@ B_ENG_AGENTS=$(bundle_agents engineering)
 B_SEC_AGENTS=$(bundle_agents security)
 B_DOC_AGENTS=$(bundle_agents documents)
 B_RES_AGENTS=$(bundle_agents research)
+B_MEDIA_AGENTS=$(bundle_agents media)
 
-printf '  bundles: writing %s, documents %s (%s agents), engineering %s (%s agents), security %s (%s agents), research %s (%s agents), career %s, opportunity %s, media %s\n\n' \
+printf '  bundles: writing %s, documents %s (%s agents), engineering %s (%s agents), security %s (%s agents), research %s (%s agents), career %s, opportunity %s, media %s (%s agents)\n\n' \
   "$B_WRITING" "$B_DOCUMENTS" "$B_DOC_AGENTS" "$B_ENG" "$B_ENG_AGENTS" \
   "$B_SECURITY" "$B_SEC_AGENTS" "$B_RESEARCH" "$B_RES_AGENTS" "$B_CAREER" \
-  "$B_OPPORTUNITY" "$B_MEDIA"
+  "$B_OPPORTUNITY" "$B_MEDIA" "$B_MEDIA_AGENTS"
 
 # The plugin table in the two root READMEs and in plugins.md carries two counts
 # per row: the tree, then what the bundle actually holds.
@@ -345,6 +347,7 @@ for f in README.md README.fr.md documentation/plugins.md; do
   check_nth "$f" "$MEDIA"         'craft-media.*\| [0-9]+ \|' 1 "$f plugin media tree"
   check_nth "$f" "$B_OPPORTUNITY" 'craft-opportunity.*\| [0-9]+ \|' 2 "$f plugin opportunity bundle"
   check_nth "$f" "$B_MEDIA"       'craft-media.*\| [0-9]+ \|' 2 "$f plugin media bundle"
+  check_nth "$f" "$B_MEDIA_AGENTS" 'craft-media.*\| [0-9]+ \|' 3 "$f plugin media agents"
 done
 
 # --------------------------------------------------------------------------
@@ -365,6 +368,7 @@ for f in documentation/installation.md documentation/usage.md documentation/usag
   check_nth "$f" "$B_CAREER"      '^\| `--career` \|'      1 "$f scope career skills"
   check_nth "$f" "$B_OPPORTUNITY" '^\| `--opportunity` \|' 1 "$f scope opportunity skills"
   check_nth "$f" "$B_MEDIA"       '^\| `--media` \|' 1 "$f scope media skills"
+  check_nth "$f" "$B_MEDIA_AGENTS" '^\| `--media` \|' 2 "$f scope media agents"
   check_nth "$f" "$SHARED"        '^\| `--shared` \|'      1 "$f scope shared skills"
   check_nth "$f" "$TOTAL"         '^\| `--all` \|'         1 "$f scope all skills"
   check_nth "$f" "$AGENTS"        '^\| `--all` \|'         2 "$f scope all agents"
@@ -404,6 +408,7 @@ check_nth "$IFR" "$B_RES_AGENTS"  '^\| `--research` \|'    2 "$IFR scope researc
 check_nth "$IFR" "$B_CAREER"      '^\| `--career` \|'      1 "$IFR scope career skills"
 check_nth "$IFR" "$B_OPPORTUNITY" '^\| `--opportunity` \|' 1 "$IFR scope opportunity skills"
 check_nth "$IFR" "$B_MEDIA"       '^\| `--media` \|' 1 "$IFR scope media skills"
+check_nth "$IFR" "$B_MEDIA_AGENTS" '^\| `--media` \|' 2 "$IFR scope media agents"
 check_nth "$IFR" "$SHARED"        '^\| `--shared` \|'      1 "$IFR scope shared skills"
 check_nth "$IFR" "$TOTAL"         '^\| `--all` \|'         1 "$IFR scope all skills"
 check_nth "$IFR" "$AGENTS"        '^\| `--all` \|'         2 "$IFR scope all agents"
@@ -425,6 +430,7 @@ for f in documentation/installation.md "$IFR"; do
   check_nth "$f" "$CAREER"       '^bash install\.sh --career +[a-z ]*[0-9]'      1 "$f scope list career"
   check_nth "$f" "$OPPORTUNITY"  '^bash install\.sh --opportunity +[a-z ]*[0-9]' 1 "$f scope list opportunity"
   check_nth "$f" "$MEDIA"        '^bash install\.sh --media +[a-z ]*[0-9]' 1 "$f scope list media"
+  check_nth "$f" "$B_MEDIA_AGENTS" '^bash install\.sh --media +[a-z ]*[0-9]' 2 "$f scope list media agents"
   check_nth "$f" "$SHARED"       '^bash install\.sh --shared +[a-z ]*[0-9]'      1 "$f scope list shared"
   check_nth "$f" "$AGENTS"       '^bash install\.sh --agents +[a-z ]*[0-9]'      1 "$f scope list agents"
 done
