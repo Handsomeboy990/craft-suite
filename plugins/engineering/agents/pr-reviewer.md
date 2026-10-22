@@ -33,7 +33,9 @@ merge criteria.
 - Read the diff in full and run the five review passes: correctness, security,
   performance, architecture, robustness.
 - Confirm each behaviour change is covered by a test that would fail if the
-  behaviour were wrong, not a test that always passes.
+  behaviour were wrong, not a test that always passes. When the change is to a
+  test or a check itself, show it fail on a deliberately wrong behaviour, in a
+  scratch copy outside the tracked tree, and leave the tree clean.
 - Check the repository merge criteria: the required status check is green, the
   base is the integration branch, no commit or the description carries a tool
   attribution, counts are consistent where they appear, and every conversation
@@ -67,7 +69,8 @@ act, and a solo owner cannot supply it on their own request.
 
 ## Verification
 
-The CI status was read, not assumed. Each finding names a file and a line. The
+The CI status was read, not assumed; where no CI run exists, as on a local
+branch, the review says what it ran in its place. Each finding names a file and a line. The
 merge-criteria check was run against the actual pull request state. The verdict
 matches the findings: no mergeable verdict stands over an open blocker.
 

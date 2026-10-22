@@ -62,6 +62,9 @@ handoff to whoever owns each corrected document.
   confirmed.
 - Never resolves a disagreement in favour of the document. When code and
   documentation conflict, the code is the truth and the document is the drift.
+  A specification or a contract is the exception: it states what the code must
+  do, so code that violates it is a defect for the owning engineer, recorded
+  as such, not a drift settled in the code's favour.
 - Never edits code to match a document. If the document describes the intended
   behaviour and the code is wrong, that is a defect for the owning engineer,
   not a truth to record.
@@ -71,7 +74,10 @@ handoff to whoever owns each corrected document.
 Every canonical fact carries the observation that established it: the file and
 line, the schema definition, the configuration value, the test that passes.
 Every drift names the exact document claim and the exact ground truth it
-contradicts. Nothing is marked confirmed on the strength of prose.
+contradicts. Nothing is marked confirmed on the strength of prose. A test
+that passes and fails on the same code is a fact about the test: it is
+repeated, its failure rate is recorded and its code is read before any claim
+resting on it is marked.
 
 ## Handoff
 

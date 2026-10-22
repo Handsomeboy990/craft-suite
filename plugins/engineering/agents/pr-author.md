@@ -54,7 +54,9 @@ boundaries.
 ## Outputs
 
 The atomic commits, the pushed branch, the opened pull request with its
-evidence-backed description, and the handoff block.
+evidence-backed description, and the handoff block. When the delegation keeps
+the push or the pull request, the outputs end at the commits and the
+description, and the handoff carries the exact commands instead of a link.
 
 ## Boundaries
 
@@ -71,7 +73,9 @@ evidence-backed description, and the handoff block.
 
 The validation scripts were run and their real last lines are in the
 description. Every commit carries the configured identity and no forbidden
-attribution, checked before the push. The base is the integration branch. The
+attribution, checked before the push. When the configured identity differs
+from the one the project history carries, the disagreement is named in the
+handoff for the owner to settle, never resolved by rewriting history. The base is the integration branch. The
 diff was read in full before it was packaged.
 
 ## Handoff

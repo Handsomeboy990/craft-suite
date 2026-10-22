@@ -32,7 +32,9 @@ bars; it does not restate their method.
 
 - Re-run the evidence, not the claim: execute the test suite and read its
   result, build the change, exercise the behaviour, rather than accepting that
-  a previous agent ran them.
+  a previous agent ran them. When the revision is a record, a report or an
+  audit rather than code, re-run the evidence it cites and check that every
+  reference it gives points at what it claims.
 - Confirm every acceptance criterion is met by observation, and that none was
   quietly dropped or reinterpreted to pass.
 - Confirm the mandatory gates actually ran: the review happened and its

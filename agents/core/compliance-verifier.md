@@ -66,6 +66,9 @@ tradeability, the unverified gaps, the single verdict, and the handoff block.
 - Never issues ready with an open security-posture FAIL or a missing legally
   required page.
 - Never narrows the checklist to the items that happen to pass.
+- Never restores over the instance it is verifying. The restore is proven into
+  a scratch data directory, so the check does not destroy the state it reports
+  on.
 
 ## Verification
 
@@ -80,4 +83,8 @@ whatever else passed.
 To the owning agent for every FAIL, `security-engineer` for a security-posture
 failure, `backend-engineer` or `database-engineer` for a row-level-access
 failure, `frontend-engineer` or `ui-ux-engineer` for a UX or discoverability
-gap, and back to `delivery-orchestrator` with the verdict at phase 11.
+gap, `security-engineer` also for a dependency advisory, `devops-engineer` for
+backups, HTTPS and certificates, `qa-engineer` for an acceptance check that
+passes and fails on the same code, `documentation-engineer` for a stale claim
+in the handover, and back to `delivery-orchestrator` with the verdict at
+phase 11.
