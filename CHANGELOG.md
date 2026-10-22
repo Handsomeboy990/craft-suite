@@ -20,6 +20,13 @@ versions it never had.
 
 No manifest change: no skill or agent was added. Everything since 3.35.0.
 
+- The agent layer exercised (#106): the eight agents that had never run
+  (`checkup`, `source-of-truth`, `design-verification`, `web-auditor`,
+  `compliance-verifier`, `pr-author`, `pr-reviewer`, `final-verifier`)
+  dispatched for real against `dashboard-hotel-operations` on localhost,
+  recorded in `docs/reports/2026-10-22-agent-layer-exercise.md` with a row per
+  dispatch and the app's findings listed, not fixed. Eight definitions gain
+  the constraint their run showed missing; none loosens a boundary.
 - Roadmap ticks (#102): the consolidated site code and the motion layer, both
   already delivered, are marked done; the motion layer keeps its human pass
   (screen reader, Firefox and WebKit, the `design-director` sign-off) for the

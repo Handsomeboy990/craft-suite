@@ -96,13 +96,13 @@ a real reference.
   architecture, debt, risks, safe boundaries. Original section 5.3.
 - [x] **`final-verifier` agent** (M). The independent, evidence-only final
   verification that trusts no previous agent. Original section 32.
-- [ ] **Exercise the full agent layer** (M). Partly done: the portfolio audit
-  dispatched `ui-ux-engineer`, `security-engineer` and `performance-engineer` on
-  a real target and produced real dispatch telemetry. The newer agents
-  (`compliance-verifier`, `design-verification`, `web-auditor`, `pr-author`,
-  `pr-reviewer`, `source-of-truth`, `checkup`, `final-verifier`) were not
-  installed at dispatch time and still have not run; they are now installed, and
-  the delivery demonstration is the natural place to run them end to end.
+- [x] **Exercise the full agent layer** (M). The portfolio audit dispatched
+  `ui-ux-engineer`, `security-engineer` and `performance-engineer` on a real
+  target. The eight newer agents (`compliance-verifier`,
+  `design-verification`, `web-auditor`, `pr-author`, `pr-reviewer`,
+  `source-of-truth`, `checkup`, `final-verifier`) ran on 2026-10-22 against
+  `dashboard-hotel-operations` on localhost (#106); the record is
+  `docs/reports/2026-10-22-agent-layer-exercise.md`.
 
 ## Phase 5: distribution and telemetry
 
