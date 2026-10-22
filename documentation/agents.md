@@ -1,6 +1,6 @@
 # Agents
 
-Thirty-four agent definitions, for a runtime that supports subagents.
+Thirty-five agent definitions, for a runtime that supports subagents.
 
 This document explains the difference between a skill, an agent and
 orchestration, and gives the public contract of each agent. The definitions
@@ -59,6 +59,7 @@ sequence. `tests/validate-counts.sh` fails when the two disagree on the count.
 | `frontend-engineer` | client implementation | approved architecture, fixed contract | `qa-engineer` |
 | `site-template-engineer` | a client site template and its back office | a trade and a kind, portfolio or showcase | `security-engineer`, `ui-ux-engineer` |
 | `backend-engineer` | server implementation | approved architecture | `qa-engineer`, `security-engineer` |
+| `llm-engineer` | model-backed features and the gateway under them | approved architecture, the provider access and terms | `security-engineer`, `qa-engineer` |
 | `database-engineer` | schema, migrations, query quality | approved architecture | `backend-engineer` |
 | `security-engineer` | audit and fix | implementation | `qa-engineer` |
 | `web-auditor` | auditing a live site from its URL | a URL, and authorization for anything active | `security-engineer`, then `compliance-verifier` |

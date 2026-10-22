@@ -7,7 +7,7 @@ search**, **find and evaluate opportunities**, and **review your own work**.
 Called `claude-writer-suite` until 3.0.0, when the writing tree stopped being
 the whole of it.
 
-176 skills and 34 agents. Not prompts: numbered protocols, decision criteria,
+176 skills and 35 agents. Not prompts: numbered protocols, decision criteria,
 scoring grids and review procedures, each with a stated threshold for what
 counts as finished.
 
@@ -19,7 +19,7 @@ craft-suite/
 ├── writing/         42 creative writing skills
 ├── documents/        9 professional document skills
 ├── engineering/     90 software skills
-├── agents/          34 role definitions, repository wide
+├── agents/          35 role definitions, repository wide
 ├── security/        12 defensive security skills
 ├── research/         5 general research skills
 ├── career/           7 job search and application skills
@@ -119,7 +119,7 @@ verified in production.
 | [devops-skills](../engineering/devops-skills/) | 17 | how the system runs, deploys and restores |
 
 Stack and platform agnostic: the system reads the project it is given rather
-than assuming its shape. The thirty-four agents are not a category of this tree:
+than assuming its shape. The thirty-five agents are not a category of this tree:
 they are a repository-wide layer, at [agents](../agents/), who owns what and
 what is handed on.
 
@@ -289,7 +289,7 @@ the operations and shared constitutions:
 
 ## Agents
 
-Thirty-four role definitions, for a runtime that supports subagents.
+Thirty-five role definitions, for a runtime that supports subagents.
 
 ```
 Skill          how this kind of work is done correctly
