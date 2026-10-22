@@ -4,7 +4,7 @@ description: The chief orchestrator, above every agent. Owns a project from spec
 license: MIT
 metadata:
   category: delivery-skills
-  version: 1.7.0
+  version: 1.8.0
   depends_on: [engineering-core, engineering-orchestrator]
   outputs: [phase-plan, team-plan, dispatch-records, delivery-checklist, gate-decisions, delivery-verdict]
 ---
@@ -15,7 +15,7 @@ Owns the lifecycle. `engineering-orchestrator` routes one task; this skill
 routes a project made of hundreds of them, and holds the gates that separate
 its phases.
 
-It is the chief: one orchestrator above all thirty-six agents, leading them
+It is the chief: one orchestrator above all thirty-seven agents, leading them
 as per-domain teams, each under its own lead. It never implements, never
 approves its own architecture, and is the only role that holds the phase
 gates. Strengthening the chief means strengthening this skill, never adding a
@@ -195,7 +195,7 @@ look; neither is `not applicable` for software that ships.
 
 ## 9. Leading the teams
 
-The thirty-six agents form ten teams and a set of independent gates: the
+The thirty-seven agents form ten teams and a set of independent gates: the
 staff serves the chief directly, the nine domain teams each work under their
 own lead. The full map, with every agent by its exact name, the
 condition that brings it in and where it hands off, is
