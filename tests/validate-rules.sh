@@ -75,7 +75,7 @@ while IFS= read -r file; do
     printf '%s\n' "$hits" | sed 's/^/        /'
   fi
 done < <(find "$ROOT/writing" "$ROOT/documents" "$ROOT/engineering" "$ROOT/shared" \
-  "$ROOT/security" "$ROOT/research" "$ROOT/career" "$ROOT/opportunity" \
+  "$ROOT/security" "$ROOT/research" "$ROOT/career" "$ROOT/opportunity" "$ROOT/media" \
   -type f -name '*.md' -not -path '*/node_modules/*' 2>/dev/null | sort)
 
 # Prose lines only: outside fenced code blocks, where straight quotes are

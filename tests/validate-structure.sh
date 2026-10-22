@@ -14,13 +14,14 @@ SECURITY_GROUPS="security/secure-development security/security-assurance"
 RESEARCH_GROUPS="research"
 CAREER_GROUPS="career"
 OPPORTUNITY_GROUPS="opportunity/ideation opportunity/hackathons opportunity/business"
+MEDIA_GROUPS="media"
 SHARED_GROUPS="shared"
-ALL_GROUPS="$WRITING_GROUPS $DOCUMENT_GROUPS $ENGINEERING_GROUPS $SECURITY_GROUPS $RESEARCH_GROUPS $CAREER_GROUPS $OPPORTUNITY_GROUPS $SHARED_GROUPS"
+ALL_GROUPS="$WRITING_GROUPS $DOCUMENT_GROUPS $ENGINEERING_GROUPS $SECURITY_GROUPS $RESEARCH_GROUPS $CAREER_GROUPS $OPPORTUNITY_GROUPS $MEDIA_GROUPS $SHARED_GROUPS"
 
 # Groups whose skills must carry a numbered Protocol section and an Interfaces
 # section. These are the English, procedural trees. The writing tree names its
 # procedure in ways inherited from its own domain.
-PROCEDURAL_GROUPS="$DOCUMENT_GROUPS $ENGINEERING_GROUPS $SECURITY_GROUPS $RESEARCH_GROUPS $CAREER_GROUPS $OPPORTUNITY_GROUPS $SHARED_GROUPS"
+PROCEDURAL_GROUPS="$DOCUMENT_GROUPS $ENGINEERING_GROUPS $SECURITY_GROUPS $RESEARCH_GROUPS $CAREER_GROUPS $OPPORTUNITY_GROUPS $MEDIA_GROUPS $SHARED_GROUPS"
 
 ERRORS=0
 SKILLS=0
@@ -109,7 +110,7 @@ for f in README.md README.fr.md AGENTS.md CONTRIBUTING.md CHANGELOG.md LICENSE i
   [ -f "$ROOT/$f" ] || fail "missing root file: $f"
 done
 for d in writing documents engineering shared documentation tests config \
-         security research career opportunity \
+         security research career opportunity media \
          writing/resources writing/examples agents \
          agents/core agents/development agents/design agents/security \
          agents/testing agents/documentation agents/devops \
@@ -119,7 +120,7 @@ done
 for f in writing/README.md documents/README.md engineering/README.md \
          shared/README.md config/README.md \
          security/README.md research/README.md career/README.md \
-         opportunity/README.md \
+         opportunity/README.md media/README.md \
          config/craft.config.example.yaml; do
   [ -f "$ROOT/$f" ] || fail "missing index or template: $f"
 done

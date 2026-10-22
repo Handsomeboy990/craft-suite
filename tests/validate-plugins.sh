@@ -23,7 +23,8 @@ engineering:--dev
 security:--security
 research:--research
 career:--career
-opportunity:--opportunity"
+opportunity:--opportunity
+media:--media"
 
 printf 'Check 1: marketplace.json and manifests are valid JSON\n'
 if command -v python3 >/dev/null; then
@@ -31,7 +32,7 @@ if command -v python3 >/dev/null; then
 import json, sys
 json.load(open(sys.argv[1]))
 PY
-  for d in writing documents engineering security research career opportunity; do
+  for d in writing documents engineering security research career opportunity media; do
     m="$ROOT/plugins/$d/.claude-plugin/plugin.json"
     [ -f "$m" ] || { fail "missing manifest: plugins/$d/.claude-plugin/plugin.json"; continue; }
     python3 - "$m" <<'PY' || fail "invalid JSON: plugins/$d/.claude-plugin/plugin.json"
