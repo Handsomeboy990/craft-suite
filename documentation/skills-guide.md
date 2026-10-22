@@ -1,6 +1,6 @@
 # Skills guide
 
-Directory of the 173 skills. One line each: what it does, and when to open it.
+Directory of the 174 skills. One line each: what it does, and when to open it.
 
 Every skill's own `README.md` carries its inputs, outputs, dependencies and
 configuration in four lines. This file is the index; the READMEs are the
@@ -23,6 +23,7 @@ contracts.
 | I need HTTPS, or a certificate is about to expire | `tls-certificates` |
 | I am building an admin panel or back-office | `admin-console` |
 | I am building a feature on a language model | `llm-integration` |
+| I am building a model gateway, a provider adapter or a fallback chain | `llm-gateway-engineering` |
 | My confirmation emails go to spam or never arrive | `email-deliverability` |
 | I want to know what happens when a provider fails | `reliability-testing` |
 | I have findings and need a report | `test-reporting` |
@@ -171,9 +172,9 @@ Depend on nothing. Callable from any tree, usable alone.
 | `editorial-line` | communication | audience, promise, pillars, vocabulary kept and refused, never said, formats, review rule |
 | `social-content` | communication | channel calendar, sourced formats per network, captions held to the line, moderation, measurement limits, publishing handover |
 
-## engineering, 87 skills
+## engineering, 88 skills
 
-### dev-skills, 60
+### dev-skills, 61
 
 | Skill | What it does |
 |---|---|
@@ -227,6 +228,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `feature-flags` | flag types, rollout, stale detection, removal |
 | `admin-console` | the privileged back-office: least-privilege roles, audit log, server-side authz |
 | `llm-integration` | a feature on a language model, engineered around its non-determinism and cost |
+| `llm-gateway-engineering` | the layer between clients and model providers, built for servers as they behave |
 | `quality-engineering` | coordinates a whole quality campaign and its verdict |
 | `api-testing` | an HTTP surface against its contract, past the 200 |
 | `exploratory-testing` | designed exploration under a charter and a time box |
