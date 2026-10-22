@@ -191,6 +191,29 @@ them an offer. Both are asked or left empty, never assumed.
 This section is personal data. It is used for the task and never committed with
 real values, exactly as the rest of this file never holds a secret.
 
+### media
+
+Read by the `media/` skills. Every field has a documented default, so the tree
+works with the section absent. `install.sh --configure` keeps this section as
+written and asks no question about it.
+
+| Field | Required | Default | Read by |
+|---|---|---|---|
+| `video_language` | no | empty, meaning `language.document_output` | `video-core` and every `media/` skill |
+| `voice_provider` | no | `local` | `video-core` |
+| `voice_model` | no | empty | `video-core` |
+
+Accepted values for `voice_provider`: `local`, a local open speech synthesis
+engine, nothing sent anywhere; `cloud`, a hosted voice service, used under its
+terms with the script sent to it, its key kept out of this file under
+`secrets-management`; `recorded`, a person reads the script and the skills
+produce the timed script and the recording guide.
+
+`voice_model` names the engine and the voice, for example an engine name and a
+voice identifier. Empty with `local` means the voice is chosen among those
+installed for the video's language, and the choice is recorded with the video.
+No value may name a voice that imitates a real person.
+
 ## How a skill uses it
 
 A skill never restates the configuration. It names the field and states what
