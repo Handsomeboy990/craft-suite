@@ -8,7 +8,7 @@ Des systèmes d'expertise pour un agent, dans un seul dépôt : **écrire**,
 Le dépôt s'appelait `claude-writer-suite` jusqu'à la version 3.0.0, quand
 l'arbre d'écriture a cessé d'en être la totalité.
 
-175 skills et 34 agents. Pas des prompts : des protocoles numérotés, des
+176 skills et 34 agents. Pas des prompts : des protocoles numérotés, des
 critères de décision, des grilles d'évaluation et des procédures de révision,
 chacun avec un seuil chiffré de ce qui compte comme terminé.
 
@@ -19,7 +19,7 @@ craft-suite/
 ├── shared/           2 skills transversaux, appelés par tous les arbres
 ├── writing/         42 skills d'écriture créative
 ├── documents/        9 skills de document professionnel
-├── engineering/     89 skills d'ingénierie
+├── engineering/     90 skills d'ingénierie
 ├── agents/          34 définitions de rôle, transversales au dépôt
 ├── security/        12 skills de sécurité défensive
 ├── research/         5 skills de recherche générale
@@ -48,7 +48,7 @@ Le dépôt sépare trois langues que l'on confond couramment.
 
 | Couche | De quoi il s'agit | Valeur |
 |---|---|---|
-| Langue des skills | les instructions elles-mêmes | anglais, pour les 175 skills |
+| Langue des skills | les instructions elles-mêmes | anglais, pour les 176 skills |
 | Langue du système | chemins, identifiants, clés de configuration, commits | anglais |
 | Langue de sortie | ce que reçoit le lecteur | la sienne, réglée par projet |
 
@@ -118,7 +118,7 @@ en production.
 
 | Catégorie | Skills | Question à laquelle elle répond |
 |---|---|---|
-| [dev-skills](../engineering/dev-skills/) | 61 | comment une modification est faite correctement |
+| [dev-skills](../engineering/dev-skills/) | 62 | comment une modification est faite correctement |
 | [delivery-skills](../engineering/delivery-skills/) | 11 | quoi construire, dans quel ordre, avec quelle approbation |
 | [devops-skills](../engineering/devops-skills/) | 17 | comment le système tourne, se déploie et se restaure |
 
@@ -390,7 +390,7 @@ est affichée comme indisponible, jamais inventée. Détail :
 ## Validation
 
 ```bash
-bash tests/validate-structure.sh      structure et métadonnées des 175 skills
+bash tests/validate-structure.sh      structure et métadonnées des 176 skills
 bash tests/validate-rules.sh          emoji, tiret cadratin, secrets, identité codée en dur
 bash tests/validate-orchestration.sh  plans, phases, agents, renvois croisés
 bash tests/validate-plugins.sh        bundles de plugins synchronisés avec les arbres
@@ -406,7 +406,7 @@ Les six doivent passer avant tout commit. Détail dans
 | Fichier | Contenu |
 |---|---|
 | [documentation/architecture.md](architecture.md) | organisation, isolation des skills, métadonnées |
-| [documentation/skills-guide.md](skills-guide.md) | répertoire des 175 skills |
+| [documentation/skills-guide.md](skills-guide.md) | répertoire des 176 skills |
 | [documentation/installation.fr.md](installation.fr.md) | installation complète et par skill |
 | [documentation/configuration.fr.md](configuration.fr.md) | le contrat de configuration |
 | [documentation/agents.md](agents.md) | skill, agent, orchestration |

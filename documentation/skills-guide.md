@@ -1,6 +1,6 @@
 # Skills guide
 
-Directory of the 175 skills. One line each: what it does, and when to open it.
+Directory of the 176 skills. One line each: what it does, and when to open it.
 
 Every skill's own `README.md` carries its inputs, outputs, dependencies and
 configuration in four lines. This file is the index; the READMEs are the
@@ -25,6 +25,7 @@ contracts.
 | I am building a feature on a language model | `llm-integration` |
 | I am building a model gateway, a provider adapter or a fallback chain | `llm-gateway-engineering` |
 | My installed app, CLI or plugin must update itself | `self-updating-software` |
+| I am writing a plugin or extension for someone else's editor, harness or CMS | `host-plugin-development` |
 | My confirmation emails go to spam or never arrive | `email-deliverability` |
 | I want to know what happens when a provider fails | `reliability-testing` |
 | I have findings and need a report | `test-reporting` |
@@ -173,9 +174,9 @@ Depend on nothing. Callable from any tree, usable alone.
 | `editorial-line` | communication | audience, promise, pillars, vocabulary kept and refused, never said, formats, review rule |
 | `social-content` | communication | channel calendar, sourced formats per network, captions held to the line, moderation, measurement limits, publishing handover |
 
-## engineering, 89 skills
+## engineering, 90 skills
 
-### dev-skills, 61
+### dev-skills, 62
 
 | Skill | What it does |
 |---|---|
@@ -230,6 +231,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `admin-console` | the privileged back-office: least-privilege roles, audit log, server-side authz |
 | `llm-integration` | a feature on a language model, engineered around its non-determinism and cost |
 | `llm-gateway-engineering` | the layer between clients and model providers, built for servers as they behave |
+| `host-plugin-development` | a plugin that survives its host's upgrades and never takes the host down |
 | `quality-engineering` | coordinates a whole quality campaign and its verdict |
 | `api-testing` | an HTTP surface against its contract, past the 200 |
 | `exploratory-testing` | designed exploration under a charter and a time box |

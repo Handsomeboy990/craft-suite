@@ -105,6 +105,7 @@ no em dash.
 | `admin-console` | the privileged back-office, role-bounded and audited |
 | `llm-integration` | a feature on a language model, contract, evals, grounding, guardrails |
 | `llm-gateway-engineering` | provider adapter and gateway: one stream, one failure vocabulary, safe routing |
+| `host-plugin-development` | a plugin for a host the team does not own: one seam, tested range, contained failure |
 
 ### Change and continuity
 

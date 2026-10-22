@@ -230,13 +230,13 @@ Ce que chaque portée doit afficher, les deux skills communs déjà comptés :
 |---|---|---|
 | `--writing` | 44 | 0 |
 | `--documents` | 11 | 1 |
-| `--dev` | 91 | 29 |
+| `--dev` | 92 | 29 |
 | `--security` | 18 | 3 |
 | `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 175 | 34 |
+| `--all` | 176 | 34 |
 | `--agents` | 0 | 34 |
 
 `~/.claude/skills` est partagé. Il contient tous vos skills, pas seulement ceux
