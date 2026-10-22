@@ -10,30 +10,36 @@ it and stays true where this one does not override it.
 
 ### State
 
-`dev` holds everything; no pull request is open, no branch carries unmerged
-work. Manifests 3.35.0, 173 skills, 34 agents. Merged since the last
-versioned entry: #100 (design-to-code handoff), #102 (roadmap ticks), #103
-(French installation and configuration guides), #104 (overviews deflated),
-all listed under Unreleased in `CHANGELOG.md`.
+Manifests 3.35.0, 173 skills, 34 agents. Merged since the last versioned
+entry: #100 (design-to-code handoff), #102 (roadmap ticks), #103 (French
+installation and configuration guides), #104 (overviews deflated), all listed
+under Unreleased in `CHANGELOG.md`. Item 1 below landed as #106 (the agent
+layer exercise); this file, the changelog and the roadmap record it in the
+integrator's pull request that follows it.
 
 ### What remains, in order
 
-1. **Exercise the full agent layer** (roadmap phase 4), the only engineering
-   item left. Started on 2026-10-10 and stopped by a usage limit before
-   anything was pushed: nothing to recover, start fresh. Scope: run, for real,
-   the eight agents that have never run (`checkup`, `source-of-truth`,
-   `design-verification`, `compliance-verifier`, `web-auditor`, `pr-author`,
-   `pr-reviewer`, `final-verifier`) against the runnable
-   `engineering/dev-skills/site-template-generation/examples/dashboard-hotel-operations`
-   app on localhost (`npm install`, `npm run build`, `npm run gate`),
-   `checkup` first and `final-verifier` last, each respecting its boundaries
-   (a verifier never fixes; `pr-author` works on a local branch, reviewed by
-   `pr-reviewer`, never pushed as its own pull request; `web-auditor` audits
-   the local instance only). Deliverable: one report in `docs/reports/` with a
-   row per dispatch (role, task, tier per `agent-tiers.md`, inputs, outputs,
-   evidence, findings, handoffs, what the definition got wrong), findings on
-   the app listed with severity and file and line but not fixed in that pull
-   request, small fixes to the agent definitions allowed. No count change.
+1. **Exercise the full agent layer**: done on 2026-10-22, #106. The eight
+   agents ran against `dashboard-hotel-operations` on localhost, `checkup`
+   first and `final-verifier` last, each within its boundaries. The record,
+   one row per dispatch, is `docs/reports/2026-10-22-agent-layer-exercise.md`.
+   What it leaves for the owner, none of it done in #106:
+   - `next` 16.3.5 sits in the range of 7 advisories, 1 critical; 16.4.2
+     fixes them. A dependency change, kept for approval.
+   - The per-address login limit trusts `X-Forwarded-For`
+     (`lib/rate-limit.ts:56-60`); the privacy notice is incomplete; denied
+     pages load unthemed. `compliance-verifier` returned blocked.
+   - Gate lines D18 and D20 are flaky, about 15 of 24 runs, from races in
+     the check script. A reviewed fix sits on the local branch
+     `fix/gate-timing-races-d18-d20` of the owner's clone, never pushed, its
+     two commits authored by the configured identity; the "26 of 26" claims in
+     the app README, `examples/README.md` and the line further down this file
+     hold only for the recorded run.
+   - The configuration's identity (`Handsomeboy990`, conventional commits)
+     and the history (mostly `Lauret Chacha`, mostly unprefixed) disagree.
+     Commit `6372ed3` on `dev` is authored by an assistant identity, against
+     rule 4; fixing it rewrites a shared branch.
+   - The pull request template lists five of the six scripts.
 2. **A worked run of one real brief** (phase 9, last item): needs a brief from
    the owner (a client, a portfolio or the owner's own brand) and the canvas
    mode the owner chooses; follow
