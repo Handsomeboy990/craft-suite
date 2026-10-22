@@ -55,7 +55,7 @@ site-template-engineer
 incident-responder compliance-verifier design-verification web-auditor pr-author pr-reviewer design-research
 source-of-truth checkup final-verifier researcher
 penetration-tester ci-cd-engineer design-director delivery-manager data-collection-engineer
-codebase-cartographer community-manager"
+codebase-cartographer community-manager llm-engineer"
 
 fail() {
   printf 'ERROR   %s\n' "$1"
