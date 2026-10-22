@@ -381,6 +381,24 @@ alone, in order.
   resource of `token-optimization` or `llm-integration`, and the publishing
   side of supply chain integrity as a resource of `dependency-security`.
 
+## Phase 11: project videos
+
+Videos that present a project, often one other people built: demos,
+presentations, shorts and tutorials with a voice-over and animation, made with
+the owner's permission and never published by an agent. Decided on 2026-10-22:
+a ninth tree, Remotion, Playwright and ffmpeg as the reference pipeline, a local
+voice by default. Each item landed alone, in order.
+
+- [x] **The media tree and `video-core`** (L). 3.40.0 (#113).
+- [x] **`video-scripting`, `screen-capture`, `motion-design`, `voice-over`,
+  `video-assembly`, `video-delivery`** (M each). 3.41.0 to 3.46.0 (#114 to
+  #119).
+- [x] **`video-producer` and `motion-designer` agents** (S each). 3.47.0 and
+  3.48.0 (#120, #121).
+- [ ] **A first real video** (M). One project, with its owner's permission,
+  taken through the whole pipeline and the gate, on a machine where ffmpeg,
+  Remotion and a local voice engine are installed.
+
 ## Parked and external
 
 Not waiting on work in this repository.

@@ -10,16 +10,25 @@ it and stays true where this one does not override it.
 
 ### State
 
-Manifests 3.39.0, 176 skills, 35 agents, once the series below lands. Item 1
-below landed as #106 and #107. Then, from a review of an open-source model
-provider plugin, four count-changing pull requests, stacked and to be merged
-in this order: #108 `llm-gateway-engineering` (3.36.0), #109
-`self-updating-software` (3.37.0), #110 `host-plugin-development` (3.38.0),
-#111 the `llm-engineer` agent (3.39.0); this file, the changelog and the
-roadmap record them in the integrator's pull request that follows #111. Merged
-out of order, `validate-counts.sh` fails on `dev` until the earlier ones land.
-Commits from 2026-10-22 are authored `Handsomeboy990`, the configured
-identity; earlier authors are left as they are.
+Manifests 3.48.0, 183 skills, 37 agents in nine trees, once the two series
+below land. Item 1 below landed as #106 and #107. Then, stacked and to be
+merged in this order:
+
+- from a review of an open-source model provider plugin: #108
+  `llm-gateway-engineering`, #109 `self-updating-software`, #110
+  `host-plugin-development`, #111 the `llm-engineer` agent, and #112, the
+  integrator's record of that series;
+- the media tree, for project videos: #113 the tree and `video-core`, #114 to
+  #119 the six working skills, #120 `video-producer`, #121 `motion-designer`,
+  and the integrator's pull request that follows #121, which records them here,
+  in the changelog and in the roadmap.
+
+Merged out of order, `validate-counts.sh` fails on `dev` until the earlier
+ones land. Commits from 2026-10-22 are authored `Handsomeboy990`, the
+configured identity; earlier authors are left as they are. The media pipeline
+needs ffmpeg, Remotion and a local voice engine on the machine that renders;
+none of them is installed on the machine these were written on, and the skills
+check for them before promising a render.
 
 ### What remains, in order
 

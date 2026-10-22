@@ -18,7 +18,104 @@ versions it never had.
 
 ## Unreleased
 
-Nothing since 3.39.0.
+Nothing since 3.48.0.
+
+## 3.48.0 motion-designer
+
+The manifests moved to 3.48.0 with the `motion-designer` agent; the entry below
+is everything since 3.47.0.
+
+- `motion-designer` (agents/media), agent 37 (#121): the media team's
+  specialist for the animated layer, under `video-producer`, never inventing a
+  brand or animating an action the product did not perform. `motion-design` is
+  dispatched to it. `delivery-orchestrator` 1.8.0, `engineering-orchestrator`
+  1.8.0, `model-routing` 1.7.0.
+
+## 3.47.0 video-producer
+
+The manifests moved to 3.47.0 with the `video-producer` agent; the entry below
+is everything since 3.46.0.
+
+- `video-producer` (agents/media), agent 36 (#120): lead of a tenth team,
+  media, owning a project video from brief to handover with the owner's
+  permission, never publishing, never running line 12 of the gate itself.
+  A media agent group in the validators; `--media` installs it.
+  `delivery-orchestrator` 1.7.0, `engineering-orchestrator` 1.7.0,
+  `model-routing` 1.6.0.
+
+## 3.46.0 video-delivery
+
+The manifests moved to 3.46.0 with `video-delivery`; the entry below is
+everything since 3.45.0.
+
+- `video-delivery` (media), skill 183 (#119): exports from each destination's
+  current specification, shorts rebuilt at 9:16, metadata that claims only
+  what the video shows, every file probed and played, the gate with an
+  independent viewer, and a handover package. `video-core` 1.1.0 names the six
+  working skills in pipeline order.
+
+## 3.45.0 video-assembly
+
+The manifests moved to 3.45.0 with `video-assembly`; the entry below is
+everything since 3.44.0.
+
+- `video-assembly` (media), skill 182 (#118): the edit as a text decision
+  list, licensed music ducked under speech, a mix measured and normalised to
+  the destination's target, captions built from the voice transcript, chapters,
+  one render command.
+
+## 3.44.0 voice-over
+
+The manifests moved to 3.44.0 with `voice-over`; the entry below is everything
+since 3.43.0.
+
+- `voice-over` (media), skill 181 (#117): narration in the configured voice,
+  local by default, the engine verified before audio is promised, no imitated
+  voice, consent for a human reader, one clip per beat measured against the
+  timing sheet.
+
+## 3.43.0 motion-design
+
+The manifests moved to 3.43.0 with `motion-design`; the entry below is
+everything since 3.42.0.
+
+- `motion-design` (media), skill 180 (#116): a motion system from the
+  project's identity, Remotion compositions driven by the timing sheet,
+  diagrams that build with the narration and draw the project as built, zooms
+  from the zoom map, nothing that flashes.
+
+## 3.42.0 screen-capture
+
+The manifests moved to 3.42.0 with `screen-capture`; the entry below is
+everything since 3.41.0.
+
+- `screen-capture` (media), skill 179 (#115): the real product filmed in the
+  agreed environment, seeded data and a fresh profile, scripted Playwright
+  journeys at a fixed resolution, zooms as data, every take logged and
+  reviewed frame by frame.
+
+## 3.41.0 video-scripting
+
+The manifests moved to 3.41.0 with `video-scripting`; the entry below is
+everything since 3.40.0.
+
+- `video-scripting` (media), skill 178 (#114): the takeaway first, a structure
+  per format, narration timed at a stated speaking rate, every claim confirmed
+  by the owner, and the storyboard, timing sheet and lexicon the other skills
+  read.
+
+## 3.40.0 media tree
+
+The manifests moved to 3.40.0 with the media tree and `video-core`; the entry
+below is everything since 3.39.0.
+
+- The media tree and `video-core`, skill 177 (#113): a ninth tree for videos
+  that present a project, often one other people built, with the `craft-media`
+  plugin, the `--media` scope and a `media` configuration section
+  (`video_language`, `voice_provider`, local by default, `voice_model`).
+  `video-core` holds the owner's written permission, truthfulness, four
+  formats, source-built video under Remotion, Playwright and ffmpeg, captions
+  and measured audio, a twelve line gate, and handover without publishing.
 
 ## 3.39.0 llm-engineer
 
