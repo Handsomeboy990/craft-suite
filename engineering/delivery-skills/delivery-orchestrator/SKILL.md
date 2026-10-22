@@ -4,7 +4,7 @@ description: The chief orchestrator, above every agent. Owns a project from spec
 license: MIT
 metadata:
   category: delivery-skills
-  version: 1.4.0
+  version: 1.5.0
   depends_on: [engineering-core, engineering-orchestrator]
   outputs: [phase-plan, team-plan, dispatch-records, delivery-checklist, gate-decisions, delivery-verdict]
 ---
