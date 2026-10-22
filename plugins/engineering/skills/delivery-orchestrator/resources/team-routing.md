@@ -1,7 +1,7 @@
 # Team routing
 
 How the chief turns a request into the smallest complete team. Every one of
-the thirty-six agents under `agents/` appears here by its exact name, in
+the thirty-seven agents under `agents/` appears here by its exact name, in
 exactly one team, with the condition that brings it in. No agent is invented,
 and none is unreachable.
 
@@ -33,7 +33,7 @@ Three rules hold the structure together.
 
 ## 2. The teams
 
-Ten teams plus the independent gates. Thirty-six agents in all.
+Ten teams plus the independent gates. Thirty-seven agents in all.
 
 ### Chief's staff, five agents
 
@@ -110,11 +110,12 @@ Ten teams plus the independent gates. Thirty-six agents in all.
 |---|---|---|
 | `community-manager` | lead: an editorial line, a tone of voice, a content charter, a content calendar, social posts or a moderation policy | the reviewer and approver of the line's review rule, never itself; `design-director` for visual work and any conflict with the identity; the chief for site copy, routed to `site-template-engineer`; the owner for every publication |
 
-### Media team, lead `video-producer`, one agent
+### Media team, lead `video-producer`, two agents
 
 | Agent | Brought in when | Hands to |
 |---|---|---|
 | `video-producer` | lead: a demo, presentation, tutorial or short video of a project | the project's owner for permission, review and every publication; `design-director` when the project's identity is unsettled |
+| `motion-designer` | the video needs titles, animated diagrams, zooms, callouts or transitions beyond the producer's own | `video-producer` with the rendered layers; `design-director`, through the producer, for an unsettled identity |
 
 ### Independent gates, four agents
 
@@ -125,8 +126,8 @@ Ten teams plus the independent gates. Thirty-six agents in all.
 | `compliance-verifier` | phase 11 of a user-facing web product | the chief with the launch verdict |
 | `final-verifier` | the last step before the chief reports anything done | the chief, whose verdict it is the last word on |
 
-Count check: 5 + 8 + 4 + 2 + 3 + 4 + 1 + 2 + 1 + 1 + 4 = 35 agents in teams, plus
-`delivery-orchestrator` itself, 36.
+Count check: 5 + 8 + 4 + 2 + 3 + 4 + 1 + 2 + 1 + 2 + 4 = 36 agents in teams, plus
+`delivery-orchestrator` itself, 37.
 
 ## 3. Request to team
 
@@ -204,7 +205,7 @@ Never run a whole chain by reflex. The procedure:
    reason, the way `engineering-orchestrator` names dropped steps.
 6. Route a model for every dispatch with `model-routing`.
 
-Two failure modes, equally bad: thirty-six agents on a typo, and a payment
+Two failure modes, equally bad: thirty-seven agents on a typo, and a payment
 endpoint without `security-engineer`. The second is never an optimisation; it
 is a missing gate.
 

@@ -95,7 +95,8 @@ write dispatch, whatever this column says.
 | `brand-identity` | `design-director` owns it and signs off; `design-research` drafts the moodboard, `ui-ux-engineer` the palette, type and tokens; never signed off by the agent that drafted it | write, documents and tokens; nothing to `design-system` before sign-off |
 | `accessibility-testing` | `ui-ux-engineer`, with `playwright-engineer` for the rendered checks | read |
 | `editorial-line`, `social-content` | `community-manager` drafts; the reviewer and approver of the line's review rule, never the drafter; visual work and any conflict with the identity to `design-director`; site copy to `site-template-engineer` through the chief | write, documents only; nothing published, scheduled or replied from a real account |
-| `video-core`, `video-scripting`, `screen-capture`, `motion-design`, `voice-over`, `video-assembly`, `video-delivery` | `video-producer`; line 12 of the video gate by a person who did not make the video | write, video sources and exports; nothing published |
+| `video-core`, `video-scripting`, `screen-capture`, `voice-over`, `video-assembly`, `video-delivery` | `video-producer`; line 12 of the video gate by a person who did not make the video | write, video sources and exports; nothing published |
+| `motion-design` | `motion-designer`, under `video-producer`; `video-producer` itself when no motion designer is brought in | write, compositions and motion renders |
 | `security-audit` | `security-engineer` | read; fixes go back to the owner |
 | `security-testing` | `penetration-tester`, only with written authorization on record | read, bounded proofs |
 | `website-audit` | `web-auditor`, when a live site is audited from its URL; active testing only with written authorization on record | read; fixes go back to the owner |

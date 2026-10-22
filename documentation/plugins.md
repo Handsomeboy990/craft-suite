@@ -29,7 +29,7 @@ dependency the tree's skills declare.
 | `craft-research` | the research tree and its agents | 5 | 7 plus 2 agents |
 | `craft-career` | the career tree | 7 | 9 |
 | `craft-opportunity` | the opportunity tree | 9 | 11 |
-| `craft-media` | the media tree and its agent | 7 | 9 plus 1 agent |
+| `craft-media` | the media tree and its agents | 7 | 9 plus 2 agents |
 
 Install one:
 

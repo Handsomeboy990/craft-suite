@@ -1,7 +1,7 @@
 # engineering
 
 Software engineering and project delivery. 90 skills in three categories, plus
-36 specialised agents defined at the repository root in `agents/`.
+37 specialised agents defined at the repository root in `agents/`.
 
 ## Categories
 
@@ -127,7 +127,7 @@ directory layout or a hosting platform. Each reads the project it is given.
 
 ```bash
 bash install.sh --dev         the 90 engineering skills and the 30 agents
-bash install.sh --agents      the 36 agents only
+bash install.sh --agents      the 37 agents only
 bash install.sh --no-agents   skills without agents
 ```
 

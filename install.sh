@@ -13,13 +13,13 @@
 #   bash install.sh --research     general research, 5 skills and 2 agents
 #   bash install.sh --career       job search and applications, 7 skills
 #   bash install.sh --opportunity  ideation, hackathons, business, 9 skills
-#   bash install.sh --media        project demo and presentation videos, 7 skills and 1 agent
+#   bash install.sh --media        project demo and presentation videos, 7 skills and 2 agents
 #   bash install.sh --shared       the 2 cross domain skills only
-#   bash install.sh --all          everything, all skills and 36 agents
+#   bash install.sh --all          everything, all skills and 37 agents
 #   bash install.sh --group a,b    only these categories
 #   bash install.sh --skill a,b    only these skills, with their dependencies
 #   bash install.sh --list         print every installable skill and exit
-#   bash install.sh --agents       the 36 agents only
+#   bash install.sh --agents       the 37 agents only
 #   bash install.sh --no-agents    skills without agents
 #   bash install.sh --configure    ask for the user specific values only
 #   bash install.sh --control-center   start the local Control Center and exit
@@ -407,7 +407,7 @@ removable_skill_dirs() {
 # nothing in the engineering sequence dispatches them. `community-manager`
 # ships with documents, where both its skills live, `editorial-line` and
 # `social-content`; the engineering bundle carries neither. `video-producer`
-# ships with media, whose pipeline it owns. A domain with no agent of its own
+# and `motion-designer` ship with media, whose pipeline they own. A domain with no agent of its own
 # (writing, career, opportunity) simply matches nothing here.
 agent_domains() {
   case "$1" in
@@ -418,6 +418,7 @@ agent_domains() {
     data-collection-engineer) printf 'research' ;;
     community-manager)       printf 'documents' ;;
     video-producer)          printf 'media' ;;
+    motion-designer)         printf 'media' ;;
     *)                       printf 'engineering' ;;
   esac
 }
@@ -551,7 +552,7 @@ interactive_select() {
     printf '   6) Career                  %2s skills   job search, CV, interviews\n' "$career"
     printf '   7) Opportunity             %2s skills   ideation, hackathons, business\n' "$opportunity"
     printf '   8) Media                   %2s skills   project demo and presentation videos\n' "$media"
-    printf '   9) Everything             %3s skills   plus 36 agents\n' "$total"
+    printf '   9) Everything             %3s skills   plus 37 agents\n' "$total"
     printf '  10) Individual skills, chosen by name\n'
     printf '  11) One or more categories, for example genres only\n\n'
     printf 'Every choice also installs the 2 cross domain skills, self-critique and\n'

@@ -57,19 +57,19 @@ page once recorded as unfilled, `source-of-truth`, `checkup` and
 remains unfilled is recorded in `multi-agent-assessment.md` section 3 and in
 `docs/agents/README.md`, rather than filled with a thin, unreviewed stand-in.
 
-## The thirty-six agents, by group
+## The thirty-seven agents, by group
 
 Agents live in `agents/<group>/`, a repository-wide tree independent of any
 single skill domain, so each domain's plugin carries its own agents rather than
 bundling them all in one: the security plugin ships `security-engineer`,
 `web-auditor` and `penetration-tester`, the research plugin ships `researcher`
 and `data-collection-engineer`, the documents plugin ships `community-manager`, the media plugin ships
-`video-producer`,
+`video-producer` and `motion-designer`,
 the engineering plugin the 29-agent delivery team (which keeps
 `security-engineer`, since its delivery flow dispatches it). The mapping lives
 in `install.sh` (`agent_domains`); `web-auditor`, `penetration-tester`,
-`researcher`, `data-collection-engineer`, `community-manager` and
-`video-producer` are each
+`researcher`, `data-collection-engineer`, `community-manager`,
+`video-producer` and `motion-designer` are each
 specific to their own domain, every other agent belongs to engineering. Catalog
 and public contracts: `agents/README.md` and `documentation/agents.md`.
 
@@ -84,7 +84,7 @@ and public contracts: `agents/README.md` and `documentation/agents.md`.
 | `devops` | `devops-engineer`, `release-engineer`, `incident-responder`, `ci-cd-engineer` | environments and pipeline, release verification, incident response, the CI/CD pipeline and its gates |
 | `research` | `researcher`, `data-collection-engineer` | a research question answered from real, cited sources and verification of a contested claim, lawful data collection with provenance |
 | `communication` | `community-manager` | the editorial line and the social content plan, drafted and handed over, never published |
-| `media` | `video-producer` | a project video from brief to handover, with the owner's permission, never published |
+| `media` | `video-producer`, `motion-designer` | a project video from brief to handover, with the owner's permission, never published; its animated layer |
 
 ## The agent contract
 

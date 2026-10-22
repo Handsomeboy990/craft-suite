@@ -63,7 +63,7 @@ verdict.
 
 ## Delegation
 
-Every one of the thirty-six agents has a team, a lead and the condition that
+Every one of the thirty-seven agents has a team, a lead and the condition that
 brings it in, in the skill's `resources/team-routing.md`; compose the smallest
 complete team from it, never the whole roster. The common core:
 
