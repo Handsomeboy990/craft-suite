@@ -85,7 +85,7 @@ write dispatch, whatever this column says.
 | `architecture-design`, `decision-records` | `software-architect` for a boundary or contract; the owning implementer for one module's internals | write, documents only |
 | `api-design` | `backend-engineer`, one writer of the contract file | write |
 | `database-design`, `database-operations` | `database-engineer` | write |
-| `backend-engineering`, `input-validation`, `background-jobs`, `payment-engineering`, `file-handling`, `realtime-systems`, `llm-integration`, `llm-gateway-engineering`, `data-privacy` | `backend-engineer` | write |
+| `backend-engineering`, `input-validation`, `background-jobs`, `payment-engineering`, `file-handling`, `realtime-systems`, `llm-integration`, `llm-gateway-engineering`, `host-plugin-development`, `data-privacy` | `backend-engineer` | write |
 | `frontend-engineering`, `font-loading`, `animation`, `internationalization`, `seo-engineering` | `frontend-engineer` | write |
 | `accessibility-remediation` | `frontend-engineer`, never the agent that runs the verify loop on the same findings | write; each fix handed back to `accessibility-testing` |
 | `fullstack-engineering` | `principal-engineer`, which splits it into server and client dispatches across the contract | lead |
