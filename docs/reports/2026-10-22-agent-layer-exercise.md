@@ -83,7 +83,7 @@ Tokens, tool uses and wall time are the harness figures for each dispatch.
 | 5 | `compliance-verifier` | Launch completeness gate | `independent-verifier-floor`, rated HIGH (security and legal blockers): strongest, opus (default mapping), effort high | instance :3105, its database, the gate, backup and restore | 56 rows, 18 pass, 16 fail, 12 not verified, 10 not applicable; verdict **blocked** | full gate 21 of 26 under load; `npm audit`; second identities against the database; restore into a scratch directory; 156.3k tokens, 56 tools, 19 min | Next.js advisories; login limiter; privacy notice incomplete; denied pages unthemed at load | `security-engineer`, `frontend-engineer`, `ui-ux-engineer`, `devops-engineer`, `qa-engineer`, `documentation-engineer` | the handoff names no owner for dependencies, backups, TLS, flaky tests or stale docs; restore boundary unstated |
 | 6 | `pr-author` | Package the gate fix as a local pull request | table, LOW packaging slice: fast, haiku (default mapping), effort low | clone, uncommitted fix, before and after runs, configuration | branch `fix/gate-timing-races-d18-d20`, 2 commits, description, handed-over commands | six scripts' last lines; gate D18 and D20 pass; 43.9k tokens, 17 tools, 8 min | configured identity differs from the history; commit convention differs from the log; template lists five of six scripts | `pr-reviewer`, with push and open commands for the owner | Outputs assume a pushed branch and an opened request; no rule for a configuration that disagrees with history |
 | 7 | `pr-reviewer` | Review of 6 | `independent-verifier-floor` over the fix slice, MEDIUM: balanced, sonnet (default mapping), effort medium | local branch, base `dev`, description, the author's claims | verdict **mergeable**, no blocker, 4 suggestions, merge-criteria check | three mutations in scratch copies (button never disabled, captions removed, every table tagged skeleton): each failed the check; branch gate pass; six scripts; clone left clean; 30.6k tokens, 11 tools, 6 min | the D18 banner is still read before the wait (latent); the element handle can detach (fails loudly, never passes falsely); corrected the author on history: both identities and prefixed subjects occur on `dev` | `pr-author` (optional suggestions), whoever holds the merge | no rule for reviewing a change to a test itself; no rule for a local request with no CI run |
-| 8 | `final-verifier` | Final gate on this change | PENDING | | | | | | |
+| 8 | `final-verifier` | Final gate on this change | `independent-verifier-floor` over dispatches 4 and 5, whose security findings this record carries: strongest, opus (default mapping), effort high | the two commits of this change, the acceptance criteria of the handover, the working records | status per criterion and per reproduced claim; verdict **not done**, one named failure, then done after the correction | `npm audit` reproduced; 8 rotating `X-Forwarded-For` logins all 401; `D18 D20` six runs each: 4 of 6 with a failure on `dev`, 6 of 6 passing on the fix branch; author of `6372ed3` confirmed; every file:line in section 5 read; plugin build in a throwaway worktree gave no diff; 69.5k tokens, 30 tools, 12 min | one wrong line in section 5: the room link finding cited a filter chip, `ListView.tsx:187`, instead of the primary cell link | the report author, `design-verification` as the source of the finding | written for code revisions only: no method named for a revision that is a record; no status for a process claim corroborated by artefacts but not re-runnable |
 
 The change packaged in dispatch 6 was written by the orchestrator, not by an
 agent: two waits in `scripts/gate/checks-browser.mjs`, with no assertion
@@ -96,6 +96,7 @@ separate decision, listed in section 7.
 | # | Dispatch | Trigger | Prior | New | Reason | Failed output kept | Outcome |
 |---|---|---|---|---|---|---|---|
 | 1 | 4 | output-quality-failure, `factual-error-on-verification` | HIGH / strongest / high | HIGH / strongest / high, same agent resumed | "served by `next dev`" was false: `/proc/41910/cmdline` reads `next-server (v16.3.5)` with `NODE_ENV=production`; the performance dimension had been skipped on that ground | the first report, quoted in section 3 row 4 | corrected with its own evidence; performance measured; no security finding changed |
+| 2 | 8 | `failed-test-or-gate`, on this record | not applicable: the orchestrator's own output | not applicable | the final gate found one file:line in section 5 pointing at the wrong element | the first commit of this record | line corrected, then re-checked by the same `final-verifier` |
 
 ## 5. Findings on the app
 
@@ -112,7 +113,7 @@ Listed, not fixed. Paths are relative to the app directory.
 | Low | `GET /api/stays` sends 20 fields per row for 7 shown columns. The contract says columns the table does not show are not sent, and gate D14 prints the count without asserting it. | `lib/modules.ts:204-216`, contract `resources/dashboard-contract.md:445-446` | 1, 2 | `backend-engineer`, or the contract owner |
 | Low | The demonstration banner depends only on a database flag. A production build shows it. The contract says it "can never be on in a production build"; the only guard is the seed refusing `HOTEL_ENV=production`. | `lib/db.ts:61-63`, `app/layout.tsx:37,82`, contract `:394` | 2 | owner decides the rule |
 | Low | On the overview, the count of the longest bar sits outside the panel. The count is positioned at `100%` plus one unit, so a full-width bar pushes it past the track. This was seen in a screenshot and confirmed in the CSS. | `app/globals.css:990-995` | 3 | `frontend-engineer` |
-| Low | The room number links on `/rooms` are 18 px wide, under the 24 px of WCAG 2.2 target size, and the rooms list is not among the screens gate D23 measures. | `components/ListView.tsx:187` | 3 | `frontend-engineer` |
+| Low | The room number links on `/rooms` are 18 px wide, under the 24 px of WCAG 2.2 target size, and the rooms list is not among the screens gate D23 measures. | `components/ListView.tsx:275-282` | 3 | `frontend-engineer` |
 | Low | Passwords use scrypt with N = 2^14, below the 2^17 the OWASP Password Storage Cheat Sheet gives as its minimum. | `lib/password.mjs:6` | 5 | `security-engineer` |
 | Low | Launch completeness items, tradeable or to accept in writing for a staff-only noindex app: no terms of use; one title on every route; no meta description, social preview, `robots.txt` or canonical; ten competing primary buttons on the overview; no backup schedule (the restore itself is proven). | `app/`, the README | 5 | owner, `frontend-engineer`, `devops-engineer` |
 | Info | `X-Powered-By: Next.js` is sent; page renders run retention writes; the CSV guard also prefixes phone numbers that start with `+`. | `next.config.mjs`, `lib/authz.ts:123`, `lib/api.ts:164-170` | 1, 4, 5 | `backend-engineer` |
@@ -158,6 +159,7 @@ boundary that limits what an agent may do.
 | `agents/core/compliance-verifier.md` | Never restores over the instance under verification. Handoff owners added for dependencies, backups and TLS, flaky acceptance checks and stale handover claims. | 5 |
 | `agents/core/pr-author.md` | When the push or the pull request is kept, the outputs end at the commits and the description, and the handoff carries the commands. A configured identity that differs from the history is named for the owner, never resolved by rewriting history. | 6 |
 | `agents/core/pr-reviewer.md` | A change to a test or a check is shown to fail on a deliberately wrong behaviour, in a scratch copy outside the tracked tree. Where no CI run exists, the review says what it ran in its place. | 7 |
+| `agents/core/final-verifier.md` | When the revision is a record, a report or an audit rather than code, the evidence it cites is re-run and every reference it gives is checked. | 8 |
 
 The other feedback was not acted on here because it is broader than a small
 fix:
@@ -167,6 +169,8 @@ fix:
   `launch-readiness`, not to the agent.
 - **`web-auditor`:** its "delegates to" wording.
 - **`pr-author`:** how to cite another agent's evidence.
+- **`final-verifier`:** a third status, corroborated by artefacts but not
+  re-runnable, would change the semantics of a gate. It is left to the owner.
 
 ## 7. Follow up
 
