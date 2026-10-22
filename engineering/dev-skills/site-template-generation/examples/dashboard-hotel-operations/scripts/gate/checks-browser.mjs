@@ -487,8 +487,10 @@ const D20 = {
     const { context, page } = await signedInPage(gate, 'manager');
     for (const path of LISTS) {
       await page.goto(`${gate.base}${path}?arrivalFrom=any`);
+      // The loading skeleton is a table too; read the one that replaces it.
+      await page.locator('table.table:not(.table--skeleton)').first().waitFor({ timeout: 10000 }).catch(() => {});
       const facts = await page.evaluate(() => {
-        const table = document.querySelector('table.table');
+        const table = document.querySelector('table.table:not(.table--skeleton)');
         if (!table) return null;
         const headers = Array.from(table.querySelectorAll('thead th'));
         return {
