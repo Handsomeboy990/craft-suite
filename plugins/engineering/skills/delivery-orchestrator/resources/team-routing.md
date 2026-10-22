@@ -1,7 +1,7 @@
 # Team routing
 
 How the chief turns a request into the smallest complete team. Every one of
-the thirty-five agents under `agents/` appears here by its exact name, in
+the thirty-six agents under `agents/` appears here by its exact name, in
 exactly one team, with the condition that brings it in. No agent is invented,
 and none is unreachable.
 
@@ -33,7 +33,7 @@ Three rules hold the structure together.
 
 ## 2. The teams
 
-Nine teams plus the independent gates. Thirty-five agents in all.
+Ten teams plus the independent gates. Thirty-six agents in all.
 
 ### Chief's staff, five agents
 
@@ -110,6 +110,12 @@ Nine teams plus the independent gates. Thirty-five agents in all.
 |---|---|---|
 | `community-manager` | lead: an editorial line, a tone of voice, a content charter, a content calendar, social posts or a moderation policy | the reviewer and approver of the line's review rule, never itself; `design-director` for visual work and any conflict with the identity; the chief for site copy, routed to `site-template-engineer`; the owner for every publication |
 
+### Media team, lead `video-producer`, one agent
+
+| Agent | Brought in when | Hands to |
+|---|---|---|
+| `video-producer` | lead: a demo, presentation, tutorial or short video of a project | the project's owner for permission, review and every publication; `design-director` when the project's identity is unsettled |
+
 ### Independent gates, four agents
 
 | Agent | Brought in when | Answers to |
@@ -119,8 +125,8 @@ Nine teams plus the independent gates. Thirty-five agents in all.
 | `compliance-verifier` | phase 11 of a user-facing web product | the chief with the launch verdict |
 | `final-verifier` | the last step before the chief reports anything done | the chief, whose verdict it is the last word on |
 
-Count check: 5 + 8 + 4 + 2 + 3 + 4 + 1 + 2 + 1 + 4 = 34 agents in teams, plus
-`delivery-orchestrator` itself, 35.
+Count check: 5 + 8 + 4 + 2 + 3 + 4 + 1 + 2 + 1 + 1 + 4 = 35 agents in teams, plus
+`delivery-orchestrator` itself, 36.
 
 ## 3. Request to team
 
@@ -150,6 +156,7 @@ condition in section 2 is met.
 | a research question with cited sources | `research-core` | `researcher` | `data-collection-engineer` when data must be gathered |
 | an editorial line, a tone of voice, a content charter | `editorial-line`, under `document-core` | `community-manager` | the approver of the review rule; `design-director` for any conflict with the brand identity, decided with the owner, never by the drafter |
 | a content calendar, social posts, a moderation policy | `social-content`, under `document-core` | `community-manager` | a signed or explicitly provisional editorial line, or `editorial-line` first; `design-director` for visual posts; the owner for every publication |
+| a demo, presentation, tutorial or short video of a project | `video-core` | `video-producer` | the owner's written permission first; the owner reviews and publishes; `design-director` when the identity is unsettled |
 | schedule at risk | `delivery-planning` | `delivery-manager` | the chief, who decides |
 | finished work to a pull request | `git-workflow` | `pr-author` | `pr-reviewer`, never the author |
 
@@ -197,7 +204,7 @@ Never run a whole chain by reflex. The procedure:
    reason, the way `engineering-orchestrator` names dropped steps.
 6. Route a model for every dispatch with `model-routing`.
 
-Two failure modes, equally bad: thirty-five agents on a typo, and a payment
+Two failure modes, equally bad: thirty-six agents on a typo, and a payment
 endpoint without `security-engineer`. The second is never an optimisation; it
 is a missing gate.
 
