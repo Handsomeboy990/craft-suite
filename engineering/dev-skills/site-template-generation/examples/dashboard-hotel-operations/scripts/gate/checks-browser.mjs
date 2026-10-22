@@ -388,7 +388,10 @@ const D18 = {
     await page.evaluate(() => window.dispatchEvent(new Event('offline')));
     const banner = await page.locator('#offline-reason').textContent().catch(() => '');
     const button = page.getByRole('button', { name: /^Cancel, stay of/ }).first();
-    const disabled = await button.isDisabled();
+    // The list hydrates after the stream ends; give it time to react to the event.
+    const disabled = await page
+      .waitForFunction((element) => element.disabled, await button.elementHandle(), { timeout: 5000 })
+      .then(() => true, () => false);
     const reason = await button.getAttribute('aria-describedby');
     details.push(`service worker: ${worker}; offline banner "${banner}"`);
     details.push(`a row action while offline: disabled ${disabled}, described by #${reason}`);
