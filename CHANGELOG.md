@@ -18,7 +18,66 @@ versions it never had.
 
 ## Unreleased
 
-No manifest change: no skill or agent was added. Everything since 3.35.0.
+Nothing since 3.39.0.
+
+## 3.39.0 llm-engineer
+
+The manifests moved to 3.39.0 with the `llm-engineer` agent; the entry below is
+everything since 3.38.0.
+
+- `llm-engineer` (agents/development), agent 35 (#111): owns the code that
+  calls a language model, features built on one and the gateway under them,
+  citing `llm-integration`, `llm-gateway-engineering` and
+  `host-plugin-development`. It never builds on provider access the operator
+  does not hold. The engineering team counts eight agents; its tier rule is
+  table, with `security-driving-signal` when a slice exposes a model endpoint,
+  holds provider keys or gates an action on model output; `llm-integration`
+  and `llm-gateway-engineering` are dispatched to it rather than to
+  `backend-engineer`. `delivery-orchestrator` 1.6.0, `model-routing` 1.5.0,
+  `engineering-orchestrator` 1.6.0.
+
+## 3.38.0 host-plugin-development
+
+The manifests moved to 3.38.0 with `host-plugin-development`; the entry below is
+everything since 3.37.0.
+
+- `host-plugin-development` (engineering/dev-skills), skill 176 (#110): a
+  plugin for a host the team does not control. One seam module alone imports
+  the host, a declared range is tested at both ends, late services are awaited,
+  every registration is disposed, values handed over are resolved and finite,
+  and failures are contained so the host carries on. In the BACKEND plan, for
+  a plugin only. `engineering-orchestrator` 1.5.0.
+
+## 3.37.0 self-updating-software
+
+The manifests moved to 3.37.0 with `self-updating-software`; the entry below is
+everything since 3.36.0.
+
+- `self-updating-software` (engineering/devops-skills), skill 175 (#109): the
+  updater of installed software, under one rule, that one whole version is
+  installed and runs at every instant. A managed installation stands down; the
+  manifest is signed against an embedded key and refuses replays; the
+  transaction stages, hashes, backs up, journals, replaces atomically, reads
+  back and health checks, or rolls back code and data, including after an
+  interruption. Phase 14, for a product that updates itself.
+  `delivery-orchestrator` 1.5.0.
+
+## 3.36.0 llm-gateway-engineering
+
+The manifests moved to 3.36.0 with `llm-gateway-engineering`; the entry below is
+everything since 3.35.0.
+
+- `llm-gateway-engineering` (engineering/dev-skills), skill 174 (#108): the
+  layer between clients and model providers. One stream over several wires,
+  a response read by its body, tool calls kept paired, one failure vocabulary
+  that alone decides retry and routing, no retry after output, chains that
+  switch only before content, effort controls measured to bind, a loopback
+  endpoint with a redacted key, tests with the network closed. Built only on
+  access the operator holds. In the BACKEND plan, conditional.
+  `engineering-orchestrator` 1.4.0. The three skills and the agent of 3.36.0
+  to 3.39.0 came from one review of an open-source model provider plugin,
+  whose engineering was kept and whose access method, a copied client
+  identity and pooled accounts, was refused.
 
 - The agent layer exercised (#106): the eight agents that had never run
   (`checkup`, `source-of-truth`, `design-verification`, `web-auditor`,
