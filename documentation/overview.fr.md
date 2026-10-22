@@ -8,7 +8,7 @@ Des systèmes d'expertise pour un agent, dans un seul dépôt : **écrire**,
 Le dépôt s'appelait `claude-writer-suite` jusqu'à la version 3.0.0, quand
 l'arbre d'écriture a cessé d'en être la totalité.
 
-180 skills et 35 agents. Pas des prompts : des protocoles numérotés, des
+181 skills et 35 agents. Pas des prompts : des protocoles numérotés, des
 critères de décision, des grilles d'évaluation et des procédures de révision,
 chacun avec un seuil chiffré de ce qui compte comme terminé.
 
@@ -25,7 +25,7 @@ craft-suite/
 ├── research/         5 skills de recherche générale
 ├── career/           7 skills de recherche d'emploi et de candidature
 ├── opportunity/      9 skills d'idéation, de hackathon et de prospection
-├── media/            4 skills de vidéos de démo et de présentation de projet
+├── media/            5 skills de vidéos de démo et de présentation de projet
 ├── config/           valeurs propres à l'utilisateur, rien n'est codé en dur
 ├── control-center/   tableau de bord local optionnel, sans dépendance
 ├── plugins/          bundles de plugins par domaine, générés depuis les arbres
@@ -49,7 +49,7 @@ Le dépôt sépare trois langues que l'on confond couramment.
 
 | Couche | De quoi il s'agit | Valeur |
 |---|---|---|
-| Langue des skills | les instructions elles-mêmes | anglais, pour les 180 skills |
+| Langue des skills | les instructions elles-mêmes | anglais, pour les 181 skills |
 | Langue du système | chemins, identifiants, clés de configuration, commits | anglais |
 | Langue de sortie | ce que reçoit le lecteur | la sienne, réglée par projet |
 
@@ -406,7 +406,7 @@ est affichée comme indisponible, jamais inventée. Détail :
 ## Validation
 
 ```bash
-bash tests/validate-structure.sh      structure et métadonnées des 180 skills
+bash tests/validate-structure.sh      structure et métadonnées des 181 skills
 bash tests/validate-rules.sh          emoji, tiret cadratin, secrets, identité codée en dur
 bash tests/validate-orchestration.sh  plans, phases, agents, renvois croisés
 bash tests/validate-plugins.sh        bundles de plugins synchronisés avec les arbres
@@ -422,7 +422,7 @@ Les six doivent passer avant tout commit. Détail dans
 | Fichier | Contenu |
 |---|---|
 | [documentation/architecture.md](architecture.md) | organisation, isolation des skills, métadonnées |
-| [documentation/skills-guide.md](skills-guide.md) | répertoire des 180 skills |
+| [documentation/skills-guide.md](skills-guide.md) | répertoire des 181 skills |
 | [documentation/installation.fr.md](installation.fr.md) | installation complète et par skill |
 | [documentation/configuration.fr.md](configuration.fr.md) | le contrat de configuration |
 | [documentation/agents.md](agents.md) | skill, agent, orchestration |

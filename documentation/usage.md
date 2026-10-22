@@ -234,9 +234,9 @@ in:
 | `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
-| `--media` | 6 | 0 |
+| `--media` | 7 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 180 | 35 |
+| `--all` | 181 | 35 |
 | `--agents` | 0 | 35 |
 
 `~/.claude/skills` is shared. It holds every skill you have, not only this
