@@ -27,6 +27,7 @@ A reader who only wants to use the suite never needs this directory. Start at
 | `architecture/TOKEN_OPTIMIZATION.md` | the seam between the during-the-work discipline and the after-the-fact measurement |
 | `architecture/SKILL_AGENT_MATRIX.md` | which agents a given workflow uses, in multi-agent mode |
 | `architecture/multi-agent-assessment.md` | a historical record of one assessment, kept as written |
+| `reports/` | dated records of runs against a real target, one file per run, kept as written |
 
 ## Reading a historical record
 
