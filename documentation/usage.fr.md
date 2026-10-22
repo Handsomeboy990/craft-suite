@@ -130,6 +130,7 @@ l'agent utilise lui-même, tirée d'[AGENTS.md](../AGENTS.md) :
 | Chercher une réponse avec de vraies sources citées | `research-core` |
 | Recherche d'emploi, CV, lettre, préparation d'entretien | `career-core` |
 | Générer et évaluer des idées | `opportunity-core` |
+| Une vidéo de démo ou de présentation d'un projet | `video-core` |
 | Trouver ou gagner un hackathon | `hackathon-discovery` |
 | Trouver des clients ou dimensionner un marché | `client-discovery` |
 | Tout ce qui vient d'être terminé | `self-critique` |
@@ -235,8 +236,9 @@ Ce que chaque portée doit afficher, les deux skills communs déjà comptés :
 | `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
+| `--media` | 3 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 176 | 35 |
+| `--all` | 177 | 35 |
 | `--agents` | 0 | 35 |
 
 `~/.claude/skills` est partagé. Il contient tous vos skills, pas seulement ceux

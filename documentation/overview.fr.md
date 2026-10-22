@@ -8,7 +8,7 @@ Des systèmes d'expertise pour un agent, dans un seul dépôt : **écrire**,
 Le dépôt s'appelait `claude-writer-suite` jusqu'à la version 3.0.0, quand
 l'arbre d'écriture a cessé d'en être la totalité.
 
-176 skills et 35 agents. Pas des prompts : des protocoles numérotés, des
+177 skills et 35 agents. Pas des prompts : des protocoles numérotés, des
 critères de décision, des grilles d'évaluation et des procédures de révision,
 chacun avec un seuil chiffré de ce qui compte comme terminé.
 
@@ -25,6 +25,7 @@ craft-suite/
 ├── research/         5 skills de recherche générale
 ├── career/           7 skills de recherche d'emploi et de candidature
 ├── opportunity/      9 skills d'idéation, de hackathon et de prospection
+├── media/            1 skill de vidéos de démo et de présentation de projet
 ├── config/           valeurs propres à l'utilisateur, rien n'est codé en dur
 ├── control-center/   tableau de bord local optionnel, sans dépendance
 ├── plugins/          bundles de plugins par domaine, générés depuis les arbres
@@ -48,7 +49,7 @@ Le dépôt sépare trois langues que l'on confond couramment.
 
 | Couche | De quoi il s'agit | Valeur |
 |---|---|---|
-| Langue des skills | les instructions elles-mêmes | anglais, pour les 176 skills |
+| Langue des skills | les instructions elles-mêmes | anglais, pour les 177 skills |
 | Langue du système | chemins, identifiants, clés de configuration, commits | anglais |
 | Langue de sortie | ce que reçoit le lecteur | la sienne, réglée par projet |
 
@@ -200,6 +201,18 @@ prochaines étapes.
 
 Index : [opportunity/README.md](../opportunity/README.md).
 
+### media
+
+Des vidéos qui présentent un projet, souvent construit par d'autres : démos de
+produit, présentations de projet, formats courts verticaux et tutoriels, avec
+voix off et animations. L'accord écrit du propriétaire passe en premier, ce qui
+est montré fonctionne ou est signalé comme mis en scène, chaque vidéo a ses
+sous-titres et un mixage mesuré, une seule commande la refait depuis ses
+sources, et elle est remise, jamais publiée par un agent. Constitution :
+`media/video-core`.
+
+Index : [media/README.md](../media/README.md).
+
 ## Installation
 
 Aucune dépendance : le dépôt est du Markdown et du shell. Clonez-le et lancez
@@ -261,6 +274,7 @@ Les questions, les champs de délégation et leurs valeurs :
 | Il me faut des idées, puis les bonnes | `opportunity/ideation/opportunity-core` |
 | Je veux trouver et gagner un hackathon | `opportunity/hackathons/hackathon-discovery` |
 | Je dois trouver des clients ou dimensionner un marché | `opportunity/business/client-discovery` |
+| Il me faut une vidéo de démo ou de présentation d'un projet | `media/video-core` |
 
 Répertoire complet :
 [documentation/skills-guide.md](skills-guide.md).
@@ -291,7 +305,8 @@ constitution par arbre plus la paire transversale :
 `security/secure-development/security-core`,
 `research/research-core`,
 `career/career-core`,
-`opportunity/ideation/opportunity-core`.
+`opportunity/ideation/opportunity-core`,
+`media/video-core`.
 
 ## Agents
 
@@ -333,6 +348,7 @@ recopie :
 | research | `research/research-core` |
 | career | `career/career-core` |
 | opportunity | `opportunity/ideation/opportunity-core` |
+| media | `media/video-core` |
 
 `tests/validate-orchestration.sh` vérifie que chaque dépendance déclarée et
 chaque renvoi croisé se résout, si bien que les déclarations sont exactes et
@@ -390,7 +406,7 @@ est affichée comme indisponible, jamais inventée. Détail :
 ## Validation
 
 ```bash
-bash tests/validate-structure.sh      structure et métadonnées des 176 skills
+bash tests/validate-structure.sh      structure et métadonnées des 177 skills
 bash tests/validate-rules.sh          emoji, tiret cadratin, secrets, identité codée en dur
 bash tests/validate-orchestration.sh  plans, phases, agents, renvois croisés
 bash tests/validate-plugins.sh        bundles de plugins synchronisés avec les arbres
@@ -406,7 +422,7 @@ Les six doivent passer avant tout commit. Détail dans
 | Fichier | Contenu |
 |---|---|
 | [documentation/architecture.md](architecture.md) | organisation, isolation des skills, métadonnées |
-| [documentation/skills-guide.md](skills-guide.md) | répertoire des 176 skills |
+| [documentation/skills-guide.md](skills-guide.md) | répertoire des 177 skills |
 | [documentation/installation.fr.md](installation.fr.md) | installation complète et par skill |
 | [documentation/configuration.fr.md](configuration.fr.md) | le contrat de configuration |
 | [documentation/agents.md](agents.md) | skill, agent, orchestration |

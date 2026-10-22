@@ -1,6 +1,6 @@
 # Skills guide
 
-Directory of the 176 skills. One line each: what it does, and when to open it.
+Directory of the 177 skills. One line each: what it does, and when to open it.
 
 Every skill's own `README.md` carries its inputs, outputs, dependencies and
 configuration in four lines. This file is the index; the READMEs are the
@@ -389,9 +389,15 @@ uses and restates none of them.
 - `lead-research`: a sourced dossier and a grounded, honest outreach draft.
 - `market-research`: bottom-up sizing, a real competitor map, an honest assessment.
 
+## media, 1 skill
+
+- `video-core`: constitution. The owner's permission, truthfulness, four
+  formats, source-built video, captions and measured audio, the twelve line
+  gate, never published by an agent. Depends on nothing.
+
 ## Skills that work alone
 
-Ten depend on nothing and can be copied and used on their own:
+Eleven depend on nothing and can be copied and used on their own:
 
 ```
 shared/self-critique
@@ -404,6 +410,7 @@ security/secure-development/security-core
 research/research-core
 career/career-core
 opportunity/ideation/opportunity-core
+media/video-core
 ```
 
 Every other skill declares its dependencies in `depends_on` and in its README.

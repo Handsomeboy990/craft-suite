@@ -130,6 +130,7 @@ from [AGENTS.md](../AGENTS.md):
 | Researching a question with real, cited sources | `research-core` |
 | A job search, CV, cover letter or interview prep | `career-core` |
 | Generating and evaluating ideas | `opportunity-core` |
+| A demo or presentation video of a project | `video-core` |
 | Finding or winning a hackathon | `hackathon-discovery` |
 | Finding clients or sizing a market | `client-discovery` |
 | Anything just finished | `self-critique` |
@@ -233,8 +234,9 @@ in:
 | `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
+| `--media` | 3 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 176 | 35 |
+| `--all` | 177 | 35 |
 | `--agents` | 0 | 35 |
 
 `~/.claude/skills` is shared. It holds every skill you have, not only this

@@ -2,8 +2,8 @@
 
 ## Overview
 
-The Craft Suite is a library of 176 skills in nineteen groups across
-eight trees, plus thirty-five agents, shared resources, the configuration contract,
+The Craft Suite is a library of 177 skills in nineteen groups across
+nine trees, plus thirty-five agents, shared resources, the configuration contract,
 an optional local dashboard, per-domain plugins, documentation, a demonstration
 project and validation scripts. The repository was called
 `claude-writer-suite` until 3.0.0.
@@ -53,6 +53,7 @@ craft-suite/
 │   ├── ideation/           3
 │   ├── hackathons/         3
 │   └── business/           3
+├── media/                  1 skill
 ├── config/                configuration template and field reference
 ├── control-center/        optional local dashboard, zero dependency
 ├── plugins/               per-domain plugin bundles, generated from the trees
@@ -61,7 +62,7 @@ craft-suite/
 └── tests/
 ```
 
-The eight trees do not depend on each other. `shared/` is the exception by
+The nine trees do not depend on each other. `shared/` is the exception by
 design: it depends on nothing and is called by all the others, which is verified
 by `tests/validate-orchestration.sh` check 13. Each of the other trees has one
 constitution that depends on nothing, so any tree can be installed and used on
@@ -146,7 +147,7 @@ Three layers, kept apart.
 
 | Layer | Value |
 |---|---|
-| Skill language | English, all 176 skills and all 35 agents |
+| Skill language | English, all 177 skills and all 35 agents |
 | System language | English: paths, identifiers, config keys, commits, technical documentation |
 | Output language | the recipient's, set per project in the configuration |
 

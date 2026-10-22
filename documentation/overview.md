@@ -7,7 +7,7 @@ search**, **find and evaluate opportunities**, and **review your own work**.
 Called `claude-writer-suite` until 3.0.0, when the writing tree stopped being
 the whole of it.
 
-176 skills and 35 agents. Not prompts: numbered protocols, decision criteria,
+177 skills and 35 agents. Not prompts: numbered protocols, decision criteria,
 scoring grids and review procedures, each with a stated threshold for what
 counts as finished.
 
@@ -24,6 +24,7 @@ craft-suite/
 ├── research/         5 general research skills
 ├── career/           7 job search and application skills
 ├── opportunity/      9 ideation, hackathon and business skills
+├── media/            1 project demo and presentation video skill
 ├── config/           user specific values, nothing hardcoded
 ├── control-center/   optional local dashboard, zero dependency
 ├── plugins/          per-domain plugin bundles, generated from the trees
@@ -47,7 +48,7 @@ The repository separates three languages that are routinely confused.
 
 | Layer | What it is | Value |
 |---|---|---|
-| Skill language | the instructions themselves | English, all 176 skills |
+| Skill language | the instructions themselves | English, all 177 skills |
 | System language | paths, identifiers, config keys, commits | English |
 | Output language | what the reader receives | theirs, set per project |
 
@@ -197,6 +198,17 @@ never fabricated. The deliverable is the evaluated few with their next steps.
 
 Index: [opportunity/README.md](../opportunity/README.md).
 
+### media
+
+Videos that present a project, often one other people built: product demos,
+project presentations, short vertical cuts and tutorials, with a voice-over and
+animation. The owner's written permission comes first, what is shown runs or is
+labelled as staged, every video has captions and a measured mix, one command
+re-renders it from its sources, and it is handed over, never published by an
+agent. Constitution: `media/video-core`.
+
+Index: [media/README.md](../media/README.md).
+
 ## Installation
 
 No dependencies: the repository is Markdown and shell. Clone it and run
@@ -256,6 +268,7 @@ The prompts, the delegation fields and their values:
 | I need ideas, and then the good ones | `opportunity/ideation/opportunity-core` |
 | I want to find and win a hackathon | `opportunity/hackathons/hackathon-discovery` |
 | I need to find clients or size a market | `opportunity/business/client-discovery` |
+| I need a demo or presentation video of a project | `media/video-core` |
 
 Full directory: [documentation/skills-guide.md](skills-guide.md).
 
@@ -285,7 +298,8 @@ the operations and shared constitutions:
 `security/secure-development/security-core`,
 `research/research-core`,
 `career/career-core`,
-`opportunity/ideation/opportunity-core`.
+`opportunity/ideation/opportunity-core`,
+`media/video-core`.
 
 ## Agents
 
@@ -326,6 +340,7 @@ restates:
 | research | `research/research-core` |
 | career | `career/career-core` |
 | opportunity | `opportunity/ideation/opportunity-core` |
+| media | `media/video-core` |
 
 `tests/validate-orchestration.sh` verifies that every declared dependency and
 every cross reference resolves, so the declarations are accurate rather than
@@ -382,7 +397,7 @@ never invented. Detail: [control-center/README.md](../control-center/README.md).
 ## Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of 176 skills
+bash tests/validate-structure.sh      structure and metadata of 177 skills
 bash tests/validate-rules.sh          emoji, em dash, secrets, hardcoded identity
 bash tests/validate-orchestration.sh  plans, phases, agents, cross references
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees
@@ -398,7 +413,7 @@ All six must pass before any commit. Detail in
 | File | Contents |
 |---|---|
 | [documentation/architecture.md](architecture.md) | organisation, skill isolation, metadata |
-| [documentation/skills-guide.md](skills-guide.md) | directory of the 176 skills |
+| [documentation/skills-guide.md](skills-guide.md) | directory of the 177 skills |
 | [documentation/installation.md](installation.md) | full and per-skill installation |
 | [documentation/configuration.md](configuration.md) | the configuration contract |
 | [documentation/agents.md](agents.md) | skill, agent, orchestration |

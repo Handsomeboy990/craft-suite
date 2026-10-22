@@ -27,7 +27,7 @@ entendre qu'ils sont passés.
 ## Choisir ce qu'on installe
 
 L'installeur ne décide jamais à votre place. Sans argument, il demande, et il
-n'installe que ce que vous choisissez. C'est délibéré : les huit arbres servent
+n'installe que ce que vous choisissez. C'est délibéré : les neuf arbres servent
 des gens différents, et un développeur n'a que faire d'un skill de prosodie.
 
 ```bash
@@ -44,9 +44,10 @@ bash install.sh
    5) Research                 5 skills   sources, vérification, synthèse
    6) Career                   7 skills   recherche d'emploi, CV, entretiens
    7) Opportunity              9 skills   idéation, hackathons, prospection
-   8) Everything             176 skills   plus 35 agents
-   9) Individual skills, chosen by name
-  10) One or more categories, for example genres only
+   8) Media                    1 skills   vidéos de démo et de présentation de projet
+   9) Everything             177 skills   plus 35 agents
+  10) Individual skills, chosen by name
+  11) One or more categories, for example genres only
 
 Choice [1]:
 ```
@@ -68,6 +69,7 @@ bash install.sh --security     12 skills de sécurité défensive et 3 agents
 bash install.sh --research      5 skills de recherche générale et 2 agents
 bash install.sh --career        les 7 skills de recherche d'emploi et de candidature
 bash install.sh --opportunity   les 9 skills d'idéation, de hackathon et de prospection
+bash install.sh --media         1 skill vidéo, démos et présentations de projet
 bash install.sh --all          tout
 bash install.sh --shared        les 2 skills transversaux seulement
 bash install.sh --agents        les 35 agents seulement
@@ -140,6 +142,7 @@ bash install.sh --group devops-skills     l'exploitation seule
 | `ideation` | 3 | opportunity |
 | `hackathons` | 3 | opportunity |
 | `business` | 3 | opportunity |
+| `media` | 1 | media |
 | `shared` | 2 | shared |
 
 Tout se combine, et le résultat est dédoublonné :
@@ -197,6 +200,7 @@ security-core          security
 research-core          research
 career-core            career
 opportunity-core       opportunity
+video-core             media
 ```
 
 Pour ceux-là, copier le répertoire revient au même :
@@ -355,8 +359,9 @@ comptés :
 | `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
+| `--media` | 3 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 176 | 35 |
+| `--all` | 177 | 35 |
 | `--agents` | 0 | 35 |
 
 `~/.claude/skills` est partagé. Il contient tous vos skills, pas seulement ceux
