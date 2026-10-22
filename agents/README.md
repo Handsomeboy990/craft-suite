@@ -1,6 +1,6 @@
 # agents
 
-Thirty-five specialised agent definitions for an agent runtime that supports
+Thirty-six specialised agent definitions for an agent runtime that supports
 subagents, such as Claude Code.
 
 An agent here is a role with a narrow responsibility. It is thin by design:
@@ -19,7 +19,7 @@ Agent   who owns this piece of work, what they may touch, what they hand on
 Duplicating a skill's content into an agent produces two documents that drift.
 Every agent below references the skills it uses and never restates them.
 
-## The thirty-five
+## The thirty-six
 
 | Agent | Owns | Primary skills |
 |---|---|---|
@@ -58,6 +58,7 @@ Every agent below references the skills it uses and never restates them.
 | `delivery-manager` | the schedule and the deadline, pace kept without cutting a gate | delivery-planning, scope-and-change-control, task-complexity |
 | `codebase-cartographer` | the durable, commit-stamped map of the codebase, never trusted stale | codebase-mapping, project-exploration |
 | `community-manager` | what a brand says and how it is carried onto its social channels, drafted and handed over, never published | editorial-line, social-content |
+| `video-producer` | a project video from brief to handover, with the owner's permission, never published | video-core, video-scripting, screen-capture, voice-over, video-assembly, video-delivery |
 
 ## Structure
 
@@ -125,6 +126,8 @@ codebase-cartographer  -> checkup and source-of-truth, which start from its map
 community-manager      -> the reviewer and approver of the editorial line's
                           review rule, never itself; design-director for every
                           visual question and any conflict with the identity
+video-producer         -> the project's owner for review and publication;
+                          design-director when the identity is unsettled
 ```
 
 ## Handoff

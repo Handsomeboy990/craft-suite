@@ -114,7 +114,7 @@ for d in writing documents engineering shared documentation tests config \
          writing/resources writing/examples agents \
          agents/core agents/development agents/design agents/security \
          agents/testing agents/documentation agents/devops \
-         agents/research agents/communication; do
+         agents/research agents/communication agents/media; do
   [ -d "$ROOT/$d" ] || fail "missing expected directory: $d"
 done
 for f in writing/README.md documents/README.md engineering/README.md \
