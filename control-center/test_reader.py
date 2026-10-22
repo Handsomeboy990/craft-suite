@@ -722,6 +722,44 @@ check("last dispatch recorded per agent",
       u["agent_last_dispatched"].get("qa-engineer", "").startswith("2026-02-01T09:00"))
 
 
+def build_repo(root):
+    os.makedirs(os.path.join(root, "agents", "core"))
+    for name in ("checkup", "README"):
+        open(os.path.join(root, "agents", "core", name + ".md"), "w").close()
+    open(os.path.join(root, "agents", "handoff-protocol.md"), "w").close()
+    for rel in ("media/video-core", "engineering/dev-skills/api-design",
+                "plugins/media/skills/video-core", "x/node_modules/pkg"):
+        os.makedirs(os.path.join(root, rel))
+        open(os.path.join(root, rel, "SKILL.md"), "w").close()
+
+
+with tempfile.TemporaryDirectory() as repo_root:
+    original = reader.REPO_DIR
+    reader.REPO_DIR = repo_root
+    try:
+        missing = reader.read_repository()
+        build_repo(repo_root)
+        absent_marker = reader.read_repository()
+        for f in ("AGENTS.md", "install.sh"):
+            open(os.path.join(repo_root, f), "w").close()
+        repo = reader.read_repository()
+    finally:
+        reader.REPO_DIR = original
+check("repository: not found without its markers", missing["found"] is False and absent_marker["found"] is False)
+check("repository: skills from the trees, plugins and dependencies skipped",
+      sorted(s["name"] for s in repo["skills"]) == ["api-design", "video-core"])
+check("repository: each skill names its tree",
+      {s["name"]: s["tree"] for s in repo["skills"]} == {"api-design": "engineering", "video-core": "media"})
+check("repository: agents without the README and the protocol", repo["agents"] == ["checkup"])
+drift = reader.compare_installation(
+    {"skills": [{"name": "video-core"}, {"name": "playwright-cli"}], "agents": ["checkup", "old-agent"]}, repo)
+check("drift: missing and extra, both ways",
+      drift["missing_skills"] == ["api-design"] and drift["extra_skills"] == ["playwright-cli"]
+      and drift["missing_agents"] == [] and drift["extra_agents"] == ["old-agent"])
+check("drift: not comparable without a repository",
+      reader.compare_installation({}, {"found": False}) == {"comparable": False})
+
+
 if __name__ == "__main__":
     print("%d passed, %d failed" % (PASS, FAIL))
     sys.exit(1 if FAIL else 0)

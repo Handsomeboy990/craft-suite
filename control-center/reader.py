@@ -879,12 +879,68 @@ def read_config():
     return {"present": True, "path": CONFIG_FILE, "fields": fields}
 
 
+REPO_DIR = os.environ.get(
+    "CRAFT_SUITE_REPO", os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+)
+
+
+def read_repository():
+    """The suite's own skills and agents, from its repository, when found.
+
+    The Control Center ships inside the repository, so its parent directory is
+    the repository unless CRAFT_SUITE_REPO says otherwise. It is recognised by
+    AGENTS.md and install.sh at its root; anywhere else this returns found
+    False and the interface says it cannot compare, rather than comparing
+    against nothing. Generated plugin bundles and dependencies are skipped, so
+    a skill counts once, from its tree.
+    """
+    root = REPO_DIR
+    if not (os.path.isfile(os.path.join(root, "AGENTS.md"))
+            and os.path.isfile(os.path.join(root, "install.sh"))):
+        return {"found": False, "path": root, "skills": [], "agents": []}
+    skills = []
+    for dirpath, dirnames, filenames in os.walk(root):
+        dirnames[:] = [d for d in dirnames
+                       if d not in ("plugins", "node_modules", ".git", ".next", "dist")]
+        if "SKILL.md" in filenames:
+            rel = os.path.relpath(dirpath, root)
+            skills.append({"name": os.path.basename(dirpath), "tree": rel.split(os.sep)[0]})
+    agents = sorted(
+        os.path.basename(p)[:-3]
+        for p in glob.glob(os.path.join(root, "agents", "*", "*.md"))
+        if os.path.basename(p) not in ("README.md", "handoff-protocol.md"))
+    skills.sort(key=lambda x: (x["tree"], x["name"]))
+    return {"found": True, "path": root, "skills": skills, "agents": agents}
+
+
+def compare_installation(installed, repository):
+    """What the repository holds that this machine has not installed, and the
+    reverse. Names only; nothing is installed or removed from here."""
+    if not repository.get("found"):
+        return {"comparable": False}
+    have_skills = {s["name"] for s in installed.get("skills", [])}
+    have_agents = set(installed.get("agents", []))
+    repo_skills = {s["name"] for s in repository["skills"]}
+    repo_agents = set(repository["agents"])
+    return {
+        "comparable": True,
+        "missing_skills": sorted(repo_skills - have_skills),
+        "missing_agents": sorted(repo_agents - have_agents),
+        "extra_skills": sorted(have_skills - repo_skills),
+        "extra_agents": sorted(have_agents - repo_agents),
+    }
+
+
 def collect():
     """The full data object the server serves and the report prints."""
+    installed = read_installed()
+    repository = read_repository()
     return {
         "generated_at": datetime.datetime.now().isoformat(timespec="seconds"),
         "usage": read_transcripts(),
-        "installed": read_installed(),
+        "installed": installed,
+        "repository": repository,
+        "installation_drift": compare_installation(installed, repository),
         "config": read_config(),
         "notes": {
             "token_source": "real usage figures recorded in local transcripts",
