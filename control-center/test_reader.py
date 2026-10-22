@@ -626,18 +626,100 @@ sess = {s["id"]: s for s in u["sessions"]}
 check("subagent files: only the known session is created", list(sess) == ["s1"])
 check("subagent files: count attributed to the dispatching session",
       sess["s1"]["agent_dispatches"]["sidechain_records"] == 3)
-# The scope decision, pinned: these files are read for the count and for
-# nothing else. Folding their usage into the token and message figures would
-# silently change the meaning of every existing number in the dashboard.
-check("subagent files: session token figures unchanged",
-      sess["s1"]["tokens_out"] == 20 and sess["s1"]["tokens_in"] == 10)
-check("subagent files: session message count unchanged",
+# The scope decision, pinned. Until 2026-10-22 these files fed only the
+# record count, and every consumption figure left out the agents' share. The
+# redesign (docs/control-center-redesign-spec.md) counts their usage in the
+# dispatching session, keeps the session's own message count apart, and adds
+# the agents' messages as their own figure.
+check("subagent files: session tokens include the agents' usage",
+      sess["s1"]["tokens_out"] == 20 + 9000 + 1 and sess["s1"]["tokens_in"] == 10 + 7000 + 1)
+check("subagent files: session message count stays the session's own",
       sess["s1"]["messages"] == 1)
-check("subagent files: aggregate output tokens unchanged",
-      u["totals"]["output_tokens"] == 20)
+check("subagent files: agent messages counted apart",
+      sess["s1"]["agent_messages"] == 2 and sess["s1"]["agent_tokens_out"] == 9001)
+check("subagent files: aggregate output tokens include the agents",
+      u["totals"]["output_tokens"] == 9021 and u["totals"]["agent_assistant_messages"] == 2)
 report_sub = capture_report(build_subagent_files)
 check("subagent files: the report shows the real count, not 'none recorded'",
       _field(report_sub, "Sidechain records") == "4")
+
+
+# --------------------------------------------------------------------------
+# 20. The redesign's data: the usage cube, the real model of a subagent, the
+# meta file read for two keys only, and the repository comparison.
+# --------------------------------------------------------------------------
+META_SECRET = "sk-meta-description-must-never-be-read-0042"
+
+
+def write_meta(root, project, session_id, agent_file, meta):
+    d = os.path.join(root, project, session_id, "subagents")
+    os.makedirs(d, exist_ok=True)
+    with open(os.path.join(d, agent_file + ".meta.json"), "w") as fh:
+        json.dump(meta, fh)
+
+
+def build_cube(root):
+    write_fixture(root, "proj", "s1", [
+        _assistant("s1", "2026-02-01T09:00:00Z", model="claude-opus-5-5",
+                   usage={"input_tokens": 5, "output_tokens": 50,
+                          "cache_read_input_tokens": 1000, "cache_creation_input_tokens": 200},
+                   content=[_dispatch_block(subagent_type="qa-engineer")]),
+        _assistant("s1", "2026-02-02T09:00:00Z", model="claude-opus-5-5",
+                   usage={"input_tokens": 1, "output_tokens": 10}),
+    ])
+    write_subagent_fixture(root, "proj", "s1", "agent-q1", [
+        _assistant("s1", "2026-02-01T09:05:00Z", isSidechain=True, model="claude-sonnet-5-5",
+                   usage={"input_tokens": 3, "output_tokens": 300,
+                          "cache_read_input_tokens": 4000, "cache_creation_input_tokens": 100}),
+    ])
+    write_meta(root, "proj", "s1", "agent-q1",
+               {"agentType": "qa-engineer", "model": "sonnet", "description": META_SECRET,
+                "toolUseId": "toolu_x"})
+    # A subagent transcript with no meta file: counted, as unattributed.
+    write_subagent_fixture(root, "proj", "s1", "agent-nometa", [
+        _assistant("s1", "2026-02-01T09:06:00Z", isSidechain=True, model="claude-haiku-5-5",
+                   usage={"input_tokens": 1, "output_tokens": 7}),
+    ])
+    # A meta file whose agentType is not a string names no agent.
+    write_subagent_fixture(root, "proj", "s1", "agent-bad", [
+        _assistant("s1", "2026-02-01T09:07:00Z", isSidechain=True, model="claude-haiku-5-5",
+                   usage={"input_tokens": 1, "output_tokens": 2}),
+    ])
+    write_meta(root, "proj", "s1", "agent-bad", {"agentType": {"x": META_SECRET}})
+    # An orphan agent transcript: in the totals and the cube, in no session.
+    write_subagent_fixture(root, "proj", "s-gone", "agent-o1", [
+        _assistant("s-gone", "2026-02-03T09:00:00Z", isSidechain=True, model="claude-opus-5-5",
+                   usage={"input_tokens": 2, "output_tokens": 20}),
+    ])
+
+
+u = read_with_fixture(build_cube)
+cube = u["usage_cube"]
+check("cube: output sums to the totals", sum(c["output"] for c in cube) == u["totals"]["output_tokens"] == 50 + 10 + 300 + 7 + 2 + 20)
+check("cube: cache kinds kept apart",
+      sum(c["cache_read"] for c in cube) == 5000 and sum(c["cache_write"] for c in cube) == 300)
+check("cube: input kept apart", sum(c["input"] for c in cube) == 5 + 1 + 3 + 1 + 1 + 2)
+main_cells = [c for c in cube if c["agent"] is None]
+check("cube: the session's own usage has no agent", sum(c["output"] for c in main_cells) == 60)
+qa = [c for c in cube if c["agent"] == "qa-engineer"]
+check("cube: an agent cell carries the model it ran on, not the one requested",
+      len(qa) == 1 and qa[0]["model"] == "claude-sonnet-5-5" and qa[0]["project"] == "fixture-project")
+check("cube: one cell per day", sorted({c["day"] for c in main_cells}) == ["2026-02-01", "2026-02-02"])
+check("cube: an orphan is counted with no project",
+      any(c["project"] is None and c["output"] == 20 for c in cube) and u["orphan_agent_messages"] == 1)
+agents = {a["agent"]: a for a in u["agent_usage"]}
+check("agents: real models from the transcript",
+      agents["qa-engineer"]["models"] == [["claude-sonnet-5-5", 1]] or agents["qa-engineer"]["models"] == [("claude-sonnet-5-5", 1)])
+check("agents: the requested model is kept beside it",
+      [tuple(x) for x in agents["qa-engineer"]["requested"]] == [("sonnet", 1)])
+# Three transcripts carry no usable agent type: the one with no meta file, the
+# one whose agentType is not a string, and the orphan, which has no meta file.
+check("agents: a transcript with no usable meta is unattributed",
+      agents["unattributed"]["transcripts"] == 3 and agents["unattributed"]["output"] == 7 + 2 + 20)
+check("agents: last use recorded", agents["qa-engineer"]["last"].startswith("2026-02-01T09:05"))
+check("meta: the description never reaches the output", META_SECRET not in json.dumps(u))
+check("last dispatch recorded per agent",
+      u["agent_last_dispatched"].get("qa-engineer", "").startswith("2026-02-01T09:00"))
 
 
 if __name__ == "__main__":

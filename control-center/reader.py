@@ -209,6 +209,65 @@ def _agent_dispatch_from_input(name, inp):
     return agent, model
 
 
+_MODEL_LABELS = {}
+
+
+def _model_label(raw):
+    """_safe_label for a model name, remembered per raw value.
+
+    A transcript repeats the same few model names on tens of thousands of
+    records, and cleaning each one character by character dominated the read
+    time; the result for a given string never changes.
+    """
+    if not isinstance(raw, str) or not raw or raw == "<synthetic>":
+        return None
+    label = _MODEL_LABELS.get(raw)
+    if label is None and raw not in _MODEL_LABELS:
+        label = _safe_label(raw)
+        if len(_MODEL_LABELS) < 1000:
+            _MODEL_LABELS[raw] = label
+    return label
+
+
+def _usage_kinds(usage):
+    """(input, cache write, cache read, output) from a usage block, as ints.
+
+    The four kinds are priced differently and mean different things, so they
+    are kept apart from the first record onwards and never merged into a
+    single "tokens" figure until a reader asks for one. A missing or malformed
+    count is a zero, which is what the record shows.
+    """
+    if not isinstance(usage, dict):
+        return 0, 0, 0, 0
+
+    def num(key):
+        value = usage.get(key)
+        return int(value) if isinstance(value, (int, float)) and value > 0 else 0
+
+    return (num("input_tokens"), num("cache_creation_input_tokens"),
+            num("cache_read_input_tokens"), num("output_tokens"))
+
+
+def _subagent_meta(transcript_path):
+    """(agent type, requested model) from a subagent transcript's meta file.
+
+    The runtime writes agent-<id>.meta.json beside agent-<id>.jsonl. Like a
+    dispatch call, it also carries a free-text description, which can hold
+    anything the user typed, so exactly two keys are read and nothing else:
+    agentType and model, both through _safe_label. A missing or unreadable
+    meta file names no agent; its usage is still counted, as "unattributed".
+    """
+    meta_path = transcript_path[:-len(".jsonl")] + ".meta.json"
+    try:
+        with open(meta_path, "r", errors="replace") as fh:
+            meta = json.load(fh)
+    except (OSError, ValueError):
+        return None, None
+    if not isinstance(meta, dict):
+        return None, None
+    return _safe_label(meta.get("agentType")), _safe_label(meta.get("model"))
+
+
 def read_transcripts():
     """Aggregate the real figures from every transcript. Returns a dict.
 
@@ -232,6 +291,22 @@ def read_transcripts():
     agent_dispatch_models = Counter()
     agent_dispatch_total = 0
     sidechain_records = 0
+    # The usage cube: every assistant message, from a session or from a
+    # subagent, summed by day, session, model and agent (None for the session
+    # itself), with the four token kinds apart. Every consumption figure the
+    # interface shows is a sum over this cube, so the totals, the per-day,
+    # per-project, per-model and per-agent views agree by construction.
+    cube = defaultdict(lambda: [0, 0, 0, 0, 0])
+    agent_usage = {}
+    orphan_agent_messages = 0
+    skill_last = {}
+    agent_last = {}
+
+    def add_usage(day, sid, model, agent, kinds):
+        cell = cube[(day, sid, model, agent)]
+        for i, value in enumerate(kinds):
+            cell[i] += value
+        cell[4] += 1
     # per_project is aggregated from the finished sessions after the loop, by
     # session identity; per_day is aggregated per record here.
     per_day = defaultdict(lambda: {"tokens_in": 0, "fresh_in": 0, "tokens_out": 0,
@@ -243,6 +318,7 @@ def read_transcripts():
         "cache_read_tokens": 0,
         "cache_creation_tokens": 0,
         "assistant_messages": 0,
+        "agent_assistant_messages": 0,
         "user_messages": 0,
     }
 
@@ -312,6 +388,8 @@ def read_transcripts():
                         "agent_dispatches": Counter(),
                         "agent_dispatch_models": Counter(),
                         "sidechain_records": 0,
+                        "agent_messages": 0,
+                        "agent_tokens_out": 0,
                     }
                 if sid:
                     s = sessions[sid]
@@ -346,11 +424,8 @@ def read_transcripts():
                         models[model] += 1
                         if sid:
                             sessions[sid]["models"][model] += 1
-                    usage = msg.get("usage") or {}
-                    ti = int(usage.get("input_tokens") or 0)
-                    to = int(usage.get("output_tokens") or 0)
-                    cr = int(usage.get("cache_read_input_tokens") or 0)
-                    cc = int(usage.get("cache_creation_input_tokens") or 0)
+                    ti, cc, cr, to = _usage_kinds(msg.get("usage"))
+                    add_usage(day, sid, _model_label(model), None, (ti, cc, cr, to))
                     totals["input_tokens"] += ti
                     totals["output_tokens"] += to
                     totals["cache_read_tokens"] += cr
@@ -395,12 +470,17 @@ def read_transcripts():
                                 sname = inp.get("skill")
                                 if sname:
                                     skills[str(sname)] += 1
+                                    sname_label = _safe_label(sname)
+                                    if sname_label and ts and (sname_label not in skill_last or ts > skill_last[sname_label]):
+                                        skill_last[sname_label] = ts
                             dispatch = _agent_dispatch_from_input(tname, inp)
                             if dispatch:
                                 d_agent, d_model = dispatch
                                 agent_dispatches[d_agent] += 1
                                 agent_dispatch_models[d_model] += 1
                                 agent_dispatch_total += 1
+                                if ts and (d_agent not in agent_last or ts > agent_last[d_agent]):
+                                    agent_last[d_agent] = ts
                                 if sid:
                                     sessions[sid]["agent_dispatch_total"] += 1
                                     sessions[sid]["agent_dispatches"][d_agent] += 1
@@ -408,26 +488,34 @@ def read_transcripts():
 
     # A dispatched agent writes its own transcript one level deeper than the
     # session transcripts, under <project>/<sessionId>/subagents/, so the
-    # "*/*.jsonl" scan above never sees a single one of those records. Without
-    # this pass the sidechain count is not a measured zero but an unlooked-for
-    # one, and reporting it as "none recorded" would state that no dispatched
-    # work produced messages while the evidence sits on disk unread.
+    # "*/*.jsonl" scan above never sees those records.
     #
-    # These files are read for one purpose: counting the records that
-    # dispatched work produced. They are deliberately not folded into the
-    # token, tool, model and session figures, which are defined over the
-    # session transcripts; folding them in would silently change the meaning
-    # of every existing number. Each record carries its dispatching session's
-    # id, so the evidence lands on the session that asked for it. A record is
-    # written to one file or the other, never both, so the inline check in the
-    # main loop and this pass do not count the same record twice.
+    # Their usage is consumption like any other, and since the redesign agreed
+    # on 2026-10-22 (docs/control-center-redesign-spec.md) it is counted: in
+    # the totals, the per-day and per-model figures, the dispatching session
+    # and its project, and the per-agent view, with the model the subagent
+    # actually ran on. Before that decision these files only fed a record
+    # count, and every consumption figure left out the agents' share of the
+    # work. Tool evidence for the advisor stays per session: a subagent's own
+    # file reads and commands are not folded into its parent's findings.
+    #
+    # Each record carries its dispatching session's id. A record is written to
+    # one file or the other, never both, so nothing is counted twice.
     sidechain_pattern = os.path.join(PROJECTS_DIR, "*", "*", "subagents", "*.jsonl")
     for path in sorted(glob.glob(sidechain_pattern)):
+        agent_type, requested = _subagent_meta(path)
+        agent = agent_type or "unattributed"
         try:
             fh = open(path, "r", errors="replace")
         except OSError:
             continue
         with fh:
+            entry = agent_usage.setdefault(agent, {
+                "transcripts": 0, "messages": 0, "kinds": [0, 0, 0, 0],
+                "models": Counter(), "requested": Counter(), "last": None})
+            entry["transcripts"] += 1
+            if requested:
+                entry["requested"][requested] += 1
             for line in fh:
                 line = line.strip()
                 if not line:
@@ -442,11 +530,52 @@ def read_transcripts():
                 sub_sid = rec.get("sessionId")
                 if not isinstance(sub_sid, str):
                     sub_sid = None
+                known = sub_sid in sessions if sub_sid else False
                 # Only a session the main scan actually saw can carry the
                 # count. An orphan subagent transcript still counts in the
                 # total, where it is true, and nowhere else.
-                if sub_sid and sub_sid in sessions:
+                if known:
                     sessions[sub_sid]["sidechain_records"] += 1
+                if rec.get("type") != "assistant":
+                    continue
+                msg = rec.get("message")
+                if not isinstance(msg, dict):
+                    continue
+                ts = _parse_ts(rec.get("timestamp"))
+                day = ts.date().isoformat() if ts else None
+                model = _model_label(msg.get("model"))
+                ti, cc, cr, to = _usage_kinds(msg.get("usage"))
+                totals["input_tokens"] += ti
+                totals["output_tokens"] += to
+                totals["cache_read_tokens"] += cr
+                totals["cache_creation_tokens"] += cc
+                totals["agent_assistant_messages"] += 1
+                if model:
+                    models[model] += 1
+                    entry["models"][model] += 1
+                for i, value in enumerate((ti, cc, cr, to)):
+                    entry["kinds"][i] += value
+                entry["messages"] += 1
+                if ts and (entry["last"] is None or ts > entry["last"]):
+                    entry["last"] = ts
+                if day:
+                    per_day[day]["tokens_in"] += ti + cr + cc
+                    per_day[day]["fresh_in"] += ti
+                    per_day[day]["tokens_out"] += to
+                if known:
+                    s = sessions[sub_sid]
+                    s["tokens_in"] += ti + cr + cc
+                    s["tokens_out"] += to
+                    s["cache_read"] += cr
+                    s["cache_creation"] += cc
+                    s["agent_messages"] += 1
+                    s["agent_tokens_out"] += to
+                    if model:
+                        s["models"][model] += 1
+                    add_usage(day, sub_sid, model, agent, (ti, cc, cr, to))
+                else:
+                    orphan_agent_messages += 1
+                    add_usage(day, None, model, agent, (ti, cc, cr, to))
 
     # Shape sessions for output, newest first by last activity. The evidence
     # block carries only real counts; the advisor turns them into findings.
@@ -488,6 +617,8 @@ def read_transcripts():
             "cache_read": s["cache_read"],
             "cache_creation": s["cache_creation"],
             "messages": s["messages"],
+            "agent_messages": s["agent_messages"],
+            "agent_tokens_out": s["agent_tokens_out"],
             "tool_calls": sum(s["tools"].values()),
             "tool_types": len(s["tools"]),
             "top_tools": s["tools"].most_common(5),
@@ -585,6 +716,34 @@ def read_transcripts():
         ],
     }
 
+    project_of = {s["id"]: s["project"] for s in session_list}
+    folded = defaultdict(lambda: [0, 0, 0, 0, 0])
+    for (day, sid, model, agent), cell in cube.items():
+        key = (day, project_of.get(sid) if sid else None, model, agent)
+        target = folded[key]
+        for i, value in enumerate(cell):
+            target[i] += value
+    usage_cube = [
+        {"day": day, "project": project, "model": model, "agent": agent,
+         "input": c[0], "cache_write": c[1], "cache_read": c[2], "output": c[3],
+         "messages": c[4]}
+        for (day, project, model, agent), c in sorted(
+            folded.items(), key=lambda kv: tuple("" if x is None else x for x in kv[0]))
+    ]
+    agents_out = []
+    for name, e in agent_usage.items():
+        agents_out.append({
+            "agent": name,
+            "transcripts": e["transcripts"],
+            "messages": e["messages"],
+            "input": e["kinds"][0], "cache_write": e["kinds"][1],
+            "cache_read": e["kinds"][2], "output": e["kinds"][3],
+            "models": e["models"].most_common(),
+            "requested": e["requested"].most_common(),
+            "last": e["last"].isoformat() if e["last"] else None,
+        })
+    agents_out.sort(key=lambda a: a["output"], reverse=True)
+
     return {
         "available": len(files) > 0,
         "transcript_files": len(files),
@@ -604,6 +763,13 @@ def read_transcripts():
             "by_model": agent_dispatch_models.most_common(AGENT_LIST_MAX),
             "sidechain_records": sidechain_records,
         },
+        # The redesign's data, added beside the figures above so the current
+        # page keeps working while it reads the corrected totals.
+        "usage_cube": usage_cube,
+        "agent_usage": agents_out[:AGENT_LIST_MAX],
+        "orphan_agent_messages": orphan_agent_messages,
+        "skill_last_used": {k: v.isoformat() for k, v in skill_last.items()},
+        "agent_last_dispatched": {k: v.isoformat() for k, v in agent_last.items()},
     }
 
 

@@ -102,6 +102,8 @@ future telemetry: `docs/control-center-evolution.md`.
 | Source | Produces | Honesty |
 |---|---|---|
 | session transcripts | sessions, tokens, models, tools, skill invocations, per-project and per-day breakdowns | real recorded figures; a transcript with no assistant records contributes zero, which is the truth |
+| subagent transcripts and their meta files | the agents' share of the consumption, the model each agent really ran on, its agent type | real recorded figures; only the agent type and the requested model are read from a meta file, never its description; a transcript with no usable meta is counted as unattributed |
+| the suite's repository, when found | the skills and agents the suite holds, compared with the installation | read from the repository's own trees; absent, no comparison is shown |
 | the skills directory | installed skills by category | a directory listing, not an assumption |
 | the agents directory | installed agents | the same |
 | the configuration file | the non-secret fields, for display | credential-shaped keys are dropped as defence in depth, though the file holds no secret by contract |
