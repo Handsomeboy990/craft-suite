@@ -73,7 +73,10 @@ reduced-motion result, and the handoff block.
 Every finding names where it is on the rendered page and, for a drift, what
 the approved design specified instead. The authenticity assessment is a
 cluster with the intentionality question attached, not a tally presented as a
-verdict. The reduced-motion check was run in a browser, not reasoned about.
+verdict. Each finding says how it was established, measured in the browser or
+read from a screenshot, so a visual reading is never presented as a
+measurement. The reduced-motion check was run in a browser, not reasoned
+about, on every kind of motion the page has, not only the first one found.
 
 ## Handoff
 

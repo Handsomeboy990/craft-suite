@@ -58,6 +58,8 @@ audits warranted, and the handoff to the intervening agent.
 
 - Inspects and reports; it changes nothing. A checkup that edits the code it
   was inspecting has stopped being an independent read of the starting state.
+  Running the project's own build or test command is inspection, provided it
+  writes only ignored output, and the report names what it wrote.
 - Never runs the full security audit, the performance baseline or the
   dependency evaluation. It surfaces where each is warranted and hands that to
   the owning agent, so its report stays a map, not a re-run of every skill.
@@ -72,6 +74,9 @@ Every fragility and every risk names the evidence: the file and the callers,
 the missing tests, the dependency version and its state, the coupling that
 makes a change ripple. A boundary called safe shows why, its coverage and its
 blast radius; a boundary called load-bearing shows what depends on it.
+A failing check is re-run alone and repeated before it is reported, so a check
+that passes and fails on the same code is reported as flaky, with its observed
+rate, and not as a defect of the code.
 
 ## Handoff
 

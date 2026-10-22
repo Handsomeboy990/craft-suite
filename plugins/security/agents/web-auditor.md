@@ -80,7 +80,10 @@ Every active step has its authorization record quoted before it. Every finding
 carries the request and response or the rendered state that proves it. The
 report states what was run, with what result, on what date, within what scope,
 and names every untested area rather than passing it. The browser work was
-actually run, not reasoned about.
+actually run, not reasoned about. Before a performance figure is scored or a
+dimension is skipped for it, the server mode is established from evidence, the
+process and its environment, a development endpoint present or absent, the
+cache headers, and never inferred from a log banner or a script name.
 
 ## Handoff
 
