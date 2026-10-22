@@ -12,8 +12,10 @@ voice-over and animation.
 | `motion-design` | titles, diagrams, zooms and transitions as Remotion compositions, safe and intended |
 | `voice-over` | narration in the configured voice: verified engine, lexicon, one clip per beat, measured |
 | `video-assembly` | the edit as a decision list, licensed music ducked, a measured mix, captions from the transcript |
+| `video-delivery` | exports per destination, shorts rebuilt at 9:16, every file probed, the gate, handover |
 
-Every skill of this tree loads `video-core` first. Its gate runs before any
+The pipeline runs in that order: script, capture, motion, voice, assembly,
+delivery. Every skill of this tree loads `video-core` first. Its gate runs before any
 video is handed over, and no video is published by an agent.
 
 ## Reference pipeline
