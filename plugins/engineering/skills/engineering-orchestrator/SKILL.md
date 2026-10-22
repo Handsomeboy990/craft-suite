@@ -4,7 +4,7 @@ description: Central routing layer for engineering work: classifies the request,
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.5.0
+  version: 1.6.0
   depends_on: [engineering-core, project-exploration]
   outputs: [task-classification, execution-plan, team-plan, verification-gates, completion-verdict]
 ---
