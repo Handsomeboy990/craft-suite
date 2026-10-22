@@ -13,13 +13,13 @@
 #   bash install.sh --research     general research, 5 skills and 2 agents
 #   bash install.sh --career       job search and applications, 7 skills
 #   bash install.sh --opportunity  ideation, hackathons, business, 9 skills
-#   bash install.sh --media        project demo and presentation videos, 7 skills
+#   bash install.sh --media        project demo and presentation videos, 7 skills and 1 agent
 #   bash install.sh --shared       the 2 cross domain skills only
-#   bash install.sh --all          everything, all skills and 35 agents
+#   bash install.sh --all          everything, all skills and 36 agents
 #   bash install.sh --group a,b    only these categories
 #   bash install.sh --skill a,b    only these skills, with their dependencies
 #   bash install.sh --list         print every installable skill and exit
-#   bash install.sh --agents       the 35 agents only
+#   bash install.sh --agents       the 36 agents only
 #   bash install.sh --no-agents    skills without agents
 #   bash install.sh --configure    ask for the user specific values only
 #   bash install.sh --control-center   start the local Control Center and exit
@@ -406,8 +406,9 @@ removable_skill_dirs() {
 # sequence. `researcher` and `data-collection-engineer` are research-only tools:
 # nothing in the engineering sequence dispatches them. `community-manager`
 # ships with documents, where both its skills live, `editorial-line` and
-# `social-content`; the engineering bundle carries neither. A domain with no
-# agent of its own (writing, career, opportunity) simply matches nothing here.
+# `social-content`; the engineering bundle carries neither. `video-producer`
+# ships with media, whose pipeline it owns. A domain with no agent of its own
+# (writing, career, opportunity) simply matches nothing here.
 agent_domains() {
   case "$1" in
     web-auditor)             printf 'security' ;;
@@ -416,6 +417,7 @@ agent_domains() {
     researcher)              printf 'research' ;;
     data-collection-engineer) printf 'research' ;;
     community-manager)       printf 'documents' ;;
+    video-producer)          printf 'media' ;;
     *)                       printf 'engineering' ;;
   esac
 }
@@ -427,6 +429,7 @@ domain_wanted() {
     security)    [ "$WANT_SECURITY" = "yes" ] ;;
     research)    [ "$WANT_RESEARCH" = "yes" ] ;;
     documents)   [ "$WANT_DOCUMENTS" = "yes" ] ;;
+    media)       [ "$WANT_MEDIA" = "yes" ] ;;
     *) return 1 ;;
   esac
 }
@@ -548,7 +551,7 @@ interactive_select() {
     printf '   6) Career                  %2s skills   job search, CV, interviews\n' "$career"
     printf '   7) Opportunity             %2s skills   ideation, hackathons, business\n' "$opportunity"
     printf '   8) Media                   %2s skills   project demo and presentation videos\n' "$media"
-    printf '   9) Everything             %3s skills   plus 35 agents\n' "$total"
+    printf '   9) Everything             %3s skills   plus 36 agents\n' "$total"
     printf '  10) Individual skills, chosen by name\n'
     printf '  11) One or more categories, for example genres only\n\n'
     printf 'Every choice also installs the 2 cross domain skills, self-critique and\n'
@@ -614,7 +617,8 @@ Skill names, separated by spaces: ')" || no_terminal
 
 # Agents install with the domain that owns them: engineering carries its
 # delivery team, security carries its own auditors, research carries its
-# researcher, documents carries its community manager. A cherry-picked skill
+# researcher, documents carries its community manager, media its video
+# producer. A cherry-picked skill
 # list is not a domain install, so it brings no agents unless --agents is
 # explicit.
 resolve_agents() {
@@ -624,7 +628,8 @@ resolve_agents() {
      && { [ "$WANT_ENGINEERING" = "yes" ] \
        || [ "$WANT_SECURITY" = "yes" ] \
        || [ "$WANT_RESEARCH" = "yes" ] \
-       || [ "$WANT_DOCUMENTS" = "yes" ]; }; then
+       || [ "$WANT_DOCUMENTS" = "yes" ] \
+       || [ "$WANT_MEDIA" = "yes" ]; }; then
     WITH_AGENTS="yes"
   else
     WITH_AGENTS="no"
