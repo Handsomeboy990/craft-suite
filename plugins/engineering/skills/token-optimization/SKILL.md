@@ -4,7 +4,7 @@ description: Reusable discipline for keeping context and token use proportional 
 license: MIT
 metadata:
   category: dev-skills
-  version: 1.1.0
+  version: 1.2.0
   depends_on: [engineering-core]
   outputs: [context-budget, decomposition-notes, reuse-notes]
 ---
@@ -116,6 +116,9 @@ Optimization here means proportion, not omission.
   excerpt; the path adds the full record, it does not replace the proof. The
   file sits where the receiver can read it, outside the committed tree when
   it is scratch, and holds no secret.
+- Tool output that must stay inline is compacted by its kind, keeping what
+  answers the question and counting what was dropped, and passed through
+  untouched when a filter fails: `resources/tool-output-compaction.md`.
 
 ## 6. What this skill does not do
 
