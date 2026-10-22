@@ -1,13 +1,13 @@
 # engineering
 
-Software engineering and project delivery. 87 skills in three categories, plus
+Software engineering and project delivery. 88 skills in three categories, plus
 34 specialised agents defined at the repository root in `agents/`.
 
 ## Categories
 
 | Category | Skills | Question it answers |
 |---|---|---|
-| [dev-skills](dev-skills/) | 60 | how a change is made correctly |
+| [dev-skills](dev-skills/) | 61 | how a change is made correctly |
 | [delivery-skills](delivery-skills/) | 11 | what to build, in what order, with what approval |
 | [devops-skills](devops-skills/) | 16 | how the system runs, deploys and restores |
 
@@ -126,7 +126,7 @@ directory layout or a hosting platform. Each reads the project it is given.
 ## Installation
 
 ```bash
-bash install.sh --dev         the 87 engineering skills and the 29 agents
+bash install.sh --dev         the 88 engineering skills and the 29 agents
 bash install.sh --agents      the 34 agents only
 bash install.sh --no-agents   skills without agents
 ```
