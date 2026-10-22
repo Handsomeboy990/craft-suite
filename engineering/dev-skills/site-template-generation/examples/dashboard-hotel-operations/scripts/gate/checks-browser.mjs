@@ -196,7 +196,16 @@ const D9 = {
       perAccount.push((await target.post('/api/admin/login', { identifier: gate.accounts.storekeeper, password: `wrong-${attempt}-password` })).status);
     }
     details.push(`six failures on one account from six addresses: ${perAccount.join(', ')}`);
-    if (statuses.slice(0, 5).some((status) => status !== 401) || statuses[5] !== 429 || blocked.status !== 429 || perAccount[5] !== 429) failures.push('the sign in is not limited');
+    // A client that writes its own entries in front of the one the proxy
+    // appended does not escape the per address limit.
+    const forger = new Client(gate.base);
+    const forged = [];
+    for (let attempt = 0; attempt < 6; attempt++) {
+      forger.address = `203.0.113.${attempt + 1}, 10.8.0.1`;
+      forged.push((await forger.post('/api/admin/login', { identifier: `nobody.${randomUUID()}@example.test`, password: 'wrong-password-123' })).status);
+    }
+    details.push(`six failed sign ins with a forged first entry before one proxy address: ${forged.join(', ')}`);
+    if (statuses.slice(0, 5).some((status) => status !== 401) || statuses[5] !== 429 || blocked.status !== 429 || perAccount[5] !== 429 || forged[5] !== 429) failures.push('the sign in is not limited');
     // Free the storekeeper again for the lines that follow.
     gate.db.prepare("DELETE FROM rate_limits WHERE key LIKE 'login:account:%'").run();
     return failures.length ? result('fail', [...failures, ...details]) : result('pass', details);
@@ -388,7 +397,10 @@ const D18 = {
     await page.evaluate(() => window.dispatchEvent(new Event('offline')));
     const banner = await page.locator('#offline-reason').textContent().catch(() => '');
     const button = page.getByRole('button', { name: /^Cancel, stay of/ }).first();
-    const disabled = await button.isDisabled();
+    // The list hydrates after the stream ends; give it time to react to the event.
+    const disabled = await page
+      .waitForFunction((element) => element.disabled, await button.elementHandle(), { timeout: 5000 })
+      .then(() => true, () => false);
     const reason = await button.getAttribute('aria-describedby');
     details.push(`service worker: ${worker}; offline banner "${banner}"`);
     details.push(`a row action while offline: disabled ${disabled}, described by #${reason}`);
@@ -484,8 +496,10 @@ const D20 = {
     const { context, page } = await signedInPage(gate, 'manager');
     for (const path of LISTS) {
       await page.goto(`${gate.base}${path}?arrivalFrom=any`);
+      // The loading skeleton is a table too; read the one that replaces it.
+      await page.locator('table.table:not(.table--skeleton)').first().waitFor({ timeout: 10000 }).catch(() => {});
       const facts = await page.evaluate(() => {
-        const table = document.querySelector('table.table');
+        const table = document.querySelector('table.table:not(.table--skeleton)');
         if (!table) return null;
         const headers = Array.from(table.querySelectorAll('thead th'));
         return {
@@ -593,6 +607,8 @@ const D23 = {
     const dir = screens(gate, 'D23');
     for (const path of ['/', '/stays?arrivalFrom=any', '/stock', '/ledger', '/stays/new', '/folios?status=overdue']) {
       await page.goto(`${gate.base}${path}`);
+      // Measure the page once its loading skeleton has been replaced.
+      await page.locator('[data-state="loading"]').first().waitFor({ state: 'detached', timeout: 10000 }).catch(() => {});
       const facts = await page.evaluate(() => {
         const small = [];
         for (const element of document.querySelectorAll('a, button, input, select, textarea, summary')) {
@@ -604,8 +620,8 @@ const D23 = {
           const box = element.type === 'checkbox' && element.closest('label') ? element.closest('label').getBoundingClientRect() : rect;
           if (box.height < 44 || box.width < 44) small.push(`${element.tagName.toLowerCase()} "${(element.getAttribute('aria-label') ?? element.textContent ?? '').trim().slice(0, 30)}" ${Math.round(rect.width)}x${Math.round(rect.height)}`);
         }
-        const wrap = document.querySelector('.table-wrap');
-        const first = document.querySelector('.table tbody tr > :first-child');
+        const wrap = document.querySelector('.table:not(.table--skeleton)')?.closest('.table-wrap') ?? null;
+        const first = document.querySelector('.table:not(.table--skeleton) tbody tr > :first-child');
         return {
           page: document.documentElement.scrollWidth,
           small,
@@ -615,7 +631,8 @@ const D23 = {
       });
       await page.screenshot({ path: join(dir, `${path.replace(/[^a-z]+/gi, '_')}.png`), fullPage: true });
       details.push(`${path}: page width ${facts.page}px, targets under 44px ${facts.small.length}${facts.small.length ? ` (${facts.small.slice(0, 4).join('; ')})` : ''}${facts.tableScrolls === null ? '' : `, table scrolls in its container ${facts.tableScrolls}, first column ${facts.sticky}`}`);
-      if (facts.page > 360 || facts.small.length || (facts.tableScrolls !== null && (!facts.tableScrolls || facts.sticky !== 'sticky'))) failures.push(`${path} fails at 360px`);
+      const listPage = !['/', '/stays/new'].includes(path);
+      if (facts.page > 360 || facts.small.length || (listPage && facts.tableScrolls === null) || (facts.tableScrolls !== null && (!facts.tableScrolls || facts.sticky !== 'sticky'))) failures.push(`${path} fails at 360px`);
     }
     await context.close();
     return failures.length ? result('fail', [...failures, ...details]) : result('pass', details);

@@ -128,7 +128,9 @@ one that reaches 7.39:1. That is what "dark is authored, not derived" means.
 Identical to the portfolio: everything the instance owns is in `data/`,
 `npm run backup` archives it, `DATA_DIR` moves it, the password hash lives in
 `data/admin.json`, the VAPID keys live in the environment, and a proxy must
-forward `x-forwarded-for` and `x-forwarded-proto`.
+forward `x-forwarded-for` and `x-forwarded-proto`. The rate limits read the
+address the proxy appended, `TRUSTED_PROXY_HOPS` places from the right (1 by
+default), never the first entry a client can write.
 
 ## Security, caching and operations
 

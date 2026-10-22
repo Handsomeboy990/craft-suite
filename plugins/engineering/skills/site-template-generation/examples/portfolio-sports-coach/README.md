@@ -137,10 +137,14 @@ None of them is in the repository, in the content file or in the bundle.
 
 ## Behind a proxy
 
-The rate limits key on the caller's address, read from `x-forwarded-for` and
-then `x-real-ip`. A deployment that terminates TLS in front of the site must set
-those headers, and must set `x-forwarded-proto`, which is what decides whether
-the session cookie carries `Secure`.
+The rate limits key on the caller's address. A client can write anything into
+`x-forwarded-for`, so the address is the entry `TRUSTED_PROXY_HOPS` places from
+the right, the one the last proxy appended: 1 by default, for one proxy, and
+the number of proxies in front of the site otherwise. Next.js only fills the
+header when it is absent, so a site exposed with no proxy cannot tell a forged
+address from a real one: put one in front. The proxy must also set
+`x-forwarded-proto`, which is what decides whether the session cookie carries
+`Secure`.
 
 ## Contrast, measured
 
