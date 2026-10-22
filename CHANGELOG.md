@@ -20,6 +20,20 @@ versions it never had.
 
 No manifest change: no skill or agent was added. Everything since 3.35.0.
 
+- Roadmap ticks (#102): the consolidated site code and the motion layer, both
+  already delivered, are marked done; the motion layer keeps its human pass
+  (screen reader, Firefox and WebKit, the `design-director` sign-off) for the
+  owner's end-of-work checks.
+- `overview.md` and `overview.fr.md` deflated (#104): the installation,
+  configuration and plugin sections link the canonical pages instead of
+  repeating them, and the validation section lists all six scripts.
+- French installation and configuration guides (#103):
+  `installation.fr.md` and `configuration.fr.md`, linked from every French
+  page, the French overview included. Stale counts corrected in passing:
+  `--dev` 87 skills and 29 agents, `--security` 3 agents, `--documents` its
+  agent, 173 skills in the configuration guides and the engineering README;
+  `validate-counts.sh` now checks the scoped installation list in both
+  languages.
 - The design-to-code handoff (#100):
   `design-system/resources/design-to-code-handoff.md`, the path ADR 0006
   decided from a validated brief to a delivered site, in eight gated steps

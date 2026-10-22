@@ -1,7 +1,60 @@
-# Continuity, 2026-10-04
+# Continuity, 2026-10-22
 
 State of the repository for whoever takes it over, human or agent. Written to
 `engineering/dev-skills/project-continuity/resources/continuity-template.md`.
+
+## Handover, 2026-10-22: where the work stopped
+
+Read this section first; the 2026-10-04 handover below is the record before
+it and stays true where this one does not override it.
+
+### State
+
+`dev` holds everything; no pull request is open, no branch carries unmerged
+work. Manifests 3.35.0, 173 skills, 34 agents. Merged since the last
+versioned entry: #100 (design-to-code handoff), #102 (roadmap ticks), #103
+(French installation and configuration guides), #104 (overviews deflated),
+all listed under Unreleased in `CHANGELOG.md`.
+
+### What remains, in order
+
+1. **Exercise the full agent layer** (roadmap phase 4), the only engineering
+   item left. Started on 2026-10-10 and stopped by a usage limit before
+   anything was pushed: nothing to recover, start fresh. Scope: run, for real,
+   the eight agents that have never run (`checkup`, `source-of-truth`,
+   `design-verification`, `compliance-verifier`, `web-auditor`, `pr-author`,
+   `pr-reviewer`, `final-verifier`) against the runnable
+   `engineering/dev-skills/site-template-generation/examples/dashboard-hotel-operations`
+   app on localhost (`npm install`, `npm run build`, `npm run gate`),
+   `checkup` first and `final-verifier` last, each respecting its boundaries
+   (a verifier never fixes; `pr-author` works on a local branch, reviewed by
+   `pr-reviewer`, never pushed as its own pull request; `web-auditor` audits
+   the local instance only). Deliverable: one report in `docs/reports/` with a
+   row per dispatch (role, task, tier per `agent-tiers.md`, inputs, outputs,
+   evidence, findings, handoffs, what the definition got wrong), findings on
+   the app listed with severity and file and line but not fixed in that pull
+   request, small fixes to the agent definitions allowed. No count change.
+2. **A worked run of one real brief** (phase 9, last item): needs a brief from
+   the owner (a client, a portfolio or the owner's own brand) and the canvas
+   mode the owner chooses; follow
+   `engineering/dev-skills/design-system/resources/design-to-code-handoff.md`.
+3. **The owner's own checks, kept for the very end**: a screen reader pass,
+   Firefox and WebKit (`npx playwright install` brings both locally), the
+   `design-director` sign-off of the motion set, the canvas sign-off and
+   `/design-sync` during the worked run. Parked by the owner: n8n end to end,
+   a second code owner.
+
+### Rules that held, and must keep holding
+
+- Commits as the owner, atomic, in English, no trailer, no mention of any
+  tool; the pull request body carries no footer, read back after creation.
+- `CHANGELOG.md`, `docs/ROADMAP.md` and this file are edited by one
+  integrator after the parallel branches land, never by the branches.
+- A change that adds a skill or an agent runs alone; anything else may run in
+  parallel on disjoint files.
+- Remove agent copies under `.claude/worktrees/` before running the six
+  scripts, or validate in a clean clone; never remove a copy an agent is
+  still using.
 
 ## Handover, 2026-10-04: phase 8 closing, phase 9 planned
 
