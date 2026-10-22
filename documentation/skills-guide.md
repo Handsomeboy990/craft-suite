@@ -1,6 +1,6 @@
 # Skills guide
 
-Directory of the 174 skills. One line each: what it does, and when to open it.
+Directory of the 175 skills. One line each: what it does, and when to open it.
 
 Every skill's own `README.md` carries its inputs, outputs, dependencies and
 configuration in four lines. This file is the index; the READMEs are the
@@ -24,6 +24,7 @@ contracts.
 | I am building an admin panel or back-office | `admin-console` |
 | I am building a feature on a language model | `llm-integration` |
 | I am building a model gateway, a provider adapter or a fallback chain | `llm-gateway-engineering` |
+| My installed app, CLI or plugin must update itself | `self-updating-software` |
 | My confirmation emails go to spam or never arrive | `email-deliverability` |
 | I want to know what happens when a provider fails | `reliability-testing` |
 | I have findings and need a report | `test-reporting` |
@@ -172,7 +173,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `editorial-line` | communication | audience, promise, pillars, vocabulary kept and refused, never said, formats, review rule |
 | `social-content` | communication | channel calendar, sourced formats per network, captions held to the line, moderation, measurement limits, publishing handover |
 
-## engineering, 88 skills
+## engineering, 89 skills
 
 ### dev-skills, 61
 
@@ -256,7 +257,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `launch-readiness` | the completeness gate for a user-facing web product before launch |
 | `client-handover` | the delivery package another team can take over |
 
-### devops-skills, 16
+### devops-skills, 17
 
 | Skill | What it does |
 |---|---|
@@ -271,6 +272,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `backup-recovery` | a backup is untested until a restore has been performed |
 | `production-verification` | proves a deployed system works, by exercising it |
 | `release-engineering` | versioning, tagging, changelog, rollout, hotfix path |
+| `self-updating-software` | in-app updates: signed manifest, atomic replace, rollback |
 | `infrastructure-as-code` | infrastructure in code, state, plans, drift |
 | `incident-response` | declaration to postmortem, mitigation before diagnosis |
 | `workflow-automation` | opt-in workflows through an external engine like n8n, connector never invented |

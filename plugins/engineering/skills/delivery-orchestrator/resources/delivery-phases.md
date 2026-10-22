@@ -142,10 +142,12 @@ people who built it.
 
 phase: 14
 name: release
-skills: release-engineering, release-readiness
+skills: release-engineering, self-updating-software, release-readiness
 gate: approval
 
 Versioning and rollout, then the go or no go verdict with named blockers.
+`self-updating-software` runs only when the product updates itself on
+machines its makers do not control.
 
 ## Sizing
 

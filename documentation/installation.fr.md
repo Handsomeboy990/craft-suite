@@ -39,12 +39,12 @@ bash install.sh
 ```
    1) Creative writing        42 skills   romans, poésie, scénario, édition
    2) Professional documents   9 skills   guides, manuels, rapports, lettres, PDF
-   3) Software engineering    88 skills   plus 29 agents
+   3) Software engineering    89 skills   plus 29 agents
    4) Cybersecurity           12 skills   modèles de menace, audits, durcissement
    5) Research                 5 skills   sources, vérification, synthèse
    6) Career                   7 skills   recherche d'emploi, CV, entretiens
    7) Opportunity              9 skills   idéation, hackathons, prospection
-   8) Everything             174 skills   plus 34 agents
+   8) Everything             175 skills   plus 34 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -63,7 +63,7 @@ complète.
 ```bash
 bash install.sh --writing      les 42 skills d'écriture créative
 bash install.sh --documents     les 9 skills de documents professionnels et 1 agent
-bash install.sh --dev          88 skills d'ingénierie et 29 agents
+bash install.sh --dev          89 skills d'ingénierie et 29 agents
 bash install.sh --security     12 skills de sécurité défensive et 3 agents
 bash install.sh --research      5 skills de recherche générale et 2 agents
 bash install.sh --career        les 7 skills de recherche d'emploi et de candidature
@@ -132,7 +132,7 @@ bash install.sh --group devops-skills     l'exploitation seule
 | `communication` | 2 | documents |
 | `dev-skills` | 61 | engineering |
 | `delivery-skills` | 11 | engineering |
-| `devops-skills` | 16 | engineering |
+| `devops-skills` | 17 | engineering |
 | `secure-development` | 9 | security |
 | `security-assurance` | 3 | security |
 | `research` | 5 | research |
@@ -350,13 +350,13 @@ comptés :
 |---|---|---|
 | `--writing` | 44 | 0 |
 | `--documents` | 11 | 1 |
-| `--dev` | 90 | 29 |
+| `--dev` | 91 | 29 |
 | `--security` | 18 | 3 |
 | `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 174 | 34 |
+| `--all` | 175 | 34 |
 | `--agents` | 0 | 34 |
 
 `~/.claude/skills` est partagé. Il contient tous vos skills, pas seulement ceux

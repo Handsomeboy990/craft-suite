@@ -104,7 +104,7 @@ write dispatch, whatever this column says.
 | `technical-documentation` | `documentation-engineer` | write |
 | `project-continuity` | the wave's named integrator: the note is a hot file | write, serial |
 | `git-workflow` | each write dispatch commits on its own branch; `pr-author` opens the pull request | write |
-| `release-readiness`, `release-engineering`, `feature-flags` rollout | `release-engineer` | write |
+| `release-readiness`, `release-engineering`, `self-updating-software`, `feature-flags` rollout | `release-engineer` | write |
 | `launch-readiness` | `compliance-verifier`, at phase 11 of a user-facing web product | read; fixes go back to the owner |
 | `devops-core`, `infrastructure-as-code`, `environment-management`, `secrets-management`, `deployment-engineering`, `observability` | `devops-engineer` | write |
 | `ci-cd-pipelines` | `ci-cd-engineer` | write |
