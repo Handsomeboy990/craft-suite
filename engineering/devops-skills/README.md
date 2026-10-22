@@ -1,6 +1,6 @@
 # devops-skills
 
-Operations system. Sixteen skills covering how a system is provisioned,
+Operations system. Seventeen skills covering how a system is provisioned,
 configured, built, deployed, observed, recovered, released, and repaired when
 it breaks.
 
@@ -40,6 +40,7 @@ constitution applies to every file: no emoji, no em dash.
 | `backup-recovery` | a backup is untested until a restore has been performed |
 | `production-verification` | proving the deployed system works by exercising it |
 | `release-engineering` | versioning, tagging, changelog, rollout, hotfix path |
+| `self-updating-software` | an installed product that replaces itself without ever breaking |
 | `incident-response` | declaration to postmortem, mitigation before diagnosis |
 
 ### Automate
@@ -86,6 +87,7 @@ Observability exists before the first production deployment
 | `infrastructure-as-code` | applying a plan nobody read |
 | `incident-response` | debugging before mitigating, or naming a person as a cause |
 | `release-engineering` | a breaking change released as a minor version |
+| `self-updating-software` | an update path that can leave neither version installed |
 | `workflow-automation` | inventing a connector that was never configured, or a credential inside a workflow definition |
 | `tls-certificates` | a private key that reaches a repository, a log, an image layer or printed output |
 | `email-deliverability` | reporting a domain as deliverable without the published records checked |
