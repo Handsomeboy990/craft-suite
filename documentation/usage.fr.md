@@ -165,7 +165,7 @@ n'est pas la même chose que d'être oubliée.
 ## 7. Les agents, et quand ne pas s'en servir
 
 Les définitions d'agents de `~/.claude/agents` sont des rôles pour un runtime
-qui accepte des sous-agents. Le dépôt en compte 35 ; `--dev` en installe 30,
+qui accepte des sous-agents. Le dépôt en compte 36 ; `--dev` en installe 30,
 `--security` trois, `--research` deux et `--documents` un, donc le nombre que
 vous avez dépend de la portée choisie.
 Deux règles les gouvernent toutes :
@@ -236,10 +236,10 @@ Ce que chaque portée doit afficher, les deux skills communs déjà comptés :
 | `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
-| `--media` | 9 | 0 |
+| `--media` | 9 | 1 |
 | `--shared` | 2 | 0 |
-| `--all` | 183 | 35 |
-| `--agents` | 0 | 35 |
+| `--all` | 183 | 36 |
+| `--agents` | 0 | 36 |
 
 `~/.claude/skills` est partagé. Il contient tous vos skills, pas seulement ceux
 de cette suite : un skill installé ailleurs s'y trouve à côté, et claude.ai

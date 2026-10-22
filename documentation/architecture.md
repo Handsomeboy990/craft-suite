@@ -3,7 +3,7 @@
 ## Overview
 
 The Craft Suite is a library of 183 skills in nineteen groups across
-nine trees, plus thirty-five agents, shared resources, the configuration contract,
+nine trees, plus thirty-six agents, shared resources, the configuration contract,
 an optional local dashboard, per-domain plugins, documentation, a demonstration
 project and validation scripts. The repository was called
 `claude-writer-suite` until 3.0.0.
@@ -34,7 +34,7 @@ craft-suite/
 │   ├── dev-skills/        62
 │   ├── delivery-skills/   11
 │   └── devops-skills/     17
-├── agents/                35 role definitions, repository wide
+├── agents/                36 role definitions, repository wide
 │   ├── core/              11
 │   ├── development/        6
 │   ├── design/             4
@@ -43,7 +43,8 @@ craft-suite/
 │   ├── documentation/      1
 │   ├── devops/             4
 │   ├── research/           2
-│   └── communication/      1
+│   ├── communication/      1
+│   └── media/              1
 ├── security/              12 skills
 │   ├── secure-development/ 9
 │   └── security-assurance/ 3
@@ -147,7 +148,7 @@ Three layers, kept apart.
 
 | Layer | Value |
 |---|---|
-| Skill language | English, all 183 skills and all 35 agents |
+| Skill language | English, all 183 skills and all 36 agents |
 | System language | English: paths, identifiers, config keys, commits, technical documentation |
 | Output language | the recipient's, set per project in the configuration |
 

@@ -1,6 +1,6 @@
 # Agents
 
-Thirty-five agent definitions, for a runtime that supports subagents.
+Thirty-six agent definitions, for a runtime that supports subagents.
 
 This document explains the difference between a skill, an agent and
 orchestration, and gives the public contract of each agent. The definitions
@@ -81,6 +81,7 @@ sequence. `tests/validate-counts.sh` fails when the two disagree on the count.
 | `delivery-manager` | the schedule and the deadline, without trading a gate | a project with a deadline to hold | `delivery-orchestrator` |
 | `codebase-cartographer` | the structural map of the codebase, kept true | a large repository, or repeated exploration | `checkup`, `source-of-truth`, the implementing agent |
 | `community-manager` | the editorial line and the social content plan, drafted and handed over, never published | a validated brief, and a signed or drafted identity when one exists | the approver of the line's review rule, `design-director` for visual work, the owner for every publication |
+| `video-producer` | a project video from brief to handover, never published | a request, the project's owner and their written permission | the owner, for review and publication |
 
 ## The contract of every agent
 
