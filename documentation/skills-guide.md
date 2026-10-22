@@ -1,6 +1,6 @@
 # Skills guide
 
-Directory of the 178 skills. One line each: what it does, and when to open it.
+Directory of the 179 skills. One line each: what it does, and when to open it.
 
 Every skill's own `README.md` carries its inputs, outputs, dependencies and
 configuration in four lines. This file is the index; the READMEs are the
@@ -389,13 +389,15 @@ uses and restates none of them.
 - `lead-research`: a sourced dossier and a grounded, honest outreach draft.
 - `market-research`: bottom-up sizing, a real competitor map, an honest assessment.
 
-## media, 2 skills
+## media, 3 skills
 
 - `video-core`: constitution. The owner's permission, truthfulness, four
   formats, source-built video, captions and measured audio, the twelve line
   gate, never published by an agent. Depends on nothing.
 - `video-scripting`: the takeaway, a structure per format, narration timed at a
   stated rate, every claim confirmed, the storyboard and timing sheet.
+- `screen-capture`: the real product, scripted with Playwright in an agreed
+  environment, seeded data and a fresh profile, zooms as data, a frame review.
 
 ## Skills that work alone
 
