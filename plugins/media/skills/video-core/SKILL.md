@@ -4,7 +4,7 @@ description: Constitution of the media tree, for videos that present a project, 
 license: MIT
 metadata:
   category: media
-  version: 1.0.0
+  version: 1.1.0
   depends_on: []
   outputs: [video-brief, rights-record, format-target, render-command, video-gate-result]
 ---
@@ -208,10 +208,16 @@ the second presents a falsehood as a demonstration.
 ## 13. Interfaces
 
 - Upstream: none; this constitution depends on nothing.
+- Downstream, in this tree, in pipeline order: `video-scripting` (the script,
+  storyboard and timing sheet), `screen-capture` (the real product filmed),
+  `motion-design` (titles, diagrams, zooms, transitions), `voice-over` (the
+  narration), `video-assembly` (edit, mix, captions, master) and
+  `video-delivery` (exports, verification, the gate, handover).
 - Lateral: `pitch-and-demo` for a live pitch the video supports,
   `playwright-automation` for browser captures, `animation` for the motion
   principles a composition shares with an interface, `brand-identity` for the
   project's visual identity, `data-privacy` for anything personal on screen,
   `accessibility-testing` for the caption and contrast checks,
   `secrets-management` for what must never be captured.
-- Downstream: `social-content` when a cut is scheduled by the owner.
+- Downstream, outside this tree: `social-content` when a cut is scheduled by
+  the owner.

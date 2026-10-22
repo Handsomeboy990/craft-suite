@@ -7,7 +7,7 @@ search**, **find and evaluate opportunities**, and **review your own work**.
 Called `claude-writer-suite` until 3.0.0, when the writing tree stopped being
 the whole of it.
 
-182 skills and 35 agents. Not prompts: numbered protocols, decision criteria,
+183 skills and 35 agents. Not prompts: numbered protocols, decision criteria,
 scoring grids and review procedures, each with a stated threshold for what
 counts as finished.
 
@@ -24,7 +24,7 @@ craft-suite/
 ├── research/         5 general research skills
 ├── career/           7 job search and application skills
 ├── opportunity/      9 ideation, hackathon and business skills
-├── media/            6 project demo and presentation video skills
+├── media/            7 project demo and presentation video skills
 ├── config/           user specific values, nothing hardcoded
 ├── control-center/   optional local dashboard, zero dependency
 ├── plugins/          per-domain plugin bundles, generated from the trees
@@ -48,7 +48,7 @@ The repository separates three languages that are routinely confused.
 
 | Layer | What it is | Value |
 |---|---|---|
-| Skill language | the instructions themselves | English, all 182 skills |
+| Skill language | the instructions themselves | English, all 183 skills |
 | System language | paths, identifiers, config keys, commits | English |
 | Output language | what the reader receives | theirs, set per project |
 
@@ -397,7 +397,7 @@ never invented. Detail: [control-center/README.md](../control-center/README.md).
 ## Validation
 
 ```bash
-bash tests/validate-structure.sh      structure and metadata of 182 skills
+bash tests/validate-structure.sh      structure and metadata of 183 skills
 bash tests/validate-rules.sh          emoji, em dash, secrets, hardcoded identity
 bash tests/validate-orchestration.sh  plans, phases, agents, cross references
 bash tests/validate-plugins.sh        plugin bundles in sync with the trees
@@ -413,7 +413,7 @@ All six must pass before any commit. Detail in
 | File | Contents |
 |---|---|
 | [documentation/architecture.md](architecture.md) | organisation, skill isolation, metadata |
-| [documentation/skills-guide.md](skills-guide.md) | directory of the 182 skills |
+| [documentation/skills-guide.md](skills-guide.md) | directory of the 183 skills |
 | [documentation/installation.md](installation.md) | full and per-skill installation |
 | [documentation/configuration.md](configuration.md) | the configuration contract |
 | [documentation/agents.md](agents.md) | skill, agent, orchestration |
