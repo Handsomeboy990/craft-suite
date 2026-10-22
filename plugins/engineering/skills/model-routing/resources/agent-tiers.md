@@ -1,6 +1,6 @@
 # Agent tier rules
 
-The tier rule for every one of the thirty-five agents of the chief's team
+The tier rule for every one of the thirty-six agents of the chief's team
 map, `delivery-orchestrator`'s `resources/team-routing.md`, in the same
 teams. No agent is dispatched without a rule here, and no rule here
 contradicts `SKILL.md` sections 3 to 6 or `tier-table.json`.
@@ -110,6 +110,12 @@ gated by a pass classified LOW. An independent gate is held by
 |---|---|
 | `community-manager` | table, on the line or the plan slice; `uncited-claim` and `factual-error-on-verification` are its usual escalations. An author, never an independent gate: `independent-verifier-floor` does not apply, and whoever reviews its drafts is routed on that review slice |
 
+### Media
+
+| Agent | Tier rule |
+|---|---|
+| `video-producer` | lead for a video request; `factual-error-on-verification` and `uncited-claim` are its usual escalations, since a video asserts what it shows. An author, never an independent gate: line 12 of the video gate is a person who did not make the video |
+
 ### Independent gates
 
 | Agent | Tier rule |
@@ -119,7 +125,7 @@ gated by a pass classified LOW. An independent gate is held by
 | `compliance-verifier` | `independent-verifier-floor` |
 | `final-verifier` | `independent-verifier-floor` |
 
-Count check: 1 + 5 + 8 + 4 + 2 + 3 + 4 + 1 + 2 + 1 + 4 = 35.
+Count check: 1 + 5 + 8 + 4 + 2 + 3 + 4 + 1 + 2 + 1 + 1 + 4 = 36.
 
 ## 3. What no row allows
 

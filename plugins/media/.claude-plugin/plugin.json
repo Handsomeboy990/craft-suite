@@ -1,7 +1,7 @@
 {
   "name": "craft-media",
-  "version": "3.46.0",
-  "description": "Videos that present a project others built: product demos, project presentations, short vertical cuts and tutorials, with a voice-over and animation. The owner's permission first, every frame true, captions and measured audio, handed over and never published by an agent.",
+  "version": "3.47.0",
+  "description": "Videos that present a project others built: product demos, project presentations, short vertical cuts and tutorials, with a voice-over and animation, plus the video-producer role agent. The owner's permission first, every frame true, captions and measured audio, handed over and never published by an agent.",
   "author": {
     "name": "Lauret Chacha"
   },

@@ -1,6 +1,6 @@
 # Craft Suite
 
-**Le métier, encodé.** 183 skills et 35 agents qui tiennent un agent à un
+**Le métier, encodé.** 183 skills et 36 agents qui tiennent un agent à un
 standard professionnel : écrire, produire des documents, construire un
 logiciel, le sécuriser, chercher, mener une recherche d'emploi, évaluer des
 opportunités, et relire son propre travail.
@@ -36,7 +36,7 @@ en plus `python3`.
 git clone https://github.com/Handsomeboy990/craft-suite.git
 cd craft-suite
 bash install.sh              # un menu, choisissez vos arbres
-bash install.sh --all        # ou prenez les 183 et les 35 agents
+bash install.sh --all        # ou prenez les 183 et les 36 agents
 bash install.sh --configure
 ```
 
@@ -65,13 +65,13 @@ inter-arbres déclarée par ces skills.
 | `craft-research` | chercheur qui ne cite que ce qu'il a réellement lu | 5 | 7 et 2 agents |
 | `craft-career` | recherche d'emploi qui n'invente jamais une offre | 7 | 9 |
 | `craft-opportunity` | idées, hackathons, clients, marchés | 9 | 11 |
-| `craft-media` | vidéos de démo et de présentation d'un projet, avec voix off et animations | 7 | 9 |
+| `craft-media` | vidéos de démo et de présentation d'un projet, avec voix off et animations | 7 | 9 et 1 agent |
 
 Chaque plugin est autonome, et c'est pourquoi la seconde colonne est plus
 grande. Le bundle security est le seul qui va aujourd'hui chercher dans un autre
 arbre : son `vulnerability-assessment` déclare `security-audit`, qui vit dans
 l'arbre engineering, donc le bundle emporte ce skill et les trois dont il dépend
-à son tour. Le plugin engineering embarque 30 des 35 agents ; `web-auditor` est
+à son tour. Le plugin engineering embarque 30 des 36 agents ; `web-auditor` est
 un outil de sécurité sans rôle dans la séquence de livraison et part avec
 `craft-security`, et `researcher` est un outil de recherche sans rôle dans la
 séquence de livraison non plus, et part avec `craft-research`.
@@ -124,7 +124,7 @@ emoji, aucun tiret cadratin. Les deux sont vérifiées par
 | Options d'installation en détail | [documentation/installation.fr.md](documentation/installation.fr.md) |
 | Référence de configuration | [documentation/configuration.fr.md](documentation/configuration.fr.md) |
 | Plugins, et comment les bundles sont générés | [documentation/plugins.md](documentation/plugins.md) |
-| Les 35 agents | [documentation/agents.md](documentation/agents.md) |
+| Les 36 agents | [documentation/agents.md](documentation/agents.md) |
 | Architecture du dépôt | [documentation/architecture.md](documentation/architecture.md) |
 | Tableau de bord local d'utilisation | [control-center/README.md](control-center/README.md) |
 | Contribuer | [CONTRIBUTING.md](CONTRIBUTING.md) |
