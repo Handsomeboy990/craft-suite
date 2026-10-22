@@ -47,13 +47,15 @@ run by another agent, which alone closes a finding.
 ## BACKEND
 
 category: BACKEND
-plan: project-exploration -> architecture-design -> backend-engineering -> llm-integration -> llm-gateway-engineering -> input-validation -> security-audit -> testing-quality -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
+plan: project-exploration -> architecture-design -> backend-engineering -> host-plugin-development -> llm-integration -> llm-gateway-engineering -> input-validation -> security-audit -> testing-quality -> performance-engineering -> code-review-protocol -> technical-documentation -> project-continuity -> git-workflow
 
 `architecture-design` is dropped for a change confined to one existing module.
 `security-audit` is never dropped when the endpoint returns user scoped data.
 `llm-integration` runs only when the change involves a language model, and
 `llm-gateway-engineering` only when it is a provider adapter, a model gateway
 or a fallback chain rather than a feature built on one.
+`host-plugin-development` runs only when the change is a plugin or extension
+loaded by a host the team does not control.
 
 ## FULLSTACK
 
