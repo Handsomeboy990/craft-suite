@@ -1,6 +1,6 @@
 # Agent tier rules
 
-The tier rule for every one of the thirty-four agents of the chief's team
+The tier rule for every one of the thirty-five agents of the chief's team
 map, `delivery-orchestrator`'s `resources/team-routing.md`, in the same
 teams. No agent is dispatched without a rule here, and no rule here
 contradicts `SKILL.md` sections 3 to 6 or `tier-table.json`.
@@ -52,6 +52,7 @@ gated by a pass classified LOW. An independent gate is held by
 | `principal-engineer` | lead |
 | `software-architect` | table; a boundary or a public contract rates signal 3 HIGH, so phases 03 and 04 usually route strongest |
 | `backend-engineer` | table; `security-driving-signal` on any auth, payment, upload, permission or secret slice |
+| `llm-engineer` | table; `security-driving-signal` when the slice exposes a model endpoint, holds provider keys or gates an action on model output |
 | `frontend-engineer` | table; `security-driving-signal` on a client slice of an auth or payment flow |
 | `database-engineer` | table; a production data operation or an irreversible migration rates signals 9 and 11 at least HIGH |
 | `performance-engineer` | table, on the measured symptom |
@@ -118,7 +119,7 @@ gated by a pass classified LOW. An independent gate is held by
 | `compliance-verifier` | `independent-verifier-floor` |
 | `final-verifier` | `independent-verifier-floor` |
 
-Count check: 1 + 5 + 7 + 4 + 2 + 3 + 4 + 1 + 2 + 1 + 4 = 34.
+Count check: 1 + 5 + 8 + 4 + 2 + 3 + 4 + 1 + 2 + 1 + 4 = 35.
 
 ## 3. What no row allows
 

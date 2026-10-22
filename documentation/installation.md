@@ -38,12 +38,12 @@ bash install.sh
 ```
    1) Creative writing        42 skills   novels, poetry, screenplay, editing
    2) Professional documents   9 skills   guides, manuals, reports, letters, PDF
-   3) Software engineering    90 skills   plus 29 agents
+   3) Software engineering    90 skills   plus 30 agents
    4) Cybersecurity           12 skills   threat models, audits, hardening
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
-   8) Everything             176 skills   plus 34 agents
+   8) Everything             176 skills   plus 35 agents
    9) Individual skills, chosen by name
   10) One or more categories, for example genres only
 
@@ -62,14 +62,14 @@ everything.
 ```bash
 bash install.sh --writing      42 creative writing skills
 bash install.sh --documents     9 professional document skills and 1 agent
-bash install.sh --dev          90 engineering skills and 29 agents
+bash install.sh --dev          90 engineering skills and 30 agents
 bash install.sh --security     12 defensive security skills and 3 agents
 bash install.sh --research      5 general research skills and 2 agents
 bash install.sh --career        7 job search and application skills
 bash install.sh --opportunity   9 ideation, hackathon and business skills
 bash install.sh --all          everything
 bash install.sh --shared        the 2 cross domain skills only
-bash install.sh --agents        the 34 agents only
+bash install.sh --agents        the 35 agents only
 bash install.sh --no-agents     skills without agents
 bash install.sh --remove        uninstall the scope instead of installing it
 ```
@@ -86,7 +86,7 @@ bash install.sh --dev --zip
 bash install.sh --writing --remove
 ```
 
-Four scopes carry agents of their own: `--dev` installs the 29-agent delivery
+Four scopes carry agents of their own: `--dev` installs the 30-agent delivery
 team, `--security` its 3 security agents, `--research` `researcher` and
 `data-collection-engineer`, and `--documents` `community-manager`. No other
 scope installs an agent unless `--agents` asks for the whole roster, and
@@ -343,14 +343,14 @@ counted in:
 |---|---|---|
 | `--writing` | 44 | 0 |
 | `--documents` | 11 | 1 |
-| `--dev` | 92 | 29 |
+| `--dev` | 92 | 30 |
 | `--security` | 18 | 3 |
 | `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 176 | 34 |
-| `--agents` | 0 | 34 |
+| `--all` | 176 | 35 |
+| `--agents` | 0 | 35 |
 
 `~/.claude/skills` is shared. It holds every skill you have, not only this
 suite's: a skill installed from somewhere else sits beside them, and claude.ai

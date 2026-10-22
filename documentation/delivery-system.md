@@ -126,7 +126,7 @@ ones, which is exactly what the gate exists to prevent.
 
 ## 8. The agents
 
-Thirty-four roles, defined in `agents/`, grouped by kind of work: `core`,
+Thirty-five roles, defined in `agents/`, grouped by kind of work: `core`,
 `development`, `design`, `security`, `testing`, `documentation`, `devops`,
 `research`, `communication`. An agent is thin by design:
 the expertise lives in the skills, the agent decides which apply, executes
@@ -159,7 +159,7 @@ within its boundary, and hands off through a durable artefact.
 
 The lines are handoff paths, not a chain of command. Every agent reports to
 the orchestrator, which holds the gates. The diagram shows the core delivery
-path only. The full map, every one of the thirty-four agents in its team under
+path only. The full map, every one of the thirty-five agents in its team under
 a named lead with the condition that brings it in, is
 `engineering/delivery-skills/delivery-orchestrator/resources/team-routing.md`.
 
@@ -237,7 +237,7 @@ The third script covers:
 7. no orphan engineering skill, absent from every plan and phase;
 8. every `depends_on` naming an existing skill, in every tree;
 9. every `Interfaces` cross reference existing, in every procedural tree;
-10. the thirty-four agents, with their metadata and eight mandatory sections;
+10. the thirty-five agents, with their metadata and eight mandatory sections;
 11. every skill cited by an agent existing;
 12. the document pipeline: `document-core` declared as a dependency, design
     before production;

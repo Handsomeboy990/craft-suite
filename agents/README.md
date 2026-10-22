@@ -1,6 +1,6 @@
 # agents
 
-Thirty-four specialised agent definitions for an agent runtime that supports
+Thirty-five specialised agent definitions for an agent runtime that supports
 subagents, such as Claude Code.
 
 An agent here is a role with a narrow responsibility. It is thin by design:
@@ -19,7 +19,7 @@ Agent   who owns this piece of work, what they may touch, what they hand on
 Duplicating a skill's content into an agent produces two documents that drift.
 Every agent below references the skills it uses and never restates them.
 
-## The thirty-four
+## The thirty-five
 
 | Agent | Owns | Primary skills |
 |---|---|---|
@@ -36,6 +36,7 @@ Every agent below references the skills it uses and never restates them.
 | `frontend-engineer` | client implementation | frontend-engineering, ui-ux-engineering |
 | `site-template-engineer` | a client site template and the back office its owner runs it from | site-template-generation, admin-console |
 | `backend-engineer` | server implementation | backend-engineering, input-validation |
+| `llm-engineer` | model-backed features and the gateway under them | llm-integration, llm-gateway-engineering |
 | `database-engineer` | schema, migrations, query quality | database-operations, performance-engineering |
 | `security-engineer` | audits and fixes security | security-audit, input-validation |
 | `web-auditor` | audits a live site from its URL, passive anywhere and active on authorization | website-audit, playwright-automation |
@@ -101,6 +102,8 @@ frontend-engineer      -> qa-engineer, ui-ux-engineer, code review
 site-template-engineer -> ui-ux-engineer for the rendered result, qa-engineer
                           for the gate
 backend-engineer       -> security-engineer, qa-engineer, code review
+llm-engineer           -> security-engineer before exposure, qa-engineer for the
+                          evaluation and fixture review, backend-engineer
 database-engineer      -> backend-engineer, performance-engineer,
                           release-engineer
 devops-engineer        -> security-engineer, release-engineer

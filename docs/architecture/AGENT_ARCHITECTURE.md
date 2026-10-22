@@ -34,7 +34,8 @@ Orchestration                delivery-orchestrator (a project)
   |
   +-- Architecture             software-architect
   +-- Design                   ui-ux-engineer
-  +-- Implementation           frontend-engineer, backend-engineer, database-engineer
+  +-- Implementation           frontend-engineer, backend-engineer, database-engineer,
+  |                            llm-engineer
   +-- Site templates           site-template-engineer
   +-- Security                 security-engineer
   +-- QA / Testing             qa-engineer, playwright-engineer
@@ -56,7 +57,7 @@ page once recorded as unfilled, `source-of-truth`, `checkup` and
 remains unfilled is recorded in `multi-agent-assessment.md` section 3 and in
 `docs/agents/README.md`, rather than filled with a thin, unreviewed stand-in.
 
-## The thirty-four agents, by group
+## The thirty-five agents, by group
 
 Agents live in `agents/<group>/`, a repository-wide tree independent of any
 single skill domain, so each domain's plugin carries its own agents rather than
@@ -73,7 +74,7 @@ and public contracts: `agents/README.md` and `documentation/agents.md`.
 | Group | Agents | Owns |
 |---|---|---|
 | `core` | `delivery-orchestrator`, `principal-engineer`, `requirements-analyst`, `compliance-verifier`, `pr-author`, `pr-reviewer`, `source-of-truth`, `checkup`, `final-verifier`, `delivery-manager`, `codebase-cartographer` | the project lifecycle, a multi-surface request, requirements, the launch gate, opening and reviewing pull requests, canonical project truth, the pre-intervention inspection, the independent final gate, the schedule and deadline, the codebase map |
-| `development` | `software-architect`, `frontend-engineer`, `backend-engineer`, `database-engineer`, `performance-engineer`, `site-template-engineer` | architecture, client and server implementation, schema, measured performance, client site templates with their back office |
+| `development` | `software-architect`, `frontend-engineer`, `backend-engineer`, `database-engineer`, `performance-engineer`, `site-template-engineer`, `llm-engineer` | architecture, client and server implementation, schema, measured performance, client site templates with their back office, model-backed features and gateways |
 | `design` | `ui-ux-engineer`, `design-verification`, `design-research`, `design-director` | the rendered experience and accessibility, generic-design detection, reference research, direction and sign-off over the whole design |
 | `security` | `security-engineer`, `web-auditor`, `penetration-tester` | audits and fixes, URL-driven site audit, authorized offensive testing |
 | `testing` | `qa-engineer`, `playwright-engineer` | test strategy, browser verification |

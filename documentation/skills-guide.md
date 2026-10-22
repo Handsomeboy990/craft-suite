@@ -281,16 +281,16 @@ Depend on nothing. Callable from any tree, usable alone.
 | `tls-certificates` | the TLS certificate over its whole life, key never leaked |
 | `email-deliverability` | mail into the inbox: SPF, DKIM, DMARC aligned, reputation, bounces |
 
-### agents, 34
+### agents, 35
 
 Core, eleven: `delivery-orchestrator`, `principal-engineer`,
 `requirements-analyst`, `compliance-verifier`, `source-of-truth`, `checkup`,
 `final-verifier`, `pr-author`, `pr-reviewer`, `delivery-manager`,
 `codebase-cartographer`.
 
-Development, six: `software-architect`, `frontend-engineer`,
+Development, seven: `software-architect`, `frontend-engineer`,
 `backend-engineer`, `database-engineer`, `performance-engineer`,
-`site-template-engineer`.
+`site-template-engineer`, `llm-engineer`.
 
 Design, four: `ui-ux-engineer`, `design-research`, `design-verification`,
 `design-director`.

@@ -1,7 +1,7 @@
 # Team routing
 
 How the chief turns a request into the smallest complete team. Every one of
-the thirty-four agents under `agents/` appears here by its exact name, in
+the thirty-five agents under `agents/` appears here by its exact name, in
 exactly one team, with the condition that brings it in. No agent is invented,
 and none is unreachable.
 
@@ -33,7 +33,7 @@ Three rules hold the structure together.
 
 ## 2. The teams
 
-Nine teams plus the independent gates. Thirty-four agents in all.
+Nine teams plus the independent gates. Thirty-five agents in all.
 
 ### Chief's staff, five agents
 
@@ -45,13 +45,14 @@ Nine teams plus the independent gates. Thirty-four agents in all.
 | `checkup` | an inherited or unfamiliar codebase before the first change | the chief or `principal-engineer` with the risk map |
 | `source-of-truth` | documentation and code may disagree; before a lead plans on documented facts | `documentation-engineer`, and the chief with the canonical fact record |
 
-### Engineering team, lead `principal-engineer`, seven agents
+### Engineering team, lead `principal-engineer`, eight agents
 
 | Agent | Brought in when | Hands to |
 |---|---|---|
 | `principal-engineer` | lead: a request spans several surfaces, or specialists disagree | the specialists, `qa-engineer` for the gate, the chief with the verdict |
 | `software-architect` | phases 03 and 04; any change control that touches the architecture | the chief with the approval package; after approval, the implementers |
 | `backend-engineer` | endpoint, service, job, integration | `security-engineer`, `qa-engineer`, `frontend-engineer` with the contract |
+| `llm-engineer` | a feature built on a language model, a provider integration, a model gateway or a fallback chain | `security-engineer` before exposure, `qa-engineer`, `backend-engineer` for the hosting endpoint |
 | `frontend-engineer` | page, component, client state, once the contract is fixed | `ui-ux-engineer`, `qa-engineer`, `playwright-engineer` |
 | `database-engineer` | schema, migration, backfill, index, production data operation | `backend-engineer`, `performance-engineer`, `release-engineer` |
 | `performance-engineer` | a measured symptom or a stated budget, never speculation | the owning implementer, `qa-engineer` for the regression |
@@ -118,8 +119,8 @@ Nine teams plus the independent gates. Thirty-four agents in all.
 | `compliance-verifier` | phase 11 of a user-facing web product | the chief with the launch verdict |
 | `final-verifier` | the last step before the chief reports anything done | the chief, whose verdict it is the last word on |
 
-Count check: 5 + 7 + 4 + 2 + 3 + 4 + 1 + 2 + 1 + 4 = 33 agents in teams, plus
-`delivery-orchestrator` itself, 34.
+Count check: 5 + 8 + 4 + 2 + 3 + 4 + 1 + 2 + 1 + 4 = 34 agents in teams, plus
+`delivery-orchestrator` itself, 35.
 
 ## 3. Request to team
 
@@ -196,7 +197,7 @@ Never run a whole chain by reflex. The procedure:
    reason, the way `engineering-orchestrator` names dropped steps.
 6. Route a model for every dispatch with `model-routing`.
 
-Two failure modes, equally bad: thirty-four agents on a typo, and a payment
+Two failure modes, equally bad: thirty-five agents on a typo, and a payment
 endpoint without `security-engineer`. The second is never an optimisation; it
 is a missing gate.
 
