@@ -196,7 +196,16 @@ const D9 = {
       perAccount.push((await target.post('/api/admin/login', { identifier: gate.accounts.storekeeper, password: `wrong-${attempt}-password` })).status);
     }
     details.push(`six failures on one account from six addresses: ${perAccount.join(', ')}`);
-    if (statuses.slice(0, 5).some((status) => status !== 401) || statuses[5] !== 429 || blocked.status !== 429 || perAccount[5] !== 429) failures.push('the sign in is not limited');
+    // A client that writes its own entries in front of the one the proxy
+    // appended does not escape the per address limit.
+    const forger = new Client(gate.base);
+    const forged = [];
+    for (let attempt = 0; attempt < 6; attempt++) {
+      forger.address = `203.0.113.${attempt + 1}, 10.8.0.1`;
+      forged.push((await forger.post('/api/admin/login', { identifier: `nobody.${randomUUID()}@example.test`, password: 'wrong-password-123' })).status);
+    }
+    details.push(`six failed sign ins with a forged first entry before one proxy address: ${forged.join(', ')}`);
+    if (statuses.slice(0, 5).some((status) => status !== 401) || statuses[5] !== 429 || blocked.status !== 429 || perAccount[5] !== 429 || forged[5] !== 429) failures.push('the sign in is not limited');
     // Free the storekeeper again for the lines that follow.
     gate.db.prepare("DELETE FROM rate_limits WHERE key LIKE 'login:account:%'").run();
     return failures.length ? result('fail', [...failures, ...details]) : result('pass', details);

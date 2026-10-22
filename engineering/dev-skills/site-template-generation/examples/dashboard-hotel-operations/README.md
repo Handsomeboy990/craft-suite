@@ -310,6 +310,11 @@ csrf         a token bound to the session, sent as x-csrf-token on every write
 limits       sign in: five failures per address and per account, then refused
              for fifteen minutes with the same answer; exports ten a minute;
              writes 120 a minute per account
+address      the x-forwarded-for entry TRUSTED_PROXY_HOPS places from the
+             right (1 by default), the one the proxy appended, never the
+             first entry a client can write; an instance needs a proxy in
+             front, because with none a forged address cannot be told from a
+             real one
 idempotency  every create carries an Idempotency-Key; a replay returns the
              first record
 rules        no overlapping active stays in a room (trigger), departure after

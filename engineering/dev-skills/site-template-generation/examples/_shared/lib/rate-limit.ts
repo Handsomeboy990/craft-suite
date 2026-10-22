@@ -78,10 +78,20 @@ export function reset(name: keyof typeof LIMITS, identifier: string): void {
   writeJson(FILES.rateLimits, buckets);
 }
 
-// The address a request came from, behind a proxy or not. A deployment that
-// terminates TLS elsewhere must set the header, and the README says so.
+// The address a request came from. A client can write anything into
+// X-Forwarded-For, so its first entry is never trusted: each proxy in front of
+// the app appends the address it received the request from, and the entry
+// TRUSTED_PROXY_HOPS places from the right (1 by default, one proxy) is the
+// one no client can forge. Next.js fills the header with the socket address
+// only when it is absent, so an instance exposed with no proxy at all cannot
+// tell a forged address from a real one; the README says to put one in front.
 export function callerAddress(headers: Headers): string {
-  const forwarded = headers.get('x-forwarded-for');
-  if (forwarded) return forwarded.split(',')[0]!.trim();
+  const chain = (headers.get('x-forwarded-for') ?? '')
+    .split(',')
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+  const hops = Number(process.env.TRUSTED_PROXY_HOPS ?? '1');
+  const trusted = Number.isInteger(hops) && hops > 0 ? hops : 1;
+  if (chain.length >= trusted) return chain[chain.length - trusted]!;
   return headers.get('x-real-ip') ?? 'unknown';
 }
