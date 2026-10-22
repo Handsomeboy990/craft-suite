@@ -1,6 +1,6 @@
 # Craft Suite
 
-**Craft, encoded.** 178 skills and 35 agents that hold an agent to a
+**Craft, encoded.** 179 skills and 35 agents that hold an agent to a
 professional standard: write, produce documents, build software, secure it,
 research, run a job search, evaluate opportunities, and review its own work.
 
@@ -34,7 +34,7 @@ the optional Control Center and the report also want `python3`.
 git clone https://github.com/Handsomeboy990/craft-suite.git
 cd craft-suite
 bash install.sh              # a menu, pick the trees you want
-bash install.sh --all        # or take all 178 and the 35 agents
+bash install.sh --all        # or take all 179 and the 35 agents
 bash install.sh --configure
 ```
 
@@ -63,7 +63,7 @@ tree dependency those skills declare.
 | `craft-research` | researcher who cites only what was actually read | 5 | 7 and 2 agents |
 | `craft-career` | job search that never invents a listing | 7 | 9 |
 | `craft-opportunity` | ideas, hackathons, clients, markets | 9 | 11 |
-| `craft-media` | demo and presentation videos of a project, with voice-over and animation | 2 | 4 |
+| `craft-media` | demo and presentation videos of a project, with voice-over and animation | 3 | 5 |
 
 Each plugin is self contained, which is why the second column is larger. The
 security bundle is the one that currently reaches into another tree: its
