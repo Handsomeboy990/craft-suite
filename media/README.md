@@ -9,6 +9,7 @@ voice-over and animation.
 | `video-core` | the constitution: permission, truthfulness, formats, source-built video, captions, measured audio, the gate |
 | `video-scripting` | the takeaway, a structure per format, narration timed for the ear, the storyboard and timing sheet |
 | `screen-capture` | the real product filmed cleanly: agreed environment, seeded data, scripted takes, a frame review |
+| `motion-design` | titles, diagrams, zooms and transitions as Remotion compositions, safe and intended |
 
 Every skill of this tree loads `video-core` first. Its gate runs before any
 video is handed over, and no video is published by an agent.
