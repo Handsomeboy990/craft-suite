@@ -43,8 +43,8 @@ bash install.sh
    5) Research                 5 skills   sources, verification, synthesis
    6) Career                   7 skills   job search, CV, interviews
    7) Opportunity              9 skills   ideation, hackathons, business
-   8) Media                    4 skills   project demo and presentation videos
-   9) Everything             180 skills   plus 35 agents
+   8) Media                    5 skills   project demo and presentation videos
+   9) Everything             181 skills   plus 35 agents
   10) Individual skills, chosen by name
   11) One or more categories, for example genres only
 
@@ -68,7 +68,7 @@ bash install.sh --security     12 defensive security skills and 3 agents
 bash install.sh --research      5 general research skills and 2 agents
 bash install.sh --career        7 job search and application skills
 bash install.sh --opportunity   9 ideation, hackathon and business skills
-bash install.sh --media         4 video skills, project demos and presentations
+bash install.sh --media         5 video skills, project demos and presentations
 bash install.sh --all          everything
 bash install.sh --shared        the 2 cross domain skills only
 bash install.sh --agents        the 35 agents only
@@ -139,7 +139,7 @@ bash install.sh --group devops-skills     operations only
 | `ideation` | 3 | opportunity |
 | `hackathons` | 3 | opportunity |
 | `business` | 3 | opportunity |
-| `media` | 4 | media |
+| `media` | 5 | media |
 | `shared` | 2 | shared |
 
 Everything combines, and the result is deduplicated:
@@ -352,9 +352,9 @@ counted in:
 | `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
-| `--media` | 6 | 0 |
+| `--media` | 7 | 0 |
 | `--shared` | 2 | 0 |
-| `--all` | 180 | 35 |
+| `--all` | 181 | 35 |
 | `--agents` | 0 | 35 |
 
 `~/.claude/skills` is shared. It holds every skill you have, not only this
