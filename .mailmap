@@ -1,0 +1,4 @@
+# Author corrections for git log, shortlog and blame. History is not
+# rewritten; this maps an identity recorded by mistake to the real author.
+# Format: Proper Name <proper@email> Commit Name <commit@email>
+Handsomeboy990 <lauretchacha@gmail.com> Claude <noreply@anthropic.com>
