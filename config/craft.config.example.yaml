@@ -125,3 +125,12 @@ media:
   # Engine and voice. Empty with local: chosen among the installed voices for
   # the video's language, and recorded with the video.
   voice_model: ""
+
+# Read by the research/ skills. Every field has a default, so this section may
+# be absent. The Tavily connector signs in through the browser; never put a key
+# here.
+research:
+  # built-in | tavily. built-in uses the runtime's own web search and retrieval.
+  # tavily uses the hosted Tavily research connector through its MCP server;
+  # when it is not reachable, the skills fall back to built-in and say so.
+  research_provider: built-in

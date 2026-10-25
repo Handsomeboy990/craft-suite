@@ -128,3 +128,11 @@ substitutes its own prior belief for a source it could have retrieved. When a
 needed source is unreachable (paywalled, offline, out of scope, or requiring a
 connector that is not configured), it names the source and the obstacle rather
 than inventing what the source would have said.
+
+The search and retrieval provider is read from `research_provider` in the
+configuration. `built-in` uses the runtime's own search and fetch. `tavily` uses
+the hosted Tavily connector (search, extract, crawl, map) through its MCP server
+for cleaner, citeable retrieval; when it is selected but not reachable, this
+skill falls back to `built-in` and says so. The provider changes how a source is
+fetched, never the standard: a source is cited only if it was actually retrieved
+and read, whichever provider fetched it.

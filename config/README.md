@@ -214,6 +214,25 @@ voice identifier. Empty with `local` means the voice is chosen among those
 installed for the video's language, and the choice is recorded with the video.
 No value may name a voice that imitates a real person.
 
+### research
+
+Read by the `research/` skills. Every field has a documented default, so the
+tree works with the section absent. `install.sh --configure` keeps this section
+as written and asks no question about it.
+
+| Field | Required | Default | Read by |
+|---|---|---|---|
+| `research_provider` | no | `built-in` | `research-core`, `source-research` |
+
+Accepted values for `research_provider`: `built-in`, the runtime's own web
+search and retrieval, nothing beyond what the runtime already reaches; `tavily`,
+the hosted Tavily research connector (search, extract, crawl, map), reached
+through its MCP server, used under its terms. The Tavily connector is signed in
+through the browser, so no key is stored in this file; when it is selected but
+not reachable, the skills fall back to `built-in` and say so. A provider is
+never a reason to lower the source standard: a source is still cited only if it
+was actually retrieved and read, whichever provider fetched it.
+
 ## How a skill uses it
 
 A skill never restates the configuration. It names the field and states what
