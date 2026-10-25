@@ -14,6 +14,11 @@ every plan as well: the orchestrator consults them before composing and
 dispatching the plan, and they are never listed as a plan step, the same way
 `engineering-core` is never listed.
 
+`adversarial-review` is invoked on demand rather than as a routine step: the
+orchestrator may put any result or verdict, including its own, through it
+before the result is accepted, and the `devils-advocate` and
+`decision-challenger` agents carry it out under the skill's stop rule.
+
 ## EXPLORATION
 
 category: EXPLORATION
