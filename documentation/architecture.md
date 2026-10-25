@@ -34,7 +34,7 @@ craft-suite/
 │   ├── dev-skills/        62
 │   ├── delivery-skills/   11
 │   └── devops-skills/     17
-├── agents/                37 role definitions, repository wide
+├── agents/                38 role definitions, repository wide
 │   ├── core/              11
 │   ├── development/        6
 │   ├── design/             4
@@ -45,9 +45,9 @@ craft-suite/
 │   ├── research/           2
 │   ├── communication/      1
 │   └── media/              2
-├── security/              12 skills
+├── security/              13 skills
 │   ├── secure-development/ 9
-│   └── security-assurance/ 3
+│   └── security-assurance/ 4
 ├── research/               5 skills
 ├── career/                 7 skills
 ├── opportunity/            9 skills

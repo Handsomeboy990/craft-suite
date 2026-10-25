@@ -1,6 +1,6 @@
 # agents
 
-Thirty-seven specialised agent definitions for an agent runtime that supports
+Thirty-eight specialised agent definitions for an agent runtime that supports
 subagents, such as Claude Code.
 
 An agent here is a role with a narrow responsibility. It is thin by design:
@@ -19,7 +19,7 @@ Agent   who owns this piece of work, what they may touch, what they hand on
 Duplicating a skill's content into an agent produces two documents that drift.
 Every agent below references the skills it uses and never restates them.
 
-## The thirty-seven
+## The thirty-eight
 
 | Agent | Owns | Primary skills |
 |---|---|---|
@@ -40,6 +40,7 @@ Every agent below references the skills it uses and never restates them.
 | `database-engineer` | schema, migrations, query quality | database-operations, performance-engineering |
 | `security-engineer` | audits and fixes security | security-audit, input-validation |
 | `web-auditor` | audits a live site from its URL, passive anywhere and active on authorization | website-audit, playwright-automation |
+| `reverse-engineer` | how an owned or authorized compiled or obfuscated artifact behaves, with evidence and limits | reverse-engineering, security-core |
 | `qa-engineer` | test strategy and quality gates | testing-quality, code-review-protocol |
 | `playwright-engineer` | browser verification | playwright-automation |
 | `ui-ux-engineer` | rendered experience and accessibility | ui-ux-engineering |

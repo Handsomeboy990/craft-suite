@@ -57,7 +57,7 @@ page once recorded as unfilled, `source-of-truth`, `checkup` and
 remains unfilled is recorded in `multi-agent-assessment.md` section 3 and in
 `docs/agents/README.md`, rather than filled with a thin, unreviewed stand-in.
 
-## The thirty-seven agents, by group
+## The thirty-eight agents, by group
 
 Agents live in `agents/<group>/`, a repository-wide tree independent of any
 single skill domain, so each domain's plugin carries its own agents rather than

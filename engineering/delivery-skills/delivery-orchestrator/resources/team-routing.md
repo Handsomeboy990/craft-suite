@@ -74,13 +74,14 @@ Ten teams plus the independent gates. Thirty-seven agents in all.
 | `qa-engineer` | lead: any behaviour change, any release, any QA campaign | the implementer with findings, `release-engineer` when the gate passes |
 | `playwright-engineer` | a browser surface exists and tooling exists or is justified | `qa-engineer`, `release-engineer`, `frontend-engineer` for an accessibility defect |
 
-### Security team, lead `security-engineer`, three agents
+### Security team, lead `security-engineer`, four agents
 
 | Agent | Brought in when | Hands to |
 |---|---|---|
 | `security-engineer` | lead: auth, payments, uploads, permissions, user content, secrets, before release | `qa-engineer`, `devops-engineer`, `release-engineer` |
 | `penetration-tester` | written, specific, in-scope authorization is on record, never otherwise | `security-engineer` for every finding, the chief at every verification step |
 | `web-auditor` | a live site is to be audited from its URL | the owning fixer, the chief at every registration step, `compliance-verifier` |
+| `reverse-engineer` | an owned or authorized compiled or obfuscated artifact must be understood from evidence | `security-engineer` and the fixer for a weakness, the implementing engineer for an original build |
 
 ### Operations team, lead `devops-engineer`, four agents
 

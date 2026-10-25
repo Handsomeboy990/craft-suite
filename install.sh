@@ -413,6 +413,7 @@ agent_domains() {
   case "$1" in
     web-auditor)             printf 'security' ;;
     penetration-tester)      printf 'security' ;;
+    reverse-engineer)        printf 'security' ;;
     security-engineer)       printf 'engineering security' ;;
     researcher)              printf 'research' ;;
     data-collection-engineer) printf 'research' ;;
