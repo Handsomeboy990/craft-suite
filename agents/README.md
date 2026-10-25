@@ -1,6 +1,6 @@
 # agents
 
-Thirty-seven specialised agent definitions for an agent runtime that supports
+Thirty-nine specialised agent definitions for an agent runtime that supports
 subagents, such as Claude Code.
 
 An agent here is a role with a narrow responsibility. It is thin by design:
@@ -19,7 +19,7 @@ Agent   who owns this piece of work, what they may touch, what they hand on
 Duplicating a skill's content into an agent produces two documents that drift.
 Every agent below references the skills it uses and never restates them.
 
-## The thirty-seven
+## The thirty-nine
 
 | Agent | Owns | Primary skills |
 |---|---|---|
@@ -52,6 +52,8 @@ Every agent below references the skills it uses and never restates them.
 | `incident-responder` | a degraded production system, then the postmortem | incident-response, observability |
 | `researcher` | a research question answered from real, cited sources, and the verification of a contested claim | research-core, source-research, source-verification |
 | `data-collection-engineer` | data gathered from external sources lawfully and correctly, with provenance | source-research, source-verification, input-validation |
+| `stack-watcher` | releases, breaking changes and end-of-life for the exact stack a project runs, at project start and on a rhythm | tech-watch, dependency-selection |
+| `vulnerability-watcher` | security advisories against the exact versions a project runs, handed to the fixer | tech-watch, dependency-security |
 | `penetration-tester` | authorized offensive testing driven to bounded proofs, then re-tested after fixes | authorized-pentesting, vulnerability-assessment, security-testing |
 | `ci-cd-engineer` | the integration and delivery pipeline and the gates wired into it | ci-cd-pipelines, workflow-automation, deployment-engineering |
 | `design-director` | the whole design result held to one intentional, authentic identity | design-authenticity, design-system, ui-ux-engineering |

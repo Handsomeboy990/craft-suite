@@ -26,7 +26,7 @@ dependency the tree's skills declare.
 | `craft-documents` | the documents tree and its agent | 9 | 11 plus 1 agent |
 | `craft-engineering` | the engineering tree and its agents | 90 | 92 plus 30 agents |
 | `craft-security` | the security tree and its agents | 12 | 18 plus 3 agents |
-| `craft-research` | the research tree and its agents | 5 | 7 plus 2 agents |
+| `craft-research` | the research tree and its agents | 6 | 8 plus 4 agents |
 | `craft-career` | the career tree | 7 | 9 |
 | `craft-opportunity` | the opportunity tree | 9 | 11 |
 | `craft-media` | the media tree and its agents | 7 | 9 plus 2 agents |

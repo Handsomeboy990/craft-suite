@@ -105,6 +105,7 @@ write dispatch, whatever this column says.
 | `performance-engineering`, `caching-strategy` | `performance-engineer` | read for the baseline, write for the fix |
 | `code-review-protocol` | `qa-engineer` for the task gate, `pr-reviewer` on the pull request | read |
 | `technical-documentation` | `documentation-engineer` | write |
+| `tech-watch` | `stack-watcher` for releases and breaking changes, `vulnerability-watcher` for advisories against installed versions; at project start and on a rhythm | read, findings handed over |
 | `project-continuity` | the wave's named integrator: the note is a hot file | write, serial |
 | `git-workflow` | each write dispatch commits on its own branch; `pr-author` opens the pull request | write |
 | `release-readiness`, `release-engineering`, `self-updating-software`, `feature-flags` rollout | `release-engineer` | write |

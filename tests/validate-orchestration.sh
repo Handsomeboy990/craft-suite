@@ -55,7 +55,7 @@ security-engineer qa-engineer playwright-engineer ui-ux-engineer
 devops-engineer performance-engineer documentation-engineer release-engineer
 site-template-engineer
 incident-responder compliance-verifier design-verification web-auditor pr-author pr-reviewer design-research
-source-of-truth checkup final-verifier researcher
+source-of-truth checkup final-verifier researcher stack-watcher vulnerability-watcher
 penetration-tester ci-cd-engineer design-director delivery-manager data-collection-engineer
 codebase-cartographer community-manager llm-engineer video-producer motion-designer"
 

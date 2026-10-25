@@ -10,7 +10,7 @@
 #   bash install.sh --documents    professional documents, 9 skills and 1 agent
 #   bash install.sh --dev          software engineering, its skills and 30 agents
 #   bash install.sh --security     defensive security, 12 skills and 3 agents
-#   bash install.sh --research     general research, 5 skills and 2 agents
+#   bash install.sh --research     general research, 6 skills and 4 agents
 #   bash install.sh --career       job search and applications, 7 skills
 #   bash install.sh --opportunity  ideation, hackathons, business, 9 skills
 #   bash install.sh --media        project demo and presentation videos, 7 skills and 2 agents
@@ -403,7 +403,7 @@ removable_skill_dirs() {
 # communication-group agents. `security-engineer` is shared, because the
 # engineering delivery flow dispatches it; `web-auditor` and
 # `penetration-tester` are security-only tools with no role in the engineering
-# sequence. `researcher` and `data-collection-engineer` are research-only tools:
+# sequence. `researcher`, `data-collection-engineer`, `stack-watcher` and `vulnerability-watcher` are research-only tools:
 # nothing in the engineering sequence dispatches them. `community-manager`
 # ships with documents, where both its skills live, `editorial-line` and
 # `social-content`; the engineering bundle carries neither. `video-producer`
@@ -416,6 +416,8 @@ agent_domains() {
     security-engineer)       printf 'engineering security' ;;
     researcher)              printf 'research' ;;
     data-collection-engineer) printf 'research' ;;
+    stack-watcher)           printf 'research' ;;
+    vulnerability-watcher)   printf 'research' ;;
     community-manager)       printf 'documents' ;;
     video-producer)          printf 'media' ;;
     motion-designer)         printf 'media' ;;
