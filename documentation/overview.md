@@ -20,7 +20,7 @@ craft-suite/
 ├── documents/        9 professional document skills
 ├── engineering/     90 software skills
 ├── agents/          37 role definitions, repository wide
-├── security/        12 defensive security skills
+├── security/        14 defensive security skills
 ├── research/         5 general research skills
 ├── career/           7 job search and application skills
 ├── opportunity/      9 ideation, hackathon and business skills
@@ -135,7 +135,7 @@ finding by reachability and fixing what code can fix.
 | Category | Skills | Question it answers |
 |---|---|---|
 | [secure-development](../security/secure-development/) | 9 | how a system is built and hardened to resist attack |
-| [security-assurance](../security/security-assurance/) | 3 | what is wrong in a system that exists, without breaking it |
+| [security-assurance](../security/security-assurance/) | 5 | what is wrong in a system that exists, without breaking it |
 
 Two rules never bend: no offensive action without written, specific, in-scope
 authorization on record, and no audit ever concludes that a system is secure. It

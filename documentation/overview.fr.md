@@ -21,7 +21,7 @@ craft-suite/
 ├── documents/        9 skills de document professionnel
 ├── engineering/     90 skills d'ingénierie
 ├── agents/          37 définitions de rôle, transversales au dépôt
-├── security/        12 skills de sécurité défensive
+├── security/        14 skills de sécurité défensive
 ├── research/         5 skills de recherche générale
 ├── career/           7 skills de recherche d'emploi et de candidature
 ├── opportunity/      9 skills d'idéation, de hackathon et de prospection
@@ -140,7 +140,7 @@ code peut corriger.
 | Catégorie | Skills | Question à laquelle elle répond |
 |---|---|---|
 | [secure-development](../security/secure-development/) | 9 | comment un système est construit et durci pour résister |
-| [security-assurance](../security/security-assurance/) | 3 | ce qui ne va pas dans un système existant, sans le casser |
+| [security-assurance](../security/security-assurance/) | 5 | ce qui ne va pas dans un système existant, sans le casser |
 
 Deux règles ne plient jamais : aucune action offensive sans autorisation
 écrite, spécifique et dans le périmètre, consignée ; et aucun audit ne conclut

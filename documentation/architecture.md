@@ -45,9 +45,9 @@ craft-suite/
 │   ├── research/           2
 │   ├── communication/      1
 │   └── media/              2
-├── security/              12 skills
+├── security/              14 skills
 │   ├── secure-development/ 9
-│   └── security-assurance/ 3
+│   └── security-assurance/ 5
 ├── research/               5 skills
 ├── career/                 7 skills
 ├── opportunity/            9 skills
