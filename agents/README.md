@@ -1,6 +1,6 @@
 # agents
 
-Thirty-nine specialised agent definitions for an agent runtime that supports
+Forty-one specialised agent definitions for an agent runtime that supports
 subagents, such as Claude Code.
 
 An agent here is a role with a narrow responsibility. It is thin by design:
@@ -28,6 +28,8 @@ Every agent below references the skills it uses and never restates them.
 | `source-of-truth` | the canonical facts of a project, docs reconciled against the code | project-exploration, project-continuity |
 | `checkup` | the pre-intervention inspection: architecture, debt, risk, safe boundaries | project-exploration, architecture-design |
 | `final-verifier` | the independent, evidence-only final gate that trusts no previous agent | code-review-protocol, validation-gate |
+| `devils-advocate` | contesting a result or claim until evidence settles it, challenging any agent | adversarial-review, code-review-protocol |
+| `decision-challenger` | contesting a decision or verdict, including the lead's and the orchestrator's | adversarial-review, dependency-selection |
 | `principal-engineer` | a multi surface engineering request and its gates | engineering-orchestrator, engineering-core |
 | `requirements-analyst` | requirements into a specification | requirements-analysis, clarification-gate |
 | `pr-author` | packages verified work into a pull request and opens it | git-workflow, implementation-integrity |

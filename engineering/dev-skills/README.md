@@ -1,6 +1,6 @@
 # dev-skills
 
-Senior full-stack engineering skill system. Sixty two skills that let an agent
+Senior full-stack engineering skill system. Sixty three skills that let an agent
 work on a production codebase the way an experienced engineer does: read
 before writing, verify before claiming, and finish the whole vertical slice
 rather than the part that demonstrates well.
@@ -67,6 +67,7 @@ no em dash.
 | `playwright-automation` | browser journeys, responsive and keyboard proof |
 | `performance-engineering` | measure, fix the dominant cost, prove the delta |
 | `code-review-protocol` | five passes, then fix what it finds and verify it |
+| `adversarial-review` | contest a result or a verdict until evidence settles it |
 
 ### Delivery
 

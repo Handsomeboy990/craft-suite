@@ -30,13 +30,13 @@ craft-suite/
 │   ├── administrative/     1
 │   ├── publishing/         2
 │   └── communication/      2
-├── engineering/           90 skills
-│   ├── dev-skills/        62
+├── engineering/           91 skills
+│   ├── dev-skills/        63
 │   ├── delivery-skills/   11
 │   └── devops-skills/     17
-├── agents/                39 role definitions, repository wide
-│   ├── core/              11
-│   ├── development/        6
+├── agents/                41 role definitions, repository wide
+│   ├── core/              13
+│   ├── development/        7
 │   ├── design/             4
 │   ├── security/           3
 │   ├── testing/            2

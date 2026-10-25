@@ -281,7 +281,7 @@ Depend on nothing. Callable from any tree, usable alone.
 | `tls-certificates` | the TLS certificate over its whole life, key never leaked |
 | `email-deliverability` | mail into the inbox: SPF, DKIM, DMARC aligned, reputation, bounces |
 
-### agents, 39
+### agents, 41
 
 Core, eleven: `delivery-orchestrator`, `principal-engineer`,
 `requirements-analyst`, `compliance-verifier`, `source-of-truth`, `checkup`,

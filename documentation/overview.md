@@ -18,8 +18,8 @@ craft-suite/
 ├── shared/           2 cross domain skills, called by every tree
 ├── writing/         42 creative writing skills
 ├── documents/        9 professional document skills
-├── engineering/     90 software skills
-├── agents/          39 role definitions, repository wide
+├── engineering/     91 software skills
+├── agents/          41 role definitions, repository wide
 ├── security/        12 defensive security skills
 ├── research/         6 general research skills
 ├── career/           7 job search and application skills
@@ -115,7 +115,7 @@ verified in production.
 
 | Category | Skills | Question it answers |
 |---|---|---|
-| [dev-skills](../engineering/dev-skills/) | 62 | how a change is made correctly |
+| [dev-skills](../engineering/dev-skills/) | 63 | how a change is made correctly |
 | [delivery-skills](../engineering/delivery-skills/) | 11 | what to build, in what order, with what approval |
 | [devops-skills](../engineering/devops-skills/) | 17 | how the system runs, deploys and restores |
 

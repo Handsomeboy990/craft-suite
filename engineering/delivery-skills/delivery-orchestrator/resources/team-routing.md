@@ -1,7 +1,7 @@
 # Team routing
 
 How the chief turns a request into the smallest complete team. Every one of
-the thirty-seven agents under `agents/` appears here by its exact name, in
+the thirty-nine agents under `agents/` appears here by its exact name, in
 exactly one team, with the condition that brings it in. No agent is invented,
 and none is unreachable.
 
@@ -127,6 +127,8 @@ Ten teams plus the independent gates. Thirty-seven agents in all.
 | `pr-reviewer` | any pull request, before it merges, never one it authored | the chief and whoever holds the merge |
 | `compliance-verifier` | phase 11 of a user-facing web product | the chief with the launch verdict |
 | `final-verifier` | the last step before the chief reports anything done | the chief, whose verdict it is the last word on |
+| `decision-challenger` | a decision or verdict must be justified before the project commits to it | the decision owner when it is revised, the chief when a blocker stays open |
+| `devils-advocate` | a result or claim must be contested before it is accepted, any agent, the lead and the chief included | the challenged agent when it concedes, the chief when a blocker stays open |
 
 Count check: 5 + 8 + 4 + 2 + 3 + 4 + 1 + 2 + 1 + 2 + 4 = 36 agents in teams, plus
 `delivery-orchestrator` itself, 37.
@@ -207,7 +209,7 @@ Never run a whole chain by reflex. The procedure:
    reason, the way `engineering-orchestrator` names dropped steps.
 6. Route a model for every dispatch with `model-routing`.
 
-Two failure modes, equally bad: thirty-seven agents on a typo, and a payment
+Two failure modes, equally bad: thirty-nine agents on a typo, and a payment
 endpoint without `security-engineer`. The second is never an optimisation; it
 is a missing gate.
 
