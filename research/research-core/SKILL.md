@@ -68,6 +68,12 @@ mark    when a claim is believed but unverified, label it as such, do not dress
 This is the research equivalent of the engineering evidence rule: never assert
 as consulted what was not consulted.
 
+Which connector does the fetching is a configuration detail, not a licence to
+relax this rule. `research_provider` selects `built-in` or the hosted `tavily`
+connector; whichever retrieves a source, it is cited only once it has actually
+been retrieved and read, and a selected connector that is unreachable falls back
+to `built-in` and is reported, never silently assumed to have returned nothing.
+
 ## 4. Fact, inference, opinion
 
 Every statement in a research output is one of three things, and the reader is
