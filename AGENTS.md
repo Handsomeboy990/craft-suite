@@ -13,7 +13,7 @@ are ignored. See `Why this file exists` at the end.
 
 ## What this repository is
 
-Craft Suite: 184 skills and 39 agents, in nine trees. Named
+Craft Suite: 185 skills and 41 agents, in nine trees. Named
 `claude-writer-suite` until 3.0.0, when the writing tree stopped being the
 whole of it.
 
@@ -23,9 +23,9 @@ whole of it.
 | `writing/` | 42 creative writing skills | `writing/core/writing-constitution` |
 | `documents/` | 9 professional document skills | `documents/documentation/document-core` |
 | `engineering/` | 91 software skills | `engineering/dev-skills/engineering-core` and `engineering/devops-skills/devops-core` |
-| `agents/` | 39 role definitions, repository wide | none, defined once per role |
+| `agents/` | 41 role definitions, repository wide | none, defined once per role |
 | `security/` | 12 defensive security skills | `security/secure-development/security-core` |
-| `research/` | 5 general research skills | `research/research-core` |
+| `research/` | 6 general research skills | `research/research-core` |
 | `career/` | 7 job search and application skills | `career/career-core` |
 | `opportunity/` | 9 ideation, hackathon and business skills | `opportunity/ideation/opportunity-core` |
 | `media/` | 7 project demo and presentation video skills | `media/video-core` |

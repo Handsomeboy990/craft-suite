@@ -231,6 +231,11 @@ second, sharper batch once the architecture questions surface. That is not
 duplication: the first batch establishes what the work is, the second resolves
 what the design needs.
 
+Once the stack is chosen or discovered, `tech-watch` runs its baseline on it,
+so the project starts knowing the releases, breaking changes and security
+advisories that touch the exact dependencies it will run, rather than meeting
+them later. It runs again on the agreed rhythm and whenever the stack changes.
+
 ## 9. Protocol
 
 1. Decide whether a brief is warranted with section 1. If not, say so and

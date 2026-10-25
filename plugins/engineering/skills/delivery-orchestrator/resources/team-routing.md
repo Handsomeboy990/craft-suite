@@ -97,12 +97,14 @@ Ten teams plus the independent gates. Thirty-seven agents in all.
 |---|---|---|
 | `documentation-engineer` | phase 12, and whenever behaviour, a contract or setup changed | `release-engineer`, the chief with the handover package |
 
-### Research team, lead `researcher`, two agents
+### Research team, lead `researcher`, four agents
 
 | Agent | Brought in when | Hands to |
 |---|---|---|
 | `researcher` | lead: a question needs real, cited sources; a claim must be checked before a decision | the chief with the answer and the evidence trail, `software-architect` |
 | `data-collection-engineer` | structured data must be gathered from external sources lawfully | `researcher`, `backend-engineer` or `database-engineer` when it feeds a build |
+| `vulnerability-watcher` | project start and on a rhythm; the stack must be watched for advisories against installed versions | the fixer for each applicable advisory, `stack-watcher` when the fix is a version bump |
+| `stack-watcher` | project start and on a rhythm; the stack must be watched for releases and breaking changes | the implementing engineer for an upgrade, `vulnerability-watcher` for a security fix |
 
 ### Communication team, lead `community-manager`, one agent
 

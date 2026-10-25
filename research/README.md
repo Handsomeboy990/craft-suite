@@ -19,6 +19,7 @@ plausible invention.
 | [source-verification](source-verification/) | on weighty claims | provenance traced, verdicts, confidence |
 | [competitive-analysis](competitive-analysis/) | to compare | evidence matrix, trade-offs, conditional recommendation |
 | [synthesis-reporting](synthesis-reporting/) | to write up | conclusion-first answer, confidence, gaps |
+| [tech-watch](tech-watch/) | at project start, on a rhythm | stack inventory, watch findings, upgrade-and-fix list |
 
 ## The pipeline
 

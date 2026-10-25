@@ -103,6 +103,8 @@ gated by a pass classified LOW. An independent gate is held by
 |---|---|
 | `researcher` | lead for a research request; `uncited-claim` and `contradiction-with-sources` are its usual escalations |
 | `data-collection-engineer` | table; `security-driving-signal` when the gathered data holds personal data; `large-mechanical-output` for a bulk gather against a fixed schema |
+| `vulnerability-watcher` | `security-driving-signal` when an advisory affects an installed version; table otherwise |
+| `stack-watcher` | table, on the watch slice |
 
 ### Communication
 
