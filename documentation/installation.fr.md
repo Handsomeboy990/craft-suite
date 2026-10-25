@@ -39,13 +39,13 @@ bash install.sh
 ```
    1) Creative writing        42 skills   romans, poésie, scénario, édition
    2) Professional documents   9 skills   guides, manuels, rapports, lettres, PDF
-   3) Software engineering    90 skills   plus 30 agents
+   3) Software engineering    91 skills   plus 32 agents
    4) Cybersecurity           12 skills   modèles de menace, audits, durcissement
    5) Research                 5 skills   sources, vérification, synthèse
    6) Career                   7 skills   recherche d'emploi, CV, entretiens
    7) Opportunity              9 skills   idéation, hackathons, prospection
    8) Media                    7 skills   vidéos de démo et de présentation de projet
-   9) Everything             183 skills   plus 37 agents
+   9) Everything             184 skills   plus 39 agents
   10) Individual skills, chosen by name
   11) One or more categories, for example genres only
 
@@ -64,7 +64,7 @@ complète.
 ```bash
 bash install.sh --writing      les 42 skills d'écriture créative
 bash install.sh --documents     les 9 skills de documents professionnels et 1 agent
-bash install.sh --dev          90 skills d'ingénierie et 30 agents
+bash install.sh --dev          91 skills d'ingénierie et 32 agents
 bash install.sh --security     12 skills de sécurité défensive et 3 agents
 bash install.sh --research      5 skills de recherche générale et 2 agents
 bash install.sh --career        les 7 skills de recherche d'emploi et de candidature
@@ -72,7 +72,7 @@ bash install.sh --opportunity   les 9 skills d'idéation, de hackathon et de pro
 bash install.sh --media         7 skills vidéo, démos et présentations de projet, et 2 agents
 bash install.sh --all          tout
 bash install.sh --shared        les 2 skills transversaux seulement
-bash install.sh --agents        les 37 agents seulement
+bash install.sh --agents        les 39 agents seulement
 bash install.sh --no-agents     les skills sans les agents
 bash install.sh --remove        désinstalle la portée au lieu de l'installer
 ```
@@ -132,7 +132,7 @@ bash install.sh --group devops-skills     l'exploitation seule
 | `administrative` | 1 | documents |
 | `publishing` | 2 | documents |
 | `communication` | 2 | documents |
-| `dev-skills` | 62 | engineering |
+| `dev-skills` | 63 | engineering |
 | `delivery-skills` | 11 | engineering |
 | `devops-skills` | 17 | engineering |
 | `secure-development` | 9 | security |
@@ -354,15 +354,15 @@ comptés :
 |---|---|---|
 | `--writing` | 44 | 0 |
 | `--documents` | 11 | 1 |
-| `--dev` | 92 | 30 |
+| `--dev` | 93 | 32 |
 | `--security` | 18 | 3 |
 | `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
 | `--media` | 9 | 2 |
 | `--shared` | 2 | 0 |
-| `--all` | 183 | 37 |
-| `--agents` | 0 | 37 |
+| `--all` | 184 | 39 |
+| `--agents` | 0 | 39 |
 
 `~/.claude/skills` est partagé. Il contient tous vos skills, pas seulement ceux
 de cette suite : un skill installé ailleurs s'y trouve à côté, et claude.ai

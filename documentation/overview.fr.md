@@ -19,8 +19,8 @@ craft-suite/
 ├── shared/           2 skills transversaux, appelés par tous les arbres
 ├── writing/         42 skills d'écriture créative
 ├── documents/        9 skills de document professionnel
-├── engineering/     90 skills d'ingénierie
-├── agents/          37 définitions de rôle, transversales au dépôt
+├── engineering/     91 skills d'ingénierie
+├── agents/          39 définitions de rôle, transversales au dépôt
 ├── security/        12 skills de sécurité défensive
 ├── research/         5 skills de recherche générale
 ├── career/           7 skills de recherche d'emploi et de candidature
@@ -119,7 +119,7 @@ en production.
 
 | Catégorie | Skills | Question à laquelle elle répond |
 |---|---|---|
-| [dev-skills](../engineering/dev-skills/) | 62 | comment une modification est faite correctement |
+| [dev-skills](../engineering/dev-skills/) | 63 | comment une modification est faite correctement |
 | [delivery-skills](../engineering/delivery-skills/) | 11 | quoi construire, dans quel ordre, avec quelle approbation |
 | [devops-skills](../engineering/devops-skills/) | 17 | comment le système tourne, se déploie et se restaure |
 

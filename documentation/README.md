@@ -21,7 +21,7 @@ Written in English, the system language.
 | `documents-system.md` | `documents/`: the constitution, the pipeline, the boundaries |
 | `engineering-system.md` | `engineering/dev-skills`: execution chain, mandatory gates, task categories |
 | `delivery-system.md` | `engineering/delivery-skills`, `engineering/devops-skills`, the fourteen phases and their approval gates |
-| `agents.md` | skill against agent against orchestration, the thirty-seven public contracts |
+| `agents.md` | skill against agent against orchestration, the thirty-nine public contracts |
 | `writing-rules.md` | the writing rules, operational form |
 | `workflow.md` | the writing workflow, eleven phases, cadence, non-regression |
 

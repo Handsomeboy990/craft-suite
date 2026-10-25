@@ -104,6 +104,7 @@ write dispatch, whatever this column says.
 | `playwright-automation` | `playwright-engineer` | write for specs, read for runs |
 | `performance-engineering`, `caching-strategy` | `performance-engineer` | read for the baseline, write for the fix |
 | `code-review-protocol` | `qa-engineer` for the task gate, `pr-reviewer` on the pull request | read |
+| `adversarial-review` | `devils-advocate` contests a result or claim, `decision-challenger` a decision or verdict; on demand, never reviewing their own work | read |
 | `technical-documentation` | `documentation-engineer` | write |
 | `project-continuity` | the wave's named integrator: the note is a hot file | write, serial |
 | `git-workflow` | each write dispatch commits on its own branch; `pr-author` opens the pull request | write |
