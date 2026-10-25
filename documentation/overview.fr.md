@@ -20,7 +20,7 @@ craft-suite/
 ├── writing/         42 skills d'écriture créative
 ├── documents/        9 skills de document professionnel
 ├── engineering/     90 skills d'ingénierie
-├── agents/          37 définitions de rôle, transversales au dépôt
+├── agents/          39 définitions de rôle, transversales au dépôt
 ├── security/        12 skills de sécurité défensive
 ├── research/         5 skills de recherche générale
 ├── career/           7 skills de recherche d'emploi et de candidature

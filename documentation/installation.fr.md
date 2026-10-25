@@ -65,14 +65,14 @@ complète.
 bash install.sh --writing      les 42 skills d'écriture créative
 bash install.sh --documents     les 9 skills de documents professionnels et 1 agent
 bash install.sh --dev          90 skills d'ingénierie et 30 agents
-bash install.sh --security     12 skills de sécurité défensive et 3 agents
+bash install.sh --security     12 skills de sécurité défensive et 5 agents
 bash install.sh --research      5 skills de recherche générale et 2 agents
 bash install.sh --career        les 7 skills de recherche d'emploi et de candidature
 bash install.sh --opportunity   les 9 skills d'idéation, de hackathon et de prospection
 bash install.sh --media         7 skills vidéo, démos et présentations de projet, et 2 agents
 bash install.sh --all          tout
 bash install.sh --shared        les 2 skills transversaux seulement
-bash install.sh --agents        les 37 agents seulement
+bash install.sh --agents        les 39 agents seulement
 bash install.sh --no-agents     les skills sans les agents
 bash install.sh --remove        désinstalle la portée au lieu de l'installer
 ```
@@ -355,14 +355,14 @@ comptés :
 | `--writing` | 44 | 0 |
 | `--documents` | 11 | 1 |
 | `--dev` | 92 | 30 |
-| `--security` | 18 | 3 |
+| `--security` | 18 | 5 |
 | `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
 | `--media` | 9 | 2 |
 | `--shared` | 2 | 0 |
-| `--all` | 183 | 37 |
-| `--agents` | 0 | 37 |
+| `--all` | 183 | 39 |
+| `--agents` | 0 | 39 |
 
 `~/.claude/skills` est partagé. Il contient tous vos skills, pas seulement ceux
 de cette suite : un skill installé ailleurs s'y trouve à côté, et claude.ai

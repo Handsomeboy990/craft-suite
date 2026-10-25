@@ -98,7 +98,7 @@ write dispatch, whatever this column says.
 | `video-core`, `video-scripting`, `screen-capture`, `voice-over`, `video-assembly`, `video-delivery` | `video-producer`; line 12 of the video gate by a person who did not make the video | write, video sources and exports; nothing published |
 | `motion-design` | `motion-designer`, under `video-producer`; `video-producer` itself when no motion designer is brought in | write, compositions and motion renders |
 | `security-audit` | `security-engineer` | read; fixes go back to the owner |
-| `security-testing` | `penetration-tester`, only with written authorization on record | read, bounded proofs |
+| `security-testing` | `penetration-tester`, or the `pentest-attacker` and `pentest-verifier` pair, only with written authorization on record | read, bounded proofs |
 | `website-audit` | `web-auditor`, when a live site is audited from its URL; active testing only with written authorization on record | read; fixes go back to the owner |
 | `testing-quality`, `api-testing`, `regression-testing`, `quality-engineering`, `exploratory-testing`, `bug-hunting`, `reliability-testing`, `test-reporting` | `qa-engineer` | write for tests, read for findings |
 | `playwright-automation` | `playwright-engineer` | write for specs, read for runs |

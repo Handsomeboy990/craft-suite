@@ -19,7 +19,7 @@ craft-suite/
 ├── writing/         42 creative writing skills
 ├── documents/        9 professional document skills
 ├── engineering/     90 software skills
-├── agents/          37 role definitions, repository wide
+├── agents/          39 role definitions, repository wide
 ├── security/        12 defensive security skills
 ├── research/         5 general research skills
 ├── career/           7 job search and application skills

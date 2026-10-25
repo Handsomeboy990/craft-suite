@@ -80,6 +80,8 @@ gated by a pass classified LOW. An independent gate is held by
 |---|---|
 | `security-engineer` | `security-driving-signal`, every dispatch: its condition is a security signal |
 | `penetration-tester` | `security-driving-signal`, every dispatch, and only with written authorization on record |
+| `pentest-verifier` | `security-driving-signal`, every dispatch, and only with written authorization on record |
+| `pentest-attacker` | `security-driving-signal`, every dispatch, and only with written authorization on record |
 | `web-auditor` | `security-driving-signal` when the audit includes its security passes; table otherwise |
 
 ### Operations

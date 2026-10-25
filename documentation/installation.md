@@ -64,14 +64,14 @@ everything.
 bash install.sh --writing      42 creative writing skills
 bash install.sh --documents     9 professional document skills and 1 agent
 bash install.sh --dev          90 engineering skills and 30 agents
-bash install.sh --security     12 defensive security skills and 3 agents
+bash install.sh --security     12 defensive security skills and 5 agents
 bash install.sh --research      5 general research skills and 2 agents
 bash install.sh --career        7 job search and application skills
 bash install.sh --opportunity   9 ideation, hackathon and business skills
 bash install.sh --media         7 video skills, project demos and presentations, and 2 agents
 bash install.sh --all          everything
 bash install.sh --shared        the 2 cross domain skills only
-bash install.sh --agents        the 37 agents only
+bash install.sh --agents        the 39 agents only
 bash install.sh --no-agents     skills without agents
 bash install.sh --remove        uninstall the scope instead of installing it
 ```
@@ -348,14 +348,14 @@ counted in:
 | `--writing` | 44 | 0 |
 | `--documents` | 11 | 1 |
 | `--dev` | 92 | 30 |
-| `--security` | 18 | 3 |
+| `--security` | 18 | 5 |
 | `--research` | 7 | 2 |
 | `--career` | 9 | 0 |
 | `--opportunity` | 11 | 0 |
 | `--media` | 9 | 2 |
 | `--shared` | 2 | 0 |
-| `--all` | 183 | 37 |
-| `--agents` | 0 | 37 |
+| `--all` | 183 | 39 |
+| `--agents` | 0 | 39 |
 
 `~/.claude/skills` is shared. It holds every skill you have, not only this
 suite's: a skill installed from somewhere else sits beside them, and claude.ai
